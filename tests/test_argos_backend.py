@@ -1,0 +1,104 @@
+from __future__ import annotations
+
+from cbz_manga_translator.core.models import OcrBlock
+from cbz_manga_translator.translate.argos import ArgosTranslator
+
+
+def test_argos_bypasses_package_for_deterministic_overrides(monkeypatch) -> None:
+    translator = ArgosTranslator()
+
+    def fail_chain(*args, **kwargs):  # type: ignore[no-untyped-def]
+        raise AssertionError("Argos package should not be loaded for deterministic overrides")
+
+    monkeypatch.setattr(translator, "_translation_chain", fail_chain)
+    blocks = [
+        OcrBlock(id="b1", bbox=[0, 0, 10, 10], source_lang="en", ocr_text="Aww:"),
+        OcrBlock(id="b2", bbox=[0, 0, 10, 10], source_lang="en", ocr_text="please Inhook this"),
+    ]
+
+    translator.translate_blocks(blocks, "en")
+
+    assert blocks[0].translation_fr == "Aww..."
+    assert blocks[1].ocr_corrected_text == "please unhook this"
+    assert blocks[1].translation_fr == "Décroche ça, s’il te plaît."
+
+
+class _FakeLanguage:
+    def __init__(self, code: str) -> None:
+        self.code = code
+        self._targets: dict[str, object] = {}
+
+    def allow(self, target: "_FakeLanguage") -> None:
+        self._targets[target.code] = object()
+
+    def get_translation(self, target: "_FakeLanguage") -> object | None:
+        return self._targets.get(target.code)
+
+
+class _FakeTranslateModule:
+    def __init__(self, languages: list[_FakeLanguage]) -> None:
+        self._languages = languages
+
+    def get_installed_languages(self) -> list[_FakeLanguage]:
+        return self._languages
+
+
+def test_argos_installed_pairs_uses_get_translation_api(monkeypatch) -> None:
+    en = _FakeLanguage("en")
+    fr = _FakeLanguage("fr")
+    ja = _FakeLanguage("ja")
+    en.allow(fr)
+    ja.allow(en)
+
+    fake_translate = _FakeTranslateModule([en, fr, ja])
+    monkeypatch.setattr(ArgosTranslator, "_argostranslate_modules", staticmethod(lambda: (object(), fake_translate)))
+
+    assert ArgosTranslator.installed_pairs() == [("en", "fr"), ("ja", "en")]
+
+class _FakePackageEntry:
+    def __init__(self, from_code: str, to_code: str) -> None:
+        self.from_code = from_code
+        self.to_code = to_code
+
+    def download(self) -> str:
+        return f"/tmp/{self.from_code}_{self.to_code}.argosmodel"
+
+
+class _FakePackageModule:
+    def __init__(self) -> None:
+        self.installed_paths: list[str] = []
+
+    def update_package_index(self) -> None:
+        return None
+
+    def get_available_packages(self) -> list[_FakePackageEntry]:
+        return [_FakePackageEntry("en", "fr"), _FakePackageEntry("ja", "en")]
+
+    def install_from_path(self, path: str) -> None:
+        self.installed_paths.append(path)
+
+
+def test_argos_install_package_from_index(monkeypatch) -> None:
+    fake_package = _FakePackageModule()
+    fake_translate = _FakeTranslateModule([])
+    monkeypatch.setattr(ArgosTranslator, "_argostranslate_modules", staticmethod(lambda: (fake_package, fake_translate)))
+
+    assert ArgosTranslator.install_package_from_index("en", "fr") is True
+    assert fake_package.installed_paths == ["/tmp/en_fr.argosmodel"]
+    assert ArgosTranslator.install_package_from_index("ja", "fr") is False
+
+
+def test_argos_local_translation_status_detects_pivot(monkeypatch) -> None:
+    en = _FakeLanguage("en")
+    fr = _FakeLanguage("fr")
+    ja = _FakeLanguage("ja")
+    en.allow(fr)
+    ja.allow(en)
+
+    fake_translate = _FakeTranslateModule([en, fr, ja])
+    monkeypatch.setattr(ArgosTranslator, "_argostranslate_modules", staticmethod(lambda: (object(), fake_translate)))
+
+    statuses = dict((label, (ok, detail)) for label, ok, detail in ArgosTranslator.local_translation_status())
+    assert statuses["Argos en->fr"][0] is True
+    assert statuses["Argos ja->fr"][0] is True
+    assert "via pivot" in statuses["Argos ja->fr"][1]

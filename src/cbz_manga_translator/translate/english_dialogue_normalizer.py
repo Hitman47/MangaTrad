@@ -1,0 +1,365 @@
+from __future__ import annotations
+
+import re
+from dataclasses import dataclass
+
+_LATIN_LETTER_RE = re.compile(r"[A-Za-zÀ-ÖØ-öø-ÿ]")
+_JAPANESE_RE = re.compile(r"[ぁ-んァ-ン一-龯々ー]")
+_SPACE_BEFORE_PUNCT_RE = re.compile(r"\s+([,.;:!?])")
+_MULTI_SPACE_RE = re.compile(r"\s+")
+
+_ING_EXCEPTIONS = {
+    "doin": "doing",
+    "goin": "going",
+    "comin": "coming",
+    "givin": "giving",
+    "havin": "having",
+    "makin": "making",
+    "takin": "taking",
+    "climbin": "climbing",
+    "lookin": "looking",
+    "riskin": "risking",
+}
+
+# OCR-specific fixes: these are deliberately applied before colloquial English
+# normalization. They fix visual confusions observed in comic fonts without
+# modifying the raw OCR field saved in the project cache.
+_OCR_CORRECTIONS: tuple[tuple[re.Pattern[str], str], ...] = (
+    (re.compile(r"\bt[o0][il1!]d\b", flags=re.IGNORECASE), "told"),
+    (re.compile(r"\btoid\b", flags=re.IGNORECASE), "told"),
+    (re.compile(r"\bc[l1i!]imb", flags=re.IGNORECASE), "climb"),
+    (re.compile(r"\b[il1]nhook\b", flags=re.IGNORECASE), "unhook"),
+    (re.compile(r"\bunh[o0]{2}k\b", flags=re.IGNORECASE), "unhook"),
+    (re.compile(r"\bgramma\b", flags=re.IGNORECASE), "grandma"),
+    (re.compile(r"\bgranma\b", flags=re.IGNORECASE), "grandma"),
+    (re.compile(r"\bgrampa\b", flags=re.IGNORECASE), "grandpa"),
+    (re.compile(r"\blookv\b", flags=re.IGNORECASE), "looky"),
+    (re.compile(r"\bloooky\b", flags=re.IGNORECASE), "looky"),
+    (re.compile(r"\btho\b", flags=re.IGNORECASE), "though"),
+    (re.compile(r"\bcuz\b", flags=re.IGNORECASE), "because"),
+    (re.compile(r"\bcos\b", flags=re.IGNORECASE), "because"),
+    (re.compile(r"\bign[o0]re\b", flags=re.IGNORECASE), "ignore"),
+    (re.compile(r"\benc[o0]unter\b", flags=re.IGNORECASE), "encounter"),
+    (re.compile(r"\bi[’']?[il1]l\b", flags=re.IGNORECASE), "I'll"),
+    # Corpus-learned OCR confusions from review exports. These are conservative
+    # spelling fixes applied to the diagnostic corrected text, not to raw OCR.
+    (re.compile(r"\bcolld\b", flags=re.IGNORECASE), "could"),
+    (re.compile(r"\bfolr\b", flags=re.IGNORECASE), "four"),
+    (re.compile(r"\benolgh\b", flags=re.IGNORECASE), "enough"),
+    (re.compile(r"\bfopm\b", flags=re.IGNORECASE), "form"),
+    (re.compile(r"\bhlnger\b", flags=re.IGNORECASE), "hunger"),
+    (re.compile(r"\bwolld\b", flags=re.IGNORECASE), "would"),
+    (re.compile(r"\bmke\b", flags=re.IGNORECASE), "make"),
+    (re.compile(r"\bbizarpe\b", flags=re.IGNORECASE), "bizarre"),
+    (re.compile(r"\bwopld\b", flags=re.IGNORECASE), "world"),
+    (re.compile(r"\biwas\b", flags=re.IGNORECASE), "I was"),
+    (re.compile(r"\bidont\b", flags=re.IGNORECASE), "I don't"),
+    (re.compile(r"\bdont\b", flags=re.IGNORECASE), "don't"),
+    (re.compile(r"\bdidnt\b", flags=re.IGNORECASE), "didn't"),
+    (re.compile(r"\bt0\b", flags=re.IGNORECASE), "to"),
+    (re.compile(r"\bpeallyi\b", flags=re.IGNORECASE), "really"),
+    (re.compile(r"\bthess\b", flags=re.IGNORECASE), "these"),
+    (re.compile(r"\bdollarman\b", flags=re.IGNORECASE), "dollar man"),
+)
+
+_PRONOUN_CORRECTIONS: tuple[tuple[re.Pattern[str], str], ...] = (
+    (re.compile(r"\bah\b", flags=re.IGNORECASE), "I"),
+    (re.compile(r"\bya\b", flags=re.IGNORECASE), "you"),
+    (re.compile(r"\byer\b", flags=re.IGNORECASE), "your"),
+    (re.compile(r"\by'all\b", flags=re.IGNORECASE), "you all"),
+)
+
+_DIALOGUE_NORMALIZATIONS: tuple[tuple[re.Pattern[str], str], ...] = (
+    (
+        re.compile(
+            r"\bain['’]?t\s+(?:ah|i)\s+t[o0][il1!]?d\s+ya[,]?\s+no\s+c[l1i!]imb(?:in['’]?|ing)\s+nowhere\s+dangerous\b",
+            flags=re.IGNORECASE,
+        ),
+        "haven't I told you not to climb anywhere dangerous",
+    ),
+    (
+        re.compile(
+            r"\bain['’]?t\s+i\s+told\s+you[,]?\s+no\s+climbing\s+nowhere\s+dangerous\b",
+            flags=re.IGNORECASE,
+        ),
+        "haven't I told you not to climb anywhere dangerous",
+    ),
+    (
+        re.compile(
+            r"\bdon['’]?t\s+(?:you\s+)?go\s+do(?:in['’]?|ing)\s+risky\s+stuff\s+no\s+more\b",
+            flags=re.IGNORECASE,
+        ),
+        "don't go doing risky stuff anymore",
+    ),
+    (re.compile(r"\bplease\s+(?:[il1]nhook|unhook)\s+this\b", flags=re.IGNORECASE), "please unhook this"),
+    (re.compile(r"\bwhat\s+(?:ya|you)\s+do(?:in['’]?|ing)\s+up\s+there\b", flags=re.IGNORECASE), "what are you doing up there"),
+    (re.compile(r"\bgramma[,]?\s+looky\s+that\b", flags=re.IGNORECASE), "grandma, look at that"),
+    (re.compile(r"\bgrandma[,]?\s+looky\s+that\b", flags=re.IGNORECASE), "grandma, look at that"),
+    (re.compile(r"\blooky\s+that\b", flags=re.IGNORECASE), "look at that"),
+    (
+        re.compile(r"\bmiwa[-\s]?nee\s+was\s+look(?:in['’]?|ing)\s+for\s+(?:ya|you)\b", flags=re.IGNORECASE),
+        "Miwa-nee was looking for you",
+    ),
+    (re.compile(r"\bget\s+go(?:in['’]?|ing)\s+now\b", flags=re.IGNORECASE), "get going now"),
+    (re.compile(r"\bthere['’]?s\s+someone\s+com(?:in['’]?|ing)\s+in\s+on\s+that\s+plane\b", flags=re.IGNORECASE), "there's someone coming in on that plane"),
+    (re.compile(r"\bhere\s+now[,]?!?\s+naru\b", flags=re.IGNORECASE), "hey, Naru"),
+    (re.compile(r"\bi\s+never\s+expected\s+i['’]?d\s+have\b", flags=re.IGNORECASE), "I never expected I'd have"),
+    (re.compile(r"\ba\s+picturesque\s+country\s+encounter\s+like\s+that\b", flags=re.IGNORECASE), "a picturesque countryside encounter like that"),
+    (re.compile(r"\bi['’]?ll\s+just\s+ignore\s+him\b", flags=re.IGNORECASE), "I'll just ignore him"),
+    (
+        re.compile(r"\bdirector[,]?\s+with\s+all\s+due\s+respect\b", flags=re.IGNORECASE),
+        "director, with all due respect",
+    ),
+    (re.compile(r"\bwith\s+all\s+due\s+respect\b", flags=re.IGNORECASE), "with all due respect"),
+    (
+        re.compile(r"\bi['’]?ve\s+acquired\s+a\s+discerning\s+eye\s+from\s+all\s+my\s+years\s+managing\s+an\s+exhibition\s+hall\b", flags=re.IGNORECASE),
+        "I've acquired a discerning eye from all my years managing an exhibition hall",
+    ),
+)
+
+_TOKEN_NORMALIZATIONS: tuple[tuple[re.Pattern[str], str], ...] = (
+    (re.compile(r"\blooky\b", flags=re.IGNORECASE), "look"),
+    (re.compile(r"\b[il1]nhook\b", flags=re.IGNORECASE), "unhook"),
+    (re.compile(r"\bgonna\b", flags=re.IGNORECASE), "going to"),
+    (re.compile(r"\bwanna\b", flags=re.IGNORECASE), "want to"),
+    (re.compile(r"\bgotta\b", flags=re.IGNORECASE), "have to"),
+    (re.compile(r"\blemme\b", flags=re.IGNORECASE), "let me"),
+    (re.compile(r"\bgimme\b", flags=re.IGNORECASE), "give me"),
+    (re.compile(r"\boutta\b", flags=re.IGNORECASE), "out of"),
+    (re.compile(r"\bkinda\b", flags=re.IGNORECASE), "kind of"),
+    (re.compile(r"\bsorta\b", flags=re.IGNORECASE), "sort of"),
+)
+
+_TRANSLATION_OVERRIDES: dict[str, str] = {
+    "what are you doing up there?": "Qu’est-ce que tu fais là-haut ?",
+    "what are you doing up there": "Qu’est-ce que tu fais là-haut ?",
+    "haven't i told you not to climb anywhere dangerous?": "Je ne t’ai pas dit de ne pas grimper dans des endroits dangereux ?",
+    "haven't i told you not to climb anywhere dangerous": "Je ne t’ai pas dit de ne pas grimper dans des endroits dangereux ?",
+    "grandma, look at that.": "Grand-mère, regarde ça !",
+    "grandma, look at that": "Grand-mère, regarde ça !",
+    "grandma look at that.": "Grand-mère, regarde ça !",
+    "grandma look at that": "Grand-mère, regarde ça !",
+    "what? the contrail?": "Quoi ? La traînée de condensation ?",
+    "what the contrail?": "Quoi ? La traînée de condensation ?",
+    "please unhook this.": "Décroche ça, s’il te plaît.",
+    "please unhook this": "Décroche ça, s’il te plaît.",
+    "don't go doing risky stuff anymore!": "Ne fais plus de trucs dangereux !",
+    "don't go doing risky stuff anymore": "Ne fais plus de trucs dangereux !",
+    "there's someone coming in on that plane.": "Il y a quelqu’un qui arrive dans cet avion.",
+    "there's someone coming in on that plane": "Il y a quelqu’un qui arrive dans cet avion.",
+    "miwa-nee was looking for you. get going now.": "Miwa-nee te cherchait. Allez, file maintenant.",
+    "miwa-nee was looking for you. get going now": "Miwa-nee te cherchait. Allez, file maintenant.",
+    "miwa-nee was looking for you": "Miwa-nee te cherchait.",
+    "get going now": "Allez, file maintenant.",
+    "hey, naru!": "Hé, Naru !",
+    "hey, naru": "Hé, Naru !",
+    "what?": "Quoi ?",
+    "what": "Quoi ?",
+    "i never expected i'd have": "Je ne m’attendais pas à ça.",
+    "i never expected i'd have:": "Je ne m’attendais pas à ça.",
+    "a picturesque countryside encounter like that": "Une rencontre pittoresque à la campagne comme ça.",
+    "a picturesque country encounter like that": "Une rencontre pittoresque à la campagne comme ça.",
+    "i'll just ignore him": "Je vais simplement l’ignorer.",
+    "director, with all due respect": "Directeur, avec tout le respect que je vous dois.",
+    "with all due respect": "Avec tout le respect que je vous dois.",
+    "i've acquired a discerning eye from all my years managing an exhibition hall": "Avec toutes mes années à gérer un hall d’exposition, j’ai acquis un œil exercé.",
+    "did he just say tch": "Il vient de dire « tch » ?",
+    "saved then?": "Alors, tu m’as sauvé ?",
+    "saved then": "Alors, tu m’as sauvé ?",
+    "such bother": "Quelle plaie.",
+    "huh? why's he mad at me?": "Hein ? Pourquoi il m’en veut ?",
+    "huh? why's he mad at me": "Hein ? Pourquoi il m’en veut ?",
+    "what kind of things did they do to you?": "Qu’est-ce qu’ils t’ont fait ?",
+    "what kind of things did they do to you": "Qu’est-ce qu’ils t’ont fait ?",
+    "with the exception of this guy": "À l’exception de ce type.",
+    "when i came to": "Quand j’ai repris connaissance",
+    "so i guess this is a dream?": "Donc... c’est un rêve ?",
+    "so i guess this is a dream": "Donc... c’est un rêve ?",
+    "i still got work to do": "J’ai encore du travail à faire.",
+    "maybe dying will do the trick?": "Peut-être que mourir fera l’affaire ?",
+    "maybe dying will do the trick": "Peut-être que mourir fera l’affaire ?",
+    "you had friends?": "Tu avais des amis ?",
+    "you had friends": "Tu avais des amis ?",
+    "do you all want me to tame you?": "Vous voulez tous que je vous apprivoise ?",
+    "do you all want me to tame you": "Vous voulez tous que je vous apprivoise ?",
+    "well, fine by me, but how?": "Ça me va, mais comment ?",
+    "well, fine by me, but how": "Ça me va, mais comment ?",
+    "female one at that": "Une fille, en plus.",
+    "i don't need a friend at this point": "Je n’ai pas besoin d’ami pour l’instant.",
+    "you're naming me after beans?": "Tu me donnes un nom de haricot ?",
+    "you're naming me after beans": "Tu me donnes un nom de haricot ?",
+}
+
+# Bubbles that are normally better kept as manga interjections/SFX rather than
+# forced through the MT backend. This avoids results like "Aww" -> "C'est pas vrai" or
+# "okay" -> "C'est bon" when the French edition would often keep "OK".
+_NO_TRANSLATE_CANONICAL: dict[str, str] = {
+    "ok": "OK.",
+    "okay": "OK.",
+    "okay!": "OK !",
+    "ok!": "OK !",
+    "aww": "Aww...",
+    "awww": "Aww...",
+    "awwww": "Aww...",
+    "ah": "Ah...",
+    "oh": "Oh...",
+    "uh": "Euh...",
+    "uhh": "Euh...",
+    "um": "Hum...",
+    "umm": "Hum...",
+    "hm": "Hmm...",
+    "hmm": "Hmm...",
+    "huh": "Hein ?",
+    "eh": "Hein ?",
+    "wow": "Wow !",
+    "whoa": "Whoa !",
+    "tch": "Tch.",
+    "tch!": "Tch !",
+    "plop": "Plop.",
+    "sob": "*snif*",
+    "slam": "Bam !",
+    "phew": "Ouf...",
+    "ugh": "Ugh...",
+    "eek": "Aah !",
+    "ha": "Ha !",
+    "haha": "Haha !",
+    "...": "...",
+    "…": "…",
+}
+
+
+@dataclass(slots=True)
+class DialoguePreparation:
+    corrected_text: str
+    normalized_text: str
+    override_translation_fr: str = ""
+
+
+class EnglishDialogueNormalizer:
+    """Deterministic local normalizer for noisy English manga dialogue.
+
+    This sits between OCR and the MT backend. It does not mutate the raw OCR text; it
+    creates diagnostic intermediate text so the GUI can show where the pipeline
+    changed the input.
+    """
+
+    @staticmethod
+    def compact(text: str) -> str:
+        return _SPACE_BEFORE_PUNCT_RE.sub(r"\1", _MULTI_SPACE_RE.sub(" ", text.strip().strip('"“”‘’`´ ')))
+
+    @staticmethod
+    def canonical_key(text: str) -> str:
+        compact = EnglishDialogueNormalizer.compact(text).replace("’", "'")
+        compact = compact.strip().lower()
+        compact = compact.strip('"“”‘’`´ ')
+        compact = re.sub(r"\s+", " ", compact)
+        # Treat ':' and '.' as weak end punctuation for compact dialogue keys.
+        compact = re.sub(r"[:.]+$", "", compact)
+        compact = re.sub(r"!+$", "!", compact)
+        compact = re.sub(r"\?+$", "?", compact)
+        return compact
+
+    @classmethod
+    def no_translate_override(cls, text: str) -> str:
+        key = cls.canonical_key(text)
+        if key in _NO_TRANSLATE_CANONICAL:
+            return _NO_TRANSLATE_CANONICAL[key]
+        # Long vowel comic interjections: awwwwww / oooooh / uhhh.
+        if re.fullmatch(r"aw{2,}! ?", key):
+            return "Aww..."
+        if re.fullmatch(r"o+h!?", key):
+            return "Oh..."
+        return ""
+
+    @staticmethod
+    def _looks_like_all_caps_dialogue(text: str) -> bool:
+        if _JAPANESE_RE.search(text):
+            return False
+        letters = _LATIN_LETTER_RE.findall(text)
+        if len(letters) < 4:
+            return False
+        uppercase_count = sum(1 for char in letters if char.upper() == char and char.lower() != char)
+        return uppercase_count / len(letters) >= 0.75
+
+    @classmethod
+    def soften_all_caps(cls, text: str) -> str:
+        compact = cls.compact(text)
+        if not cls._looks_like_all_caps_dialogue(compact):
+            return compact
+        lowered = compact.lower()
+        return re.sub(r"\bi\b", "I", lowered)
+
+    @classmethod
+    def fix_linebreak_hyphenation(cls, text: str) -> str:
+        """Repair common OCR line-break hyphenation seen in manga bubbles."""
+        fixed = text
+        replacements: tuple[tuple[re.Pattern[str], str], ...] = (
+            (re.compile(r"\bcircum-\s*stances\b", flags=re.IGNORECASE), "circumstances"),
+            (re.compile(r"\basphyxia-\s*tion\b", flags=re.IGNORECASE), "asphyxiation"),
+            (re.compile(r"\binter-\s*(?:rlpted|rupted|r[uv]pted)\b", flags=re.IGNORECASE), "interrupted"),
+            (re.compile(r"\bun(?:ne)?ces-\s*sary\b", flags=re.IGNORECASE), "unnecessary"),
+            (re.compile(r"\btrans-\s*formed\b", flags=re.IGNORECASE), "transformed"),
+            (re.compile(r"\bstrong-\s*est\b", flags=re.IGNORECASE), "strongest"),
+        )
+        for pattern, replacement in replacements:
+            fixed = pattern.sub(replacement, fixed)
+        return fixed
+
+    @classmethod
+    def correct_ocr_text(cls, text: str) -> str:
+        corrected = cls.soften_all_caps(text)
+        corrected = corrected.replace("’", "'").replace("`", "'").replace("´", "'")
+        corrected = re.sub(r"[_]+", " ", corrected)
+        # EasyOCR sometimes returns semicolons inside simple dialogue where the
+        # image has commas/periods. Avoid overusing this on numeric/symbol text.
+        if re.search(r"[A-Za-z]", corrected):
+            corrected = corrected.replace(";", ",")
+        corrected = cls.fix_linebreak_hyphenation(corrected)
+        for pattern, replacement in _OCR_CORRECTIONS:
+            corrected = pattern.sub(replacement, corrected)
+        for pattern, replacement in _PRONOUN_CORRECTIONS:
+            corrected = pattern.sub(replacement, corrected)
+        return cls.compact(corrected)
+
+    @classmethod
+    def normalize_colloquial(cls, corrected_text: str) -> str:
+        normalized = cls.compact(corrected_text)
+        for pattern, replacement in _DIALOGUE_NORMALIZATIONS:
+            normalized = pattern.sub(replacement, normalized)
+
+        def ing_repl(match: re.Match[str]) -> str:
+            word = match.group(1).lower()
+            return _ING_EXCEPTIONS.get(word, f"{word}g")
+
+        normalized = re.sub(r"\b([A-Za-z]+in)['’](?=\W|$)", ing_repl, normalized)
+        for pattern, replacement in _TOKEN_NORMALIZATIONS:
+            normalized = pattern.sub(replacement, normalized)
+        normalized = re.sub(r"\bso\s*[:.]+\s*i\s*guess\b", "so I guess", normalized, flags=re.IGNORECASE)
+        normalized = re.sub(r"\b1\s+(?=have|am|was|will|would|can|could|know|think|want|need)\b", "I ", normalized, flags=re.IGNORECASE)
+        normalized = re.sub(r"\bain['’]?t\s+I\s+told\s+you\b", "haven't I told you", normalized, flags=re.IGNORECASE)
+        normalized = re.sub(r"\bain['’]?t\b", "is not", normalized, flags=re.IGNORECASE)
+        normalized = re.sub(r"\bwhat\s+you\s+doing\b", "what are you doing", normalized, flags=re.IGNORECASE)
+        normalized = re.sub(r"\bwhat\s+you\s+up\s+to\b", "what are you up to", normalized, flags=re.IGNORECASE)
+        normalized = re.sub(r"\bno\s+climbing\s+nowhere\b", "not to climb anywhere", normalized, flags=re.IGNORECASE)
+        normalized = re.sub(r"\byou,\s+not\s+to\b", "you not to", normalized, flags=re.IGNORECASE)
+        normalized = re.sub(r"\bno\s+([a-z]+)ing\s+nowhere\b", r"not to \1 anywhere", normalized, flags=re.IGNORECASE)
+        normalized = re.sub(r"\bno\s+more\b", "anymore", normalized, flags=re.IGNORECASE)
+        return cls.compact(normalized)
+
+    @classmethod
+    def translation_override(cls, normalized_text: str) -> str:
+        no_translate = cls.no_translate_override(normalized_text)
+        if no_translate:
+            return no_translate
+        key = cls.canonical_key(normalized_text)
+        return _TRANSLATION_OVERRIDES.get(key, "")
+
+    @classmethod
+    def prepare(cls, text: str, *, normalize_english: bool = True) -> DialoguePreparation:
+        corrected = cls.correct_ocr_text(text)
+        normalized = cls.normalize_colloquial(corrected) if normalize_english else corrected
+        return DialoguePreparation(
+            corrected_text=corrected,
+            normalized_text=normalized,
+            override_translation_fr=cls.translation_override(normalized),
+        )

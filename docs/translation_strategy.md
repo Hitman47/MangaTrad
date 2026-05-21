@@ -3,22 +3,22 @@
 ## Contraintes
 
 - Gratuit/local.
-- Léger autant que possible.
+- Pas de Hugging Face.
+- Pas d’API payante.
 - EN→FR et JP→FR.
 - Correction humaine assumée.
 
 ## Backend actuel
 
-Helsinki-NLP/OPUS-MT est utilisé parce qu'il est léger et spécialisé traduction.
+MangaTrad utilise Argos Translate avec des packages locaux `.argosmodel`.
 
-Modèles :
+Paires recommandées :
 
 ```text
-Helsinki-NLP/opus-mt-en-fr
-Helsinki-NLP/opus-mt-ja-fr
+en -> fr
+ja -> fr direct si disponible
+ou ja -> en + en -> fr
 ```
-
-Limite : Helsinki est faible sur dialogues courts, argot, OCR bruité et contexte manga.
 
 ## Pré-traitement indispensable
 
@@ -41,14 +41,6 @@ okay → OK.
 please unhook this → Décroche ça, s'il te plaît.
 ```
 
-## Serveur local
+## Limite assumée
 
-Le serveur HTTP local garde les modèles chargés et évite de les recharger depuis la GUI. Il reste local par défaut : `127.0.0.1`.
-
-## Prochaines améliorations
-
-- Interface de backend traducteur interchangeable.
-- Comparaison Helsinki / NLLB / M2M100, tous locaux.
-- Traduction avec contexte page.
-- Post-correction locale optionnelle.
-- Mémorisation des choix de traduction dans le glossaire projet.
+Argos est local et simple à contrôler, mais la qualité peut rester moyenne sur dialogue manga, anglais dialectal et japonais contextuel. La correction humaine reste nécessaire.

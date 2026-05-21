@@ -1,48 +1,51 @@
 # Roadmap
 
-Le projet doit rester guidé par l'objectif final : corriger/remplacer les bulles dans un CBZ traduit, sans dépendance payante.
+Objectif final : corriger/remplacer les bulles dans un CBZ traduit, sans API payante et sans dépendance Hugging Face.
 
 ## Priorité actuelle
 
-Ne pas passer directement à l'export CBZ traduit. La qualité OCR/traduction et la correction humaine doivent d'abord être stabilisées.
+- Construire un corpus représentatif via `corpus_sample` pour objectiver les erreurs OCR/traduction sur plusieurs tomes.
 
-## V2.0 — Stabilisation repository / architecture
+Stabiliser la qualité OCR et la correction humaine avant de passer à l’export CBZ traduit.
 
-- Nettoyer les responsabilités entre GUI, OCR, traduction, cache et export.
-- Stabiliser les schémas JSON du cache projet.
-- Ajouter une documentation de développement maintenue.
-- Réduire les effets de bord dans la GUI.
-- Garder des tests unitaires rapides sans dépendances ML lourdes.
+## V0.3.x — Argos local
+
+- Stabiliser l’installation des packages `.argosmodel`.
+- Ajouter une aide GUI indiquant les paires Argos installées.
+- Afficher clairement si `en->fr`, `ja->fr` ou `ja->en->fr` sont disponibles.
+
+## V2.1a — Export analyse et apprentissage léger
+
+- Export CSV/JSONL de tous les blocs OCR/traduction.
+- Rapport qualité pour repérer les erreurs répétées.
+- Mémoire locale de traductions validées et corrections OCR.
+- Suggestions glossaire générées depuis les corrections humaines.
 
 ## V2.1 — OCR comparable et sélectionnable
 
-- Sélection du moteur OCR dans l'interface : EasyOCR, Tesseract, PaddleOCR si installés.
+- Sélection du moteur OCR dans l’interface : EasyOCR, Tesseract, PaddleOCR si installés.
 - Comparaison visible des résultats OCR par bloc.
 - Meilleur scoring des alternatives OCR.
 - Application manuelle ou semi-automatique des meilleures alternatives.
-- Amélioration des crops pour bulles inclinées, lettres épaisses et majuscules comics.
 
-## V2.2 — Traducteurs interchangeables
+## V2.2 — Traducteurs locaux interchangeables
 
-- Garder Helsinki comme backend léger par défaut.
-- Ajouter une interface de backend pour tester NLLB/M2M100 localement, sans les imposer.
-- Comparer traductions par bloc.
-- Ajouter un mode traduction avec contexte page, tout en gardant le mapping bloc par bloc.
+- Garder Argos comme backend offline par défaut.
+- Prévoir d’autres backends locaux non-Hugging-Face si nécessaire.
+- Comparer traductions par bloc sans perdre le mapping bloc par bloc.
 
 ## V2.3 — Édition avancée des blocs
 
-- Sélection directe des bbox sur l'image.
+- Sélection directe des bbox sur l’image.
 - Création/suppression manuelle de blocs.
-- Redimensionnement manuel d'une bbox.
-- Fusion/séparation à la souris.
-- Correction plus fiable de l'ordre de lecture.
+- Redimensionnement manuel d’une bbox.
+- Correction plus fiable de l’ordre de lecture.
 
 ## V2.4 — Overlay de traduction
 
-- Afficher la traduction française dans la bbox sans modifier l'image source.
+- Afficher la traduction française dans la bbox sans modifier l’image source.
 - Taille de police automatique.
 - Retours ligne automatiques.
-- Alignement, marges, style et contraste configurables.
 - Prévisualisation avant export.
 
 ## V2.5 — Export image / CBZ traduit
@@ -50,12 +53,5 @@ Ne pas passer directement à l'export CBZ traduit. La qualité OCR/traduction et
 - Effacement du texte original dans les bulles simples.
 - Réécriture du texte français.
 - Export des pages modifiées.
-- Recréation d'un CBZ traduit.
-- Conservation stricte de l'original.
-
-## Hors périmètre immédiat
-
-- Scanlation parfaitement automatique sans correction humaine.
-- Inpainting avancé sur fonds complexes.
-- Traduction haute qualité JP→FR littéraire avec un modèle ultra-léger.
-- Hébergement public d'API.
+- Recréation d’un CBZ traduit.
+- Conservation stricte de l’original.
