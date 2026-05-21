@@ -19,8 +19,11 @@ class ReviewItem:
     risk_score: int
     risk_band: str
     manual_status: str
+    review_decision: str
     source_preview: str
     translation_preview: str
+    diagnostic_preview: str
+    notes_preview: str
 
 
 @dataclass(slots=True)
@@ -57,6 +60,36 @@ def block_source_text(block: OcrBlock) -> str:
     return block.normalized_source_text or block.ocr_corrected_text or block.ocr_text
 
 
+def is_sfx_block(block: OcrBlock) -> bool:
+    return block.manual_status == "ignored" and block.review_notes.strip().lower().startswith("[sfx]")
+
+
+def review_decision_for_block(block: OcrBlock) -> str:
+    if is_sfx_block(block):
+        return "sfx"
+    if block.manual_status == "validated":
+        return "validate"
+    if block.manual_status == "ignored":
+        return "ignore"
+    if block.manual_status == "review":
+        return "review"
+    if block.manual_status == "edited":
+        return "correct"
+    return "unchecked"
+
+
+def review_status_label(block: OcrBlock) -> str:
+    labels = {
+        "validate": "validé",
+        "correct": "corrigé",
+        "review": "à revoir",
+        "ignore": "ignoré",
+        "sfx": "SFX",
+        "unchecked": "brut",
+    }
+    return labels.get(review_decision_for_block(block), block.manual_status)
+
+
 def risk_score(block: OcrBlock) -> int:
     score = 0
     if block.quality_warnings:
@@ -90,7 +123,9 @@ def iter_review_items(project: ProjectData) -> Iterable[ReviewItem]:
             score = risk_score(block)
             source = block_source_text(block).replace("\n", " ").strip()
             translation = (block.translation_fr or block.raw_translation_fr).replace("\n", " ").strip()
-            display = f"[{risk_band(score)}] p{page.page_index + 1:03d} · {block.manual_status} · {source[:70]}"
+            diagnostics = " ".join(block.quality_warnings).replace("\n", " ").strip()
+            notes = block.review_notes.replace("\n", " ").strip()
+            display = f"[{risk_band(score)}] p{page.page_index + 1:03d} · {review_status_label(block)} · {source[:70]}"
             yield ReviewItem(
                 page_index=page.page_index,
                 block_id=block.id,
@@ -98,8 +133,11 @@ def iter_review_items(project: ProjectData) -> Iterable[ReviewItem]:
                 risk_score=score,
                 risk_band=risk_band(score),
                 manual_status=block.manual_status,
+                review_decision=review_decision_for_block(block),
                 source_preview=source,
                 translation_preview=translation,
+                diagnostic_preview=diagnostics,
+                notes_preview=notes,
             )
 
 
@@ -140,6 +178,13 @@ def resolve_image_path(project_path: str | Path, project: ProjectData, page: Pag
     return candidates[0] if candidates else image
 
 
+def _clean_sfx_prefix(text: str) -> str:
+    value = text.strip()
+    if value.lower().startswith("[sfx]"):
+        return value[5:].strip()
+    return value
+
+
 def apply_review_to_block(
     block: OcrBlock,
     *,
@@ -149,27 +194,41 @@ def apply_review_to_block(
     corrected_fr: str = "",
     notes: str = "",
 ) -> None:
-    normalized_decision = decision.strip().lower().replace("à", "a")
-    if corrected_ocr.strip():
-        block.ocr_corrected_text = corrected_ocr.strip()
-    if corrected_source.strip():
-        block.normalized_source_text = corrected_source.strip()
-    if corrected_fr.strip():
-        block.translation_fr = corrected_fr.strip()
-        block.raw_translation_fr = block.raw_translation_fr or corrected_fr.strip()
+    normalized_decision = decision.strip().lower().replace("à", "a").replace("Ã ", "a")
+
+    ocr_value = corrected_ocr.strip()
+    source_value = corrected_source.strip()
+    fr_value = corrected_fr.strip()
+    current_source = block_source_text(block).strip()
+    current_translation = (block.translation_fr or block.raw_translation_fr).strip()
+    if ocr_value and ocr_value != block.ocr_text.strip():
+        block.ocr_corrected_text = ocr_value
+    if source_value and source_value != current_source:
+        block.normalized_source_text = source_value
+    if fr_value and fr_value != current_translation:
+        block.translation_fr = fr_value
+        block.raw_translation_fr = block.raw_translation_fr or fr_value
+
     note_value = notes.strip()
     if normalized_decision in {"sfx", "noise"}:
-        note_value = f"[sfx] {note_value}".strip()
+        note_value = note_value if note_value.lower().startswith("[sfx]") else f"[sfx] {note_value}".strip()
+    elif note_value.lower().startswith("[sfx]"):
+        note_value = _clean_sfx_prefix(note_value)
     if note_value:
         block.review_notes = note_value
 
+    has_text_change = (
+        bool(ocr_value and ocr_value != block.ocr_text.strip())
+        or bool(source_value and source_value != current_source)
+        or bool(fr_value and fr_value != current_translation)
+    )
     if normalized_decision in {"validate", "valid", "validated", "ok"}:
         block.manual_status = "validated"
     elif normalized_decision in {"ignore", "ignored", "sfx", "noise"}:
         block.manual_status = "ignored"
     elif normalized_decision in {"review", "revoir", "a revoir", "todo"}:
         block.manual_status = "review"
-    elif normalized_decision in {"correct", "corrected", "edit", "edited"} or corrected_ocr or corrected_source or corrected_fr:
+    elif normalized_decision in {"correct", "corrected", "edit", "edited"} or has_text_change:
         block.manual_status = "edited"
     else:
         block.manual_status = "review"

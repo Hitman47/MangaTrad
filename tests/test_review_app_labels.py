@@ -1,6 +1,7 @@
 from cbz_manga_translator.review_app import (
     CORRECTION_MODE_HELP,
     DECISION_HELP_TEXT,
+    FILTER_OPTIONS,
     REVIEW_FIELD_LABELS,
     REVIEW_WORKBENCH_HELP,
 )
@@ -30,3 +31,8 @@ def test_correction_button_behavior_is_documented():
 def test_review_workbench_help_mentions_safe_workflow():
     assert "champs modifiables" in REVIEW_WORKBENCH_HELP
     assert "non sauvegardés" in REVIEW_WORKBENCH_HELP
+
+
+def test_review_filters_cover_done_todo_and_sfx_states():
+    for label in ["À traiter", "Corrections faites", "À revoir", "Validés", "Ignorés", "SFX"]:
+        assert label in FILTER_OPTIONS

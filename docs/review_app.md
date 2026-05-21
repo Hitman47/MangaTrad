@@ -42,9 +42,22 @@ Cette organisation limite les erreurs : le texte à analyser est toujours proche
 - `Valider OK (V)` : le bloc est correct, sauvegarde `validate`, puis passe au suivant.
 - `Mode correction (C)` : place le focus dans la traduction corrigée, sans sauvegarder.
 - `Enregistrer correction + suivant` : sauvegarde les champs corrigés puis passe au suivant.
+- `Sauvegarder seulement` : sauvegarde le bloc courant sans changer de sélection.
 - `SFX (S)` : marque le bloc comme bruit/onomatopée, sauvegarde puis passe au suivant.
 - `Ignorer (I)` : marque un bloc parasite/inutile, sauvegarde puis passe au suivant.
 - `À revoir (R)` : marque le bloc pour reprise ultérieure.
+- `Précédent` / `Suivant` : navigation explicite, avec confirmation si le bloc courant a des changements non sauvegardés.
+
+Le bouton `SFX` écrit le statut technique `ignored`, mais conserve l'intention via la note `[sfx]`. L'interface le distingue ensuite dans le résumé, la liste et le filtre `SFX`.
+
+## Filtres et recherche
+
+- `À traiter` : blocs encore bruts ou marqués à revoir.
+- `Risques HIGH/MED` et `High` : blocs non finalisés avec risque élevé.
+- `Corrections faites` : blocs corrigés et sauvegardés.
+- `Validés`, `Ignorés`, `SFX`, `À revoir` : vues de contrôle.
+
+La recherche couvre maintenant le texte OCR/source/traduction, l'identifiant du bloc, les warnings QC, les alternatives visibles et les notes reviewer.
 
 ## Raccourcis
 
@@ -67,6 +80,8 @@ Si tu modifies un champ puis sélectionnes un autre bloc, l'application demande 
 - sauvegarder ;
 - abandonner ;
 - annuler le changement de bloc.
+
+La même protection s'applique à la fermeture de la fenêtre.
 
 ## Workflow conseillé
 

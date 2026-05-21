@@ -6,7 +6,9 @@ from cbz_manga_translator.review.model import (
     apply_review_to_block,
     default_reviewed_path,
     iter_review_items,
+    is_sfx_block,
     load_review_project,
+    review_decision_for_block,
     resolve_image_path,
 )
 
@@ -70,3 +72,57 @@ def test_sfx_decision_is_preserved_in_notes():
     assert block.manual_status == "ignored"
     assert "[sfx]" in block.review_notes
     assert "onomatopée" in block.review_notes
+    assert is_sfx_block(block)
+    assert review_decision_for_block(block) == "sfx"
+
+
+def test_apply_review_to_block_does_not_store_unchanged_mirror_fields():
+    block = OcrBlock(
+        id="b1",
+        bbox=[1, 2, 3, 4],
+        source_lang="en",
+        ocr_text="Hello",
+        raw_translation_fr="Bonjour.",
+    )
+    apply_review_to_block(
+        block,
+        decision="validate",
+        corrected_ocr="Hello",
+        corrected_source="Hello",
+        corrected_fr="Bonjour.",
+    )
+
+    assert block.manual_status == "validated"
+    assert block.ocr_corrected_text == ""
+    assert block.normalized_source_text == ""
+    assert block.translation_fr == ""
+
+
+def test_iter_review_items_exposes_sfx_and_searchable_diagnostics():
+    project = ProjectData(
+        cbz_path="corpus",
+        pages=[
+            PageRecord(
+                page_index=0,
+                image_name="page.jpg",
+                blocks=[
+                    OcrBlock(
+                        id="b1",
+                        bbox=[1, 2, 3, 4],
+                        source_lang="en",
+                        ocr_text="BOOM",
+                        manual_status="ignored",
+                        quality_warnings=["sound effect"],
+                        review_notes="[sfx] explosion",
+                    )
+                ],
+            )
+        ],
+    )
+
+    item = next(iter(iter_review_items(project)))
+
+    assert item.review_decision == "sfx"
+    assert "SFX" in item.display
+    assert "sound effect" in item.diagnostic_preview
+    assert "explosion" in item.notes_preview

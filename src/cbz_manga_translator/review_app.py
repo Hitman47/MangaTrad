@@ -15,6 +15,7 @@ from cbz_manga_translator.review.model import (
     find_page,
     iter_review_items,
     load_review_project,
+    review_decision_for_block,
     resolve_image_path,
     save_review_project,
 )
@@ -51,13 +52,17 @@ REVIEW_WORKBENCH_HELP = (
     "du texte de référence. Les changements non sauvegardés déclenchent une confirmation avant de changer de bloc."
 )
 
-DECISION_TO_COMBO = {
-    "validated": "validate",
-    "ignored": "ignore",
-    "review": "review",
-    "edited": "correct",
-    "unchecked": "correct",
-}
+FILTER_OPTIONS = [
+    "À traiter",
+    "Risques HIGH/MED",
+    "High",
+    "Tous",
+    "Corrections faites",
+    "À revoir",
+    "Validés",
+    "Ignorés",
+    "SFX",
+]
 
 STATUS_COLORS = {
     "HIGH": "#7f1d1d",
@@ -203,7 +208,7 @@ class ReviewWindow(_QT_MAINWINDOW_BASE):
         self._ignore_selection_guard = False
 
         self.filter_combo = q.QComboBox()
-        self.filter_combo.addItems(["High + Medium", "High", "Tous", "Non validés", "À revoir", "Validés", "Ignorés"])
+        self.filter_combo.addItems(FILTER_OPTIONS)
         self.filter_combo.setToolTip("Filtre les blocs à corriger selon le niveau de risque ou le statut.")
         self.filter_combo.currentTextChanged.connect(self.refresh_list)
 
@@ -276,6 +281,7 @@ class ReviewWindow(_QT_MAINWINDOW_BASE):
         self.decision_combo = q.QComboBox()
         self.decision_combo.addItems(list(DECISIONS))
         self.decision_combo.setToolTip(DECISION_HELP_TEXT)
+        self.decision_combo.currentTextChanged.connect(self._mark_dirty)
         self.unsaved_label = q.QLabel("Aucune modification non sauvegardée.")
         self.unsaved_label.setObjectName("SavedLabel")
         decision_panel = q.QWidget()
@@ -460,9 +466,12 @@ class ReviewWindow(_QT_MAINWINDOW_BASE):
             ("Valider OK (V)", "validate", 0, 0, "Bloc correct : sauvegarde validate et passe au suivant.", "PrimaryButton"),
             ("Mode correction (C)", "start_correct", 0, 1, "Place le focus dans la correction FR, sans sauvegarder.", ""),
             ("Enregistrer correction + suivant", "save_next", 0, 2, "Sauvegarde les champs et passe au bloc suivant.", "PrimaryButton"),
-            ("SFX (S)", "sfx", 1, 0, "Bruit / onomatopée : sauvegarde et passe au suivant.", ""),
-            ("Ignorer (I)", "ignore", 1, 1, "Bloc parasite/inutile : sauvegarde et passe au suivant.", "DangerButton"),
+            ("Sauvegarder seulement", "save_only", 1, 0, "Sauvegarde le bloc courant sans changer de sélection.", "PrimaryButton"),
+            ("SFX (S)", "sfx", 1, 1, "Bruit / onomatopée : sauvegarde et passe au suivant.", ""),
             ("À revoir (R)", "review", 1, 2, "Marque le bloc à revoir plus tard.", ""),
+            ("Ignorer (I)", "ignore", 2, 0, "Bloc parasite/inutile : sauvegarde et passe au suivant.", "DangerButton"),
+            ("Précédent", "prev_only", 2, 1, "Va au bloc précédent, avec confirmation si besoin.", ""),
+            ("Suivant", "next_only", 2, 2, "Va au bloc suivant, avec confirmation si besoin.", ""),
         ]
         for label, decision, row, col, tooltip, obj_name in specs:
             btn = q.QPushButton(label)
@@ -490,7 +499,7 @@ class ReviewWindow(_QT_MAINWINDOW_BASE):
         self._dirty = False
         self.refresh_list()
 
-    def refresh_list(self) -> None:
+    def refresh_list(self, _text: str | None = None, *, select_first: bool = True) -> None:
         if not self.review_project:
             return
         q = _qt()
@@ -502,7 +511,10 @@ class ReviewWindow(_QT_MAINWINDOW_BASE):
         for item in all_items:
             if not self._item_matches_filter(item, filter_name):
                 continue
-            haystack = f"{item.display} {item.source_preview} {item.translation_preview}".lower()
+            haystack = (
+                f"{item.display} {item.block_id} {item.source_preview} {item.translation_preview} "
+                f"{item.diagnostic_preview} {item.notes_preview}"
+            ).lower()
             if search and search not in haystack:
                 continue
             self._items.append(item)
@@ -513,34 +525,41 @@ class ReviewWindow(_QT_MAINWINDOW_BASE):
             self.list_widget.addItem(widget_item)
         self._update_queue_summary(all_items, filter_name)
         self.statusBar().showMessage(f"{self.list_widget.count()} bloc(s) visibles — filtre: {filter_name}", 3000)
-        if self.list_widget.count() > 0 and self.list_widget.currentRow() < 0:
+        if select_first and self.list_widget.count() > 0 and self.list_widget.currentRow() < 0:
             self.list_widget.setCurrentRow(0)
 
     def _update_queue_summary(self, all_items: list[ReviewItem], filter_name: str) -> None:
         total = len(all_items)
         high = sum(1 for item in all_items if item.risk_band == "HIGH")
         med = sum(1 for item in all_items if item.risk_band == "MED")
-        validated = sum(1 for item in all_items if item.manual_status == "validated")
-        ignored = sum(1 for item in all_items if item.manual_status == "ignored")
-        review = sum(1 for item in all_items if item.manual_status == "review")
+        todo = sum(1 for item in all_items if item.review_decision in {"unchecked", "review"})
+        corrected = sum(1 for item in all_items if item.review_decision == "correct")
+        validated = sum(1 for item in all_items if item.review_decision == "validate")
+        ignored = sum(1 for item in all_items if item.review_decision == "ignore")
+        sfx = sum(1 for item in all_items if item.review_decision == "sfx")
+        review = sum(1 for item in all_items if item.review_decision == "review")
         self.queue_summary.setText(
-            f"Total {total} · HIGH {high} · MED {med} · validés {validated} · ignorés {ignored} · à revoir {review}\n"
-            f"Filtre actif : {filter_name} · visibles {self.list_widget.count()}"
+            f"Total {total} · à traiter {todo} · corrigés {corrected} · validés {validated} · ignorés {ignored} · SFX {sfx}\n"
+            f"HIGH {high} · MED {med} · à revoir {review} · visibles {self.list_widget.count()} · filtre : {filter_name}"
         )
 
     def _item_matches_filter(self, item: ReviewItem, filter_name: str) -> bool:
-        if filter_name == "High + Medium":
-            return item.risk_band in {"HIGH", "MED"}
+        if filter_name == "À traiter":
+            return item.review_decision in {"unchecked", "review"}
+        if filter_name == "Risques HIGH/MED":
+            return item.risk_band in {"HIGH", "MED"} and item.review_decision not in {"validate", "ignore", "sfx"}
         if filter_name == "High":
-            return item.risk_band == "HIGH"
-        if filter_name == "Non validés":
-            return item.manual_status not in {"validated", "ignored"}
+            return item.risk_band == "HIGH" and item.review_decision not in {"validate", "ignore", "sfx"}
+        if filter_name == "Corrections faites":
+            return item.review_decision == "correct"
         if filter_name == "À revoir":
-            return item.manual_status == "review"
+            return item.review_decision == "review"
         if filter_name == "Validés":
-            return item.manual_status == "validated"
+            return item.review_decision == "validate"
         if filter_name == "Ignorés":
-            return item.manual_status == "ignored"
+            return item.review_decision == "ignore"
+        if filter_name == "SFX":
+            return item.review_decision == "sfx"
         return True
 
     def _on_selection_changed(self, current, previous) -> None:
@@ -598,8 +617,11 @@ class ReviewWindow(_QT_MAINWINDOW_BASE):
                 risk_score=0,
                 risk_band="",
                 manual_status=block.manual_status,
+                review_decision=review_decision_for_block(block),
                 source_preview="",
                 translation_preview="",
+                diagnostic_preview="",
+                notes_preview="",
             )
             image_path = resolve_image_path(self.review_project.project_path, project, page)
             self.image_view.set_page(image_path, block.bbox, [b.bbox for b in page.blocks])
@@ -616,7 +638,7 @@ class ReviewWindow(_QT_MAINWINDOW_BASE):
             self.source_current.setPlainText(block_source_text(block))
             self.source_corrected.setPlainText(block.normalized_source_text or block.ocr_corrected_text or block.ocr_text)
             self.translation_current.setPlainText(block.translation_fr or block.raw_translation_fr)
-            self.translation_corrected.setPlainText(block.translation_fr or "")
+            self.translation_corrected.setPlainText(block.translation_fr or block.raw_translation_fr)
             self.notes_text.setPlainText(getattr(block, "review_notes", ""))
             if block.ocr_alternatives:
                 alt_lines = [
@@ -625,14 +647,14 @@ class ReviewWindow(_QT_MAINWINDOW_BASE):
                 ]
                 warnings = (warnings + "\n\nAlternatives OCR:\n" + "\n".join(alt_lines)).strip()
             self.warnings_text.setPlainText(warnings or "Aucun warning QC / aucune alternative OCR pour ce bloc.")
-            self.decision_combo.setCurrentText(DECISION_TO_COMBO.get(block.manual_status, "correct"))
+            self.decision_combo.setCurrentText(review_decision_for_block(block) if block.manual_status != "unchecked" else "correct")
             self.action_status.setText("Bloc chargé. Les champs à remplir sont à droite de chaque texte de référence.")
             self._dirty = False
             self._set_dirty_state(False)
         finally:
             self._is_loading_block = False
 
-    def _mark_dirty(self) -> None:
+    def _mark_dirty(self, *_args) -> None:
         if self._is_loading_block:
             return
         self._dirty = True
@@ -698,6 +720,9 @@ class ReviewWindow(_QT_MAINWINDOW_BASE):
             return
         if not self.review_project or not self.current_item:
             return
+        if decision == "save_only":
+            self.save_current()
+            return
 
         if decision == "save_next":
             decision = self.decision_combo.currentText() or "correct"
@@ -716,7 +741,7 @@ class ReviewWindow(_QT_MAINWINDOW_BASE):
         previous_key: tuple[int, str] | None = None,
     ) -> None:
         previous_row = self.list_widget.currentRow() if previous_row is None else previous_row
-        self.refresh_list()
+        self.refresh_list(select_first=False)
         count = self.list_widget.count()
         if count <= 0:
             return
@@ -738,6 +763,19 @@ class ReviewWindow(_QT_MAINWINDOW_BASE):
             return
         next_row = max(0, min(self.list_widget.count() - 1, row + delta))
         self.list_widget.setCurrentRow(next_row)
+
+    def closeEvent(self, event) -> None:  # type: ignore[override]
+        if not self._dirty:
+            event.accept()
+            return
+        choice = self._confirm_unsaved_changes()
+        if choice == "save":
+            self._apply_current_fields(self.decision_combo.currentText() or "correct")
+            event.accept()
+        elif choice == "discard":
+            event.accept()
+        else:
+            event.ignore()
 
 
 def main(argv: list[str] | None = None) -> int:
