@@ -41,6 +41,15 @@ _OCR_CORRECTIONS: tuple[tuple[re.Pattern[str], str], ...] = (
     (re.compile(r"\bign[o0]re\b", flags=re.IGNORECASE), "ignore"),
     (re.compile(r"\benc[o0]unter\b", flags=re.IGNORECASE), "encounter"),
     (re.compile(r"\bi[’']?[il1]l\b", flags=re.IGNORECASE), "I'll"),
+    (re.compile(r"\btepm\b", flags=re.IGNORECASE), "term"),
+    (re.compile(r"\bkawazl\b", flags=re.IGNORECASE), "Kawazu"),
+    (re.compile(r"\byol\b", flags=re.IGNORECASE), "you"),
+    (re.compile(r"\bcf\b", flags=re.IGNORECASE), "of"),
+    (re.compile(r"\bpeallyi?\b", flags=re.IGNORECASE), "really"),
+    (re.compile(r"\bwha+ti?\b", flags=re.IGNORECASE), "what"),
+    (re.compile(r"\bwhoal\b", flags=re.IGNORECASE), "whoa!"),
+    (re.compile(r"\bsepiously\b", flags=re.IGNORECASE), "seriously"),
+    (re.compile(r"\bdoesnt\b", flags=re.IGNORECASE), "doesn't"),
     # Corpus-learned OCR confusions from review exports. These are conservative
     # spelling fixes applied to the diagnostic corrected text, not to raw OCR.
     (re.compile(r"\bcolld\b", flags=re.IGNORECASE), "could"),
@@ -167,6 +176,14 @@ _TRANSLATION_OVERRIDES: dict[str, str] = {
     "saved then?": "Alors, tu m’as sauvé ?",
     "saved then": "Alors, tu m’as sauvé ?",
     "such bother": "Quelle plaie.",
+    "my name is atsushi, and certain circumstances": "Mon nom est Atsushi, et certaines circonstances...",
+    "kicked out of the orphanage, no food, no shelter, not even brave enough to steal": "Viré de l'orphelinat, sans nourriture, sans abri, pas même assez brave pour voler...",
+    "i know i have to rob or steal in order to live: but": "Je sais qu'il faut que je cambriole ou vole pour vivre... Mais...",
+    "did he just say \"tch\"!?": "Est-ce qu'il vient de dire : \"tch\" !?",
+    "did he just say tch!?": "Est-ce qu'il vient de dire : \"tch\" !?",
+    "i'm saved then?": "Alors, je suis sauvé ?",
+    "apologies you are unfamiliar with the term?": "Mes excuses. Tu ne connais pas ce terme ?",
+    "apologies. you are unfamiliar with the term?": "Mes excuses. Tu ne connais pas ce terme ?",
     "huh? why's he mad at me?": "Hein ? Pourquoi il m’en veut ?",
     "huh? why's he mad at me": "Hein ? Pourquoi il m’en veut ?",
     "what kind of things did they do to you?": "Qu’est-ce qu’ils t’ont fait ?",
@@ -215,6 +232,13 @@ _NO_TRANSLATE_CANONICAL: dict[str, str] = {
     "whoa": "Whoa !",
     "tch": "Tch.",
     "tch!": "Tch !",
+    "hmph": "Hmph.",
+    "hmph!": "Hmph !",
+    "hi-yaaa-!": "Hi-yaaa-!",
+    "hi-yaaa!": "Hi-yaaa!",
+    "whoa!": "Whoa !",
+    "beep": "BEEP",
+    "geez": "Geez...",
     "plop": "Plop.",
     "sob": "*snif*",
     "slam": "Bam !",
@@ -264,6 +288,11 @@ class EnglishDialogueNormalizer:
         key = cls.canonical_key(text)
         if key in _NO_TRANSLATE_CANONICAL:
             return _NO_TRANSLATE_CANONICAL[key]
+        compact = cls.compact(text)
+        if re.fullmatch(r"(?i)hi[-\s]?ya+a+-?!?", compact):
+            return compact
+        if re.fullmatch(r"(?i)who+a+l?[!?]?", compact):
+            return "Whoa !"
         # Long vowel comic interjections: awwwwww / oooooh / uhhh.
         if re.fullmatch(r"aw{2,}! ?", key):
             return "Aww..."
@@ -303,6 +332,16 @@ class EnglishDialogueNormalizer:
         )
         for pattern, replacement in replacements:
             fixed = pattern.sub(replacement, fixed)
+        # Generic OCR line-break repair: ANY- ONE, MON- STERS, PRO- CESS.
+        # Keep rhetorical cutoffs like "asphyxi- what?" intact.
+        def join_soft_hyphen(match: re.Match[str]) -> str:
+            left = match.group(1)
+            right = match.group(2)
+            if right.lower() in {"what", "who", "where", "why", "huh"}:
+                return match.group(0)
+            return left + right
+
+        fixed = re.sub(r"\b([A-Za-z]{2,})-\s+([A-Za-z]{2,})\b", join_soft_hyphen, fixed)
         return fixed
 
     @classmethod

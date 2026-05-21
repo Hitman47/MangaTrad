@@ -32,3 +32,9 @@ def test_normalize_linebreak_hyphen_and_common_ocr_typos() -> None:
     assert normalize_ocr_text_for_translation("CERTAIN CIRCUM- STANCES") == "CERTAIN CIRCUMSTANCES"
     assert normalize_ocr_text_for_translation("YeS. He TRANS- FORMED INTO ANIMAL Fopm") == "Yes. he transformed into animal form"
     assert normalize_ocr_text_for_translation("The Tiger TCO WAS sighted FOLR DAYS Ago.") == "The Tiger TCO was sighted four days ago."
+
+
+def test_review_learned_ocr_cleanup_examples() -> None:
+    assert normalize_ocr_text_for_translation("WHAATI? PEALLYI?") == "what? really?"
+    assert normalize_ocr_text_for_translation("The KAWAZL Family") == "The KAWAZU Family"
+    assert normalize_ocr_text_for_translation("Sepiously Dont do Something LNNECES- SARY") == "seriously don't do Something unnecessary"

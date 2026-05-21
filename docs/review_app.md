@@ -93,6 +93,17 @@ La même protection s'applique à la fermeture de la fenêtre.
 
 ## Après review
 
+Si tu as déjà corrigé une partie du corpus et que les règles OCR/traduction ont été améliorées, rafraîchis uniquement les blocs non revus avant de continuer :
+
+```powershell
+python -m cbz_manga_translator.review_refresh `
+  C:\temp\mangatrad_corpus_run_30_stratified_v043\mangatrad_corpus_project.reviewed.json `
+  --out-project C:\temp\mangatrad_corpus_run_30_stratified_v043\mangatrad_corpus_project.reviewed.refreshed.json `
+  --source-lang en
+```
+
+Cette commande préserve les blocs déjà `validated`, `edited`, `review` ou `ignored`, puis applique les règles déterministes et le QC seulement aux blocs `unchecked`. Elle ne contacte pas le réseau. Pour forcer une retraduction Argos complète des blocs non revus, ajoute `--translate-argos`, mais seulement si l'environnement Argos/Stanza est déjà prêt hors ligne.
+
 ```powershell
 python -m cbz_manga_translator.analysis_export `
   --project C:\temp\...\mangatrad_corpus_project.reviewed.json `

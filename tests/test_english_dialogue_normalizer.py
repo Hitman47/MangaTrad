@@ -82,3 +82,33 @@ def test_corpus_learned_translation_overrides() -> None:
     assert prep.override_translation_fr == "Il vient de dire « tch » ?"
     prep = EnglishDialogueNormalizer.prepare("Huh? Why's he MAD At Me?")
     assert prep.override_translation_fr == "Hein ? Pourquoi il m’en veut ?"
+
+
+def test_review_learned_sfx_and_missing_punctuation_patterns() -> None:
+    hiyaa = EnglishDialogueNormalizer.prepare("Hi-yaaa-!")
+    assert hiyaa.override_translation_fr == "Hi-yaaa-!"
+
+    whoa = EnglishDialogueNormalizer.prepare("WHOAL")
+    assert whoa.corrected_text == "whoa!"
+    assert whoa.override_translation_fr == "Whoa !"
+
+    tch = EnglishDialogueNormalizer.prepare('Did He Just SAY "tch"!?')
+    assert tch.override_translation_fr == 'Est-ce qu\'il vient de dire : "tch" !?'
+
+
+def test_review_learned_hyphenation_repairs_keep_intentional_cutoffs() -> None:
+    repaired = EnglishDialogueNormalizer.prepare("HELP! IS ANY- ONE OUT THERE?!")
+    assert repaired.corrected_text == "help! is anyone out there?!"
+
+    cutoff = EnglishDialogueNormalizer.prepare("ASPHYXI- WHAT?")
+    assert cutoff.corrected_text == "asphyxi- what?"
+
+
+def test_review_learned_ocr_and_translation_patterns() -> None:
+    things = EnglishDialogueNormalizer.prepare("What kind CF THINGS Did they DO To Yol?")
+    assert things.normalized_text == "what kind of THINGS Did they DO To you?"
+    assert things.override_translation_fr == "Qu’est-ce qu’ils t’ont fait ?"
+
+    apologies = EnglishDialogueNormalizer.prepare("Apologies_ You ARE UNFAMILIAR With The Tepm?")
+    assert apologies.corrected_text == "Apologies You ARE UNFAMILIAR With The term?"
+    assert apologies.override_translation_fr == "Mes excuses. Tu ne connais pas ce terme ?"

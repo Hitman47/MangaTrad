@@ -116,3 +116,34 @@ def test_quality_flags_source_residue_copied_to_translation() -> None:
     )
     warnings = checker.check_block(block)
     assert any("source recopi" in warning or "anglais" in warning for warning in warnings)
+
+
+def test_quality_flags_missing_prefix_and_missing_terminal_punctuation() -> None:
+    block = OcrBlock(
+        id="b",
+        bbox=[0, 0, 1, 1],
+        source_lang="en",
+        ocr_text="have Left Me At DEATH'S DOOR",
+        translation_fr="Me laisser à la porte de la mort",
+        confidence=0.9,
+    )
+
+    warnings = TranslationQualityChecker().check_block(block)
+
+    assert any("début de phrase" in warning for warning in warnings)
+    assert any("ponctuation finale" in warning for warning in warnings)
+
+
+def test_quality_flags_intentional_cutoff_to_preserve() -> None:
+    block = OcrBlock(
+        id="b",
+        bbox=[0, 0, 1, 1],
+        source_lang="en",
+        ocr_text="ASPHYXI- WHAT?",
+        translation_fr="Asphyx... quoi?",
+        confidence=0.9,
+    )
+
+    warnings = TranslationQualityChecker().check_block(block)
+
+    assert any("volontairement coupé" in warning for warning in warnings)

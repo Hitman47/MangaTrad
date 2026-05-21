@@ -115,6 +115,17 @@ _FRAGMENT_ONLY_WORDS = {
     "but",
 }
 
+_LIKELY_MISSING_PREFIX_STARTS = {
+    "have",
+    "left",
+    "saved",
+    "where",
+    "but",
+    "and",
+    "then",
+    "with",
+}
+
 _SAFE_UPPERCASE_TOKENS = {
     "OK", "SFX", "RASHOMON", "DAZAI", "TANIZAKI", "ATSUSHI", "NAOMI", "KUNIKIDA",
 }
@@ -201,6 +212,10 @@ class TranslationQualityChecker:
                 warnings.append("fragment OCR isolé probable: vérifier/fusionner avec une bulle voisine")
             if len(source_word_list) <= 2 and source.strip().endswith(":"):
                 warnings.append("fragment OCR terminé par ':' probable: vérifier/fusionner")
+            if source_word_list and source_word_list[0] in _LIKELY_MISSING_PREFIX_STARTS:
+                warnings.append("début de phrase possiblement manquant: vérifier la bulle précédente")
+            if len(source_word_list) >= 4 and re.search(r"[A-Za-z0-9\"')]$", source):
+                warnings.append("ponctuation finale possiblement manquante")
 
             for pattern, message in _OCR_CONFUSION_PATTERNS:
                 if pattern.search(source):
@@ -238,6 +253,8 @@ class TranslationQualityChecker:
                 warnings.append("fragments MAJUSCULES suspects")
             if re.search(r"\b[A-Za-z]{2,}-\s+[A-Za-z]{2,}\b", source):
                 warnings.append("césure OCR probable à corriger")
+            if re.search(r"\b[A-Za-z]{2,}-\s*(?:what|who|where|why|huh)\b", source, flags=re.IGNORECASE):
+                warnings.append("mot volontairement coupé: conserver la coupure si elle porte le sens")
 
             if len(translation) >= 8 and not _FRENCH_SIGNAL_RE.search(translation) and re.search(r"[A-Za-z]", translation):
                 # Do not overflag very short proper-name-only bubbles.

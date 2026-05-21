@@ -32,6 +32,7 @@ cbz-manga-translator-corpus-learn = "cbz_manga_translator.corpus_learn:main"
 cbz-manga-translator-review-pack = "cbz_manga_translator.corpus_review_pack:main"
 cbz-manga-translator-apply-review = "cbz_manga_translator.corpus_apply_review:main"
 cbz-manga-translator-review-app = "cbz_manga_translator.review_app:main"
+cbz-manga-translator-review-refresh = "cbz_manga_translator.review_refresh:main"
 
 [tool.setuptools]
 package-dir = {"" = "src"}

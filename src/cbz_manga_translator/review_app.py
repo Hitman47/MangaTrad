@@ -308,8 +308,9 @@ class ReviewWindow(_QT_MAINWINDOW_BASE):
         self.warnings_text = self._text_area(readonly=True, min_height=140)
         self.notes_text = self._text_area(readonly=False, min_height=140)
 
-        for edit in [self.ocr_corrected, self.source_corrected, self.translation_corrected, self.notes_text]:
-            edit.textChanged.connect(self._mark_dirty)
+        for edit in [self.ocr_corrected, self.source_corrected, self.translation_corrected]:
+            edit.textChanged.connect(self._mark_corrected_dirty)
+        self.notes_text.textChanged.connect(self._mark_dirty)
 
         detail_inner = q.QWidget()
         form = q.QVBoxLayout(detail_inner)
@@ -659,6 +660,14 @@ class ReviewWindow(_QT_MAINWINDOW_BASE):
             return
         self._dirty = True
         self._set_dirty_state(True)
+
+    def _mark_corrected_dirty(self) -> None:
+        if self._is_loading_block:
+            return
+        if self.decision_combo.currentText() not in {"correct", "ignore", "sfx"}:
+            self.decision_combo.setCurrentText("correct")
+            self.action_status.setText("Correction détectée : la décision est passée à correct.")
+        self._mark_dirty()
 
     def _set_dirty_state(self, dirty: bool) -> None:
         if dirty:
