@@ -147,3 +147,18 @@ def test_quality_flags_intentional_cutoff_to_preserve() -> None:
     warnings = TranslationQualityChecker().check_block(block)
 
     assert any("volontairement coupé" in warning for warning in warnings)
+
+
+def test_quality_flags_obvious_reviewed_ocr_confusion() -> None:
+    block = OcrBlock(
+        id="b",
+        bbox=[0, 0, 1, 1],
+        source_lang="en",
+        ocr_text="BMUSTHVB GALLENL ASLEEP inifront Computers",
+        translation_fr="BMUSTHVB GALLENL ASLEP inifront Computers",
+        confidence=0.62,
+    )
+
+    warnings = TranslationQualityChecker().check_block(block)
+
+    assert any("I must've fallen asleep" in warning for warning in warnings)

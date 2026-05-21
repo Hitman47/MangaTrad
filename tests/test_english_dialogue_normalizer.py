@@ -112,3 +112,11 @@ def test_review_learned_ocr_and_translation_patterns() -> None:
     apologies = EnglishDialogueNormalizer.prepare("Apologies_ You ARE UNFAMILIAR With The Tepm?")
     assert apologies.corrected_text == "Apologies You ARE UNFAMILIAR With The term?"
     assert apologies.override_translation_fr == "Mes excuses. Tu ne connais pas ce terme ?"
+
+
+def test_review_learned_obvious_computer_sentence() -> None:
+    prepared = EnglishDialogueNormalizer.prepare("BMUSTHVB GALLENL ASLEEP inifront Computers")
+
+    assert prepared.corrected_text == "I must've fallen asleep in front of my computer."
+    assert prepared.normalized_text == "I must've fallen asleep in front of my computer."
+    assert prepared.override_translation_fr == "J'ai dû m'endormir devant mon ordinateur."

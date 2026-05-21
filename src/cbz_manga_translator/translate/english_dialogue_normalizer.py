@@ -25,6 +25,10 @@ _ING_EXCEPTIONS = {
 # normalization. They fix visual confusions observed in comic fonts without
 # modifying the raw OCR field saved in the project cache.
 _OCR_CORRECTIONS: tuple[tuple[re.Pattern[str], str], ...] = (
+    (
+        re.compile(r"\bbmusthvb\s+gallenl\s+asle+p\s+inifront\s+computers?\b", flags=re.IGNORECASE),
+        "I must've fallen asleep in front of my computer.",
+    ),
     (re.compile(r"\bt[o0][il1!]d\b", flags=re.IGNORECASE), "told"),
     (re.compile(r"\btoid\b", flags=re.IGNORECASE), "told"),
     (re.compile(r"\bc[l1i!]imb", flags=re.IGNORECASE), "climb"),
@@ -197,6 +201,8 @@ _TRANSLATION_OVERRIDES: dict[str, str] = {
     "maybe dying will do the trick": "Peut-être que mourir fera l’affaire ?",
     "you had friends?": "Tu avais des amis ?",
     "you had friends": "Tu avais des amis ?",
+    "i must've fallen asleep in front of my computer.": "J'ai dû m'endormir devant mon ordinateur.",
+    "i must've fallen asleep in front of my computer": "J'ai dû m'endormir devant mon ordinateur.",
     "do you all want me to tame you?": "Vous voulez tous que je vous apprivoise ?",
     "do you all want me to tame you": "Vous voulez tous que je vous apprivoise ?",
     "well, fine by me, but how?": "Ça me va, mais comment ?",

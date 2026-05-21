@@ -38,3 +38,4 @@ def test_review_learned_ocr_cleanup_examples() -> None:
     assert normalize_ocr_text_for_translation("WHAATI? PEALLYI?") == "what? really?"
     assert normalize_ocr_text_for_translation("The KAWAZL Family") == "The KAWAZU Family"
     assert normalize_ocr_text_for_translation("Sepiously Dont do Something LNNECES- SARY") == "seriously don't do Something unnecessary"
+    assert normalize_ocr_text_for_translation("BMUSTHVB GALLENL ASLEEP inifront Computers") == "I must've fallen asleep in front of my computer."

@@ -98,6 +98,7 @@ _OCR_CONFUSION_PATTERNS: tuple[tuple[re.Pattern[str], str], ...] = (
     (re.compile(r"\bcolld\b", flags=re.IGNORECASE), "OCR probable: 'Colld' devrait être 'could'"),
     (re.compile(r"\bhlnger\b", flags=re.IGNORECASE), "OCR probable: 'Hlnger' devrait être 'hunger'"),
     (re.compile(r"\b(?:tslrlmi|napehouse|nestern|individlals)\b", flags=re.IGNORECASE), "OCR probable: token inconnu/rompu à vérifier"),
+    (re.compile(r"\bbmusthvb\s+gallenl\s+asle+p\s+inifront\s+computers?\b", flags=re.IGNORECASE), "OCR évident: devrait être \"I must've fallen asleep in front of my computer\""),
     (re.compile(r"\b(?:rlpted|lnneces|hideolt|yol|iwas|idont|iguess|wolld|bizarpe|wopld|iaeely|lessil|evepy|theip|dsich|aohto|dollarman|thess|bmusthvb|gallenl|aslep|inifront|t0)\b", flags=re.IGNORECASE), "OCR probable: token appris du corpus à vérifier"),
 )
 
@@ -207,14 +208,15 @@ class TranslationQualityChecker:
             normalized_tokens = set(self._tokens(normalized))
             slang_hits = sorted((source_tokens | corrected_tokens) & _SOURCE_SLANG_WORDS)
 
-            source_word_list = self._ascii_tokens(source)
+            structure_source = normalized or corrected or source
+            source_word_list = self._ascii_tokens(structure_source)
             if len(source_word_list) == 1 and source_word_list[0] in _FRAGMENT_ONLY_WORDS:
                 warnings.append("fragment OCR isolé probable: vérifier/fusionner avec une bulle voisine")
-            if len(source_word_list) <= 2 and source.strip().endswith(":"):
+            if len(source_word_list) <= 2 and structure_source.strip().endswith(":"):
                 warnings.append("fragment OCR terminé par ':' probable: vérifier/fusionner")
             if source_word_list and source_word_list[0] in _LIKELY_MISSING_PREFIX_STARTS:
                 warnings.append("début de phrase possiblement manquant: vérifier la bulle précédente")
-            if len(source_word_list) >= 4 and re.search(r"[A-Za-z0-9\"')]$", source):
+            if len(source_word_list) >= 4 and re.search(r"[A-Za-z0-9\"')]$", structure_source):
                 warnings.append("ponctuation finale possiblement manquante")
 
             for pattern, message in _OCR_CONFUSION_PATTERNS:

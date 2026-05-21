@@ -47,6 +47,10 @@ _COMMON_OCR_WORD_FIXES: tuple[tuple[re.Pattern[str], str], ...] = (
 )
 
 _CONTEXTUAL_OCR_FIXES: tuple[tuple[re.Pattern[str], str], ...] = (
+    (
+        re.compile(r"\bbmusthvb\s+gallenl\s+asle+p\s+inifront\s+computers?\b", flags=re.IGNORECASE),
+        "I must've fallen asleep in front of my computer.",
+    ),
     (re.compile(r"\bI\s+know\s+1\s+have\b", flags=re.IGNORECASE), "I know I have"),
     (re.compile(r"\bI\s+HAVE\s+No\b", flags=re.IGNORECASE), "I have no"),
     (re.compile(r"\bMY\s+MIND\s+WAS\s+With\s+Hunger\b", flags=re.IGNORECASE), "my mind was with hunger"),

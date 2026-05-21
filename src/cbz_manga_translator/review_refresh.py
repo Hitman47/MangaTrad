@@ -26,15 +26,21 @@ def default_refreshed_path(project_path: str | Path) -> Path:
     return path.with_suffix(path.suffix + ".refreshed.json")
 
 
-def _iter_refreshable_blocks(project: ProjectData, source_lang: SourceLang) -> tuple[list[OcrBlock], int]:
+def _iter_refreshable_blocks(
+    project: ProjectData,
+    source_lang: SourceLang,
+    *,
+    include_review: bool = False,
+) -> tuple[list[OcrBlock], int]:
     refreshable: list[OcrBlock] = []
     preserved = 0
+    refreshable_statuses = {"unchecked", "review"} if include_review else {"unchecked"}
     for page in project.pages:
         for block in page.blocks:
             if block.source_lang != source_lang:
                 preserved += 1
                 continue
-            if block.manual_status == "unchecked":
+            if block.manual_status in refreshable_statuses:
                 refreshable.append(block)
             else:
                 preserved += 1
@@ -65,13 +71,14 @@ def refresh_review_project(
     normalize_english: bool = True,
     use_builtin_glossary: bool = True,
     translate_argos: bool = False,
+    include_review: bool = False,
     translator: ArgosTranslator | None = None,
     quality_checker: TranslationQualityChecker | None = None,
 ) -> RefreshResult:
     path = Path(project_path)
     out = Path(output_path) if output_path else default_refreshed_path(path)
     project = ProjectCache.load(path)
-    blocks, preserved = _iter_refreshable_blocks(project, source_lang)
+    blocks, preserved = _iter_refreshable_blocks(project, source_lang, include_review=include_review)
     quality_checker = quality_checker or TranslationQualityChecker()
 
     if blocks:
@@ -107,6 +114,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("project", type=Path, help="Projet JSON ou reviewed.json à rafraîchir")
     parser.add_argument("--out-project", type=Path, help="Sortie JSON. Défaut: <project>.refreshed.json")
     parser.add_argument("--source-lang", choices=["en", "ja"], default="en")
+    parser.add_argument("--include-review", action="store_true", help="Rafraîchir aussi les blocs marqués review/à revoir")
     parser.add_argument("--gpu", action="store_true", help="Autoriser Argos/CTranslate2 GPU si disponible")
     parser.add_argument(
         "--translate-argos",
@@ -125,6 +133,7 @@ def main(argv: list[str] | None = None) -> int:
         normalize_english=not args.no_normalize_en,
         use_builtin_glossary=not args.no_builtin_glossary,
         translate_argos=args.translate_argos,
+        include_review=args.include_review,
     )
     print(f"Projet source       : {args.project}")
     print(f"Projet rafraîchi    : {result.output_path}")

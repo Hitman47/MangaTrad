@@ -149,10 +149,10 @@ class PageImageView(_QT_WIDGET_BASE):
         self._selected_bbox: list[int] | None = None
         self._all_bboxes: list[list[int]] = []
         self._image_path: Path | None = None
-        self.setMinimumSize(620, 760)
+        self.setMinimumSize(340, 520)
 
     def sizeHint(self):  # type: ignore[override]
-        return _qt().QSize(820, 980)
+        return _qt().QSize(520, 760)
 
     def set_page(self, image_path: Path, selected_bbox: list[int] | None, all_bboxes: list[list[int]]) -> None:
         q = _qt()
@@ -199,7 +199,7 @@ class ReviewWindow(_QT_MAINWINDOW_BASE):
         q = _qt()
         super().__init__()
         self.setWindowTitle(f"MangaTrad Reviewer {__version__}")
-        self.resize(1860, 1080)
+        self.resize(1360, 920)
         self.review_project: ReviewProject | None = None
         self.current_item: ReviewItem | None = None
         self._items: list[ReviewItem] = []
@@ -233,7 +233,8 @@ class ReviewWindow(_QT_MAINWINDOW_BASE):
         splitter.addWidget(left)
         splitter.addWidget(self.image_view)
         splitter.addWidget(right)
-        splitter.setSizes([390, 820, 760])
+        splitter.setChildrenCollapsible(False)
+        splitter.setSizes([300, 470, 590])
         self.setCentralWidget(splitter)
         self._build_menu()
         self._build_shortcuts()
@@ -352,7 +353,7 @@ class ReviewWindow(_QT_MAINWINDOW_BASE):
         scroll = q.QScrollArea()
         scroll.setWidgetResizable(True)
         scroll.setWidget(detail_inner)
-        scroll.setMinimumWidth(690)
+        scroll.setMinimumWidth(420)
         right_layout.addWidget(scroll, 1)
         return right
 
@@ -441,20 +442,17 @@ class ReviewWindow(_QT_MAINWINDOW_BASE):
         q = _qt()
         group = q.QGroupBox(title)
         group.setToolTip(tooltip)
-        layout = q.QGridLayout(group)
+        layout = q.QVBoxLayout(group)
         layout.setContentsMargins(12, 14, 12, 12)
-        layout.setHorizontalSpacing(14)
-        layout.setVerticalSpacing(6)
+        layout.setSpacing(8)
         left_label = q.QLabel(left_title)
         left_label.setObjectName("FieldTitle")
         right_label = q.QLabel(right_title)
         right_label.setObjectName("FieldTitle")
-        layout.addWidget(left_label, 0, 0)
-        layout.addWidget(right_label, 0, 1)
-        layout.addWidget(left_widget, 1, 0)
-        layout.addWidget(right_widget, 1, 1)
-        layout.setColumnStretch(0, 1)
-        layout.setColumnStretch(1, 1)
+        layout.addWidget(left_label)
+        layout.addWidget(left_widget)
+        layout.addWidget(right_label)
+        layout.addWidget(right_widget)
         left_widget.setToolTip(tooltip)
         right_widget.setToolTip(tooltip)
         return group

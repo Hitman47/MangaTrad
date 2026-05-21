@@ -52,6 +52,14 @@ def test_refresh_review_project_preserves_human_reviewed_blocks(tmp_path: Path) 
                         review_notes="[sfx]",
                         manual_status="ignored",
                     ),
+                    OcrBlock(
+                        id="review",
+                        bbox=[0, 0, 1, 1],
+                        source_lang="en",
+                        ocr_text="Needs another look",
+                        translation_fr="À revoir",
+                        manual_status="review",
+                    ),
                 ],
             )
         ],
@@ -70,11 +78,47 @@ def test_refresh_review_project_preserves_human_reviewed_blocks(tmp_path: Path) 
     refreshed = ProjectCache.load(out)
     blocks = {block.id: block for block in refreshed.pages[0].blocks}
     assert result.refreshed_blocks == 1
-    assert result.preserved_blocks == 2
+    assert result.preserved_blocks == 3
     assert blocks["todo"].translation_fr == "trad auto"
     assert blocks["todo"].manual_status == "unchecked"
     assert blocks["done"].translation_fr == "Salut."
     assert blocks["sfx"].review_notes == "[sfx]"
+    assert blocks["review"].translation_fr == "À revoir"
+
+
+def test_refresh_review_project_can_include_review_blocks(tmp_path: Path) -> None:
+    project_path = tmp_path / "project.reviewed.json"
+    ProjectCache.save(
+        project_path,
+        ProjectData(
+            cbz_path="corpus",
+            pages=[
+                PageRecord(
+                    page_index=0,
+                    image_name="page.jpg",
+                    blocks=[
+                        OcrBlock(
+                            id="review",
+                            bbox=[0, 0, 1, 1],
+                            source_lang="en",
+                            ocr_text="BMUSTHVB GALLENL ASLEEP inifront Computers",
+                            translation_fr="bad",
+                            manual_status="review",
+                        )
+                    ],
+                )
+            ],
+        ),
+    )
+    out = tmp_path / "out.json"
+
+    result = refresh_review_project(project_path, out, include_review=True, quality_checker=DummyQualityChecker())  # type: ignore[arg-type]
+
+    block = ProjectCache.load(out).pages[0].blocks[0]
+    assert result.refreshed_blocks == 1
+    assert block.normalized_source_text == "I must've fallen asleep in front of my computer."
+    assert block.translation_fr == "J'ai dû m'endormir devant mon ordinateur."
+    assert block.manual_status == "review"
 
 
 def test_refresh_review_project_rules_only_is_default(tmp_path: Path) -> None:

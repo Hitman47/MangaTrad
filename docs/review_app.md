@@ -104,6 +104,8 @@ python -m cbz_manga_translator.review_refresh `
 
 Cette commande préserve les blocs déjà `validated`, `edited`, `review` ou `ignored`, puis applique les règles déterministes et le QC seulement aux blocs `unchecked`. Elle ne contacte pas le réseau. Pour forcer une retraduction Argos complète des blocs non revus, ajoute `--translate-argos`, mais seulement si l'environnement Argos/Stanza est déjà prêt hors ligne.
 
+Si tu as marqué des blocs en `review` parce que la détection était manifestement mauvaise, ajoute `--include-review` pour les rafraîchir aussi. Les blocs `edited`, `validated`, `ignored` et `sfx` restent protégés.
+
 ```powershell
 python -m cbz_manga_translator.analysis_export `
   --project C:\temp\...\mangatrad_corpus_project.reviewed.json `
