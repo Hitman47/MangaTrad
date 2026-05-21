@@ -1,0 +1,51 @@
+# Python bytecode/cache
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Packaging/build outputs
+build/
+dist/
+*.egg-info/
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Local IDE/editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Local manga/project data
+*.cbz
+*.cbr
+*.zip
+*.rar
+*.7z
+*.manga_translate_project.json
+exports/
+output/
+outputs/
+cache/
+data/cache/
+
+# Local model/cache folders if redirected into the project
+.easyocr/
+.huggingface/
+models/
+
+# Logs and temporary files
+*.log
+*.tmp
+*.bak
