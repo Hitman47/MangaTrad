@@ -102,3 +102,13 @@ def test_argos_local_translation_status_detects_pivot(monkeypatch) -> None:
     assert statuses["Argos en->fr"][0] is True
     assert statuses["Argos ja->fr"][0] is True
     assert "via pivot" in statuses["Argos ja->fr"][1]
+
+
+def test_argos_configure_device_uses_minisbd(monkeypatch) -> None:
+    import argostranslate.settings as settings
+
+    settings.chunk_type = settings.ChunkType.ARGOSTRANSLATE
+
+    ArgosTranslator._configure_device(use_gpu=False)
+
+    assert settings.chunk_type == settings.ChunkType.MINISBD

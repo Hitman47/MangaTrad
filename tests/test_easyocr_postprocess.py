@@ -58,3 +58,9 @@ def test_postprocess_can_keep_unmerged_blocks_when_requested() -> None:
 
 def test_candidate_quality_prefers_more_complete_dialogue() -> None:
     assert EasyOcrEngine._candidate_quality("GRAMMA LOOKY THAT", 0.51) > EasyOcrEngine._candidate_quality("GRAMMA; THAT;", 0.51)
+
+
+def test_cuda_out_of_memory_detection() -> None:
+    assert EasyOcrEngine._is_cuda_out_of_memory(RuntimeError("CUDA error: out of memory"))
+    assert EasyOcrEngine._is_cuda_out_of_memory(RuntimeError("cudaErrorMemoryAllocation"))
+    assert not EasyOcrEngine._is_cuda_out_of_memory(RuntimeError("file not found"))

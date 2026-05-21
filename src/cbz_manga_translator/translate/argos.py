@@ -77,6 +77,15 @@ class ArgosTranslator:
             os.environ.setdefault("ARGOS_DEVICE_TYPE", "cuda")
         else:
             os.environ.setdefault("ARGOS_DEVICE_TYPE", "cpu")
+        try:
+            import argostranslate.settings as argos_settings
+
+            # Avoid implicit Stanza downloads at translation time. MiniSBD ships
+            # with/cacheable local models and keeps MangaTrad's batch workflow
+            # local after the initial dependency/model setup.
+            argos_settings.chunk_type = argos_settings.ChunkType.MINISBD
+        except Exception:
+            pass
 
     @staticmethod
     def _argostranslate_modules() -> tuple[Any, Any]:

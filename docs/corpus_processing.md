@@ -80,6 +80,23 @@ Pour un tirage aléatoire reproductible :
 --limit-mode random --seed 47
 ```
 
+## Nouveau lot après une première review
+
+Pour continuer la review sans retomber sur les pages déjà corrigées, préférer un tirage aléatoire avec une nouvelle seed :
+
+```powershell
+python -m cbz_manga_translator.corpus_process `
+  --corpus C:\temp\mangatrad_corpus `
+  --out C:\temp\mangatrad_corpus_run_30_random_YYYYMMDD `
+  --source-lang en `
+  --limit 30 `
+  --limit-mode random `
+  --seed YYYYMMDD `
+  --force
+```
+
+`--limit-mode stratified` reste utile pour un premier échantillon équilibré, mais il peut reprendre les mêmes premières pages par série d'un lot à l'autre. Pour un deuxième lot ou les suivants, `random` avec une seed datée est le choix le plus pratique.
+
 ## Lecture du rapport
 
 Le CSV exporté contient maintenant `series_label` et `volume_label`. Le rapport Markdown contient aussi :

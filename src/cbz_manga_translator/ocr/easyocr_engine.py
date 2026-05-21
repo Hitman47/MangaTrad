@@ -354,6 +354,21 @@ class EasyOcrEngine:
             block.reading_order = order
         return blocks
 
+    @staticmethod
+    def _is_cuda_out_of_memory(exc: Exception) -> bool:
+        message = str(exc).lower()
+        return "cuda" in message and ("out of memory" in message or "memoryallocation" in message)
+
+    @staticmethod
+    def _clear_cuda_cache() -> None:
+        try:
+            import torch
+
+            if torch.cuda.is_available():
+                torch.cuda.empty_cache()
+        except Exception:
+            return
+
     def recognize(
         self,
         image_path: str | Path,
@@ -368,7 +383,15 @@ class EasyOcrEngine:
     ) -> list[OcrBlock]:
         image_path = Path(image_path)
         reader = self._reader(source_lang, use_gpu=use_gpu)
-        raw_results = reader.readtext(str(image_path), detail=1, paragraph=False)
+        try:
+            raw_results = reader.readtext(str(image_path), detail=1, paragraph=False)
+        except Exception as exc:
+            if not (use_gpu and self._is_cuda_out_of_memory(exc)):
+                raise
+            self._clear_cuda_cache()
+            reader = self._reader(source_lang, use_gpu=False)
+            raw_results = reader.readtext(str(image_path), detail=1, paragraph=False)
+            use_gpu = False
         blocks = self._postprocess_results(
             raw_results,
             source_lang=source_lang,
