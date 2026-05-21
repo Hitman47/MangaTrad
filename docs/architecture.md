@@ -10,7 +10,7 @@ Le projet doit rester modulaire pour pouvoir remplacer progressivement les briqu
 src/cbz_manga_translator/
   app.py                         GUI PySide6
   main.py                        CLI légère + lancement GUI
-  server.py                      serveur local Helsinki HTTP
+  server.py                      serveur local Argos HTTP optionnel
   core/
     cbz_reader.py                lecture CBZ/ZIP et tri naturel
     cache.py                     sauvegarde/chargement du cache JSON
@@ -23,7 +23,8 @@ src/cbz_manga_translator/
     tesseract_engine.py          backend optionnel
     paddleocr_engine.py          backend optionnel
   translate/
-    helsinki.py                  backend Helsinki local
+    argos.py                     backend Argos local
+    helsinki.py                  alias de compatibilité vers Argos
     local_server_client.py       client du serveur local
     english_dialogue_normalizer.py
     builtin_glossary.py

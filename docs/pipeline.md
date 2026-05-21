@@ -62,7 +62,7 @@ Inhook → unhook
 
 ### 5. Traduction
 
-`HelsinkiTranslator` utilise Helsinki-NLP localement. Pour certains cas déterministes, une traduction locale est préférée à Helsinki.
+`ArgosTranslator` utilise Argos Translate avec des modèles locaux installés sur la machine. Pour les anciens imports, `HelsinkiTranslator` reste un alias de compatibilité vers Argos, sans dépendance Hugging Face/Transformers/Helsinki-NLP.
 
 ### 6. Quality check
 
