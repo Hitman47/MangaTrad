@@ -3,6 +3,8 @@ from __future__ import annotations
 import re
 from dataclasses import dataclass
 
+from cbz_manga_translator.translate.memory import default_translation_memory
+
 _LATIN_LETTER_RE = re.compile(r"[A-Za-zÀ-ÖØ-öø-ÿ]")
 _JAPANESE_RE = re.compile(r"[ぁ-んァ-ン一-龯々ー]")
 _SPACE_BEFORE_PUNCT_RE = re.compile(r"\s+([,.;:!?])")
@@ -736,7 +738,10 @@ class EnglishDialogueNormalizer:
         if no_translate:
             return no_translate
         key = cls.canonical_key(normalized_text)
-        return _TRANSLATION_OVERRIDES.get(key, "")
+        builtin = _TRANSLATION_OVERRIDES.get(key, "")
+        if builtin:
+            return builtin
+        return default_translation_memory().lookup(key)
 
     @classmethod
     def prepare(cls, text: str, *, normalize_english: bool = True) -> DialoguePreparation:
