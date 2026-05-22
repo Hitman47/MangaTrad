@@ -162,3 +162,18 @@ def test_quality_flags_obvious_reviewed_ocr_confusion() -> None:
     warnings = TranslationQualityChecker().check_block(block)
 
     assert any("I must've fallen asleep" in warning for warning in warnings)
+
+
+def test_quality_flags_possible_fused_bubbles_from_review_notes() -> None:
+    block = OcrBlock(
+        id="b",
+        bbox=[0, 0, 1, 1],
+        source_lang="en",
+        ocr_text="They say you should live life counting the good things instead of the bad, don't they!? Like manga or songs.",
+        translation_fr="Ils disent que vous devriez vivre la vie. Comme manga ou chansons.",
+        confidence=0.9,
+    )
+
+    warnings = TranslationQualityChecker().check_block(block)
+
+    assert any("deux bulles" in warning or "fusion" in warning for warning in warnings)

@@ -177,3 +177,31 @@ def test_fourth_review_batch_punctuation_numbers_and_hyphenation_patterns() -> N
 
     particular = EnglishDialogueNormalizer.prepare("In PAR- Ticu- LAR:")
     assert particular.corrected_text == "In particular."
+
+
+def test_fifth_review_batch_punctuation_digits_hyphenation_and_sfx_patterns() -> None:
+    ceo = EnglishDialogueNormalizer.prepare("HE'S A Big-time Ceo_")
+    assert ceo.corrected_text == "HE'S A Big-time CEO"
+
+    dinner = EnglishDialogueNormalizer.prepare("A MEAL without MEAT ISN'T DINNERI")
+    assert dinner.corrected_text == "A MEAL without MEAT ISN'T dinner!"
+    assert dinner.override_translation_fr == "Un repas sans viande, ce n'est pas un vrai dîner !"
+
+    assert EnglishDialogueNormalizer.prepare("AND:. =").corrected_text == "AND..."
+    assert EnglishDialogueNormalizer.prepare("~But I Agree With The Other PARTS.").corrected_text == "...But I Agree With The Other PARTS."
+
+    ms = EnglishDialogueNormalizer.prepare("I MUST SHOW MS: ELIZABETH, MS: KAREN, AND MS: UNDINE.")
+    assert ms.corrected_text == "I must show ms. elizabeth, ms. karen, and ms. undine."
+
+    quest = EnglishDialogueNormalizer.prepare("WE'LL ACCEPT THIS QUEST,, ,")
+    assert quest.corrected_text == "we'll accept this quest..."
+
+    manufacturer = EnglishDialogueNormalizer.prepare("The RECEPTION ANDPOID At Mei's MANU- FACTURER TOLD ME")
+    assert manufacturer.normalized_text == "the reception android at Mei's manufacturer told me so."
+
+    stubborn = EnglishDialogueNormalizer.prepare("WHAT Ape yo4 TALKING Abolt? THIS IS No TIME To Be ACTING STUBBORNI")
+    assert stubborn.normalized_text == "what are you talking about? this is no time to be acting stubborn!"
+    assert stubborn.override_translation_fr == "Mais de quoi tu parles ? Ce n'est pas le moment de faire l'entêté !"
+
+    sfx = EnglishDialogueNormalizer.prepare("SLAP WE ALWAYS TAKE YOU OUT ON OUR QUESTS, RIGHT? WOBBLE")
+    assert sfx.corrected_text == "we always take you out on our quests, right?"

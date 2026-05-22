@@ -8,8 +8,8 @@ _JAPANESE_RE = re.compile(r"[ぁ-んァ-ン一-龯々ー]")
 _SPACE_BEFORE_PUNCT_RE = re.compile(r"\s+([,.;:!?])")
 _MULTI_SPACE_RE = re.compile(r"\s+")
 _SFX_EDGE_RE = re.compile(
-    r"^(whisper|sob|shock|jaka|sfx|bam|bang|boom|thud|clap|rustle|slam|tap|jolt|gasp)\b[.!?:, -]*"
-    r"|\s+\b(whisper|sob|shock|jaka|sfx|bam|bang|boom|thud|clap|rustle|slam|tap|jolt|gasp)[.!?:, -]*$",
+    r"^(whisper|sob|shock|jaka|sfx|bam|bang|boom|thud|clap|rustle|slam|tap|jolt|gasp|slap|wobble|yawn|sposh|flash|tremble|fidget|twitch|fwooo)\b[.!?:, -]*"
+    r"|\s+\b(whisper|sob|shock|jaka|sfx|bam|bang|boom|thud|clap|rustle|slam|tap|jolt|gasp|slap|wobble|yawn|sposh|flash|tremble|fidget|twitch|fwooo)[.!?:, -]*$",
     flags=re.IGNORECASE,
 )
 
@@ -46,6 +46,41 @@ _OCR_CORRECTIONS: tuple[tuple[re.Pattern[str], str], ...] = (
     (re.compile(r"\bgramma\b", flags=re.IGNORECASE), "grandma"),
     (re.compile(r"\bgranma\b", flags=re.IGNORECASE), "grandma"),
     (re.compile(r"\bgrampa\b", flags=re.IGNORECASE), "grandpa"),
+    (re.compile(r"\bcolrse\b", flags=re.IGNORECASE), "course"),
+    (re.compile(r"\bshlt\b", flags=re.IGNORECASE), "shut"),
+    (re.compile(r"\blp\b", flags=re.IGNORECASE), "up"),
+    (re.compile(r"\bceo\b", flags=re.IGNORECASE), "CEO"),
+    (re.compile(r"\babolt\b", flags=re.IGNORECASE), "about"),
+    (re.compile(r"\bolt\b", flags=re.IGNORECASE), "out"),
+    (re.compile(r"\bolr\b", flags=re.IGNORECASE), "our"),
+    (re.compile(r"\bape\b", flags=re.IGNORECASE), "are"),
+    (re.compile(r"\byo4\b", flags=re.IGNORECASE), "you"),
+    (re.compile(r"\bhupry\b", flags=re.IGNORECASE), "hurry"),
+    (re.compile(r"\bnoi\b", flags=re.IGNORECASE), "no!"),
+    (re.compile(r"\bim\b", flags=re.IGNORECASE), "I'm"),
+    (re.compile(r"\bive\b", flags=re.IGNORECASE), "I've"),
+    (re.compile(r"\byoure\b", flags=re.IGNORECASE), "you're"),
+    (re.compile(r"\bwhos\b", flags=re.IGNORECASE), "who's"),
+    (re.compile(r"\bitsa\b", flags=re.IGNORECASE), "it's a"),
+    (re.compile(r"\bsideby\b", flags=re.IGNORECASE), "side by"),
+    (re.compile(r"\bwth\b", flags=re.IGNORECASE), "with"),
+    (re.compile(r"\bjcan\b", flags=re.IGNORECASE), "I can"),
+    (re.compile(r"\bregllar\b", flags=re.IGNORECASE), "regular"),
+    (re.compile(r"\bvtal\b", flags=re.IGNORECASE), "vital"),
+    (re.compile(r"\bfpom\b", flags=re.IGNORECASE), "from"),
+    (re.compile(r"\bandpoid\b", flags=re.IGNORECASE), "android"),
+    (re.compile(r"\bbecalise\b", flags=re.IGNORECASE), "because"),
+    (re.compile(r"\bultimte\b", flags=re.IGNORECASE), "ultimate"),
+    (re.compile(r"\bmealth\b", flags=re.IGNORECASE), "health"),
+    (re.compile(r"\bbosse36\b", flags=re.IGNORECASE), "bosses..."),
+    (re.compile(r"\bhairstye\b", flags=re.IGNORECASE), "hairstyle"),
+    (re.compile(r"\bletis\b", flags=re.IGNORECASE), "let's"),
+    (re.compile(r"\bdinneri\b", flags=re.IGNORECASE), "dinner!"),
+    (re.compile(r"\breadyi\b", flags=re.IGNORECASE), "ready!"),
+    (re.compile(r"\bmonstersi\b", flags=re.IGNORECASE), "monsters!"),
+    (re.compile(r"\bstubborni\b", flags=re.IGNORECASE), "stubborn!"),
+    (re.compile(r"\bthreei\b", flags=re.IGNORECASE), "three!"),
+    (re.compile(r"\bmeii\b", flags=re.IGNORECASE), "me!!"),
     (re.compile(r"\blookv\b", flags=re.IGNORECASE), "looky"),
     (re.compile(r"\bloooky\b", flags=re.IGNORECASE), "looky"),
     (re.compile(r"\btho\b", flags=re.IGNORECASE), "though"),
@@ -170,6 +205,15 @@ _DIALOGUE_NORMALIZATIONS: tuple[tuple[re.Pattern[str], str], ...] = (
     (re.compile(r"\bif\s+one\s+ener\s+is\s+about\s+one\s+hundred\s+yen[:,.\s]*$", flags=re.IGNORECASE), "if one ener is about one hundred yen..."),
     (re.compile(r"^like\s+the\s+tune[.]?$", flags=re.IGNORECASE), "I Like The Tune."),
     (re.compile(r"^this\s+is\s+our[:.]+\s+first\s+date\s+after$", flags=re.IGNORECASE), "this is our... first date after all..."),
+    (re.compile(r"^wanna\s+eat\s+meat\s+too!$", flags=re.IGNORECASE), "I want to eat meat too!"),
+    (re.compile(r"^turning\s+25\s+this\s+year,\s+why\??$", flags=re.IGNORECASE), "I'm turning 25 this year, why?"),
+    (re.compile(r"^afraid\s+i\s+won['’]?t\s+know\s+anymore[,]?$", flags=re.IGNORECASE), "I'm afraid I won't know anymore"),
+    (re.compile(r"^shrank\??[,]?$", flags=re.IGNORECASE), "it shrank?"),
+    (re.compile(r"^so\s+all\s+of$", flags=re.IGNORECASE), "so all of us..."),
+    (re.compile(r"\bi\s+wonder\s+if\s+rui['’]?s\s+going\s+to\s+join$", flags=re.IGNORECASE), "I wonder if Rui's going to join me..."),
+    (re.compile(r"\bregular\s+foes\s+just\s+aren['’]?t\s+a\s+challenge\s+to\s+me$", flags=re.IGNORECASE), "regular foes just aren't a challenge to me anymore..."),
+    (re.compile(r"^toaceve\s+ultimate\s+health!$", flags=re.IGNORECASE), "...in order to achieve ultimate health!"),
+    (re.compile(r"^the\s+reception\s+android\s+at\s+mei['’]?s\s+manufacturer\s+told\s+me$", flags=re.IGNORECASE), "the reception android at Mei's manufacturer told me so."),
     (
         re.compile(r"\bi['’]?ve\s+acquired\s+a\s+discerning\s+eye\s+from\s+all\s+my\s+years\s+managing\s+an\s+exhibition\s+hall\b", flags=re.IGNORECASE),
         "I've acquired a discerning eye from all my years managing an exhibition hall",
@@ -288,6 +332,19 @@ _TRANSLATION_OVERRIDES: dict[str, str] = {
     "if one ener is about one hundred yen": "Si un ener coûte environ cent yens...",
     "and 150,000 for the intel on their base.": "Et 150 000 pour les infos sur leur base.",
     "i got 2,500,000 ener for the rare metals.": "J'ai obtenu 2 500 000 Ener pour les métaux rares.",
+    "a meal without meat isn't dinner!": "Un repas sans viande, ce n'est pas un vrai dîner !",
+    "i want to eat meat too!": "Moi aussi, je veux manger de la viande !",
+    "i question your definition of dinner": "Je remets en question ta définition du dîner.",
+    "in that case, let's go monster hunting!": "Dans ce cas, allons chasser les monstres !",
+    "but you like music, right?": "Mais tu aimes la musique, non ?",
+    "yeah, i guess i do...": "Ouais, je crois bien que oui...",
+    "i'm turning 25 this year, why?": "Je vais avoir 25 ans cette année, pourquoi ?",
+    "what are you talking about? this is no time to be acting stubborn!": "Mais de quoi tu parles ? Ce n'est pas le moment de faire l'entêté !",
+    "it's \"do nothing\"": "C'est « ne rien faire ».",
+    "specifically she's barred from providing any services to me beyond that of bodyguard": "Plus précisément, il lui est interdit de me fournir tout service autre que celui de garde du corps.",
+    "and mess with your memories": "et jouer avec tes souvenirs.",
+    "so someone roofied and kidnapped us?": "Alors quelqu'un nous a drogués et kidnappés ?",
+    "our moles are different too": "Nos grains de beauté sont différents eux aussi.",
 }
 
 # Bubbles that are normally better kept as manga interjections/SFX rather than
@@ -442,6 +499,7 @@ class EnglishDialogueNormalizer:
         corrected = cls.soften_all_caps(text)
         corrected = corrected.replace("’", "'").replace("`", "'").replace("´", "'")
         corrected = re.sub(r"[_]+", " ", corrected)
+        corrected = re.sub(r"^\s*~\s*", "...", corrected)
         if len(re.findall(r"[A-Za-z]+", corrected)) >= 5:
             previous = None
             while previous != corrected:
@@ -459,8 +517,15 @@ class EnglishDialogueNormalizer:
             corrected = pattern.sub(replacement, corrected)
         for pattern, replacement in _PRONOUN_CORRECTIONS:
             corrected = pattern.sub(replacement, corrected)
+        corrected = re.sub(r"\b(Ms|Mrs|Mr|Dr):(?=\s+[A-Z])", r"\1.", corrected, flags=re.IGNORECASE)
+        corrected = re.sub(r":\s*\.\.\.", "...", corrected)
+        corrected = re.sub(r"[:.]+\s*=$", "...", corrected)
+        corrected = re.sub(r"(?:,\s*){2,}$", "...", corrected)
+        corrected = re.sub(r"\s+-\s*$", "...", corrected)
         corrected = re.sub(r":\s*,?\s*\.$", "...", corrected)
         corrected = re.sub(r":\s*$", ".", corrected)
+        corrected = re.sub(r"\b([A-Za-z]{3,})I([.!?]*)$", lambda m: f"{m.group(1)}!{m.group(2)}", corrected)
+        corrected = re.sub(r"!([.!?]+)$", lambda m: "!" + m.group(1).replace(".", ""), corrected)
         return cls.compact(corrected)
 
     @classmethod

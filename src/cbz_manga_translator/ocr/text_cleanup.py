@@ -3,8 +3,8 @@ from __future__ import annotations
 import re
 
 _SFX_EDGE_RE = re.compile(
-    r"^(whisper|sob|shock|jaka|sfx|bam|bang|boom|thud|clap|rustle|slam|tap|jolt|gasp)\b[.!?:, -]*"
-    r"|\s+\b(whisper|sob|shock|jaka|sfx|bam|bang|boom|thud|clap|rustle|slam|tap|jolt|gasp)[.!?:, -]*$",
+    r"^(whisper|sob|shock|jaka|sfx|bam|bang|boom|thud|clap|rustle|slam|tap|jolt|gasp|slap|wobble|yawn|sposh|flash|tremble|fidget|twitch|fwooo)\b[.!?:, -]*"
+    r"|\s+\b(whisper|sob|shock|jaka|sfx|bam|bang|boom|thud|clap|rustle|slam|tap|jolt|gasp|slap|wobble|yawn|sposh|flash|tremble|fidget|twitch|fwooo)[.!?:, -]*$",
     flags=re.IGNORECASE,
 )
 
@@ -23,13 +23,31 @@ _APOSTROPHE_REPLACEMENTS = {
 
 _COMMON_OCR_WORD_FIXES: tuple[tuple[re.Pattern[str], str], ...] = (
     (re.compile(r"\bEnolgh\b", flags=re.IGNORECASE), "enough"),
+    (re.compile(r"\bcolrse\b", flags=re.IGNORECASE), "course"),
     (re.compile(r"\bFOLR\b", flags=re.IGNORECASE), "four"),
     (re.compile(r"\bFopm\b", flags=re.IGNORECASE), "form"),
     (re.compile(r"\bColld\b", flags=re.IGNORECASE), "could"),
+    (re.compile(r"\bAbolt\b", flags=re.IGNORECASE), "About"),
+    (re.compile(r"\bolt\b", flags=re.IGNORECASE), "out"),
+    (re.compile(r"\bOLR\b", flags=re.IGNORECASE), "OUR"),
+    (re.compile(r"\bShlt\b", flags=re.IGNORECASE), "Shut"),
+    (re.compile(r"\bLp\b", flags=re.IGNORECASE), "up"),
+    (re.compile(r"\bCeo\b", flags=re.IGNORECASE), "CEO"),
     (re.compile(r"\bALl\b"), "all"),
     (re.compile(r"\bAlll\b", flags=re.IGNORECASE), "all"),
+    (re.compile(r"\bApe\b", flags=re.IGNORECASE), "Are"),
+    (re.compile(r"\byo4\b", flags=re.IGNORECASE), "you"),
+    (re.compile(r"\bHupry\b", flags=re.IGNORECASE), "Hurry"),
     (re.compile(r"\bNOL\b", flags=re.IGNORECASE), "no"),
+    (re.compile(r"\bNOI\b", flags=re.IGNORECASE), "NO!"),
     (re.compile(r"\bCant\b", flags=re.IGNORECASE), "can't"),
+    (re.compile(r"\bIm\b", flags=re.IGNORECASE), "I'm"),
+    (re.compile(r"\bIll\b", flags=re.IGNORECASE), "I'll"),
+    (re.compile(r"\bIve\b", flags=re.IGNORECASE), "I've"),
+    (re.compile(r"\bYoure\b", flags=re.IGNORECASE), "You're"),
+    (re.compile(r"\bWhos\b", flags=re.IGNORECASE), "who's"),
+    (re.compile(r"\bITS\b", flags=re.IGNORECASE), "it's"),
+    (re.compile(r"\bIT'SA\b", flags=re.IGNORECASE), "IT'S A"),
     (re.compile(r"\bchabter\b", flags=re.IGNORECASE), "chapter"),
     (re.compile(r"\bReSpect\b"), "respect"),
     (re.compile(r"\bHlnger\b", flags=re.IGNORECASE), "hunger"),
@@ -69,6 +87,25 @@ _COMMON_OCR_WORD_FIXES: tuple[tuple[re.Pattern[str], str], ...] = (
     (re.compile(r"\bI50\b", flags=re.IGNORECASE), "150"),
     (re.compile(r"\b2Oth\b", flags=re.IGNORECASE), "20th"),
     (re.compile(r"\bSth\b", flags=re.IGNORECASE), "5th"),
+    (re.compile(r"\bsideby\b", flags=re.IGNORECASE), "side by"),
+    (re.compile(r"\bWth\b", flags=re.IGNORECASE), "With"),
+    (re.compile(r"\bJCAN\b", flags=re.IGNORECASE), "I CAN"),
+    (re.compile(r"\bRegllar\b", flags=re.IGNORECASE), "Regular"),
+    (re.compile(r"\bVTAL\b", flags=re.IGNORECASE), "vital"),
+    (re.compile(r"\bFPOM\b", flags=re.IGNORECASE), "from"),
+    (re.compile(r"\bANDPOID\b", flags=re.IGNORECASE), "android"),
+    (re.compile(r"\bBECALISE\b", flags=re.IGNORECASE), "because"),
+    (re.compile(r"\bULTIMTE\b", flags=re.IGNORECASE), "ULTIMATE"),
+    (re.compile(r"\bMEALTH\b", flags=re.IGNORECASE), "HEALTH"),
+    (re.compile(r"\bBOSSE36\b", flags=re.IGNORECASE), "bosses..."),
+    (re.compile(r"\bHAIRSTYE\b", flags=re.IGNORECASE), "hairstyle"),
+    (re.compile(r"\bLETIS\b", flags=re.IGNORECASE), "let's"),
+    (re.compile(r"\bDINNERI\b", flags=re.IGNORECASE), "DINNER!"),
+    (re.compile(r"\bREADYI\b", flags=re.IGNORECASE), "READY!"),
+    (re.compile(r"\bMONSTERSI\b", flags=re.IGNORECASE), "MONSTERS!"),
+    (re.compile(r"\bSTUBBORNI\b", flags=re.IGNORECASE), "STUBBORN!"),
+    (re.compile(r"\bThreei\b", flags=re.IGNORECASE), "Three!"),
+    (re.compile(r"\bMEII\b", flags=re.IGNORECASE), "ME!!"),
     (re.compile(r"\bNO\s+WAYI\b", flags=re.IGNORECASE), "no way!"),
     (re.compile(r"\bLNNECESSARY\b", flags=re.IGNORECASE), "unnecessary"),
     (re.compile(r"\bLNNECES\b", flags=re.IGNORECASE), "unnecessary"),
@@ -114,6 +151,8 @@ def normalize_spacing_and_punctuation(text: str) -> str:
     value = " ".join(str(text).replace("’", "'").strip().split())
     if not value:
         return ""
+    value = value.replace("_", " ")
+    value = re.sub(r"^\s*~\s*", "...", value)
     # OCR often inserts hyphens at line breaks: CIRCUM- STANCES, TRANS- FORMED, proper- ty.
     previous = None
     while previous != value:
@@ -127,6 +166,11 @@ def normalize_spacing_and_punctuation(text: str) -> str:
     value = re.sub(r"([!?.,;:])\s+([!?.,;:])", r"\1\2", value)
     value = re.sub(r"\.\s*\.\s*\.\s*", "...", value)
     value = re.sub(r"(?<!\.)\.\.(?!\.)", ".", value)
+    value = re.sub(r"\b(Ms|Mrs|Mr|Dr):(?=\s+[A-Z])", r"\1.", value, flags=re.IGNORECASE)
+    value = re.sub(r":\s*\.\.\.", "...", value)
+    value = re.sub(r"[:.]+\s*=$", "...", value)
+    value = re.sub(r"(?:,\s*){2,}$", "...", value)
+    value = re.sub(r"\s+-\s*$", "...", value)
     value = re.sub(r":\s*,?\s*\.$", "...", value)
     value = re.sub(r":\s*$", ".", value)
     return " ".join(value.split())
@@ -191,5 +235,7 @@ def normalize_ocr_text_for_translation(text: str) -> str:
         value = pattern.sub(replacement, value)
     for pattern, replacement in _CONTEXTUAL_OCR_FIXES:
         value = pattern.sub(replacement, value)
+    value = re.sub(r"\b([A-Za-z]{3,})I([.!?]*)$", lambda m: f"{m.group(1)}!{m.group(2)}", value)
+    value = re.sub(r"!([.!?]+)$", lambda m: "!" + m.group(1).replace(".", ""), value)
     value = normalize_english_ocr_casing(normalize_spacing_and_punctuation(value))
     return value

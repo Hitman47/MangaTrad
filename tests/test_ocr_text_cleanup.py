@@ -67,3 +67,14 @@ def test_fourth_review_batch_punctuation_numbers_and_hyphenation_examples() -> N
     assert normalize_ocr_text_for_translation("In PAR- Ticu- LAR:") == "In particular."
     assert normalize_ocr_text_for_translation("qualification t0 be here, our Iives") == "qualification to be here, our lives"
     assert normalize_ocr_text_for_translation("Feels Like The Kind OF Thing 4 High SCHOOL BOY would") == "Feels Like The Kind OF Thing a High SCHOOL BOY would"
+
+
+def test_fifth_review_batch_punctuation_digits_and_hyphenation_examples() -> None:
+    assert normalize_ocr_text_for_translation("HE'S A Big-time Ceo_") == "HE'S A Big-time CEO"
+    assert normalize_ocr_text_for_translation("A MEAL without MEAT ISN'T DINNERI") == "A MEAL without MEAT ISN'T DINNER!"
+    assert normalize_ocr_text_for_translation("AND:. =") == "AND..."
+    assert normalize_ocr_text_for_translation("~But I Agree With The Other PARTS.") == "...But I Agree With The Other PARTS."
+    assert normalize_ocr_text_for_translation("I MUST SHOW MS: ELIZABETH, MS: KAREN, AND MS: UNDINE.") == "I MUST SHOW MS. ELIZABETH, MS. KAREN, AND MS. UNDINE."
+    assert normalize_ocr_text_for_translation("WE'LL ACCEPT THIS QUEST,, ,") == "WE'LL ACCEPT THIS QUEST..."
+    assert normalize_ocr_text_for_translation("The RECEPTION ANDPOID At Mei's MANU- FACTURER TOLD ME") == "The RECEPTION android At Mei's MANUFACTURER TOLD ME"
+    assert normalize_ocr_text_for_translation("WHAT Ape yo4 TALKING Abolt? THIS IS No TIME To Be ACTING STUBBORNI") == "WHAT Are you TALKING About? THIS IS No TIME To Be ACTING STUBBORN!"

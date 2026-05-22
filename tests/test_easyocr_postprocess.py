@@ -81,6 +81,31 @@ def test_postprocess_keeps_sfx_labels_out_of_dialogue_merge() -> None:
     assert all("WHISPER" not in block.ocr_text for block in blocks if "WE ALWAYS" in block.ocr_text)
 
 
+def test_postprocess_keeps_reviewed_sfx_labels_out_of_dialogue_merge() -> None:
+    engine = EasyOcrEngine()
+    raw_results = [
+        (poly(100, 100, 230, 125), "ARE YOU MIS-", 0.88),
+        (poly(102, 132, 250, 158), "UNDERSTANDING", 0.86),
+        (poly(104, 165, 245, 190), "SOMETHING YOU", 0.84),
+        (poly(106, 198, 240, 222), "IDIOT?!", 0.83),
+        (poly(112, 65, 170, 85), "SLAP", 0.91),
+        (poly(255, 265, 315, 286), "TREMBLE", 0.91),
+    ]
+
+    blocks = engine._postprocess_results(
+        raw_results,
+        source_lang="en",
+        page_index=0,
+        min_confidence=0.35,
+        merge_lines=True,
+        filter_noise=True,
+    )
+
+    dialogue = [block.ocr_text for block in blocks if "IDIOT" in block.ocr_text]
+    assert dialogue == ["ARE YOU MIS- UNDERSTANDING SOMETHING YOU IDIOT?!"]
+    assert all("SLAP" not in text and "TREMBLE" not in text for text in dialogue)
+
+
 def test_candidate_quality_prefers_more_complete_dialogue() -> None:
     assert EasyOcrEngine._candidate_quality("GRAMMA LOOKY THAT", 0.51) > EasyOcrEngine._candidate_quality("GRAMMA; THAT;", 0.51)
 

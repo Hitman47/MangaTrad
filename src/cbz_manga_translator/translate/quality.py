@@ -218,6 +218,9 @@ class TranslationQualityChecker:
                 warnings.append("début de phrase possiblement manquant: vérifier la bulle précédente")
             if len(source_word_list) >= 4 and re.search(r"[A-Za-z0-9\"')]$", structure_source):
                 warnings.append("ponctuation finale possiblement manquante")
+            sentence_breaks = re.findall(r"[.!?][\"')\]]?(?=\s+[A-Z\"'])", structure_source)
+            if len(source_word_list) >= 14 and sentence_breaks:
+                warnings.append("bloc long avec plusieurs phrases: vérifier si deux bulles ont été fusionnées")
 
             for pattern, message in _OCR_CONFUSION_PATTERNS:
                 if pattern.search(source):
