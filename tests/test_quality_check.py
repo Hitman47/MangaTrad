@@ -255,3 +255,19 @@ def test_quality_prioritizes_ellipsis_zone_and_sfx_fusion_problems() -> None:
     )
     warnings = checker.check_block(fused)
     assert any("SFX" in warning and "fusion" in warning for warning in warnings)
+
+
+def test_quality_flags_manga_font_confusion_profile() -> None:
+    checker = TranslationQualityChecker()
+    block = OcrBlock(
+        id="font",
+        bbox=[0, 0, 10, 10],
+        source_lang="en",
+        ocr_text="ISN'T Lrabe COMING TODAY?",
+        translation_fr="Urabe ne vient pas aujourd'hui ?",
+        confidence=0.9,
+    )
+
+    warnings = checker.check_block(block)
+
+    assert any("fonte manga" in warning for warning in warnings)

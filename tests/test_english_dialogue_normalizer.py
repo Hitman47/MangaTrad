@@ -315,3 +315,14 @@ def test_replay_learned_intraword_ellipsis_and_short_fragment_normalization() ->
     assert EnglishDialogueNormalizer.prepare("they aren't making").normalized_text == "they aren't making a move..."
     assert EnglishDialogueNormalizer.prepare("fine,").normalized_text == "fine..."
     assert EnglishDialogueNormalizer.prepare("then").normalized_text == "then?"
+
+
+def test_manga_font_ul_i_bang_confusion_profile_in_normalizer() -> None:
+    assert EnglishDialogueNormalizer.prepare("ISN'T Lrabe COMING TODAY?").corrected_text == "isn't Urabe coming today?"
+    assert EnglishDialogueNormalizer.prepare("Now that You MEN... TIONED THE Previous Prez").corrected_text == "Now that You MENTIONED THE Previous Prez"
+    assert EnglishDialogueNormalizer.prepare("01, cut it Out al... Read!!").corrected_text == "Oi, cut it Out already!!"
+    assert EnglishDialogueNormalizer.prepare("Hehl I can feel The pressure From her magic! THAT'S A GREAT SAGE FOR Youl").corrected_text == "Heh! I can feel The pressure From her magic! THAT'S A GREAT SAGE FOR You!"
+    assert EnglishDialogueNormalizer.prepare("She was TRYING TO PROTECT Everyone Becalse the STAFF Went O4t OF CONTROL!").corrected_text == "She was TRYING TO PROTECT Everyone Because the STAFF Went Out OF CONTROL!"
+    assert EnglishDialogueNormalizer.prepare("WHAT 9i").corrected_text == "what?!"
+    assert EnglishDialogueNormalizer.prepare("YOU telling Me TO TURN A BLIND Eye? l").normalized_text == "You seriously telling me to turn a blind eye?!"
+    assert EnglishDialogueNormalizer.prepare("Should BE ONLY MATTER OF TIME Before all BETA ARE ELIMINATED.").normalized_text == "it should only be a matter of time before all beta are eliminated."

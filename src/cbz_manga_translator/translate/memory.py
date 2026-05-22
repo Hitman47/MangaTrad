@@ -29,6 +29,31 @@ def block_memory_source(block: OcrBlock) -> str:
     return (block.normalized_source_text or block.ocr_corrected_text or block.ocr_text).strip()
 
 
+def memory_source_aliases(source: str) -> set[str]:
+    aliases = {source}
+    try:
+        from cbz_manga_translator.ocr.text_cleanup import normalize_ocr_text_for_translation
+
+        aliases.add(normalize_ocr_text_for_translation(source))
+    except Exception:
+        pass
+    expanded: set[str] = set()
+    for item in aliases:
+        value = item
+        value = re.sub(r"\bgonna\b", "going to", value, flags=re.IGNORECASE)
+        value = re.sub(r"\bwanna\b", "want to", value, flags=re.IGNORECASE)
+        value = re.sub(r"\bwould['’]?ve\b", "would have", value, flags=re.IGNORECASE)
+        value = re.sub(r"\bcould['’]?ve\b", "could have", value, flags=re.IGNORECASE)
+        value = re.sub(r"\bshould['’]?ve\b", "should have", value, flags=re.IGNORECASE)
+        value = re.sub(r"\bi['’]?m\b", "I am", value, flags=re.IGNORECASE)
+        value = re.sub(r"\bi['’]?d\b", "I would", value, flags=re.IGNORECASE)
+        value = re.sub(r"\bi['’]?ll\b", "I will", value, flags=re.IGNORECASE)
+        value = re.sub(r"\bi['’]?ve\b", "I have", value, flags=re.IGNORECASE)
+        expanded.add(value)
+    aliases.update(expanded)
+    return {alias.strip() for alias in aliases if alias and alias.strip()}
+
+
 @dataclass(slots=True)
 class TranslationMemory:
     entries: dict[str, str]
@@ -132,12 +157,14 @@ def build_translation_memory(
                     continue
                 source = block_memory_source(block)
                 translation = (block.translation_fr or block.raw_translation_fr).strip()
-                key = canonical_memory_key(source)
-                if len(key) < min_source_chars or not translation:
+                keys = {canonical_memory_key(alias) for alias in memory_source_aliases(source)}
+                keys = {key for key in keys if len(key) >= min_source_chars}
+                if not keys or not translation:
                     continue
                 eligible_blocks += 1
-                buckets[key][translation] += 1
-                examples.setdefault(key, source)
+                for key in keys:
+                    buckets[key][translation] += 1
+                    examples.setdefault(key, source)
 
     entries: dict[str, str] = {}
     conflicts: dict[str, dict[str, int]] = {}

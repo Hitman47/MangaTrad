@@ -133,3 +133,18 @@ def test_replay_learned_intraword_ellipsis_and_short_fragment_repairs() -> None:
     assert normalize_ocr_text_for_translation("they aren't making") == "they aren't making a move..."
     assert normalize_ocr_text_for_translation("fine,") == "fine..."
     assert normalize_ocr_text_for_translation("then") == "then?"
+
+
+def test_manga_font_ul_i_bang_confusion_profile() -> None:
+    assert normalize_ocr_text_for_translation("ISN'T Lrabe COMING TODAY?") == "ISN'T Urabe COMING TODAY?"
+    assert normalize_ocr_text_for_translation("then? WHAT WOLLD have DONE?") == "then? WHAT would have DONE?"
+    assert normalize_ocr_text_for_translation("Now that You MEN... TIONED THE Previous Prez") == "Now that You MENTIONED THE Previous Prez"
+    assert normalize_ocr_text_for_translation("01, cut it Out al... Read!!") == "Oi, cut it Out already!!"
+    assert normalize_ocr_text_for_translation("Hehl I can feel The pressure From her magic! THAT'S A GREAT SAGE FOR Youl") == "Heh! I can feel The pressure From her magic! THAT'S A GREAT SAGE FOR You!"
+    assert normalize_ocr_text_for_translation("She was TRYING TO PROTECT Everyone Becalse the STAFF Went O4t OF CONTROL!") == "She was TRYING TO PROTECT Everyone Because the STAFF Went Out OF CONTROL!"
+    assert normalize_ocr_text_for_translation("WHAT 9i") == "WHAT?!"
+    assert normalize_ocr_text_for_translation("You Seriolsly Me Tellin' TO TURN BLIND A Eye? i") == "You Seriously Me Tellin' TO TURN BLIND A Eye? i"
+    assert normalize_ocr_text_for_translation("SHE'S NOT GONNA Supve MUCH LONGER ON HER OWN.") == "SHE'S NOT GONNA survive MUCH LONGER ON HER OWN."
+    assert normalize_ocr_text_for_translation("what kind of Shifty Tkinbs are You Doing In tke stl... DENT COLN...") == "what kind of Shifty THINGS are You Doing In the student COUNCIL"
+    assert normalize_ocr_text_for_translation("just kidding say anything was danserols here the previous president's ex... istence") == "just kidding say anything was dangerous here the previous president's existence"
+    assert normalize_ocr_text_for_translation("YOU telling Me TO TURN A BLIND Eye? l") == "YOU telling Me TO TURN A BLIND Eye? l"

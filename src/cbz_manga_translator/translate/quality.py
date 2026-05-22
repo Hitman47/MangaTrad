@@ -107,6 +107,15 @@ _OCR_CONFUSION_PATTERNS: tuple[tuple[re.Pattern[str], str], ...] = (
     (re.compile(r"\b(?:tslrlmi|napehouse|nestern|individlals)\b", flags=re.IGNORECASE), "OCR probable: token inconnu/rompu à vérifier"),
     (re.compile(r"\bbmusthvb\s+gallenl\s+asle+p\s+inifront\s+computers?\b", flags=re.IGNORECASE), "OCR évident: devrait être \"I must've fallen asleep in front of my computer\""),
     (re.compile(r"\b(?:rlpted|lnneces|hideolt|yol|iwas|idont|iguess|wolld|bizarpe|wopld|iaeely|lessil|evepy|theip|dsich|aohto|dollarman|thess|bmusthvb|gallenl|aslep|inifront|t0)\b", flags=re.IGNORECASE), "OCR probable: token appris du corpus à vérifier"),
+    (
+        re.compile(
+            r"\b(?:lrabe|colincil|colncil|wolld|becalse|o4t|youl|seriolsly|unapmed|supve|"
+            r"tkinbs|doine|kin[o0]a|dancepols|unneces+aqy|jols|s4y|men[.]{3}\s*tioned|"
+            r"st[ul][.]{3}\s*dent|exx?[.]{3}\s*istence|al[.]{3}\s*read|what\s+9i)\b",
+            flags=re.IGNORECASE,
+        ),
+        "profil fonte manga: confusion U/L/I/!/1 probable",
+    ),
 )
 
 _BAD_FRAGMENTS_RE = re.compile(r"\b(?:TOLD\s+YA|I\s+TOLD|WHAT\s+YA|NO\s+CLIMB|LOOKY|GRAMMA|TOID)\b", flags=re.IGNORECASE)

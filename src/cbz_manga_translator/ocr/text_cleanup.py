@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import re
 
+from cbz_manga_translator.ocr.manga_font import repair_manga_font_confusions
+
 _SFX_EDGE_RE = re.compile(
     r"^(whisper|sob|shock|jaka|sfx|bam|bang|boom|thud|clap|rustle|slam|tap|jolt|gasp|slap|wobble|yawn|sposh|flash|tremble|fidget|twitch|fwooo|nod|scribble)\b[.!?:, -]*"
     r"|\s+\b(whisper|sob|shock|jaka|sfx|bam|bang|boom|thud|clap|rustle|slam|tap|jolt|gasp|slap|wobble|yawn|sposh|flash|tremble|fidget|twitch|fwooo|nod|scribble)[.!?:, -]*$",
@@ -32,6 +34,7 @@ _ELLIPSIS_JOIN_WORDS = {
     "particular",
     "prepared",
     "serious",
+    "student",
     "someone",
     "troubling",
     "understand",
@@ -44,6 +47,7 @@ def _repair_intraword_ellipsis(text: str) -> str:
     value = re.sub(r"\b(mobu|miwako)[.]{3}\s*san\b", r"\1-san", text, flags=re.IGNORECASE)
     value = re.sub(r"\bpar[.]{3}\s*ticu[.]{3}\s*lar\b", "particular", value, flags=re.IGNORECASE)
     value = re.sub(r"\blnder[.]{3}\s*stand\b", "UNDERSTAND", value, flags=re.IGNORECASE)
+    value = repair_manga_font_confusions(value)
 
     def join_known(match: re.Match[str]) -> str:
         joined = f"{match.group(1)}{match.group(2)}"
@@ -293,6 +297,7 @@ def normalize_spacing_and_punctuation(text: str) -> str:
     value = re.sub(r"\?\s+!", "?!", value)
     value = re.sub(r"\.\s*\.\s*\.\s*", "...", value)
     value = _repair_intraword_ellipsis(value)
+    value = repair_manga_font_confusions(value)
     value = re.sub(r"\.\.\.(?=[A-Za-z])", lambda m: "..." if m.start() == 0 else "... ", value)
     value = re.sub(r"(?<!\.)\.\.(?!\.)", ".", value)
     value = re.sub(r"\b(Ms|Mrs|Mr|Dr):(?=\s+[A-Z])", r"\1.", value, flags=re.IGNORECASE)
@@ -364,6 +369,7 @@ def normalize_ocr_text_for_translation(text: str) -> str:
             value = normalize_spacing_and_punctuation(value)
     for pattern, replacement in _COMMON_OCR_WORD_FIXES:
         value = pattern.sub(replacement, value)
+    value = repair_manga_font_confusions(value)
     for pattern, replacement in _CONTEXTUAL_OCR_FIXES:
         value = pattern.sub(replacement, value)
     value = re.sub(r"\b([A-Za-z]{3,})I([.!?]*)$", lambda m: f"{m.group(1)}!{m.group(2)}", value)

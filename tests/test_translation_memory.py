@@ -11,6 +11,7 @@ from cbz_manga_translator.translate.memory import (
     build_translation_memory,
     canonical_memory_key,
     clear_translation_memory_cache,
+    memory_source_aliases,
     write_translation_memory,
 )
 
@@ -86,6 +87,12 @@ def test_memory_fuzzy_lookup_tolerates_small_ocr_noise() -> None:
     )
 
     assert memory.lookup("Jst who DO You Think I AM? I am Sonic Sodom, Yknow!") == "Mais pour qui me prends-tu ?"
+
+
+def test_memory_source_aliases_follow_current_ocr_repairs() -> None:
+    aliases = {canonical_memory_key(alias) for alias in memory_source_aliases("THINK About I, AN UNAPMED GIRL, IN A PLACE Like This. a.")}
+
+    assert "think about it. an unarmed girl, in a place like this. a" in aliases
 
 
 def test_argos_uses_memory_for_pre_normalized_blocks(tmp_path: Path, monkeypatch) -> None:

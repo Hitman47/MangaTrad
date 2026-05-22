@@ -3,6 +3,7 @@ from __future__ import annotations
 import re
 from dataclasses import dataclass
 
+from cbz_manga_translator.ocr.manga_font import repair_manga_font_confusions
 from cbz_manga_translator.translate.memory import default_translation_memory
 
 _LATIN_LETTER_RE = re.compile(r"[A-Za-zÀ-ÖØ-öø-ÿ]")
@@ -39,6 +40,7 @@ _ELLIPSIS_JOIN_WORDS = {
     "particular",
     "prepared",
     "serious",
+    "student",
     "someone",
     "troubling",
     "understand",
@@ -309,6 +311,12 @@ _DIALOGUE_NORMALIZATIONS: tuple[tuple[re.Pattern[str], str], ...] = (
     (re.compile(r"^ahh,$", flags=re.IGNORECASE), "AHH..."),
     (re.compile(r"\bremem\s+ber\b", flags=re.IGNORECASE), "remember"),
     (re.compile(r"\bihave\b", flags=re.IGNORECASE), "I have"),
+    (re.compile(r"^you\s+telling\s+me\s+to\s+turn\s+a\s+blind\s+eye\?\s*[li1]$", flags=re.IGNORECASE), "You seriously telling me to turn a blind eye?!"),
+    (re.compile(r"^think\s+about\s+it[,.]\s+an\s+unarmed\s+girl,\s+in\s+a\s+place\s+like\s+this[,.]?\s*a[.]?$", flags=re.IGNORECASE), "Think about it. an unarmed girl, in a place like this..."),
+    (re.compile(r"^it\s+should\s+only\s+be\s+matter\s+a\s+time\s+of\s+all\s+before\s+are\s+beta\s+eliminated[.]?$", flags=re.IGNORECASE), "it should only be a matter of time before all beta are eliminated."),
+    (re.compile(r"^should\s+be\s+only\s+matter\s+of\s+time\s+before\s+all\s+beta\s+are\s+eliminated[.]?$", flags=re.IGNORECASE), "it should only be a matter of time before all beta are eliminated."),
+    (re.compile(r"^therefore,?\s+we['’]?\s*ve\s+until\s+confirmed\s+the\s+eradication\s+all\s+beta\s+of\s+base\s+this\s+will\s+move\s+to\s+defcon\s+2[.]?$", flags=re.IGNORECASE), "therefore, until we've confirmed the eradication of all beta this base will move to defcon 2."),
+    (re.compile(r"^therefore,?\s+until\s+we['’]?ve\s+confirmed\s+the\s+eradication\s+of\s+all\s+beta\s+this\s+base\s+will\s+move\s+to\s+defcon\s+2[.]?$", flags=re.IGNORECASE), "therefore, until we've confirmed the eradication of all beta this base will move to defcon 2."),
     (re.compile(r"\bs0\s+many\s+here\s+already[:. ]+\s*w!\s*$", flags=re.IGNORECASE), "so many here already...!!"),
     (re.compile(r"\baaand,\s+it['’]?s\s+getting\s+worse[:. ]+$", flags=re.IGNORECASE), "aaand, it's getting worse..."),
     (re.compile(r"\bhe\s+hasn['’]?t\s+either,\s*$", flags=re.IGNORECASE), "he hasn't come today either."),
@@ -707,6 +715,7 @@ class EnglishDialogueNormalizer:
             fixed = re.sub(r"\b(mobu|miwako)[.]{3}\s*san\b", r"\1-san", fixed, flags=re.IGNORECASE)
             fixed = re.sub(r"\bpar[.]{3}\s*ticu[.]{3}\s*lar\b", "particular", fixed, flags=re.IGNORECASE)
             fixed = re.sub(r"\blnder[.]{3}\s*stand\b", "UNDERSTAND", fixed, flags=re.IGNORECASE)
+            fixed = repair_manga_font_confusions(fixed)
             fixed = re.sub(r"\b([A-Za-z]{2,})[.]{3}\s*([A-Za-z]{2,})\b", cls._join_intraword_ellipsis, fixed)
         return fixed
 
@@ -734,6 +743,7 @@ class EnglishDialogueNormalizer:
         corrected = re.sub(r"\bodfrom\b", "...from", corrected, flags=re.IGNORECASE)
         corrected = re.sub(r"\bWorldo\b", "World.", corrected, flags=re.IGNORECASE)
         corrected = re.sub(r"\b4\s+(?=high\s+school)\b", "a ", corrected, flags=re.IGNORECASE)
+        corrected = repair_manga_font_confusions(corrected)
         for pattern, replacement in _OCR_CORRECTIONS:
             corrected = pattern.sub(replacement, corrected)
         for pattern, replacement in _PRONOUN_CORRECTIONS:
