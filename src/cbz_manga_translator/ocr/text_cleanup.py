@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import re
 
+from cbz_manga_translator.ocr.ellipsis import repair_probable_dialogue_ellipsis
 from cbz_manga_translator.ocr.manga_font import repair_manga_font_confusions
 from cbz_manga_translator.ocr.memory import default_ocr_memory
 
@@ -310,6 +311,7 @@ def normalize_spacing_and_punctuation(text: str) -> str:
     value = re.sub(r"(?i)(?<=[A-Za-z])-$", "...", value)
     value = re.sub(r":\s*,?\s*\.$", "...", value)
     value = re.sub(r":\s*$", ".", value)
+    value = repair_probable_dialogue_ellipsis(value)
     return " ".join(value.split())
 
 

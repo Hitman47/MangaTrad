@@ -3,6 +3,7 @@ from __future__ import annotations
 import re
 from dataclasses import dataclass
 
+from cbz_manga_translator.ocr.ellipsis import repair_probable_dialogue_ellipsis
 from cbz_manga_translator.ocr.manga_font import repair_manga_font_confusions
 from cbz_manga_translator.ocr.memory import default_ocr_memory
 from cbz_manga_translator.translate.memory import default_translation_memory
@@ -780,6 +781,7 @@ class EnglishDialogueNormalizer:
         corrected = re.sub(r":\s*$", ".", corrected)
         corrected = re.sub(r"\b([A-Za-z]{3,})I([.!?]*)$", lambda m: f"{m.group(1)}!{m.group(2)}", corrected)
         corrected = re.sub(r"!([.!?]+)$", lambda m: "!" + m.group(1).replace(".", ""), corrected)
+        corrected = repair_probable_dialogue_ellipsis(corrected)
         return cls.compact(corrected)
 
     @classmethod
