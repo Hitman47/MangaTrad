@@ -115,6 +115,7 @@ def test_argos_configure_device_uses_minisbd(monkeypatch) -> None:
 
     assert settings.chunk_type == settings.ChunkType.MINISBD
     assert os.environ["ARGOS_DEVICE_TYPE"] == "cpu"
+    assert settings.device == "cpu"
 
 
 class _CudaFailTranslation:
@@ -142,3 +143,15 @@ def test_argos_translation_falls_back_to_cpu_on_cuda_oom(monkeypatch) -> None:
 
     assert calls == [True, False]
     assert block.translation_fr == "fr:Hello there"
+
+
+def test_argos_translation_keeps_source_when_cpu_retry_still_reports_cuda_oom(monkeypatch) -> None:
+    translator = ArgosTranslator()
+
+    monkeypatch.setattr(translator, "_translation_chain", lambda _source_lang, *, use_gpu: [_CudaFailTranslation()])
+    block = OcrBlock(id="b1", bbox=[0, 0, 10, 10], source_lang="en", ocr_text="Hello there")
+
+    translator.translate_blocks([block], "en", use_gpu=True)
+
+    assert block.translation_fr == "Hello there"
+    assert "Argos CUDA OOM" in block.quality_warnings[-1]

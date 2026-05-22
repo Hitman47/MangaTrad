@@ -46,3 +46,11 @@ def test_second_review_batch_ocr_cleanup_examples() -> None:
     assert normalize_ocr_text_for_translation("Victopy is Minel!") == "Victory is Mine!"
     assert normalize_ocr_text_for_translation("arb What saying? You") == "What are you saying?"
     assert normalize_ocr_text_for_translation("YOU'LL UNDER- STAND ONCE YOU DO!") == "YOU'LL UNDERSTAND ONCE YOU DO!"
+
+
+def test_third_review_batch_sfx_edges_and_ocr_cleanup_examples() -> None:
+    assert normalize_ocr_text_for_translation("WHISPER WE ALWAYS TAKE YOU OUT ON OUR QUESTS, RIGHT? WHISPER") == "WE ALWAYS TAKE YOU OUT ON OUR QUESTS, RIGHT?"
+    assert normalize_ocr_text_for_translation("Fop Singing") == "For Singing"
+    assert normalize_ocr_text_for_translation("Fljimura-kln") == "Fujimura-kun"
+    assert normalize_ocr_text_for_translation("WHAAAI?") == "WHAAAT?"
+    assert normalize_ocr_text_for_translation("BREASTSI!") == "breasts!!"

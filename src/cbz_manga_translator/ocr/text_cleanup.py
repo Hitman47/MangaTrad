@@ -2,6 +2,12 @@ from __future__ import annotations
 
 import re
 
+_SFX_EDGE_RE = re.compile(
+    r"^(whisper|sob|shock|jaka|sfx|bam|bang|boom|thud|clap|rustle|slam|tap|jolt|gasp)\b[.!?:, -]*"
+    r"|\s+\b(whisper|sob|shock|jaka|sfx|bam|bang|boom|thud|clap|rustle|slam|tap|jolt|gasp)[.!?:, -]*$",
+    flags=re.IGNORECASE,
+)
+
 _WORD_RE = re.compile(r"[A-Za-z][A-Za-z'’.-]*")
 _APOSTROPHE_REPLACEMENTS = {
     "i'm": "I'm",
@@ -42,6 +48,16 @@ _COMMON_OCR_WORD_FIXES: tuple[tuple[re.Pattern[str], str], ...] = (
     (re.compile(r"\bVictopy\b", flags=re.IGNORECASE), "Victory"),
     (re.compile(r"\bMinel!?", flags=re.IGNORECASE), "Mine!"),
     (re.compile(r"\bPlnk\b", flags=re.IGNORECASE), "Punk"),
+    (re.compile(r"\bPlink\b", flags=re.IGNORECASE), "Punk"),
+    (re.compile(r"\bFop\b", flags=re.IGNORECASE), "For"),
+    (re.compile(r"\bTOOI\b", flags=re.IGNORECASE), "too!"),
+    (re.compile(r"\bCAREFLL\b", flags=re.IGNORECASE), "careful"),
+    (re.compile(r"\bNLISANCE\b", flags=re.IGNORECASE), "nuisance"),
+    (re.compile(r"\bFljimura-kln\b", flags=re.IGNORECASE), "Fujimura-kun"),
+    (re.compile(r"\bTholght\b", flags=re.IGNORECASE), "thought"),
+    (re.compile(r"\bWMP[o0]RTANT\b", flags=re.IGNORECASE), "IMPORTANT"),
+    (re.compile(r"\bWHAAAI\b", flags=re.IGNORECASE), "WHAAAT"),
+    (re.compile(r"\bBREASTSI!?", flags=re.IGNORECASE), "breasts!!"),
     (re.compile(r"\bNO\s+WAYI\b", flags=re.IGNORECASE), "no way!"),
     (re.compile(r"\bLNNECESSARY\b", flags=re.IGNORECASE), "unnecessary"),
     (re.compile(r"\bLNNECES\b", flags=re.IGNORECASE), "unnecessary"),
@@ -61,6 +77,10 @@ _CONTEXTUAL_OCR_FIXES: tuple[tuple[re.Pattern[str], str], ...] = (
     (re.compile(r"\bI\s+know\s+1\s+have\b", flags=re.IGNORECASE), "I know I have"),
     (re.compile(r"\bI\s+HAVE\s+No\b", flags=re.IGNORECASE), "I have no"),
     (re.compile(r"\bMY\s+MIND\s+WAS\s+With\s+Hunger\b", flags=re.IGNORECASE), "my mind was with hunger"),
+    (re.compile(r"\bmis-\s*UNDERSTAND-\s*ing\b", flags=re.IGNORECASE), "misunderstanding"),
+    (re.compile(r"\bSome-\s*Thing\b", flags=re.IGNORECASE), "something"),
+    (re.compile(r"\bTROU-\s*bling\b", flags=re.IGNORECASE), "troubling"),
+    (re.compile(r"\bYester-\s*DAY\b", flags=re.IGNORECASE), "yesterday"),
     (re.compile(r"\barb\s+What\s+saying\??\s+You\b", flags=re.IGNORECASE), "What are you saying?"),
     (re.compile(r"\bWHAT\s+Is\s+THAT\?\s+I\b", flags=re.IGNORECASE), "what is that?!"),
     (re.compile(r"\bMAKE\s+A\s+RUN\s+FOR\s+It,?\s*$", flags=re.IGNORECASE), "make a run for it, you two."),
@@ -134,6 +154,12 @@ def normalize_english_ocr_casing(text: str) -> str:
 
 def normalize_ocr_text_for_translation(text: str) -> str:
     value = normalize_english_ocr_casing(normalize_spacing_and_punctuation(text))
+    if len(_WORD_RE.findall(value)) >= 5:
+        previous = None
+        while previous != value:
+            previous = value
+            value = _SFX_EDGE_RE.sub("", value).strip()
+            value = normalize_spacing_and_punctuation(value)
     for pattern, replacement in _COMMON_OCR_WORD_FIXES:
         value = pattern.sub(replacement, value)
     for pattern, replacement in _CONTEXTUAL_OCR_FIXES:

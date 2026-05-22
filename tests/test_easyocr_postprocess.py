@@ -56,6 +56,31 @@ def test_postprocess_can_keep_unmerged_blocks_when_requested() -> None:
     assert blocks[0].id == "p0003_b0000"
 
 
+def test_postprocess_keeps_sfx_labels_out_of_dialogue_merge() -> None:
+    engine = EasyOcrEngine()
+    raw_results = [
+        (poly(100, 100, 230, 125), "WE ALWAYS", 0.88),
+        (poly(102, 132, 250, 158), "TAKE YOU", 0.86),
+        (poly(104, 165, 245, 190), "OUT ON OUR", 0.84),
+        (poly(106, 198, 240, 222), "QUESTS,", 0.83),
+        (poly(108, 230, 245, 255), "RIGHT?", 0.82),
+        (poly(112, 65, 170, 85), "WHISPER", 0.91),
+        (poly(255, 265, 315, 286), "WHISPER", 0.91),
+    ]
+
+    blocks = engine._postprocess_results(
+        raw_results,
+        source_lang="en",
+        page_index=0,
+        min_confidence=0.35,
+        merge_lines=True,
+        filter_noise=True,
+    )
+
+    assert "WE ALWAYS TAKE YOU OUT ON OUR QUESTS, RIGHT?" in [block.ocr_text for block in blocks]
+    assert all("WHISPER" not in block.ocr_text for block in blocks if "WE ALWAYS" in block.ocr_text)
+
+
 def test_candidate_quality_prefers_more_complete_dialogue() -> None:
     assert EasyOcrEngine._candidate_quality("GRAMMA LOOKY THAT", 0.51) > EasyOcrEngine._candidate_quality("GRAMMA; THAT;", 0.51)
 

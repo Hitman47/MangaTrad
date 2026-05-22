@@ -25,7 +25,7 @@ def test_review_app_decision_help_mentions_all_decisions():
 
 def test_correction_button_behavior_is_documented():
     assert "ne sauvegarde jamais" in CORRECTION_MODE_HELP or "sans sauvegarde" in CORRECTION_MODE_HELP
-    assert "Ctrl+Entrée" in CORRECTION_MODE_HELP
+    assert "Sauvegarder seulement" in CORRECTION_MODE_HELP
 
 
 def test_review_workbench_help_mentions_safe_workflow():

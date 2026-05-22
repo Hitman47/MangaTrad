@@ -7,6 +7,11 @@ _LATIN_LETTER_RE = re.compile(r"[A-Za-zÀ-ÖØ-öø-ÿ]")
 _JAPANESE_RE = re.compile(r"[ぁ-んァ-ン一-龯々ー]")
 _SPACE_BEFORE_PUNCT_RE = re.compile(r"\s+([,.;:!?])")
 _MULTI_SPACE_RE = re.compile(r"\s+")
+_SFX_EDGE_RE = re.compile(
+    r"^(whisper|sob|shock|jaka|sfx|bam|bang|boom|thud|clap|rustle|slam|tap|jolt|gasp)\b[.!?:, -]*"
+    r"|\s+\b(whisper|sob|shock|jaka|sfx|bam|bang|boom|thud|clap|rustle|slam|tap|jolt|gasp)[.!?:, -]*$",
+    flags=re.IGNORECASE,
+)
 
 _ING_EXCEPTIONS = {
     "doin": "doing",
@@ -75,6 +80,16 @@ _OCR_CORRECTIONS: tuple[tuple[re.Pattern[str], str], ...] = (
     (re.compile(r"\bvictopy\b", flags=re.IGNORECASE), "victory"),
     (re.compile(r"\bminel!?", flags=re.IGNORECASE), "mine!"),
     (re.compile(r"\bplnk\b", flags=re.IGNORECASE), "punk"),
+    (re.compile(r"\bplink\b", flags=re.IGNORECASE), "punk"),
+    (re.compile(r"\bfop\b", flags=re.IGNORECASE), "for"),
+    (re.compile(r"\btooi\b", flags=re.IGNORECASE), "too!"),
+    (re.compile(r"\bcarefll\b", flags=re.IGNORECASE), "careful"),
+    (re.compile(r"\bnlisance\b", flags=re.IGNORECASE), "nuisance"),
+    (re.compile(r"\bfljimura-kln\b", flags=re.IGNORECASE), "Fujimura-kun"),
+    (re.compile(r"\btholght\b", flags=re.IGNORECASE), "thought"),
+    (re.compile(r"\bwmp[o0]rtant\b", flags=re.IGNORECASE), "important"),
+    (re.compile(r"\bwha+a+i\b", flags=re.IGNORECASE), "whaaat"),
+    (re.compile(r"\bbreastsi\b", flags=re.IGNORECASE), "breasts!!"),
     (re.compile(r"\bno\s+wayi\b", flags=re.IGNORECASE), "no way!"),
     (re.compile(r"\bt0\b", flags=re.IGNORECASE), "to"),
     (re.compile(r"\bpeallyi\b", flags=re.IGNORECASE), "really"),
@@ -135,6 +150,8 @@ _DIALOGUE_NORMALIZATIONS: tuple[tuple[re.Pattern[str], str], ...] = (
     (re.compile(r"\bwhat\s+is\s+that\?\s+i\b", flags=re.IGNORECASE), "what is that?!"),
     (re.compile(r"\bmake\s+a\s+run\s+for\s+it[,]?\s*$", flags=re.IGNORECASE), "make a run for it, you two."),
     (re.compile(r"\bwe\s+here\s+for\s+miss\s+natsuko\s+and[:.,\s]*$", flags=re.IGNORECASE), "we are here for miss natsuko and..."),
+    (re.compile(r"^like\s+the\s+tune[.]?$", flags=re.IGNORECASE), "I Like The Tune."),
+    (re.compile(r"^this\s+is\s+our[:.]+\s+first\s+date\s+after$", flags=re.IGNORECASE), "this is our... first date after all..."),
     (
         re.compile(r"\bi['’]?ve\s+acquired\s+a\s+discerning\s+eye\s+from\s+all\s+my\s+years\s+managing\s+an\s+exhibition\s+hall\b", flags=re.IGNORECASE),
         "I've acquired a discerning eye from all my years managing an exhibition hall",
@@ -235,6 +252,15 @@ _TRANSLATION_OVERRIDES: dict[str, str] = {
     "now...": "Maintenant...",
     "you'll understand once you do!": "Vous comprendrez quand vous le ferez !",
     "you'll understand once you do": "Vous comprendrez quand vous le ferez !",
+    "you two wait here": "Attendez ici, vous deux.",
+    "i like the tune": "J'aime bien cette mélodie.",
+    "it's a good tune": "C'est un bon son.",
+    "this is our... first date after all...": "Après tout, c'est notre... premier rendez-vous...",
+    "this is our... first date after all": "Après tout, c'est notre... premier rendez-vous...",
+    "i'll help right now!": "Je vais t'aider tout de suite !",
+    "oh...about that": "Oh... À ce propos...",
+    "there's nothing": "Il n'y a rien.",
+    "i like breasts!!": "J'aime les seins !!",
 }
 
 # Bubbles that are normally better kept as manga interjections/SFX rather than
@@ -359,6 +385,10 @@ class EnglishDialogueNormalizer:
             (re.compile(r"\bun(?:ne)?ces-\s*sary\b", flags=re.IGNORECASE), "unnecessary"),
             (re.compile(r"\btrans-\s*formed\b", flags=re.IGNORECASE), "transformed"),
             (re.compile(r"\bstrong-\s*est\b", flags=re.IGNORECASE), "strongest"),
+            (re.compile(r"\bmis-\s*understand-\s*ing\b", flags=re.IGNORECASE), "misunderstanding"),
+            (re.compile(r"\bsome-\s*thing\b", flags=re.IGNORECASE), "something"),
+            (re.compile(r"\btrou-\s*bling\b", flags=re.IGNORECASE), "troubling"),
+            (re.compile(r"\byester-\s*day\b", flags=re.IGNORECASE), "yesterday"),
         )
         for pattern, replacement in replacements:
             fixed = pattern.sub(replacement, fixed)
@@ -379,6 +409,11 @@ class EnglishDialogueNormalizer:
         corrected = cls.soften_all_caps(text)
         corrected = corrected.replace("’", "'").replace("`", "'").replace("´", "'")
         corrected = re.sub(r"[_]+", " ", corrected)
+        if len(re.findall(r"[A-Za-z]+", corrected)) >= 5:
+            previous = None
+            while previous != corrected:
+                previous = corrected
+                corrected = _SFX_EDGE_RE.sub("", corrected).strip()
         # EasyOCR sometimes returns semicolons inside simple dialogue where the
         # image has commas/periods. Avoid overusing this on numeric/symbol text.
         if re.search(r"[A-Za-z]", corrected):

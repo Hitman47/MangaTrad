@@ -61,23 +61,6 @@ Le bouton `SFX` écrit le statut technique `ignored`, mais conserve l'intention 
 
 La recherche couvre maintenant le texte OCR/source/traduction, l'identifiant du bloc, les warnings QC, les alternatives visibles et les notes reviewer.
 
-## Raccourcis
-
-```text
-V              valider OK
-C              mode correction, sans sauvegarde immédiate
-S              SFX
-I              ignorer
-R              à revoir
-Ctrl+Entrée    enregistrer + suivant
-Espace         suivant
-Backspace      précédent
-Ctrl+S         sauvegarder
-Ctrl++         zoom avant
-Ctrl+-         zoom arrière
-Ctrl+0         zoom 100%
-```
-
 ## Protection contre les pertes
 
 Si tu modifies un champ puis sélectionnes un autre bloc, l'application demande quoi faire :

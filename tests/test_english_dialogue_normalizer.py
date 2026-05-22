@@ -141,3 +141,16 @@ def test_second_review_batch_learned_patterns() -> None:
     understand = EnglishDialogueNormalizer.prepare("YOU'LL UNDER- STAND ONCE YOU DO!")
     assert understand.normalized_text == "you'll understand once you do!"
     assert understand.override_translation_fr == "Vous comprendrez quand vous le ferez !"
+
+
+def test_third_review_batch_learned_patterns_and_sfx_edges() -> None:
+    whisper = EnglishDialogueNormalizer.prepare("WHISPER WE ALWAYS TAKE YOU OUT ON OUR QUESTS, RIGHT? WHISPER")
+    assert whisper.corrected_text == "we always take you out on our quests, right?"
+
+    tune = EnglishDialogueNormalizer.prepare("Like The Tune.")
+    assert tune.normalized_text == "I Like The Tune."
+    assert tune.override_translation_fr == "J'aime bien cette mélodie."
+
+    date = EnglishDialogueNormalizer.prepare("THIS IS OUR:. FIRST DATE AFTER")
+    assert date.normalized_text == "this is our... first date after all..."
+    assert date.override_translation_fr == "Après tout, c'est notre... premier rendez-vous..."

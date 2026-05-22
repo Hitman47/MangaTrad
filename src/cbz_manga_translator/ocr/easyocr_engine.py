@@ -12,6 +12,10 @@ from cbz_manga_translator.ocr.text_cleanup import normalize_ocr_text_for_transla
 _TEXT_CHAR_RE = re.compile(r"[A-Za-zÀ-ÖØ-öø-ÿ0-9ぁ-んァ-ン一-龯々ー]")
 _LETTER_RE = re.compile(r"[A-Za-zÀ-ÖØ-öø-ÿぁ-んァ-ン一-龯々]")
 _NOISE_ONLY_RE = re.compile(r"^[0-9\s<>{}\[\]().,;:!?/\\|_+*=~`'\"-]+$")
+_SFX_LABEL_RE = re.compile(
+    r"^(?:whisper|sob|shock|jaka|sfx|bam|bang|boom|thud|clap|rustle|slam|tap|tch|ugh|huh|hey|yeah|jolt|gasp)[.!?:, -]*$",
+    flags=re.IGNORECASE,
+)
 
 
 class EasyOcrEngine:
@@ -119,6 +123,11 @@ class EasyOcrEngine:
         return False
 
     @staticmethod
+    def _looks_like_sfx_label(text: str) -> bool:
+        compact = " ".join(str(text).strip().split())
+        return bool(compact and _SFX_LABEL_RE.fullmatch(compact))
+
+    @staticmethod
     def _line_sort_key(block: OcrBlock, source_lang: SourceLang) -> tuple[float, float]:
         cx, cy = EasyOcrEngine._bbox_center(block.bbox)
         # English text inside localized editions generally reads left-to-right.
@@ -128,6 +137,11 @@ class EasyOcrEngine:
 
     @staticmethod
     def _can_merge(group: list[OcrBlock], block: OcrBlock) -> bool:
+        group_has_sfx = any(EasyOcrEngine._looks_like_sfx_label(item.ocr_text) for item in group)
+        block_is_sfx = EasyOcrEngine._looks_like_sfx_label(block.ocr_text)
+        if group_has_sfx != block_is_sfx:
+            return False
+
         group_bbox = EasyOcrEngine._bbox_union(group)
         bbox = block.bbox
         avg_line_height = sum(EasyOcrEngine._bbox_height(item.bbox) for item in group + [block]) / (len(group) + 1)

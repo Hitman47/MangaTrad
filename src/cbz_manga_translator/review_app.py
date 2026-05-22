@@ -25,9 +25,7 @@ DECISION_HELP_TEXT = """Décisions rapides :
 - correct : OCR/source/traduction corrigé(e).
 - review : doute, à revoir plus tard.
 - ignore : bloc inutile / parasite.
-- sfx : bruit, onomatopée, effet sonore.
-
-Raccourcis : V valider · C mode correction · S SFX · I ignorer · R à revoir · Ctrl+Entrée enregistrer + suivant."""
+- sfx : bruit, onomatopée, effet sonore."""
 
 REVIEW_FIELD_LABELS = {
     "ocr_raw": "OCR brut — lecture machine, non modifiable",
@@ -43,7 +41,7 @@ REVIEW_FIELD_LABELS = {
 CORRECTION_MODE_HELP = (
     "Mode correction actif : les champs modifiables sont à droite de chaque source. "
     "Corrige uniquement ce qui est nécessaire, puis utilise ‘Enregistrer correction + suivant’ "
-    "ou Ctrl+Entrée. Le bouton Correction ne sauvegarde jamais tout seul."
+    "ou ‘Sauvegarder seulement’. Le bouton Correction ne sauvegarde jamais tout seul."
 )
 
 REVIEW_WORKBENCH_HELP = (
@@ -79,7 +77,7 @@ def _qt():
     if _LazyQt.QApplication is not None:
         return _LazyQt
     from PySide6.QtCore import Qt, QRectF, QSize
-    from PySide6.QtGui import QAction, QColor, QFont, QKeySequence, QPainter, QPen, QPixmap, QShortcut
+    from PySide6.QtGui import QAction, QColor, QFont, QPainter, QPen, QPixmap
     from PySide6.QtWidgets import (
         QApplication,
         QComboBox,
@@ -107,11 +105,9 @@ def _qt():
     _LazyQt.QAction = QAction
     _LazyQt.QColor = QColor
     _LazyQt.QFont = QFont
-    _LazyQt.QKeySequence = QKeySequence
     _LazyQt.QPainter = QPainter
     _LazyQt.QPen = QPen
     _LazyQt.QPixmap = QPixmap
-    _LazyQt.QShortcut = QShortcut
     _LazyQt.QApplication = QApplication
     _LazyQt.QComboBox = QComboBox
     _LazyQt.QFileDialog = QFileDialog
@@ -259,7 +255,6 @@ class ReviewWindow(_QT_MAINWINDOW_BASE):
         splitter.setSizes([300, 470, 590])
         self.setCentralWidget(splitter)
         self._build_menu()
-        self._build_shortcuts()
         self._apply_review_style()
 
         if project_path:
@@ -293,13 +288,13 @@ class ReviewWindow(_QT_MAINWINDOW_BASE):
 
         controls = q.QHBoxLayout()
         zoom_out = q.QPushButton("-")
-        zoom_out.setToolTip("Zoom arrière (Ctrl+-)")
+        zoom_out.setToolTip("Zoom arrière")
         zoom_out.clicked.connect(self.zoom_out)
         zoom_in = q.QPushButton("+")
-        zoom_in.setToolTip("Zoom avant (Ctrl++)")
+        zoom_in.setToolTip("Zoom avant")
         zoom_in.clicked.connect(self.zoom_in)
         zoom_reset = q.QPushButton("100%")
-        zoom_reset.setToolTip("Revenir au zoom normal (Ctrl+0)")
+        zoom_reset.setToolTip("Revenir au zoom normal")
         zoom_reset.clicked.connect(self.reset_zoom)
         zoom_fit = q.QPushButton("Adapter")
         zoom_fit.setToolTip("Adapter la page au panneau")
@@ -443,30 +438,9 @@ class ReviewWindow(_QT_MAINWINDOW_BASE):
         open_action = q.QAction("Ouvrir projet", self)
         open_action.triggered.connect(self.open_project_dialog)
         save_action = q.QAction("Sauvegarder", self)
-        save_action.setShortcut(q.QKeySequence.StandardKey.Save)
         save_action.triggered.connect(self.save_current)
         menu.addAction(open_action)
         menu.addAction(save_action)
-
-    def _build_shortcuts(self) -> None:
-        q = _qt()
-        mapping = {
-            "V": "validate",
-            "C": "start_correct",
-            "S": "sfx",
-            "I": "ignore",
-            "R": "review",
-            "Ctrl+Return": "save_next",
-            "Space": "next_only",
-            "Backspace": "prev_only",
-            "Ctrl++": "zoom_in",
-            "Ctrl+=": "zoom_in",
-            "Ctrl+-": "zoom_out",
-            "Ctrl+0": "zoom_reset",
-        }
-        for key, decision in mapping.items():
-            shortcut = q.QShortcut(q.QKeySequence(key), self)
-            shortcut.activated.connect(lambda d=decision: self.apply_decision(d))
 
     def _text_area(self, *, readonly: bool, min_height: int):
         q = _qt()
@@ -743,7 +717,7 @@ class ReviewWindow(_QT_MAINWINDOW_BASE):
         self.action_status.setText(CORRECTION_MODE_HELP)
         self.translation_corrected.setFocus()
         self.translation_corrected.selectAll()
-        self.statusBar().showMessage("Mode correction actif — modifie les champs puis Ctrl+Entrée ou Enregistrer correction + suivant.", 5000)
+        self.statusBar().showMessage("Mode correction actif — modifie les champs puis utilise une action explicite.", 5000)
 
     def zoom_in(self) -> None:
         self._set_image_zoom(self.image_view.zoom() * 1.25)

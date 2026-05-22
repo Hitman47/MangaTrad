@@ -84,6 +84,7 @@ class ArgosTranslator:
             # with/cacheable local models and keeps MangaTrad's batch workflow
             # local after the initial dependency/model setup.
             argos_settings.chunk_type = argos_settings.ChunkType.MINISBD
+            argos_settings.device = "cuda" if use_gpu else "cpu"
         except Exception:
             pass
 
@@ -398,8 +399,15 @@ class ArgosTranslator:
                     raise
                 self._clear_cuda_cache()
                 active_gpu = False
+                self._translation_cache.pop((source_lang, self.TARGET_LANG, True), None)
+                self._translation_cache.pop((source_lang, self.TARGET_LANG, False), None)
                 chain = self._translation_chain(source_lang, use_gpu=False)
-                results[index] = prepared.restore(self._translate_with_chain(prepared.text, chain))
+                try:
+                    results[index] = prepared.restore(self._translate_with_chain(prepared.text, chain))
+                except Exception as retry_exc:
+                    if not self._is_cuda_out_of_memory(retry_exc):
+                        raise
+                    results[index] = prepared.restore(prepared.text)
         return results
 
     @staticmethod
@@ -478,8 +486,16 @@ class ArgosTranslator:
                         raise
                     self._clear_cuda_cache()
                     active_gpu = False
+                    self._translation_cache.pop((source_lang, self.TARGET_LANG, True), None)
+                    self._translation_cache.pop((source_lang, self.TARGET_LANG, False), None)
                     chain = self._translation_chain(source_lang, use_gpu=False)
-                    restored_raw = prepared.restore(self._translate_with_chain(prepared.text, chain))
+                    try:
+                        restored_raw = prepared.restore(self._translate_with_chain(prepared.text, chain))
+                    except Exception as retry_exc:
+                        if not self._is_cuda_out_of_memory(retry_exc):
+                            raise
+                        restored_raw = prepared.restore(prepared.text)
+                        block.quality_warnings.append("Argos CUDA OOM: traduction source conservée, à revoir")
             block.ocr_corrected_text = prepared.corrected_text
             block.normalized_source_text = prepared.normalized_source_text
             block.raw_translation_fr = restored_raw
