@@ -88,6 +88,7 @@ _SOURCE_SLANG_WORDS = {
     "cos",
     "'tis",
     "tis",
+    "donezo",
 }
 
 _OCR_CONFUSION_PATTERNS: tuple[tuple[re.Pattern[str], str], ...] = (
@@ -100,6 +101,7 @@ _OCR_CONFUSION_PATTERNS: tuple[tuple[re.Pattern[str], str], ...] = (
     (re.compile(r"\bcolld\b", flags=re.IGNORECASE), "OCR probable: 'Colld' devrait être 'could'"),
     (re.compile(r"\bhlnger\b", flags=re.IGNORECASE), "OCR probable: 'Hlnger' devrait être 'hunger'"),
     (re.compile(r"\b(?:didnta|closb|boprow|pepson|loks|ahemi|secl|4nder|ou'd)\b", flags=re.IGNORECASE), "OCR probable: token appris du dernier batch à vérifier"),
+    (re.compile(r"\b(?:big-twme|fltile|full3|shiti|folind|sholld|withoraw|fortlne|communiies|mlch|y0u|ldoes|wrone|hlnt)\b", flags=re.IGNORECASE), "OCR probable: token appris des corrections récentes à vérifier"),
     (re.compile(r"\b(?:could|should|would)\s+ve\b", flags=re.IGNORECASE), "contraction anglaise probable: lire could've/should've/would've"),
     (re.compile(r"\b(?:im|ive|ill|id)\b", flags=re.IGNORECASE), "contraction avec I probable: vérifier I'm/I've/I'll/I'd"),
     (re.compile(r"\b(?:tslrlmi|napehouse|nestern|individlals)\b", flags=re.IGNORECASE), "OCR probable: token inconnu/rompu à vérifier"),
@@ -121,6 +123,8 @@ _FRAGMENT_ONLY_WORDS = {
     "but",
     "right",
     "gotta",
+    "basically",
+    "then",
 }
 
 _LIKELY_MISSING_PREFIX_STARTS = {
@@ -135,6 +139,8 @@ _LIKELY_MISSING_PREFIX_STARTS = {
     "maybe",
     "after",
     "right",
+    "only",
+    "where",
 }
 
 _LIKELY_MISSING_SUFFIX_ENDS = {
@@ -143,6 +149,11 @@ _LIKELY_MISSING_SUFFIX_ENDS = {
     "goes",
     "gotta",
     "hey",
+    "and",
+    "about",
+    "guys",
+    "basically",
+    "then",
 }
 
 _SAFE_UPPERCASE_TOKENS = {
@@ -236,12 +247,18 @@ class TranslationQualityChecker:
                 warnings.append("début de phrase possiblement manquant: en manga vérifier aussi la bulle à droite")
             if source_word_list and source_word_list[-1] in _LIKELY_MISSING_SUFFIX_ENDS:
                 warnings.append("fin de bulle possiblement manquante: vérifier la suite du texte")
+            if len(source_word_list) <= 5 and re.search(r"(?i)\b(?:and this is what|only found|wait a sec|basically|then|god|where will it end)\b", structure_source):
+                warnings.append("zone de texte probablement trop courte: OCR à relire avec crop élargi/fallback")
             if len(source_word_list) >= 4 and re.search(r"[A-Za-z0-9\"')]$", structure_source):
                 warnings.append("ponctuation finale possiblement manquante")
             if structure_source.strip().startswith("..."):
                 warnings.append("fragment commençant par ellipse: probablement suite d'une bulle précédente")
+            if re.search(r"\.\.$|[.][.](?![.])", structure_source):
+                warnings.append("points de suspension incomplets: normaliser en '...' ou '...?'")
             if re.search(r"[=()%@#]", source):
                 warnings.append("symboles OCR suspects dans le texte: relire la bulle complète")
+            if re.search(r"(?i)\b(?:krehble|krembue|shivr|jmile|fwoop|brip|whooosh|sfx)\b", source) and len(source_word_list) >= 3:
+                warnings.append("SFX probablement fusionné avec une bulle: séparer/ignorer la zone sonore")
             if re.fullmatch(r"(?i)right[?.]?", structure_source.strip()):
                 warnings.append("ambiguïté: 'right?' peut signifier 'n'est-ce pas ?' selon le contexte")
             if re.search(r"(?i)\b(?:stats|slime|handy|clear my name|come up with|don't be silly|no way|here you go)\b", structure_source):

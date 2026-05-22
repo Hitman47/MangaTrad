@@ -404,7 +404,13 @@ class EasyOcrEngine:
                 raise
             self._clear_cuda_cache()
             reader = self._reader(source_lang, use_gpu=False)
-            raw_results = reader.readtext(str(image_path), detail=1, paragraph=False)
+            try:
+                raw_results = reader.readtext(str(image_path), detail=1, paragraph=False)
+            except Exception as retry_exc:
+                if not self._is_cuda_out_of_memory(retry_exc):
+                    raise
+                self._clear_cuda_cache()
+                return []
             use_gpu = False
         blocks = self._postprocess_results(
             raw_results,

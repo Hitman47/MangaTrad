@@ -232,3 +232,27 @@ def test_sixth_review_batch_expands_contractions_and_common_expressions() -> Non
     assert silly.override_translation_fr == "Ne sois pas ridicule. Tu es ce genre de personne ?"
 
     assert EnglishDialogueNormalizer.prepare("ACK!!").override_translation_fr == "Argh !!"
+
+
+def test_seventh_review_batch_ellipsis_zone_and_expression_patterns() -> None:
+    sigma = EnglishDialogueNormalizer.prepare(": why isn't Sigma-kun Waking Up.")
+    assert sigma.normalized_text == "...why isn't Sigma-kun waking up...?"
+
+    coming = EnglishDialogueNormalizer.prepare("He's COMING. ISN'T He,.")
+    assert coming.normalized_text == "he's coming... isn't he...?"
+    assert coming.override_translation_fr == "Il arrive... n'est-ce pas...?"
+
+    intro = EnglishDialogueNormalizer.prepare("Hi everyone We're going To Be working Together now, OKAY-?")
+    assert intro.normalized_text == "hi everyone. we are going to be working together now, okay?"
+    assert intro.override_translation_fr == "Salut tout le monde. On va travailler ensemble maintenant, d'accord ?"
+
+    wait = EnglishDialogueNormalizer.prepare("WAIT A SEC, You guys")
+    assert wait.normalized_text == "wait a sec, you guys know..."
+
+    only = EnglishDialogueNormalizer.prepare("Only found Five.")
+    assert only.normalized_text == "...but they only found five."
+    assert only.override_translation_fr == "...mais ils n'en ont trouvé que cinq."
+
+    withdraw = EnglishDialogueNormalizer.prepare("SHOLLD WE WITHORAW For Now?")
+    assert withdraw.normalized_text == "should we withdraw for now?"
+    assert withdraw.override_translation_fr == "Devrions-nous battre en retraite pour l'instant ?"

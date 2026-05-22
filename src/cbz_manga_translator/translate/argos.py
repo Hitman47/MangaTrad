@@ -395,7 +395,7 @@ class ArgosTranslator:
             try:
                 results[index] = prepared.restore(self._translate_with_chain(prepared.text, chain))
             except Exception as exc:
-                if not (active_gpu and self._is_cuda_out_of_memory(exc)):
+                if not self._is_cuda_out_of_memory(exc):
                     raise
                 self._clear_cuda_cache()
                 active_gpu = False
@@ -482,7 +482,7 @@ class ArgosTranslator:
                 try:
                     restored_raw = prepared.restore(self._translate_with_chain(prepared.text, chain))
                 except Exception as exc:
-                    if not (active_gpu and self._is_cuda_out_of_memory(exc)):
+                    if not self._is_cuda_out_of_memory(exc):
                         raise
                     self._clear_cuda_cache()
                     active_gpu = False

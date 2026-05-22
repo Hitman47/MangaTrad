@@ -33,6 +33,24 @@ class FakeTranslator:
         return blocks
 
 
+class RecordingRecognizer(FakeRecognizer):
+    def __init__(self) -> None:
+        self.use_gpu_values: list[bool] = []
+
+    def recognize(self, image_path, source_lang, page_index, **kwargs):
+        self.use_gpu_values.append(kwargs["use_gpu"])
+        return super().recognize(image_path, source_lang, page_index, **kwargs)
+
+
+class RecordingTranslator(FakeTranslator):
+    def __init__(self) -> None:
+        self.use_gpu_values: list[bool] = []
+
+    def translate_blocks(self, blocks, source_lang, **kwargs):
+        self.use_gpu_values.append(kwargs["use_gpu"])
+        return super().translate_blocks(blocks, source_lang, **kwargs)
+
+
 def test_read_corpus_manifest_resolves_output_relpath(tmp_path: Path) -> None:
     pages_dir = tmp_path / "pages" / "Series" / "Vol01"
     pages_dir.mkdir(parents=True)
@@ -107,6 +125,32 @@ def test_process_corpus_skips_cached_pages_without_force(tmp_path: Path) -> None
     assert first.pages_processed == 1
     assert second.pages_processed == 0
     assert second.pages_skipped == 1
+
+
+def test_process_corpus_can_split_ocr_and_translation_gpu_policy(tmp_path: Path) -> None:
+    corpus = tmp_path / "corpus"
+    pages_dir = corpus / "pages"
+    pages_dir.mkdir(parents=True)
+    image = pages_dir / "sample.jpg"
+    Image.new("RGB", (20, 20), "white").save(image)
+    (corpus / "manifest.jsonl").write_text(json.dumps({"output_relpath": "pages/sample.jpg"}) + "\n", encoding="utf-8")
+    recognizer = RecordingRecognizer()
+    translator = RecordingTranslator()
+
+    process_corpus(
+        corpus,
+        tmp_path / "run",
+        source_lang="en",
+        limit=1,
+        use_gpu=True,
+        ocr_use_gpu=False,
+        translation_use_gpu=True,
+        recognizer=recognizer,
+        translator=translator,
+    )
+
+    assert recognizer.use_gpu_values == [False]
+    assert translator.use_gpu_values == [True]
 
 
 def test_limit_mode_stratified_spreads_pages_across_series(tmp_path: Path) -> None:

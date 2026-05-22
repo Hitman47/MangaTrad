@@ -467,6 +467,8 @@ def process_corpus(
     translate: bool = True,
     normalize_english: bool = True,
     use_builtin_glossary: bool = True,
+    ocr_use_gpu: bool | None = None,
+    translation_use_gpu: bool | None = None,
     force: bool = False,
     checkpoint_every: int = 10,
     raw_terms: str | None = None,
@@ -504,6 +506,8 @@ def process_corpus(
     fallback_mode = fallback.strip().lower()
     if fallback_mode not in {"off", "suspects", "all"}:
         raise ValueError("fallback doit valoir: off, suspects ou all")
+    active_ocr_gpu = use_gpu if ocr_use_gpu is None else ocr_use_gpu
+    active_translation_gpu = use_gpu if translation_use_gpu is None else translation_use_gpu
 
     pages_processed = 0
     pages_skipped = 0
@@ -523,7 +527,7 @@ def process_corpus(
             entry.image_path,
             source_lang,
             local_index,
-            use_gpu=use_gpu,
+            use_gpu=active_ocr_gpu,
             min_confidence=min_confidence,
             merge_lines=merge_lines,
             filter_noise=filter_noise,
@@ -538,7 +542,7 @@ def process_corpus(
                 entry.image_path,
                 blocks,
                 source_lang,
-                use_gpu=use_gpu,
+                use_gpu=active_ocr_gpu,
                 min_confidence=min_confidence,
                 only_suspect=only_suspect,
                 include_optional_engines=include_optional_ocr,
@@ -548,7 +552,7 @@ def process_corpus(
             blocks = translator.translate_blocks(
                 blocks,
                 source_lang,
-                use_gpu=use_gpu,
+                use_gpu=active_translation_gpu,
                 raw_terms=raw_terms or project.glossary_terms,
                 normalize_english=normalize_english,
                 use_builtin_glossary=use_builtin_glossary,

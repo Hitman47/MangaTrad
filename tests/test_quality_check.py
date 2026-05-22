@@ -216,3 +216,42 @@ def test_quality_flags_incomplete_manga_fragments_and_ambiguous_expressions() ->
     )
     warnings = checker.check_block(right)
     assert any("ambiguïté" in warning for warning in warnings)
+
+
+def test_quality_prioritizes_ellipsis_zone_and_sfx_fusion_problems() -> None:
+    checker = TranslationQualityChecker()
+
+    short_zone = OcrBlock(
+        id="short",
+        bbox=[0, 0, 1, 1],
+        source_lang="en",
+        ocr_text="WAIT A SEC, You guys",
+        normalized_source_text="wait a sec, you guys",
+        translation_fr="Attendez un peu, vous les gars",
+        confidence=0.9,
+    )
+    warnings = checker.check_block(short_zone)
+    assert any("zone de texte" in warning for warning in warnings)
+
+    ellipsis = OcrBlock(
+        id="ellipsis",
+        bbox=[0, 0, 1, 1],
+        source_lang="en",
+        ocr_text="He's COMING. ISN'T He,.",
+        normalized_source_text="he's coming... isn't he..",
+        translation_fr="Il arrive...",
+        confidence=0.9,
+    )
+    warnings = checker.check_block(ellipsis)
+    assert any("points de suspension" in warning for warning in warnings)
+
+    fused = OcrBlock(
+        id="fused",
+        bbox=[0, 0, 1, 1],
+        source_lang="en",
+        ocr_text="Krehble 4h, Seriously? You MEAN THAT? Krembue",
+        translation_fr="Krehble tu veux dire ça Krembue",
+        confidence=0.9,
+    )
+    warnings = checker.check_block(fused)
+    assert any("SFX" in warning and "fusion" in warning for warning in warnings)

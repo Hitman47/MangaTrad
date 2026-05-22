@@ -89,3 +89,15 @@ def test_sixth_review_batch_incomplete_bubbles_questions_and_contractions() -> N
     assert normalize_ocr_text_for_translation("CAN I BOPROW THAT Volume AGAIN?") == "CAN I borrow THAT Volume AGAIN?"
     assert normalize_ocr_text_for_translation("WHAT The,") == "what the...?!"
     assert normalize_ocr_text_for_translation("4NDER- STOOD.") == "Understood."
+
+
+def test_seventh_review_batch_ellipsis_and_zone_examples() -> None:
+    assert normalize_ocr_text_for_translation(": why isn't Sigma-kun Waking Up.") == "...why isn't Sigma-kun waking up...?"
+    assert normalize_ocr_text_for_translation("He's COMING. ISN'T He,.") == "he's coming... isn't he...?"
+    assert normalize_ocr_text_for_translation("Hi everyone We're going To Be working Together now, OKAY-?") == "Hi everyone. We're going to be working together now, okay?"
+    assert normalize_ocr_text_for_translation("SORRY I'm LATE-") == "sorry I'm late..."
+    assert normalize_ocr_text_for_translation("WAIT A SEC, You guys") == "WAIT A SEC, You guys know..."
+    assert normalize_ocr_text_for_translation("So THAT Big-twme job You Guys Were talking About.") == "So THAT Big-time job You Guys Were talking About..."
+    assert normalize_ocr_text_for_translation("LNDER- STAND Why knives CHOSE This PLACE.") == "I UNDERSTAND Why Knives CHOSE This PLACE..."
+    assert normalize_ocr_text_for_translation("Only found Five.") == "...but they only found five."
+    assert normalize_ocr_text_for_translation("SHOLLD WE WITHORAW For Now?") == "should WE withdraw For Now?"

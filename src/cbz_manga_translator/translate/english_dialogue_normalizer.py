@@ -85,6 +85,26 @@ _OCR_CORRECTIONS: tuple[tuple[re.Pattern[str], str], ...] = (
     (re.compile(r"\bdidnta\b", flags=re.IGNORECASE), "didn't"),
     (re.compile(r"\bclosb\b", flags=re.IGNORECASE), "close"),
     (re.compile(r"\bboprow\b", flags=re.IGNORECASE), "borrow"),
+    (re.compile(r"\bbig-twme\b", flags=re.IGNORECASE), "big-time"),
+    (re.compile(r"\bfltile\b", flags=re.IGNORECASE), "futile"),
+    (re.compile(r"\bfull3\b", flags=re.IGNORECASE), "full"),
+    (re.compile(r"\bshiti\b", flags=re.IGNORECASE), "shit!"),
+    (re.compile(r"\bth'\b", flags=re.IGNORECASE), "that"),
+    (re.compile(r"\bpoison-\s*ous\b", flags=re.IGNORECASE), "poisonous"),
+    (re.compile(r"\bsinglel\b", flags=re.IGNORECASE), "single"),
+    (re.compile(r"\by0u\b", flags=re.IGNORECASE), "you"),
+    (re.compile(r"\bldoes\s+ike\b", flags=re.IGNORECASE), "does it look like"),
+    (re.compile(r"\bwrone\b", flags=re.IGNORECASE), "wrong"),
+    (re.compile(r"\bhlnt\b", flags=re.IGNORECASE), "hunt"),
+    (re.compile(r"\bfolind\b", flags=re.IGNORECASE), "found"),
+    (re.compile(r"\bsholld\b", flags=re.IGNORECASE), "should"),
+    (re.compile(r"\bwithoraw\b", flags=re.IGNORECASE), "withdraw"),
+    (re.compile(r"\bfortlne\b", flags=re.IGNORECASE), "fortune"),
+    (re.compile(r"\brep-\s*utation\b", flags=re.IGNORECASE), "reputation"),
+    (re.compile(r"\bimmedi-\s*ately\b", flags=re.IGNORECASE), "immediately"),
+    (re.compile(r"\bcommuniies\b", flags=re.IGNORECASE), "communities"),
+    (re.compile(r"\bmlch\b", flags=re.IGNORECASE), "much"),
+    (re.compile(r"\blnderstand\b", flags=re.IGNORECASE), "understand"),
     (re.compile(r"\bsecl\b", flags=re.IGNORECASE), "sec!"),
     (re.compile(r"\bpepson\b", flags=re.IGNORECASE), "person"),
     (re.compile(r"\bloks\b", flags=re.IGNORECASE), "looks"),
@@ -219,6 +239,17 @@ _DIALOGUE_NORMALIZATIONS: tuple[tuple[re.Pattern[str], str], ...] = (
     (re.compile(r"\bsmusic\s+festivalsi\b", flags=re.IGNORECASE), "...music festivals!"),
     (re.compile(r"\bdon['’]?t\s+be\s+silly[.]\s+are\s+you\s+that\s+kind\s+of\s+person\?", flags=re.IGNORECASE), "don't be silly. are you that kind of person?"),
     (re.compile(r"\bdon['’]?t\s+be\s+silly[.]\s+are\s+you\s+that\s+kinda\s+person\?", flags=re.IGNORECASE), "don't be silly. are you that kind of person?"),
+    (re.compile(r"^\s*:\s*why\s+isn['’]?t\s+(.+?)\s+waking\s+up[.]$", flags=re.IGNORECASE), r"...why isn't \1 waking up...?"),
+    (re.compile(r"\bhe['’]?s\s+coming[.]\s+isn['’]?t\s+he[,.\s]*$", flags=re.IGNORECASE), "he's coming... isn't he...?"),
+    (re.compile(r"\bhi\s+everyone\s+we['’]?re\s+going\s+to\s+be\s+working\s+together\s+now,\s+okay-?\?", flags=re.IGNORECASE), "hi everyone. we're going to be working together now, okay?"),
+    (re.compile(r"\bsorry\s+i['’]?m\s+late-\s*$", flags=re.IGNORECASE), "sorry I am late..."),
+    (re.compile(r"\bwait\s+a\s+sec,\s+you\s+guys\s*$", flags=re.IGNORECASE), "wait a sec, you guys know..."),
+    (re.compile(r"\bso\s+that\s+big-time\s+job\s+you\s+guys\s+were\s+talking\s+about[.]$", flags=re.IGNORECASE), "so that big-time job you guys were talking about..."),
+    (re.compile(r"\b(?:lnder-\s*stand|understand)\s+why\s+knives\s+chose\s+this\s+place[.]$", flags=re.IGNORECASE), "I understand why Knives chose this place..."),
+    (re.compile(r"\bonce\s+full\s+circler\s*$", flags=re.IGNORECASE), "once it's gone full circle..."),
+    (re.compile(r"\bzandjonly\s+found\s+one[.]$", flags=re.IGNORECASE), "...and only found one."),
+    (re.compile(r"\bonly\s+found\s+five[.]$", flags=re.IGNORECASE), "...but they only found five."),
+    (re.compile(r"\bbasically\s*$", flags=re.IGNORECASE), "so basically..."),
     (re.compile(r"\blisten,\s*yuki[:.]\s*$", flags=re.IGNORECASE), "listen, Yuki..."),
     (re.compile(r"\bso\s+why,\s*$", flags=re.IGNORECASE), "so why..."),
     (re.compile(r"\blet'?s\s+see\s*$", flags=re.IGNORECASE), "let's see here..."),
@@ -258,6 +289,7 @@ _TOKEN_NORMALIZATIONS: tuple[tuple[re.Pattern[str], str], ...] = (
     (re.compile(r"\bi['’]?d\b", flags=re.IGNORECASE), "I would"),
     (re.compile(r"\byou['’]?d\b", flags=re.IGNORECASE), "you would"),
     (re.compile(r"\byou['’]?re\b", flags=re.IGNORECASE), "you are"),
+    (re.compile(r"\bwe['’]re\b", flags=re.IGNORECASE), "we are"),
     (re.compile(r"\b(?:could|should|would)['’]?\s*ve\b", flags=re.IGNORECASE), lambda m: m.group(0).lower().replace("'ve", " have").replace(" ve", " have")),
     (re.compile(r"\bwho['’]?s\b", flags=re.IGNORECASE), "who is"),
     (re.compile(r"\bthere['’]?s\b", flags=re.IGNORECASE), "there is"),
@@ -401,6 +433,20 @@ _TRANSLATION_OVERRIDES: dict[str, str] = {
     "just come with me, okay?": "Viens avec moi, d'accord ?",
     "understood": "Compris.",
     "don't be silly. are you that kind of person?": "Ne sois pas ridicule. Tu es ce genre de personne ?",
+    "hi everyone. we are going to be working together now, okay?": "Salut tout le monde. On va travailler ensemble maintenant, d'accord ?",
+    "sorry i am late...": "Désolé d'être en retard...",
+    "wait a sec, you guys know...": "Attendez un peu, vous savez...",
+    "so that big-time job you guys were talking about...": "Alors, ce gros boulot dont vous parliez...",
+    "he's coming... isn't he...?": "Il arrive... n'est-ce pas...?",
+    "every single one of you...": "Chacun d'entre vous...",
+    "we sorted through them all...": "On les a tous passés au crible...",
+    "...and only found one": "...et on n'en a trouvé qu'un.",
+    "...but they only found five": "...mais ils n'en ont trouvé que cinq.",
+    "does it look like i need to go to the hospital?": "Est-ce que j'ai l'air d'avoir besoin d'aller à l'hôpital ?",
+    "should we withdraw for now?": "Devrions-nous battre en retraite pour l'instant ?",
+    "everything's going well so far, so i couldn't be any happier!": "Tout se passe bien jusqu'à présent, je ne pourrais pas être plus heureux !",
+    "oh, you mean the fortune teller?": "Ah, tu veux dire la voyante ?",
+    "so basically...": "Donc, en gros...",
 }
 
 # Bubbles that are normally better kept as manga interjections/SFX rather than
@@ -587,6 +633,8 @@ class EnglishDialogueNormalizer:
         corrected = re.sub(r"[:.]+\s*=$", "...", corrected)
         corrected = re.sub(r"(?:,\s*){2,}$", "...", corrected)
         corrected = re.sub(r"\s+-\s*$", "...", corrected)
+        corrected = re.sub(r"(?i)(?<=[A-Za-z])-\?$", "?", corrected)
+        corrected = re.sub(r"(?i)(?<=[A-Za-z])-$", "...", corrected)
         corrected = re.sub(r":\s*,?\s*\.$", "...", corrected)
         corrected = re.sub(r":\s*$", ".", corrected)
         corrected = re.sub(r"\b([A-Za-z]{3,})I([.!?]*)$", lambda m: f"{m.group(1)}!{m.group(2)}", corrected)

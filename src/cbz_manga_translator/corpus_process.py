@@ -26,19 +26,20 @@ def main() -> int:
     )
     parser.add_argument("--seed", type=int, default=47, help="Seed used by --limit-mode random and for reproducible selection metadata.")
     parser.add_argument("--cpu", action="store_true", help="Force CPU instead of CUDA.")
+    parser.add_argument("--ocr-cpu", action="store_true", help="Run OCR on CPU while still allowing GPU translation.")
     parser.add_argument("--min-confidence", type=float, default=0.20, help="OCR filtering confidence threshold.")
     parser.add_argument("--no-merge-lines", action="store_true", help="Disable OCR line grouping.")
     parser.add_argument("--no-filter-noise", action="store_true", help="Keep OCR fragments/noise.")
     parser.add_argument(
         "--refine-crops",
         action="store_true",
-        help="Enable expensive EasyOCR crop refinement during primary OCR. Slower but sometimes better.",
+        help="Enable expensive EasyOCR crop refinement during primary OCR. Use for difficult pages; slower.",
     )
     parser.add_argument(
         "--fallback",
         choices=["off", "suspects", "all"],
-        default="off",
-        help="Run OCR fallback after primary OCR. 'all' is slow; start with 'suspects'.",
+        default="suspects",
+        help="Run OCR fallback after primary OCR. Default is 'suspects' for review batches; use 'off' for speed.",
     )
     parser.add_argument(
         "--include-optional-ocr",
@@ -72,6 +73,8 @@ def main() -> int:
         translate=not args.ocr_only,
         normalize_english=not args.no_normalize_en,
         use_builtin_glossary=not args.no_builtin_glossary,
+        ocr_use_gpu=False if args.ocr_cpu else None,
+        translation_use_gpu=not args.cpu,
         force=args.force,
         checkpoint_every=args.checkpoint_every,
         raw_terms=glossary_terms,

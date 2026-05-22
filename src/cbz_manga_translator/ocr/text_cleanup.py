@@ -104,6 +104,26 @@ _COMMON_OCR_WORD_FIXES: tuple[tuple[re.Pattern[str], str], ...] = (
     (re.compile(r"\bDidnta\b", flags=re.IGNORECASE), "Didn't"),
     (re.compile(r"\bClosb\b", flags=re.IGNORECASE), "close"),
     (re.compile(r"\bBOPROW\b", flags=re.IGNORECASE), "borrow"),
+    (re.compile(r"\bBig-twme\b", flags=re.IGNORECASE), "Big-time"),
+    (re.compile(r"\bFltile\b", flags=re.IGNORECASE), "futile"),
+    (re.compile(r"\bFull3\b", flags=re.IGNORECASE), "full"),
+    (re.compile(r"\bShiti\b", flags=re.IGNORECASE), "Shit!"),
+    (re.compile(r"\bTh'\b", flags=re.IGNORECASE), "that"),
+    (re.compile(r"\bPoison-\s*Ous\b", flags=re.IGNORECASE), "Poisonous"),
+    (re.compile(r"\bsinglel\b", flags=re.IGNORECASE), "single"),
+    (re.compile(r"\bY0u\b", flags=re.IGNORECASE), "You"),
+    (re.compile(r"\bLdoes\s+ike\b", flags=re.IGNORECASE), "does it look like"),
+    (re.compile(r"\bWrone\b", flags=re.IGNORECASE), "Wrong"),
+    (re.compile(r"\bHLNT\b", flags=re.IGNORECASE), "hunt"),
+    (re.compile(r"\bFOLIND\b", flags=re.IGNORECASE), "FOUND"),
+    (re.compile(r"\bSHOLLD\b", flags=re.IGNORECASE), "should"),
+    (re.compile(r"\bWITHORAW\b", flags=re.IGNORECASE), "withdraw"),
+    (re.compile(r"\bFORTLNE\b", flags=re.IGNORECASE), "FORTUNE"),
+    (re.compile(r"\brep-\s*UTATION\b", flags=re.IGNORECASE), "reputation"),
+    (re.compile(r"\bIMMEDI-\s*Ately\b", flags=re.IGNORECASE), "immediately"),
+    (re.compile(r"\bCOMMUNIIES\b", flags=re.IGNORECASE), "COMMUNITIES"),
+    (re.compile(r"\bMLCH\b", flags=re.IGNORECASE), "MUCH"),
+    (re.compile(r"\bLNDERSTAND\b", flags=re.IGNORECASE), "UNDERSTAND"),
     (re.compile(r"\bSecl\b", flags=re.IGNORECASE), "sec!"),
     (re.compile(r"\bPepson\b", flags=re.IGNORECASE), "Person"),
     (re.compile(r"\bLoks\b", flags=re.IGNORECASE), "Looks"),
@@ -161,6 +181,17 @@ _CONTEXTUAL_OCR_FIXES: tuple[tuple[re.Pattern[str], str], ...] = (
     (re.compile(r"\bNo\s+Way\)\s*$", flags=re.IGNORECASE), "No Way!"),
     (re.compile(r"\bI\s+Think\s+I\s+Might\s+Like,\s*\"?\s*$", flags=re.IGNORECASE), "I Think I Might Like..."),
     (re.compile(r"\bsmusic\s+Festivalsi\b", flags=re.IGNORECASE), "...music Festivals!"),
+    (re.compile(r"^\s*:\s*why\s+isn['’]?t\s+(.+?)\s+Waking\s+Up[.]$", flags=re.IGNORECASE), r"...why isn't \1 waking up...?"),
+    (re.compile(r"\bHe['’]?s\s+COMING[.]\s+ISN['’]?T\s+He[,.\s]*$", flags=re.IGNORECASE), "he's coming... isn't he...?"),
+    (re.compile(r"\bHi\s+everyone\s+We['’]?re\s+going\s+To\s+Be\s+working\s+Together\s+now,\s+OKAY-?\?", flags=re.IGNORECASE), "Hi everyone. We're going to be working together now, okay?"),
+    (re.compile(r"\bSORRY\s+I'm\s+LATE(?:-|\.\.\.)\s*$", flags=re.IGNORECASE), "sorry I'm late..."),
+    (re.compile(r"\bWAIT\s+A\s+SEC,\s+You\s+guys\s*$", flags=re.IGNORECASE), "WAIT A SEC, You guys know..."),
+    (re.compile(r"\bSo\s+THAT\s+Big-time\s+job\s+You\s+Guys\s+Were\s+talking\s+About[.]$", flags=re.IGNORECASE), "So THAT Big-time job You Guys Were talking About..."),
+    (re.compile(r"\b(?:LNDER-\s*STAND|UNDERSTAND)\s+Why\s+knives\s+CHOSE\s+This\s+PLACE[.]$", flags=re.IGNORECASE), "I UNDERSTAND Why Knives CHOSE This PLACE..."),
+    (re.compile(r"\bOnce\s+full\s+Circler\s*$", flags=re.IGNORECASE), "Once it's gone full circle..."),
+    (re.compile(r"\bZANDJONLY\s+FOUND\s+One[.]$", flags=re.IGNORECASE), "...and only found one."),
+    (re.compile(r"\bOnly\s+found\s+Five[.]$", flags=re.IGNORECASE), "...but they only found five."),
+    (re.compile(r"\bBASICALLY\s*$", flags=re.IGNORECASE), "so basically..."),
 )
 
 
@@ -185,12 +216,15 @@ def normalize_spacing_and_punctuation(text: str) -> str:
     value = re.sub(r"([!?])\s+\1", r"\1\1", value)
     value = re.sub(r"\?\s+!", "?!", value)
     value = re.sub(r"\.\s*\.\s*\.\s*", "...", value)
+    value = re.sub(r"\.\.\.(?=[A-Za-z])", lambda m: "..." if m.start() == 0 else "... ", value)
     value = re.sub(r"(?<!\.)\.\.(?!\.)", ".", value)
     value = re.sub(r"\b(Ms|Mrs|Mr|Dr):(?=\s+[A-Z])", r"\1.", value, flags=re.IGNORECASE)
     value = re.sub(r":\s*\.\.\.", "...", value)
     value = re.sub(r"[:.]+\s*=$", "...", value)
     value = re.sub(r"(?:,\s*){2,}$", "...", value)
     value = re.sub(r"\s+-\s*$", "...", value)
+    value = re.sub(r"(?i)(?<=[A-Za-z])-\?$", "?", value)
+    value = re.sub(r"(?i)(?<=[A-Za-z])-$", "...", value)
     value = re.sub(r":\s*,?\s*\.$", "...", value)
     value = re.sub(r":\s*$", ".", value)
     return " ".join(value.split())

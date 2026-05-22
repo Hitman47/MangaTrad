@@ -137,6 +137,7 @@ def test_argos_translation_falls_back_to_cpu_on_cuda_oom(monkeypatch) -> None:
         return [_CudaFailTranslation()] if use_gpu else [_CpuTranslation()]
 
     monkeypatch.setattr(translator, "_translation_chain", fake_chain)
+    monkeypatch.setattr(translator, "_clear_cuda_cache", lambda: None)
     block = OcrBlock(id="b1", bbox=[0, 0, 10, 10], source_lang="en", ocr_text="Hello there")
 
     translator.translate_blocks([block], "en", use_gpu=True)
@@ -149,9 +150,28 @@ def test_argos_translation_keeps_source_when_cpu_retry_still_reports_cuda_oom(mo
     translator = ArgosTranslator()
 
     monkeypatch.setattr(translator, "_translation_chain", lambda _source_lang, *, use_gpu: [_CudaFailTranslation()])
+    monkeypatch.setattr(translator, "_clear_cuda_cache", lambda: None)
     block = OcrBlock(id="b1", bbox=[0, 0, 10, 10], source_lang="en", ocr_text="Hello there")
 
     translator.translate_blocks([block], "en", use_gpu=True)
 
     assert block.translation_fr == "Hello there"
     assert "Argos CUDA OOM" in block.quality_warnings[-1]
+
+
+def test_argos_translation_recovers_from_cuda_oom_even_when_gpu_flag_is_false(monkeypatch) -> None:
+    translator = ArgosTranslator()
+    calls: list[bool] = []
+
+    def fake_chain(_source_lang: str, *, use_gpu: bool):  # type: ignore[no-untyped-def]
+        calls.append(use_gpu)
+        return [_CudaFailTranslation()] if len(calls) == 1 else [_CpuTranslation()]
+
+    monkeypatch.setattr(translator, "_translation_chain", fake_chain)
+    monkeypatch.setattr(translator, "_clear_cuda_cache", lambda: None)
+    block = OcrBlock(id="b1", bbox=[0, 0, 10, 10], source_lang="en", ocr_text="Hello there")
+
+    translator.translate_blocks([block], "en", use_gpu=False)
+
+    assert calls == [False, False]
+    assert block.translation_fr == "fr:Hello there"
