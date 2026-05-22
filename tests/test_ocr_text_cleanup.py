@@ -39,3 +39,10 @@ def test_review_learned_ocr_cleanup_examples() -> None:
     assert normalize_ocr_text_for_translation("The KAWAZL Family") == "The KAWAZU Family"
     assert normalize_ocr_text_for_translation("Sepiously Dont do Something LNNECES- SARY") == "seriously don't do Something unnecessary"
     assert normalize_ocr_text_for_translation("BMUSTHVB GALLENL ASLEEP inifront Computers") == "I must've fallen asleep in front of my computer."
+
+
+def test_second_review_batch_ocr_cleanup_examples() -> None:
+    assert normalize_ocr_text_for_translation("NO WAYI") == "no way!"
+    assert normalize_ocr_text_for_translation("Victopy is Minel!") == "Victory is Mine!"
+    assert normalize_ocr_text_for_translation("arb What saying? You") == "What are you saying?"
+    assert normalize_ocr_text_for_translation("YOU'LL UNDER- STAND ONCE YOU DO!") == "YOU'LL UNDERSTAND ONCE YOU DO!"

@@ -36,6 +36,13 @@ _COMMON_OCR_WORD_FIXES: tuple[tuple[re.Pattern[str], str], ...] = (
     (re.compile(r"\bSepiously\b", flags=re.IGNORECASE), "seriously"),
     (re.compile(r"\bDont\b", flags=re.IGNORECASE), "don't"),
     (re.compile(r"\bDoesnt\b", flags=re.IGNORECASE), "doesn't"),
+    (re.compile(r"\bApen['’]?t\b", flags=re.IGNORECASE), "aren't"),
+    (re.compile(r"\bTHANKFLL\b", flags=re.IGNORECASE), "thankful"),
+    (re.compile(r"\byolp\b", flags=re.IGNORECASE), "your"),
+    (re.compile(r"\bVictopy\b", flags=re.IGNORECASE), "Victory"),
+    (re.compile(r"\bMinel!?", flags=re.IGNORECASE), "Mine!"),
+    (re.compile(r"\bPlnk\b", flags=re.IGNORECASE), "Punk"),
+    (re.compile(r"\bNO\s+WAYI\b", flags=re.IGNORECASE), "no way!"),
     (re.compile(r"\bLNNECESSARY\b", flags=re.IGNORECASE), "unnecessary"),
     (re.compile(r"\bLNNECES\b", flags=re.IGNORECASE), "unnecessary"),
     (re.compile(r"\bINDIVIDLALS\b", flags=re.IGNORECASE), "individuals"),
@@ -54,6 +61,10 @@ _CONTEXTUAL_OCR_FIXES: tuple[tuple[re.Pattern[str], str], ...] = (
     (re.compile(r"\bI\s+know\s+1\s+have\b", flags=re.IGNORECASE), "I know I have"),
     (re.compile(r"\bI\s+HAVE\s+No\b", flags=re.IGNORECASE), "I have no"),
     (re.compile(r"\bMY\s+MIND\s+WAS\s+With\s+Hunger\b", flags=re.IGNORECASE), "my mind was with hunger"),
+    (re.compile(r"\barb\s+What\s+saying\??\s+You\b", flags=re.IGNORECASE), "What are you saying?"),
+    (re.compile(r"\bWHAT\s+Is\s+THAT\?\s+I\b", flags=re.IGNORECASE), "what is that?!"),
+    (re.compile(r"\bMAKE\s+A\s+RUN\s+FOR\s+It,?\s*$", flags=re.IGNORECASE), "make a run for it, you two."),
+    (re.compile(r"\bWE\s+HERE\s+FOR\s+Miss\s+NATSUKO\s+AND[:.,\s]*$", flags=re.IGNORECASE), "we are here for miss natsuko and..."),
 )
 
 

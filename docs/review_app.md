@@ -26,6 +26,8 @@ L'interface est organisée en trois zones fixes :
 2. **Image** : page complète, bbox sélectionnée en rouge, autres bboxes en gris.
 3. **Correction** : contexte, décision, actions explicites, puis champs de correction.
 
+La zone image dispose d'un zoom avec boutons `-`, `+`, `100%` et `Adapter`. Quand la page est agrandie, elle devient scrollable pour lire les petites bulles sans perdre la bbox rouge.
+
 Les champs ne sont plus empilés anonymement. Ils sont organisés par paires :
 
 | À gauche | À droite |
@@ -71,6 +73,9 @@ Ctrl+Entrée    enregistrer + suivant
 Espace         suivant
 Backspace      précédent
 Ctrl+S         sauvegarder
+Ctrl++         zoom avant
+Ctrl+-         zoom arrière
+Ctrl+0         zoom 100%
 ```
 
 ## Protection contre les pertes

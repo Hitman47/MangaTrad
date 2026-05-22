@@ -149,10 +149,13 @@ class PageImageView(_QT_WIDGET_BASE):
         self._selected_bbox: list[int] | None = None
         self._all_bboxes: list[list[int]] = []
         self._image_path: Path | None = None
+        self._zoom = 1.0
+        self._base_size = q.QSize(520, 760)
         self.setMinimumSize(340, 520)
+        self.resize(self._base_size)
 
     def sizeHint(self):  # type: ignore[override]
-        return _qt().QSize(520, 760)
+        return self._base_size
 
     def set_page(self, image_path: Path, selected_bbox: list[int] | None, all_bboxes: list[list[int]]) -> None:
         q = _qt()
@@ -160,7 +163,24 @@ class PageImageView(_QT_WIDGET_BASE):
         self._pixmap = q.QPixmap(str(image_path)) if image_path.exists() else q.QPixmap()
         self._selected_bbox = selected_bbox
         self._all_bboxes = all_bboxes
+        self._resize_for_zoom()
         self.update()
+
+    def set_zoom(self, zoom: float) -> None:
+        self._zoom = max(0.5, min(4.0, zoom))
+        self._resize_for_zoom()
+        self.update()
+
+    def zoom(self) -> float:
+        return self._zoom
+
+    def _resize_for_zoom(self) -> None:
+        q = _qt()
+        width = max(340, int(self._base_size.width() * self._zoom))
+        height = max(520, int(self._base_size.height() * self._zoom))
+        self.setMinimumSize(q.QSize(width, height))
+        self.resize(width, height)
+        self.updateGeometry()
 
     def paintEvent(self, event):  # type: ignore[override]
         q = _qt()
@@ -227,11 +247,13 @@ class ReviewWindow(_QT_MAINWINDOW_BASE):
 
         left = self._build_left_panel()
         self.image_view = PageImageView()
+        self.zoom_label = q.QLabel("100%")
+        self.zoom_label.setObjectName("SmallMutedLabel")
         right = self._build_right_panel()
 
         splitter = q.QSplitter()
         splitter.addWidget(left)
-        splitter.addWidget(self.image_view)
+        splitter.addWidget(self._build_image_panel())
         splitter.addWidget(right)
         splitter.setChildrenCollapsible(False)
         splitter.setSizes([300, 470, 590])
@@ -261,6 +283,39 @@ class ReviewWindow(_QT_MAINWINDOW_BASE):
         left_layout.addWidget(self.search_box)
         left_layout.addWidget(self.list_widget, 1)
         return left
+
+    def _build_image_panel(self):
+        q = _qt()
+        panel = q.QWidget()
+        layout = q.QVBoxLayout(panel)
+        layout.setContentsMargins(8, 12, 8, 12)
+        layout.setSpacing(8)
+
+        controls = q.QHBoxLayout()
+        zoom_out = q.QPushButton("-")
+        zoom_out.setToolTip("Zoom arrière (Ctrl+-)")
+        zoom_out.clicked.connect(self.zoom_out)
+        zoom_in = q.QPushButton("+")
+        zoom_in.setToolTip("Zoom avant (Ctrl++)")
+        zoom_in.clicked.connect(self.zoom_in)
+        zoom_reset = q.QPushButton("100%")
+        zoom_reset.setToolTip("Revenir au zoom normal (Ctrl+0)")
+        zoom_reset.clicked.connect(self.reset_zoom)
+        zoom_fit = q.QPushButton("Adapter")
+        zoom_fit.setToolTip("Adapter la page au panneau")
+        zoom_fit.clicked.connect(self.fit_zoom)
+        for button in (zoom_out, zoom_reset, zoom_in, zoom_fit):
+            controls.addWidget(button)
+        controls.addWidget(self.zoom_label)
+        controls.addStretch(1)
+        layout.addLayout(controls)
+
+        self.image_scroll = q.QScrollArea()
+        self.image_scroll.setWidgetResizable(False)
+        self.image_scroll.setAlignment(q.Qt.AlignmentFlag.AlignCenter)
+        self.image_scroll.setWidget(self.image_view)
+        layout.addWidget(self.image_scroll, 1)
+        return panel
 
     def _build_right_panel(self):
         q = _qt()
@@ -404,6 +459,10 @@ class ReviewWindow(_QT_MAINWINDOW_BASE):
             "Ctrl+Return": "save_next",
             "Space": "next_only",
             "Backspace": "prev_only",
+            "Ctrl++": "zoom_in",
+            "Ctrl+=": "zoom_in",
+            "Ctrl+-": "zoom_out",
+            "Ctrl+0": "zoom_reset",
         }
         for key, decision in mapping.items():
             shortcut = q.QShortcut(q.QKeySequence(key), self)
@@ -686,6 +745,24 @@ class ReviewWindow(_QT_MAINWINDOW_BASE):
         self.translation_corrected.selectAll()
         self.statusBar().showMessage("Mode correction actif — modifie les champs puis Ctrl+Entrée ou Enregistrer correction + suivant.", 5000)
 
+    def zoom_in(self) -> None:
+        self._set_image_zoom(self.image_view.zoom() * 1.25)
+
+    def zoom_out(self) -> None:
+        self._set_image_zoom(self.image_view.zoom() / 1.25)
+
+    def reset_zoom(self) -> None:
+        self._set_image_zoom(1.0)
+
+    def fit_zoom(self) -> None:
+        self._set_image_zoom(1.0)
+        self.image_scroll.ensureVisible(0, 0)
+
+    def _set_image_zoom(self, zoom: float) -> None:
+        self.image_view.set_zoom(zoom)
+        self.zoom_label.setText(f"{round(self.image_view.zoom() * 100):.0f}%")
+        self.statusBar().showMessage(f"Zoom image : {self.zoom_label.text()}", 1500)
+
     def _apply_current_fields(self, decision: str) -> tuple[int, str]:
         if not self.review_project or not self.current_item:
             raise RuntimeError("Aucun bloc courant à enregistrer.")
@@ -716,6 +793,15 @@ class ReviewWindow(_QT_MAINWINDOW_BASE):
             self.statusBar().showMessage(f"Sauvegardé: {self.review_project.output_path}", 4000)
 
     def apply_decision(self, decision: str) -> None:
+        if decision == "zoom_in":
+            self.zoom_in()
+            return
+        if decision == "zoom_out":
+            self.zoom_out()
+            return
+        if decision == "zoom_reset":
+            self.reset_zoom()
+            return
         if decision == "next_only":
             self.move_selection(1)
             return

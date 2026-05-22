@@ -120,3 +120,24 @@ def test_review_learned_obvious_computer_sentence() -> None:
     assert prepared.corrected_text == "I must've fallen asleep in front of my computer."
     assert prepared.normalized_text == "I must've fallen asleep in front of my computer."
     assert prepared.override_translation_fr == "J'ai dû m'endormir devant mon ordinateur."
+
+
+def test_second_review_batch_learned_patterns() -> None:
+    no_way = EnglishDialogueNormalizer.prepare("NO WAYI")
+    assert no_way.corrected_text == "no way!"
+    assert no_way.override_translation_fr == "Pas moyen !"
+
+    saying = EnglishDialogueNormalizer.prepare("arb What saying? You")
+    assert saying.normalized_text == "what are you saying?"
+    assert saying.override_translation_fr == "Qu'est-ce que tu dis ?"
+
+    run = EnglishDialogueNormalizer.prepare("MAKE A RUN FOR It,")
+    assert run.normalized_text == "make a run for it, you two."
+    assert run.override_translation_fr == "Échappez-vous, vous deux."
+
+    thanks = EnglishDialogueNormalizer.prepare("There Apen't WORDS To EXPRESS HOW THANKFLL I AM For yolp Help.")
+    assert thanks.corrected_text == "There aren't WORDS To EXPRESS HOW thankful I AM For your Help."
+
+    understand = EnglishDialogueNormalizer.prepare("YOU'LL UNDER- STAND ONCE YOU DO!")
+    assert understand.normalized_text == "you'll understand once you do!"
+    assert understand.override_translation_fr == "Vous comprendrez quand vous le ferez !"

@@ -74,9 +74,9 @@ class ArgosTranslator:
     @staticmethod
     def _configure_device(use_gpu: bool) -> None:
         if use_gpu:
-            os.environ.setdefault("ARGOS_DEVICE_TYPE", "cuda")
+            os.environ["ARGOS_DEVICE_TYPE"] = "cuda"
         else:
-            os.environ.setdefault("ARGOS_DEVICE_TYPE", "cpu")
+            os.environ["ARGOS_DEVICE_TYPE"] = "cpu"
         try:
             import argostranslate.settings as argos_settings
 
@@ -86,6 +86,21 @@ class ArgosTranslator:
             argos_settings.chunk_type = argos_settings.ChunkType.MINISBD
         except Exception:
             pass
+
+    @staticmethod
+    def _is_cuda_out_of_memory(exc: Exception) -> bool:
+        message = str(exc).lower()
+        return "cuda" in message and ("out of memory" in message or "memoryallocation" in message)
+
+    @staticmethod
+    def _clear_cuda_cache() -> None:
+        try:
+            import torch
+
+            if torch.cuda.is_available():
+                torch.cuda.empty_cache()
+        except Exception:
+            return
 
     @staticmethod
     def _argostranslate_modules() -> tuple[Any, Any]:
@@ -371,11 +386,20 @@ class ArgosTranslator:
                 model_indices.append(index)
 
         chain: list[Any] | None = None
+        active_gpu = use_gpu
         for index in model_indices:
             if chain is None:
-                chain = self._translation_chain(source_lang, use_gpu=use_gpu)
+                chain = self._translation_chain(source_lang, use_gpu=active_gpu)
             prepared = prepared_texts[index]
-            results[index] = prepared.restore(self._translate_with_chain(prepared.text, chain))
+            try:
+                results[index] = prepared.restore(self._translate_with_chain(prepared.text, chain))
+            except Exception as exc:
+                if not (active_gpu and self._is_cuda_out_of_memory(exc)):
+                    raise
+                self._clear_cuda_cache()
+                active_gpu = False
+                chain = self._translation_chain(source_lang, use_gpu=False)
+                results[index] = prepared.restore(self._translate_with_chain(prepared.text, chain))
         return results
 
     @staticmethod
@@ -440,13 +464,22 @@ class ArgosTranslator:
             return blocks
 
         chain: list[Any] | None = None
+        active_gpu = use_gpu
         for block, prepared in zip(targets, prepared_texts, strict=True):
             if prepared.override_translation_fr:
                 restored_raw = prepared.override_translation_fr
             else:
                 if chain is None:
-                    chain = self._translation_chain(source_lang, use_gpu=use_gpu)
-                restored_raw = prepared.restore(self._translate_with_chain(prepared.text, chain))
+                    chain = self._translation_chain(source_lang, use_gpu=active_gpu)
+                try:
+                    restored_raw = prepared.restore(self._translate_with_chain(prepared.text, chain))
+                except Exception as exc:
+                    if not (active_gpu and self._is_cuda_out_of_memory(exc)):
+                        raise
+                    self._clear_cuda_cache()
+                    active_gpu = False
+                    chain = self._translation_chain(source_lang, use_gpu=False)
+                    restored_raw = prepared.restore(self._translate_with_chain(prepared.text, chain))
             block.ocr_corrected_text = prepared.corrected_text
             block.normalized_source_text = prepared.normalized_source_text
             block.raw_translation_fr = restored_raw

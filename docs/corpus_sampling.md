@@ -27,6 +27,8 @@ D:\Mangas\SerieB\Tome 04.cbz
 
 Les lignes vides et les lignes commençant par `#` sont ignorées.
 
+`volumes.txt` est la source canonique de ton corpus local. Tu n'as pas besoin de renommer les dossiers de séries à la main : `corpus_sample` lit cette liste et génère l'arborescence stable sous `C:\temp\mangatrad_corpus`.
+
 ## Commande recommandée pour dossiers de séries
 
 ```powershell

@@ -105,10 +105,40 @@ def test_argos_local_translation_status_detects_pivot(monkeypatch) -> None:
 
 
 def test_argos_configure_device_uses_minisbd(monkeypatch) -> None:
+    import os
     import argostranslate.settings as settings
 
     settings.chunk_type = settings.ChunkType.ARGOSTRANSLATE
 
+    monkeypatch.setenv("ARGOS_DEVICE_TYPE", "cuda")
     ArgosTranslator._configure_device(use_gpu=False)
 
     assert settings.chunk_type == settings.ChunkType.MINISBD
+    assert os.environ["ARGOS_DEVICE_TYPE"] == "cpu"
+
+
+class _CudaFailTranslation:
+    def translate(self, text: str) -> str:
+        raise RuntimeError("CUDA failed with error out of memory")
+
+
+class _CpuTranslation:
+    def translate(self, text: str) -> str:
+        return f"fr:{text}"
+
+
+def test_argos_translation_falls_back_to_cpu_on_cuda_oom(monkeypatch) -> None:
+    translator = ArgosTranslator()
+    calls: list[bool] = []
+
+    def fake_chain(_source_lang: str, *, use_gpu: bool):  # type: ignore[no-untyped-def]
+        calls.append(use_gpu)
+        return [_CudaFailTranslation()] if use_gpu else [_CpuTranslation()]
+
+    monkeypatch.setattr(translator, "_translation_chain", fake_chain)
+    block = OcrBlock(id="b1", bbox=[0, 0, 10, 10], source_lang="en", ocr_text="Hello there")
+
+    translator.translate_blocks([block], "en", use_gpu=True)
+
+    assert calls == [True, False]
+    assert block.translation_fr == "fr:Hello there"
