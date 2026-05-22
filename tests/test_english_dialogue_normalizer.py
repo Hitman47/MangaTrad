@@ -256,3 +256,17 @@ def test_seventh_review_batch_ellipsis_zone_and_expression_patterns() -> None:
     withdraw = EnglishDialogueNormalizer.prepare("SHOLLD WE WITHORAW For Now?")
     assert withdraw.normalized_text == "should we withdraw for now?"
     assert withdraw.override_translation_fr == "Devrions-nous battre en retraite pour l'instant ?"
+
+
+def test_fast_ten_batch_reviewed_ocr_and_expression_patterns() -> None:
+    old_man = EnglishDialogueNormalizer.prepare("SHE'S G0T An IDIOT Like that FOR AM OLD MAN.")
+    assert old_man.normalized_text == "she has got an idiot like that for an old man."
+    assert old_man.override_translation_fr == "Elle a un idiot comme ça pour père."
+
+    complaints = EnglishDialogueNormalizer.prepare("So, I CALGHT The Rlnaway girl And got rid Of the bandis ANY COMP... LAINTS?")
+    assert complaints.normalized_text == "So, I caught The runaway girl And got rid Of the bandits any complaints?"
+
+    assert EnglishDialogueNormalizer.prepare("NO! NOT Thepe.").corrected_text == "NO! NOT there."
+    assert EnglishDialogueNormalizer.prepare("S0 MANY HERE ALREADY:. W!").corrected_text == "so many here already...!!"
+    assert EnglishDialogueNormalizer.prepare("AAAND, It's GETTING WORSE:. .").corrected_text == "aaand, it's getting worse..."
+    assert EnglishDialogueNormalizer.prepare("WANNA Gol?").normalized_text == "want to go?"

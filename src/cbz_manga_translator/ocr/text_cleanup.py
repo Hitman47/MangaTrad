@@ -124,6 +124,12 @@ _COMMON_OCR_WORD_FIXES: tuple[tuple[re.Pattern[str], str], ...] = (
     (re.compile(r"\bCOMMUNIIES\b", flags=re.IGNORECASE), "COMMUNITIES"),
     (re.compile(r"\bMLCH\b", flags=re.IGNORECASE), "MUCH"),
     (re.compile(r"\bLNDERSTAND\b", flags=re.IGNORECASE), "UNDERSTAND"),
+    (re.compile(r"\bG0T\b", flags=re.IGNORECASE), "GOT"),
+    (re.compile(r"\bMOMEY\b", flags=re.IGNORECASE), "MONEY"),
+    (re.compile(r"\bCALGHT\b", flags=re.IGNORECASE), "CAUGHT"),
+    (re.compile(r"\bRlnaway\b", flags=re.IGNORECASE), "Runaway"),
+    (re.compile(r"\bbandis\b", flags=re.IGNORECASE), "bandits"),
+    (re.compile(r"\bThepe\b", flags=re.IGNORECASE), "There"),
     (re.compile(r"\bSecl\b", flags=re.IGNORECASE), "sec!"),
     (re.compile(r"\bPepson\b", flags=re.IGNORECASE), "Person"),
     (re.compile(r"\bLoks\b", flags=re.IGNORECASE), "Looks"),
@@ -192,6 +198,13 @@ _CONTEXTUAL_OCR_FIXES: tuple[tuple[re.Pattern[str], str], ...] = (
     (re.compile(r"\bZANDJONLY\s+FOUND\s+One[.]$", flags=re.IGNORECASE), "...and only found one."),
     (re.compile(r"\bOnly\s+found\s+Five[.]$", flags=re.IGNORECASE), "...but they only found five."),
     (re.compile(r"\bBASICALLY\s*$", flags=re.IGNORECASE), "so basically..."),
+    (re.compile(r"\bALL\s+\[\s+HAD\s+TO\s+DO\b", flags=re.IGNORECASE), "all I had to do"),
+    (re.compile(r"\bFOR\s+AM\s+OLD\s+MAN\b", flags=re.IGNORECASE), "for an old man"),
+    (re.compile(r"\bANY\s+COMP[.]{3}\s*LAINTS\?", flags=re.IGNORECASE), "ANY COMPLAINTS?"),
+    (re.compile(r"\bS0\s+MANY\s+HERE\s+ALREADY[:. ]+\s*W!\s*$", flags=re.IGNORECASE), "so many here already...!!"),
+    (re.compile(r"\bAAAND,\s+It['’]?s\s+GETTING\s+WORSE[:. ]+$", flags=re.IGNORECASE), "aaand, it's getting worse..."),
+    (re.compile(r"\bHE\s+Hasn['’]?t\s+EITHER,\s*$", flags=re.IGNORECASE), "HE Hasn't come today EITHER."),
+    (re.compile(r"\bWANNA\s+Go[Il1]?\?", flags=re.IGNORECASE), "wanna go?"),
 )
 
 

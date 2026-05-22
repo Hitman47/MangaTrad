@@ -7,8 +7,8 @@ from typing import Iterable, Literal
 from cbz_manga_translator.core.cache import ProjectCache
 from cbz_manga_translator.core.models import OcrBlock, PageRecord, ProjectData
 
-ReviewDecision = Literal["validate", "correct", "review", "ignore", "sfx"]
-DECISIONS: tuple[str, ...] = ("validate", "correct", "review", "ignore", "sfx")
+ReviewDecision = Literal["validate", "correct", "review", "fused", "ignore", "sfx"]
+DECISIONS: tuple[str, ...] = ("validate", "correct", "review", "fused", "ignore", "sfx")
 
 
 @dataclass(slots=True)
@@ -64,9 +64,15 @@ def is_sfx_block(block: OcrBlock) -> bool:
     return block.manual_status == "ignored" and block.review_notes.strip().lower().startswith("[sfx]")
 
 
+def is_fused_block(block: OcrBlock) -> bool:
+    return block.manual_status == "review" and block.review_notes.strip().lower().startswith("[fusion]")
+
+
 def review_decision_for_block(block: OcrBlock) -> str:
     if is_sfx_block(block):
         return "sfx"
+    if is_fused_block(block):
+        return "fused"
     if block.manual_status == "validated":
         return "validate"
     if block.manual_status == "ignored":
@@ -83,6 +89,7 @@ def review_status_label(block: OcrBlock) -> str:
         "validate": "validé",
         "correct": "corrigé",
         "review": "à revoir",
+        "fused": "fusion",
         "ignore": "ignoré",
         "sfx": "SFX",
         "unchecked": "brut",
@@ -185,6 +192,13 @@ def _clean_sfx_prefix(text: str) -> str:
     return value
 
 
+def _clean_fusion_prefix(text: str) -> str:
+    value = text.strip()
+    if value.lower().startswith("[fusion]"):
+        return value[8:].strip()
+    return value
+
+
 def apply_review_to_block(
     block: OcrBlock,
     *,
@@ -212,8 +226,12 @@ def apply_review_to_block(
     note_value = notes.strip()
     if normalized_decision in {"sfx", "noise"}:
         note_value = note_value if note_value.lower().startswith("[sfx]") else f"[sfx] {note_value}".strip()
+    elif normalized_decision in {"fused", "fusion", "merged", "merge", "bulle fusionnee", "bulles fusionnees"}:
+        note_value = note_value if note_value.lower().startswith("[fusion]") else f"[fusion] {note_value}".strip()
     elif note_value.lower().startswith("[sfx]"):
         note_value = _clean_sfx_prefix(note_value)
+    elif note_value.lower().startswith("[fusion]"):
+        note_value = _clean_fusion_prefix(note_value)
     if note_value:
         block.review_notes = note_value
 
@@ -226,7 +244,7 @@ def apply_review_to_block(
         block.manual_status = "validated"
     elif normalized_decision in {"ignore", "ignored", "sfx", "noise"}:
         block.manual_status = "ignored"
-    elif normalized_decision in {"review", "revoir", "a revoir", "todo"}:
+    elif normalized_decision in {"review", "revoir", "a revoir", "todo", "fused", "fusion", "merged", "merge", "bulle fusionnee", "bulles fusionnees"}:
         block.manual_status = "review"
     elif normalized_decision in {"correct", "corrected", "edit", "edited"} or has_text_change:
         block.manual_status = "edited"

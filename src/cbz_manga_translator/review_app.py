@@ -24,6 +24,7 @@ DECISION_HELP_TEXT = """Décisions rapides :
 - validate : bloc correct, rien à changer.
 - correct : OCR/source/traduction corrigé(e).
 - review : doute, à revoir plus tard.
+- fused : bulles ou SFX fusionnés avec une bulle, à retraiter/séparer.
 - ignore : bloc inutile / parasite.
 - sfx : bruit, onomatopée, effet sonore."""
 
@@ -57,6 +58,7 @@ FILTER_OPTIONS = [
     "Tous",
     "Corrections faites",
     "À revoir",
+    "Fusion",
     "Validés",
     "Ignorés",
     "SFX",
@@ -502,8 +504,9 @@ class ReviewWindow(_QT_MAINWINDOW_BASE):
             ("SFX (S)", "sfx", 1, 1, "Bruit / onomatopée : sauvegarde et passe au suivant.", ""),
             ("À revoir (R)", "review", 1, 2, "Marque le bloc à revoir plus tard.", ""),
             ("Ignorer (I)", "ignore", 2, 0, "Bloc parasite/inutile : sauvegarde et passe au suivant.", "DangerButton"),
-            ("Précédent", "prev_only", 2, 1, "Va au bloc précédent, avec confirmation si besoin.", ""),
-            ("Suivant", "next_only", 2, 2, "Va au bloc suivant, avec confirmation si besoin.", ""),
+            ("Bulle fusionnée", "fused", 2, 1, "Bulles/SFX fusionnés : marque fusion et passe au suivant.", ""),
+            ("Précédent", "prev_only", 2, 2, "Va au bloc précédent, avec confirmation si besoin.", ""),
+            ("Suivant", "next_only", 3, 2, "Va au bloc suivant, avec confirmation si besoin.", ""),
         ]
         for label, decision, row, col, tooltip, obj_name in specs:
             btn = q.QPushButton(label)
@@ -569,9 +572,10 @@ class ReviewWindow(_QT_MAINWINDOW_BASE):
         validated = sum(1 for item in all_items if item.review_decision == "validate")
         ignored = sum(1 for item in all_items if item.review_decision == "ignore")
         sfx = sum(1 for item in all_items if item.review_decision == "sfx")
+        fused = sum(1 for item in all_items if item.review_decision == "fused")
         review = sum(1 for item in all_items if item.review_decision == "review")
         self.queue_summary.setText(
-            f"Total {total} · à traiter {todo} · corrigés {corrected} · validés {validated} · ignorés {ignored} · SFX {sfx}\n"
+            f"Total {total} · à traiter {todo} · corrigés {corrected} · validés {validated} · ignorés {ignored} · SFX {sfx} · fusion {fused}\n"
             f"HIGH {high} · MED {med} · à revoir {review} · visibles {self.list_widget.count()} · filtre : {filter_name}"
         )
 
@@ -586,6 +590,8 @@ class ReviewWindow(_QT_MAINWINDOW_BASE):
             return item.review_decision == "correct"
         if filter_name == "À revoir":
             return item.review_decision == "review"
+        if filter_name == "Fusion":
+            return item.review_decision == "fused"
         if filter_name == "Validés":
             return item.review_decision == "validate"
         if filter_name == "Ignorés":

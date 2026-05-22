@@ -101,3 +101,12 @@ def test_seventh_review_batch_ellipsis_and_zone_examples() -> None:
     assert normalize_ocr_text_for_translation("LNDER- STAND Why knives CHOSE This PLACE.") == "I UNDERSTAND Why Knives CHOSE This PLACE..."
     assert normalize_ocr_text_for_translation("Only found Five.") == "...but they only found five."
     assert normalize_ocr_text_for_translation("SHOLLD WE WITHORAW For Now?") == "should WE withdraw For Now?"
+
+
+def test_fast_ten_batch_reviewed_ocr_examples() -> None:
+    assert normalize_ocr_text_for_translation("ALL [ HAD TO DO Was BE LITTLE NICE HERE AND THERE") == "all I had to do Was BE LITTLE NICE HERE AND THERE"
+    assert normalize_ocr_text_for_translation("SHE'S G0T An IDIOT Like that FOR AM OLD MAN.") == "SHE'S GOT An IDIOT Like that for an old man."
+    assert normalize_ocr_text_for_translation("So, I CALGHT The Rlnaway girl And got rid Of the bandis ANY COMP... LAINTS?") == "So, I CAUGHT The Runaway girl And got rid Of the bandits ANY COMPLAINTS?"
+    assert normalize_ocr_text_for_translation("NO! NOT Thepe.") == "NO! NOT There."
+    assert normalize_ocr_text_for_translation("S0 MANY HERE ALREADY:. W!") == "so many here already...!!"
+    assert normalize_ocr_text_for_translation("AAAND, It's GETTING WORSE:. .") == "aaand, it's getting worse..."
