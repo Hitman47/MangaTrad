@@ -124,6 +124,13 @@ _COMMON_OCR_WORD_FIXES: tuple[tuple[re.Pattern[str], str], ...] = (
     (re.compile(r"\bCOMMUNIIES\b", flags=re.IGNORECASE), "COMMUNITIES"),
     (re.compile(r"\bMLCH\b", flags=re.IGNORECASE), "MUCH"),
     (re.compile(r"\bLNDERSTAND\b", flags=re.IGNORECASE), "UNDERSTAND"),
+    (re.compile(r"\b4nder\W*stood\b", flags=re.IGNORECASE), "Understood"),
+    (re.compile(r"\bHurryi\b", flags=re.IGNORECASE), "Hurry!"),
+    (re.compile(r"\bFaill\b", flags=re.IGNORECASE), "Fail"),
+    (re.compile(r"\bGol\b", flags=re.IGNORECASE), "Go!"),
+    (re.compile(r"\bHlhi\?", flags=re.IGNORECASE), "HUH!?"),
+    (re.compile(r"\bKow\s+About\b", flags=re.IGNORECASE), "How About"),
+    (re.compile(r"\bLookk\b", flags=re.IGNORECASE), "Look"),
     (re.compile(r"\bG0T\b", flags=re.IGNORECASE), "GOT"),
     (re.compile(r"\bMOMEY\b", flags=re.IGNORECASE), "MONEY"),
     (re.compile(r"\bCALGHT\b", flags=re.IGNORECASE), "CAUGHT"),
@@ -206,6 +213,9 @@ _CONTEXTUAL_OCR_FIXES: tuple[tuple[re.Pattern[str], str], ...] = (
     (re.compile(r"\bAAAND,\s+It['’]?s\s+GETTING\s+WORSE[:. ]+$", flags=re.IGNORECASE), "aaand, it's getting worse..."),
     (re.compile(r"\bHE\s+Hasn['’]?t\s+EITHER,\s*$", flags=re.IGNORECASE), "HE Hasn't come today EITHER."),
     (re.compile(r"\bWANNA\s+Go[Il1]?\?", flags=re.IGNORECASE), "wanna go?"),
+    (re.compile(r"\bHere\s+I\s+Go[Il1]\b", flags=re.IGNORECASE), "Here I Go!"),
+    (re.compile(r"\byou['’]?ll\s+under[.]{3}\s*stand\b", flags=re.IGNORECASE), "you'll understand"),
+    (re.compile(r"\bHunt[.]{3}\s*Ing\s*$", flags=re.IGNORECASE), "...I'm hunting you!!"),
 )
 
 

@@ -111,3 +111,13 @@ def test_fast_ten_batch_reviewed_ocr_examples() -> None:
     assert normalize_ocr_text_for_translation("I'm THE SOUTH-OASIS.") == "In THE SOUTH-OASIS."
     assert normalize_ocr_text_for_translation("S0 MANY HERE ALREADY:. W!") == "so many here already...!!"
     assert normalize_ocr_text_for_translation("AAAND, It's GETTING WORSE:. .") == "aaand, it's getting worse..."
+
+
+def test_replay_global_common_ocr_repairs() -> None:
+    assert normalize_ocr_text_for_translation("4nder... stood.") == "Understood."
+    assert normalize_ocr_text_for_translation("Let's hurryi") == "Let's Hurry!"
+    assert normalize_ocr_text_for_translation("Here I Gol") == "Here I Go!"
+    assert normalize_ocr_text_for_translation("Hlhi?") == "HUH!?"
+    assert normalize_ocr_text_for_translation("Kow About") == "How About"
+    assert normalize_ocr_text_for_translation("you'll under... stand once you do!") == "you'll understand once you do!"
+    assert normalize_ocr_text_for_translation("Hunt... Ing") == "...I'm hunting you!!"
