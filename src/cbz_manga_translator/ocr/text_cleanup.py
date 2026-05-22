@@ -33,6 +33,8 @@ _COMMON_OCR_WORD_FIXES: tuple[tuple[re.Pattern[str], str], ...] = (
     (re.compile(r"\bchabter\b", flags=re.IGNORECASE), "chapter"),
     (re.compile(r"\bReSpect\b"), "respect"),
     (re.compile(r"\bHlnger\b", flags=re.IGNORECASE), "hunger"),
+    (re.compile(r"\bHundped\b", flags=re.IGNORECASE), "Hundred"),
+    (re.compile(r"\bHLNDRED\b", flags=re.IGNORECASE), "hundred"),
     (re.compile(r"\bTepm\b", flags=re.IGNORECASE), "term"),
     (re.compile(r"\bKAWAZL\b", flags=re.IGNORECASE), "KAWAZU"),
     (re.compile(r"\bYol\b", flags=re.IGNORECASE), "you"),
@@ -58,6 +60,15 @@ _COMMON_OCR_WORD_FIXES: tuple[tuple[re.Pattern[str], str], ...] = (
     (re.compile(r"\bWMP[o0]RTANT\b", flags=re.IGNORECASE), "IMPORTANT"),
     (re.compile(r"\bWHAAAI\b", flags=re.IGNORECASE), "WHAAAT"),
     (re.compile(r"\bBREASTSI!?", flags=re.IGNORECASE), "breasts!!"),
+    (re.compile(r"\bt0\b", flags=re.IGNORECASE), "to"),
+    (re.compile(r"\bPpomise\b", flags=re.IGNORECASE), "Promise"),
+    (re.compile(r"\bTOMORPOW\b", flags=re.IGNORECASE), "TOMORROW"),
+    (re.compile(r"\bIives\b", flags=re.IGNORECASE), "lives"),
+    (re.compile(r"\bFeelig\b", flags=re.IGNORECASE), "Feeling"),
+    (re.compile(r"\bTHHIS\b", flags=re.IGNORECASE), "THIS"),
+    (re.compile(r"\bI50\b", flags=re.IGNORECASE), "150"),
+    (re.compile(r"\b2Oth\b", flags=re.IGNORECASE), "20th"),
+    (re.compile(r"\bSth\b", flags=re.IGNORECASE), "5th"),
     (re.compile(r"\bNO\s+WAYI\b", flags=re.IGNORECASE), "no way!"),
     (re.compile(r"\bLNNECESSARY\b", flags=re.IGNORECASE), "unnecessary"),
     (re.compile(r"\bLNNECES\b", flags=re.IGNORECASE), "unnecessary"),
@@ -81,10 +92,20 @@ _CONTEXTUAL_OCR_FIXES: tuple[tuple[re.Pattern[str], str], ...] = (
     (re.compile(r"\bSome-\s*Thing\b", flags=re.IGNORECASE), "something"),
     (re.compile(r"\bTROU-\s*bling\b", flags=re.IGNORECASE), "troubling"),
     (re.compile(r"\bYester-\s*DAY\b", flags=re.IGNORECASE), "yesterday"),
+    (re.compile(r"\bUN-\s*CONTROLLED\b", flags=re.IGNORECASE), "uncontrolled"),
+    (re.compile(r"\bPAR-\s*Ticu-\s*LAR\b", flags=re.IGNORECASE), "particular"),
+    (re.compile(r"\bqualif\s+ication\b", flags=re.IGNORECASE), "qualification"),
+    (re.compile(r"\bodfrom\b", flags=re.IGNORECASE), "...from"),
+    (re.compile(r"\bWorldo\b", flags=re.IGNORECASE), "World."),
+    (re.compile(r"\b4\s+(?=High\s+SCHOOL|high\s+school)\b", flags=re.IGNORECASE), "a "),
     (re.compile(r"\barb\s+What\s+saying\??\s+You\b", flags=re.IGNORECASE), "What are you saying?"),
     (re.compile(r"\bWHAT\s+Is\s+THAT\?\s+I\b", flags=re.IGNORECASE), "what is that?!"),
     (re.compile(r"\bMAKE\s+A\s+RUN\s+FOR\s+It,?\s*$", flags=re.IGNORECASE), "make a run for it, you two."),
     (re.compile(r"\bWE\s+HERE\s+FOR\s+Miss\s+NATSUKO\s+AND[:.,\s]*$", flags=re.IGNORECASE), "we are here for miss natsuko and..."),
+    (re.compile(r"\bLISTEN,\s*Yuki[:.]\s*$", flags=re.IGNORECASE), "LISTEN, Yuki..."),
+    (re.compile(r"\bSO\s+Why,\s*$", flags=re.IGNORECASE), "SO Why..."),
+    (re.compile(r"\bLET'?S\s+See\s*$", flags=re.IGNORECASE), "LET'S See here..."),
+    (re.compile(r"\bIF\s+ONE\s+ENER\s+IS\s+About\s+one\s+HLNDRED\s+YEN[:,.\s]*$", flags=re.IGNORECASE), "if one ener is about one hundred yen..."),
 )
 
 
@@ -94,14 +115,20 @@ def normalize_spacing_and_punctuation(text: str) -> str:
     if not value:
         return ""
     # OCR often inserts hyphens at line breaks: CIRCUM- STANCES, TRANS- FORMED, proper- ty.
-    value = re.sub(r"(?i)\b([a-z]{2,})-\s+([a-z]{2,})\b", lambda m: m.group(1) + m.group(2), value)
+    previous = None
+    while previous != value:
+        previous = value
+        value = re.sub(r"(?i)\b([a-z]{2,})-\s+([a-z]{2,})\b", lambda m: m.group(1) + m.group(2), value)
     if value.count(";") and len(_WORD_RE.findall(value)) <= 8:
         value = value.replace(";", ",")
     value = re.sub(r"\s+([,.;:!?])", r"\1", value)
     value = re.sub(r"([,.;:!?])(?=\S)", r"\1 ", value)
+    value = re.sub(r"(?<=\d),\s+(?=\d{3}\b)", ",", value)
     value = re.sub(r"([!?.,;:])\s+([!?.,;:])", r"\1\2", value)
     value = re.sub(r"\.\s*\.\s*\.\s*", "...", value)
     value = re.sub(r"(?<!\.)\.\.(?!\.)", ".", value)
+    value = re.sub(r":\s*,?\s*\.$", "...", value)
+    value = re.sub(r":\s*$", ".", value)
     return " ".join(value.split())
 
 

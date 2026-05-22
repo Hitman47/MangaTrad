@@ -54,11 +54,11 @@ def test_dialogue_normalizer_short_questions_and_seen_bad_translations() -> None
     assert country.override_translation_fr == 'Une rencontre pittoresque à la campagne comme ça.'
 
     ignore = EnglishDialogueNormalizer.prepare("I'll Just IGNORE Him:")
-    assert ignore.normalized_text == "I'll just ignore him:"
+    assert ignore.normalized_text == "I'll just ignore him."
     assert ignore.override_translation_fr == 'Je vais simplement l’ignorer.'
 
     expected = EnglishDialogueNormalizer.prepare("I NEVER Expected I'D HAVE:")
-    assert expected.normalized_text == "I never expected I'd have:"
+    assert expected.normalized_text == "I never expected I'd have."
     assert expected.override_translation_fr == 'Je ne m’attendais pas à ça.'
 
 
@@ -154,3 +154,26 @@ def test_third_review_batch_learned_patterns_and_sfx_edges() -> None:
     date = EnglishDialogueNormalizer.prepare("THIS IS OUR:. FIRST DATE AFTER")
     assert date.normalized_text == "this is our... first date after all..."
     assert date.override_translation_fr == "Après tout, c'est notre... premier rendez-vous..."
+
+
+def test_fourth_review_batch_punctuation_numbers_and_hyphenation_patterns() -> None:
+    system = EnglishDialogueNormalizer.prepare("The Drugs ARE Still IN YOUR System:")
+    assert system.corrected_text == "The Drugs ARE Still IN YOUR System."
+
+    yuki = EnglishDialogueNormalizer.prepare("LISTEN, Yuki:")
+    assert yuki.normalized_text == "listen, Yuki..."
+    assert yuki.override_translation_fr == "Écoute, Yuki..."
+
+    why = EnglishDialogueNormalizer.prepare("SO Why,")
+    assert why.normalized_text == "so why..."
+    assert why.override_translation_fr == "Alors pourquoi..."
+
+    yen = EnglishDialogueNormalizer.prepare("IF ONE ENER IS About one HLNDRED YEN:, .")
+    assert yen.normalized_text == "if one ener is about one hundred yen..."
+    assert yen.override_translation_fr == "Si un ener coûte environ cent yens..."
+
+    hyphen = EnglishDialogueNormalizer.prepare("MAYBE SOME UN- CONTROLLED MONSTERS were LEFT BEHIND?")
+    assert hyphen.normalized_text == "maybe some uncontrolled monsters were left behind?"
+
+    particular = EnglishDialogueNormalizer.prepare("In PAR- Ticu- LAR:")
+    assert particular.corrected_text == "In particular."

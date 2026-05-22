@@ -34,6 +34,10 @@ _OCR_CORRECTIONS: tuple[tuple[re.Pattern[str], str], ...] = (
         re.compile(r"\bbmusthvb\s+gallenl\s+asle+p\s+inifront\s+computers?\b", flags=re.IGNORECASE),
         "I must've fallen asleep in front of my computer.",
     ),
+    (re.compile(r"\blisten,\s*yuki[:.]\s*$", flags=re.IGNORECASE), "listen, Yuki..."),
+    (re.compile(r"\bso\s+why,\s*$", flags=re.IGNORECASE), "so why..."),
+    (re.compile(r"\blet'?s\s+see\s*$", flags=re.IGNORECASE), "let's see here..."),
+    (re.compile(r"\bif\s+one\s+ener\s+is\s+about\s+one\s+hlndred\s+yen[:,.\s]*$", flags=re.IGNORECASE), "if one ener is about one hundred yen..."),
     (re.compile(r"\bt[o0][il1!]d\b", flags=re.IGNORECASE), "told"),
     (re.compile(r"\btoid\b", flags=re.IGNORECASE), "told"),
     (re.compile(r"\bc[l1i!]imb", flags=re.IGNORECASE), "climb"),
@@ -66,6 +70,8 @@ _OCR_CORRECTIONS: tuple[tuple[re.Pattern[str], str], ...] = (
     (re.compile(r"\benolgh\b", flags=re.IGNORECASE), "enough"),
     (re.compile(r"\bfopm\b", flags=re.IGNORECASE), "form"),
     (re.compile(r"\bhlnger\b", flags=re.IGNORECASE), "hunger"),
+    (re.compile(r"\bhundped\b", flags=re.IGNORECASE), "hundred"),
+    (re.compile(r"\bhlndred\b", flags=re.IGNORECASE), "hundred"),
     (re.compile(r"\bwolld\b", flags=re.IGNORECASE), "would"),
     (re.compile(r"\bmke\b", flags=re.IGNORECASE), "make"),
     (re.compile(r"\bbizarpe\b", flags=re.IGNORECASE), "bizarre"),
@@ -90,6 +96,14 @@ _OCR_CORRECTIONS: tuple[tuple[re.Pattern[str], str], ...] = (
     (re.compile(r"\bwmp[o0]rtant\b", flags=re.IGNORECASE), "important"),
     (re.compile(r"\bwha+a+i\b", flags=re.IGNORECASE), "whaaat"),
     (re.compile(r"\bbreastsi\b", flags=re.IGNORECASE), "breasts!!"),
+    (re.compile(r"\bppomise\b", flags=re.IGNORECASE), "promise"),
+    (re.compile(r"\btomorpow\b", flags=re.IGNORECASE), "tomorrow"),
+    (re.compile(r"\biives\b", flags=re.IGNORECASE), "lives"),
+    (re.compile(r"\bfeelig\b", flags=re.IGNORECASE), "feeling"),
+    (re.compile(r"\bthhis\b", flags=re.IGNORECASE), "this"),
+    (re.compile(r"\bi50\b", flags=re.IGNORECASE), "150"),
+    (re.compile(r"\b2oth\b", flags=re.IGNORECASE), "20th"),
+    (re.compile(r"\bsth\b", flags=re.IGNORECASE), "5th"),
     (re.compile(r"\bno\s+wayi\b", flags=re.IGNORECASE), "no way!"),
     (re.compile(r"\bt0\b", flags=re.IGNORECASE), "to"),
     (re.compile(r"\bpeallyi\b", flags=re.IGNORECASE), "really"),
@@ -150,6 +164,10 @@ _DIALOGUE_NORMALIZATIONS: tuple[tuple[re.Pattern[str], str], ...] = (
     (re.compile(r"\bwhat\s+is\s+that\?\s+i\b", flags=re.IGNORECASE), "what is that?!"),
     (re.compile(r"\bmake\s+a\s+run\s+for\s+it[,]?\s*$", flags=re.IGNORECASE), "make a run for it, you two."),
     (re.compile(r"\bwe\s+here\s+for\s+miss\s+natsuko\s+and[:.,\s]*$", flags=re.IGNORECASE), "we are here for miss natsuko and..."),
+    (re.compile(r"\blisten,\s*yuki[:.]\s*$", flags=re.IGNORECASE), "listen, Yuki..."),
+    (re.compile(r"\bso\s+why,\s*$", flags=re.IGNORECASE), "so why..."),
+    (re.compile(r"\blet'?s\s+see\s*$", flags=re.IGNORECASE), "let's see here..."),
+    (re.compile(r"\bif\s+one\s+ener\s+is\s+about\s+one\s+hundred\s+yen[:,.\s]*$", flags=re.IGNORECASE), "if one ener is about one hundred yen..."),
     (re.compile(r"^like\s+the\s+tune[.]?$", flags=re.IGNORECASE), "I Like The Tune."),
     (re.compile(r"^this\s+is\s+our[:.]+\s+first\s+date\s+after$", flags=re.IGNORECASE), "this is our... first date after all..."),
     (
@@ -261,6 +279,15 @@ _TRANSLATION_OVERRIDES: dict[str, str] = {
     "oh...about that": "Oh... À ce propos...",
     "there's nothing": "Il n'y a rien.",
     "i like breasts!!": "J'aime les seins !!",
+    "listen, yuki...": "Écoute, Yuki...",
+    "listen, yuki": "Écoute, Yuki...",
+    "so why...": "Alors pourquoi...",
+    "so why": "Alors pourquoi...",
+    "let's see here...": "Voyons voir...",
+    "if one ener is about one hundred yen...": "Si un ener coûte environ cent yens...",
+    "if one ener is about one hundred yen": "Si un ener coûte environ cent yens...",
+    "and 150,000 for the intel on their base.": "Et 150 000 pour les infos sur leur base.",
+    "i got 2,500,000 ener for the rare metals.": "J'ai obtenu 2 500 000 Ener pour les métaux rares.",
 }
 
 # Bubbles that are normally better kept as manga interjections/SFX rather than
@@ -389,6 +416,9 @@ class EnglishDialogueNormalizer:
             (re.compile(r"\bsome-\s*thing\b", flags=re.IGNORECASE), "something"),
             (re.compile(r"\btrou-\s*bling\b", flags=re.IGNORECASE), "troubling"),
             (re.compile(r"\byester-\s*day\b", flags=re.IGNORECASE), "yesterday"),
+            (re.compile(r"\bun-\s*controlled\b", flags=re.IGNORECASE), "uncontrolled"),
+            (re.compile(r"\bpar-\s*ticu-\s*lar\b", flags=re.IGNORECASE), "particular"),
+            (re.compile(r"\bqualif\s+ication\b", flags=re.IGNORECASE), "qualification"),
         )
         for pattern, replacement in replacements:
             fixed = pattern.sub(replacement, fixed)
@@ -401,7 +431,10 @@ class EnglishDialogueNormalizer:
                 return match.group(0)
             return left + right
 
-        fixed = re.sub(r"\b([A-Za-z]{2,})-\s+([A-Za-z]{2,})\b", join_soft_hyphen, fixed)
+        previous = None
+        while previous != fixed:
+            previous = fixed
+            fixed = re.sub(r"\b([A-Za-z]{2,})-\s+([A-Za-z]{2,})\b", join_soft_hyphen, fixed)
         return fixed
 
     @classmethod
@@ -419,10 +452,15 @@ class EnglishDialogueNormalizer:
         if re.search(r"[A-Za-z]", corrected):
             corrected = corrected.replace(";", ",")
         corrected = cls.fix_linebreak_hyphenation(corrected)
+        corrected = re.sub(r"\bodfrom\b", "...from", corrected, flags=re.IGNORECASE)
+        corrected = re.sub(r"\bWorldo\b", "World.", corrected, flags=re.IGNORECASE)
+        corrected = re.sub(r"\b4\s+(?=high\s+school)\b", "a ", corrected, flags=re.IGNORECASE)
         for pattern, replacement in _OCR_CORRECTIONS:
             corrected = pattern.sub(replacement, corrected)
         for pattern, replacement in _PRONOUN_CORRECTIONS:
             corrected = pattern.sub(replacement, corrected)
+        corrected = re.sub(r":\s*,?\s*\.$", "...", corrected)
+        corrected = re.sub(r":\s*$", ".", corrected)
         return cls.compact(corrected)
 
     @classmethod

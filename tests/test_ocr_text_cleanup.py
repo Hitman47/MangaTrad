@@ -10,7 +10,7 @@ from cbz_manga_translator.ocr.text_cleanup import (
 
 def test_normalize_random_easyocr_casing() -> None:
     assert has_random_ocr_casing("I NeVeR Expected I'D HAVE:")
-    assert normalize_ocr_text_for_translation("I NeVeR Expected I'D HAVE:") == "I never expected I'd have:"
+    assert normalize_ocr_text_for_translation("I NeVeR Expected I'D HAVE:") == "I never expected I'd have."
 
 
 def test_normalize_short_semicolon_dialogue() -> None:
@@ -54,3 +54,16 @@ def test_third_review_batch_sfx_edges_and_ocr_cleanup_examples() -> None:
     assert normalize_ocr_text_for_translation("Fljimura-kln") == "Fujimura-kun"
     assert normalize_ocr_text_for_translation("WHAAAI?") == "WHAAAT?"
     assert normalize_ocr_text_for_translation("BREASTSI!") == "breasts!!"
+
+
+def test_fourth_review_batch_punctuation_numbers_and_hyphenation_examples() -> None:
+    assert normalize_ocr_text_for_translation("The Drugs ARE Still IN YOUR System:") == "The Drugs ARE Still IN YOUR System."
+    assert normalize_ocr_text_for_translation("Don't do Anything Sudden:") == "Don't do Anything Sudden."
+    assert normalize_ocr_text_for_translation("LISTEN, Yuki:") == "LISTEN, Yuki..."
+    assert normalize_ocr_text_for_translation("SO Why,") == "SO Why..."
+    assert normalize_ocr_text_for_translation("IF ONE ENER IS About one HLNDRED YEN:, .") == "IF ONE ENER IS About one hundred YEN..."
+    assert normalize_ocr_text_for_translation("AND I50, 000 FOR THE INTEL ON THEIR BASE:") == "AND 150,000 FOR THE INTEL ON THEIR BASE."
+    assert normalize_ocr_text_for_translation("MAYBE SOME UN- CONTROLLED MONSTERS") == "MAYBE SOME UNCONTROLLED MONSTERS"
+    assert normalize_ocr_text_for_translation("In PAR- Ticu- LAR:") == "In particular."
+    assert normalize_ocr_text_for_translation("qualification t0 be here, our Iives") == "qualification to be here, our lives"
+    assert normalize_ocr_text_for_translation("Feels Like The Kind OF Thing 4 High SCHOOL BOY would") == "Feels Like The Kind OF Thing a High SCHOOL BOY would"
