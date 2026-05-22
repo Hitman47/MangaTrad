@@ -263,10 +263,23 @@ def test_fast_ten_batch_reviewed_ocr_and_expression_patterns() -> None:
     assert old_man.normalized_text == "she has got an idiot like that for an old man."
     assert old_man.override_translation_fr == "Elle a un idiot comme ça pour père."
 
+    jumpy = EnglishDialogueNormalizer.prepare("ALL [ HAD TO DO Was BE LITTLE NICE HERE AND THERE And SHE GETS ALL Jumpy and comes CRAWLING OVER.")
+    assert jumpy.override_translation_fr == "Il m'a suffi d'être un peu gentil de temps en temps pour qu'elle s'agite et vienne vers moi en rampant."
+
     complaints = EnglishDialogueNormalizer.prepare("So, I CALGHT The Rlnaway girl And got rid Of the bandis ANY COMP... LAINTS?")
     assert complaints.normalized_text == "So, I caught The runaway girl And got rid Of the bandits any complaints?"
+    assert complaints.override_translation_fr == "Bon, j'ai attrapé la fugueuse et je me suis débarrassé des voyous. Ça vous pose un problème ?"
 
     assert EnglishDialogueNormalizer.prepare("NO! NOT Thepe.").corrected_text == "NO! NOT there."
+    assert EnglishDialogueNormalizer.prepare("NO! NOT Thepe.").override_translation_fr == "NON ! PAS là."
+    assert EnglishDialogueNormalizer.prepare("NO SWEAT.").override_translation_fr == "Pas de souci."
+    assert EnglishDialogueNormalizer.prepare("Hey Hey Hey.").override_translation_fr == "Hey Hey Hey."
+    assert EnglishDialogueNormalizer.prepare("I'm THE SOUTH-OASIS.").normalized_text == "in the south-oasis."
+    ransom = EnglishDialogueNormalizer.prepare("WE'LL SQUEEZE ALL THE RANSOM MOMEY We can outta That old idiot And sell her to a SLAVE-TRADER I'm THE SOUTH-OASIS.")
+    assert ransom.override_translation_fr == "On va soutirer tout l'argent de la rançon qu'on peut à cette vieille idiote, puis on la vendra à un marchand d'esclaves dans l'oasis du Sud."
+    tamo = EnglishDialogueNormalizer.prepare("THATS TAMO-SAN'S Voice!")
+    assert tamo.normalized_text == "Ah! that is tamo-san's voice!"
+    assert tamo.override_translation_fr == "Ah ! C'est la voix de Tamo-san !"
     assert EnglishDialogueNormalizer.prepare("S0 MANY HERE ALREADY:. W!").corrected_text == "so many here already...!!"
     assert EnglishDialogueNormalizer.prepare("AAAND, It's GETTING WORSE:. .").corrected_text == "aaand, it's getting worse..."
     assert EnglishDialogueNormalizer.prepare("WANNA Gol?").normalized_text == "want to go?"

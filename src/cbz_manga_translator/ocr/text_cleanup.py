@@ -201,6 +201,7 @@ _CONTEXTUAL_OCR_FIXES: tuple[tuple[re.Pattern[str], str], ...] = (
     (re.compile(r"\bALL\s+\[\s+HAD\s+TO\s+DO\b", flags=re.IGNORECASE), "all I had to do"),
     (re.compile(r"\bFOR\s+AM\s+OLD\s+MAN\b", flags=re.IGNORECASE), "for an old man"),
     (re.compile(r"\bANY\s+COMP[.]{3}\s*LAINTS\?", flags=re.IGNORECASE), "ANY COMPLAINTS?"),
+    (re.compile(r"\bI'm\s+THE\s+SOUTH-OASIS\b", flags=re.IGNORECASE), "In THE SOUTH-OASIS"),
     (re.compile(r"\bS0\s+MANY\s+HERE\s+ALREADY[:. ]+\s*W!\s*$", flags=re.IGNORECASE), "so many here already...!!"),
     (re.compile(r"\bAAAND,\s+It['’]?s\s+GETTING\s+WORSE[:. ]+$", flags=re.IGNORECASE), "aaand, it's getting worse..."),
     (re.compile(r"\bHE\s+Hasn['’]?t\s+EITHER,\s*$", flags=re.IGNORECASE), "HE Hasn't come today EITHER."),

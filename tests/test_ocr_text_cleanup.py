@@ -108,5 +108,6 @@ def test_fast_ten_batch_reviewed_ocr_examples() -> None:
     assert normalize_ocr_text_for_translation("SHE'S G0T An IDIOT Like that FOR AM OLD MAN.") == "SHE'S GOT An IDIOT Like that for an old man."
     assert normalize_ocr_text_for_translation("So, I CALGHT The Rlnaway girl And got rid Of the bandis ANY COMP... LAINTS?") == "So, I CAUGHT The Runaway girl And got rid Of the bandits ANY COMPLAINTS?"
     assert normalize_ocr_text_for_translation("NO! NOT Thepe.") == "NO! NOT There."
+    assert normalize_ocr_text_for_translation("I'm THE SOUTH-OASIS.") == "In THE SOUTH-OASIS."
     assert normalize_ocr_text_for_translation("S0 MANY HERE ALREADY:. W!") == "so many here already...!!"
     assert normalize_ocr_text_for_translation("AAAND, It's GETTING WORSE:. .") == "aaand, it's getting worse..."
