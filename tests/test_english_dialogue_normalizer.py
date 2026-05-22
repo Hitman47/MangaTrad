@@ -326,3 +326,9 @@ def test_manga_font_ul_i_bang_confusion_profile_in_normalizer() -> None:
     assert EnglishDialogueNormalizer.prepare("WHAT 9i").corrected_text == "what?!"
     assert EnglishDialogueNormalizer.prepare("YOU telling Me TO TURN A BLIND Eye? l").normalized_text == "You seriously telling me to turn a blind eye?!"
     assert EnglishDialogueNormalizer.prepare("Should BE ONLY MATTER OF TIME Before all BETA ARE ELIMINATED.").normalized_text == "it should only be a matter of time before all beta are eliminated."
+
+
+def test_well_is_not_expanded_as_we_will() -> None:
+    prepared = EnglishDialogueNormalizer.prepare("Well, ACTUALLY, THAT'S WHAT HAPPENED.")
+
+    assert prepared.normalized_text == "well, actually, that is what happened."

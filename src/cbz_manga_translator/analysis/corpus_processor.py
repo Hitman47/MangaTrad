@@ -9,6 +9,7 @@ from pathlib import Path
 from typing import Any, Protocol
 
 from cbz_manga_translator.analysis.export_review import export_review_dataset
+from cbz_manga_translator.analysis.review_filter import apply_review_filters
 from cbz_manga_translator.core.cache import ProjectCache
 from cbz_manga_translator.core.models import OcrBlock, PageRecord, ProjectData, SourceLang
 from cbz_manga_translator.ocr.easyocr_engine import EasyOcrEngine
@@ -548,6 +549,8 @@ def process_corpus(
                 include_optional_engines=include_optional_ocr,
             )
 
+        apply_review_filters(blocks, source_lang=source_lang)
+
         if translate and blocks:
             blocks = translator.translate_blocks(
                 blocks,
@@ -556,10 +559,11 @@ def process_corpus(
                 raw_terms=raw_terms or project.glossary_terms,
                 normalize_english=normalize_english,
                 use_builtin_glossary=use_builtin_glossary,
-                force=True,
+                force=False,
             )
 
         quality_checker.apply(blocks, source_lang=source_lang)
+        apply_review_filters(blocks, source_lang=source_lang)
         page.blocks = blocks
         page.status = "translated" if translate else "ocr_done"
         pages_processed += 1

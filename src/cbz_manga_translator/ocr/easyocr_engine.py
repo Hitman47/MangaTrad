@@ -216,7 +216,10 @@ class EasyOcrEngine:
         blocks: list[OcrBlock] = []
         for raw_order, item in enumerate(raw_results):
             polygon, text, confidence = item
-            clean_text = normalize_ocr_text_for_translation(str(text))
+            raw_text = str(text)
+            clean_text = normalize_ocr_text_for_translation(raw_text)
+            if merge_lines and re.search(r"[A-Za-z]-\s*$", raw_text) and clean_text.endswith("..."):
+                clean_text = clean_text[:-3] + "-"
             confidence_value = float(confidence) if confidence is not None else None
             if filter_noise and self._looks_like_noise(clean_text, confidence_value, min_confidence):
                 continue

@@ -148,3 +148,16 @@ def test_manga_font_ul_i_bang_confusion_profile() -> None:
     assert normalize_ocr_text_for_translation("what kind of Shifty Tkinbs are You Doing In tke stl... DENT COLN...") == "what kind of Shifty THINGS are You Doing In the student COUNCIL"
     assert normalize_ocr_text_for_translation("just kidding say anything was danserols here the previous president's ex... istence") == "just kidding say anything was dangerous here the previous president's existence"
     assert normalize_ocr_text_for_translation("YOU telling Me TO TURN A BLIND Eye? l") == "YOU telling Me TO TURN A BLIND Eye? l"
+
+
+def test_latest_reviewed_manga_font_examples() -> None:
+    assert normalize_ocr_text_for_translation("It connectedl") == "It connected!"
+    assert normalize_ocr_text_for_translation("What? It wasntt Uthe Judgel") == "What? It wasn't the Judge!!"
+    assert normalize_ocr_text_for_translation("When didhe") == "When did he"
+    assert normalize_ocr_text_for_translation("4SAMI?") == "Usami?"
+    assert normalize_ocr_text_for_translation("You Jlst Bot NETO... Pare'd") == "You just got netorare'd"
+    assert normalize_ocr_text_for_translation("Fuji... MLRA,") == "...Fujimura..."
+    assert normalize_ocr_text_for_translation("It would Be GREAT Ip") == "It would Be GREAT If"
+    assert normalize_ocr_text_for_translation("MADE Itw") == "MADE It!!"
+    assert normalize_ocr_text_for_translation("Ishe DEAD?") == "Is he DEAD?"
+    assert normalize_ocr_text_for_translation("OSAMU... KUN.") == "Osamu-kun."
