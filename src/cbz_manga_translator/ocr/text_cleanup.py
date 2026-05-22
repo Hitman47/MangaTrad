@@ -3,8 +3,8 @@ from __future__ import annotations
 import re
 
 _SFX_EDGE_RE = re.compile(
-    r"^(whisper|sob|shock|jaka|sfx|bam|bang|boom|thud|clap|rustle|slam|tap|jolt|gasp|slap|wobble|yawn|sposh|flash|tremble|fidget|twitch|fwooo)\b[.!?:, -]*"
-    r"|\s+\b(whisper|sob|shock|jaka|sfx|bam|bang|boom|thud|clap|rustle|slam|tap|jolt|gasp|slap|wobble|yawn|sposh|flash|tremble|fidget|twitch|fwooo)[.!?:, -]*$",
+    r"^(whisper|sob|shock|jaka|sfx|bam|bang|boom|thud|clap|rustle|slam|tap|jolt|gasp|slap|wobble|yawn|sposh|flash|tremble|fidget|twitch|fwooo|nod|scribble)\b[.!?:, -]*"
+    r"|\s+\b(whisper|sob|shock|jaka|sfx|bam|bang|boom|thud|clap|rustle|slam|tap|jolt|gasp|slap|wobble|yawn|sposh|flash|tremble|fidget|twitch|fwooo|nod|scribble)[.!?:, -]*$",
     flags=re.IGNORECASE,
 )
 
@@ -40,6 +40,7 @@ _COMMON_OCR_WORD_FIXES: tuple[tuple[re.Pattern[str], str], ...] = (
     (re.compile(r"\bHupry\b", flags=re.IGNORECASE), "Hurry"),
     (re.compile(r"\bNOL\b", flags=re.IGNORECASE), "no"),
     (re.compile(r"\bNOI\b", flags=re.IGNORECASE), "NO!"),
+    (re.compile(r"\bAhemi\b", flags=re.IGNORECASE), "Ahem!"),
     (re.compile(r"\bCant\b", flags=re.IGNORECASE), "can't"),
     (re.compile(r"\bIm\b", flags=re.IGNORECASE), "I'm"),
     (re.compile(r"\bIll\b", flags=re.IGNORECASE), "I'll"),
@@ -100,6 +101,14 @@ _COMMON_OCR_WORD_FIXES: tuple[tuple[re.Pattern[str], str], ...] = (
     (re.compile(r"\bBOSSE36\b", flags=re.IGNORECASE), "bosses..."),
     (re.compile(r"\bHAIRSTYE\b", flags=re.IGNORECASE), "hairstyle"),
     (re.compile(r"\bLETIS\b", flags=re.IGNORECASE), "let's"),
+    (re.compile(r"\bDidnta\b", flags=re.IGNORECASE), "Didn't"),
+    (re.compile(r"\bClosb\b", flags=re.IGNORECASE), "close"),
+    (re.compile(r"\bBOPROW\b", flags=re.IGNORECASE), "borrow"),
+    (re.compile(r"\bSecl\b", flags=re.IGNORECASE), "sec!"),
+    (re.compile(r"\bPepson\b", flags=re.IGNORECASE), "Person"),
+    (re.compile(r"\bLoks\b", flags=re.IGNORECASE), "Looks"),
+    (re.compile(r"\b4NDER-\s*STOOD\b", flags=re.IGNORECASE), "Understood"),
+    (re.compile(r"\bou'd\b", flags=re.IGNORECASE), "you'd"),
     (re.compile(r"\bDINNERI\b", flags=re.IGNORECASE), "DINNER!"),
     (re.compile(r"\bREADYI\b", flags=re.IGNORECASE), "READY!"),
     (re.compile(r"\bMONSTERSI\b", flags=re.IGNORECASE), "MONSTERS!"),
@@ -143,6 +152,15 @@ _CONTEXTUAL_OCR_FIXES: tuple[tuple[re.Pattern[str], str], ...] = (
     (re.compile(r"\bSO\s+Why,\s*$", flags=re.IGNORECASE), "SO Why..."),
     (re.compile(r"\bLET'?S\s+See\s*$", flags=re.IGNORECASE), "LET'S See here..."),
     (re.compile(r"\bIF\s+ONE\s+ENER\s+IS\s+About\s+one\s+HLNDRED\s+YEN[:,.\s]*$", flags=re.IGNORECASE), "if one ener is about one hundred yen..."),
+    (re.compile(r"\bDO\s+NOT\s+YOURSELF\b", flags=re.IGNORECASE), "do not torture yourself"),
+    (re.compile(r"\bDO\s+Some(?:-|\s*)thing!\s+I'm\s+Counting\s+ON\s*$", flags=re.IGNORECASE), "DO something! I'm Counting ON you...!!"),
+    (re.compile(r"\bWHAT\s+GOING\s*$", flags=re.IGNORECASE), "what are you going to do?!"),
+    (re.compile(r"\bCould\s+accomp\s+any\s+you\?", flags=re.IGNORECASE), "Could I accompany you?"),
+    (re.compile(r"\bthere'@\s+NO\s+WAY\s+(.+?)\s+COULD\s+Ve\b", flags=re.IGNORECASE), r"there's NO WAY \1 COULD'Ve"),
+    (re.compile(r"\bWHAT\s+The,\s*$", flags=re.IGNORECASE), "what the...?!"),
+    (re.compile(r"\bNo\s+Way\)\s*$", flags=re.IGNORECASE), "No Way!"),
+    (re.compile(r"\bI\s+Think\s+I\s+Might\s+Like,\s*\"?\s*$", flags=re.IGNORECASE), "I Think I Might Like..."),
+    (re.compile(r"\bsmusic\s+Festivalsi\b", flags=re.IGNORECASE), "...music Festivals!"),
 )
 
 
@@ -164,6 +182,8 @@ def normalize_spacing_and_punctuation(text: str) -> str:
     value = re.sub(r"([,.;:!?])(?=\S)", r"\1 ", value)
     value = re.sub(r"(?<=\d),\s+(?=\d{3}\b)", ",", value)
     value = re.sub(r"([!?.,;:])\s+([!?.,;:])", r"\1\2", value)
+    value = re.sub(r"([!?])\s+\1", r"\1\1", value)
+    value = re.sub(r"\?\s+!", "?!", value)
     value = re.sub(r"\.\s*\.\s*\.\s*", "...", value)
     value = re.sub(r"(?<!\.)\.\.(?!\.)", ".", value)
     value = re.sub(r"\b(Ms|Mrs|Mr|Dr):(?=\s+[A-Z])", r"\1.", value, flags=re.IGNORECASE)

@@ -106,6 +106,27 @@ def test_postprocess_keeps_reviewed_sfx_labels_out_of_dialogue_merge() -> None:
     assert all("SLAP" not in text and "TREMBLE" not in text for text in dialogue)
 
 
+def test_postprocess_keeps_scribble_and_nod_sfx_out_of_dialogue_merge() -> None:
+    engine = EasyOcrEngine()
+    raw_results = [
+        (poly(100, 100, 230, 125), "THANKS.", 0.88),
+        (poly(112, 65, 170, 85), "NOD", 0.91),
+        (poly(255, 265, 345, 286), "scribble", 0.91),
+    ]
+
+    blocks = engine._postprocess_results(
+        raw_results,
+        source_lang="en",
+        page_index=0,
+        min_confidence=0.35,
+        merge_lines=True,
+        filter_noise=True,
+    )
+
+    assert "THANKS." in [block.ocr_text for block in blocks]
+    assert all(block.ocr_text != "NOD THANKS. scribble" for block in blocks)
+
+
 def test_candidate_quality_prefers_more_complete_dialogue() -> None:
     assert EasyOcrEngine._candidate_quality("GRAMMA LOOKY THAT", 0.51) > EasyOcrEngine._candidate_quality("GRAMMA; THAT;", 0.51)
 

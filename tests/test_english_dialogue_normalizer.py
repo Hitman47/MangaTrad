@@ -54,11 +54,11 @@ def test_dialogue_normalizer_short_questions_and_seen_bad_translations() -> None
     assert country.override_translation_fr == 'Une rencontre pittoresque à la campagne comme ça.'
 
     ignore = EnglishDialogueNormalizer.prepare("I'll Just IGNORE Him:")
-    assert ignore.normalized_text == "I'll just ignore him."
+    assert ignore.normalized_text == "I will just ignore him."
     assert ignore.override_translation_fr == 'Je vais simplement l’ignorer.'
 
     expected = EnglishDialogueNormalizer.prepare("I NEVER Expected I'D HAVE:")
-    assert expected.normalized_text == "I never expected I'd have."
+    assert expected.normalized_text == "I never expected I would have."
     assert expected.override_translation_fr == 'Je ne m’attendais pas à ça.'
 
 
@@ -205,3 +205,30 @@ def test_fifth_review_batch_punctuation_digits_hyphenation_and_sfx_patterns() ->
 
     sfx = EnglishDialogueNormalizer.prepare("SLAP WE ALWAYS TAKE YOU OUT ON OUR QUESTS, RIGHT? WOBBLE")
     assert sfx.corrected_text == "we always take you out on our quests, right?"
+
+
+def test_sixth_review_batch_expands_contractions_and_common_expressions() -> None:
+    fate = EnglishDialogueNormalizer.prepare("'tis FATE At WORK.")
+    assert fate.normalized_text == "it is FATE At WORK."
+    assert fate.override_translation_fr == "C'est le destin qui est à l'oeuvre."
+
+    counting = EnglishDialogueNormalizer.prepare("DO Some- thing! I'm Counting ON")
+    assert counting.normalized_text == "do something! I am counting on you...!!"
+    assert counting.override_translation_fr == "Fais quelque chose ! Je compte sur toi... !!"
+
+    what = EnglishDialogueNormalizer.prepare("WHAT GOING")
+    assert what.normalized_text == "what are you going to do?!"
+    assert what.override_translation_fr == "Qu'est-ce que tu vas faire ?!"
+
+    could = EnglishDialogueNormalizer.prepare("there'@ NO WAY Theo COULD Ve pulled It OFF!")
+    assert could.normalized_text == "there is no way Theo could have pulled It OFF!"
+    assert could.override_translation_fr == "Il n'y a aucune chance que Theo ait pu y arriver !"
+
+    advise = EnglishDialogueNormalizer.prepare("...But i'd REALLY Advise AGAINST Writing Anything untrue.")
+    assert "I would" in advise.normalized_text
+
+    silly = EnglishDialogueNormalizer.prepare("Don't Be Silly. ARE You That kinda Pepson?")
+    assert silly.normalized_text == "don't be silly. are you that kind of person?"
+    assert silly.override_translation_fr == "Ne sois pas ridicule. Tu es ce genre de personne ?"
+
+    assert EnglishDialogueNormalizer.prepare("ACK!!").override_translation_fr == "Argh !!"

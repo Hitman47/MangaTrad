@@ -86,6 +86,8 @@ _SOURCE_SLANG_WORDS = {
     "sorta",
     "cuz",
     "cos",
+    "'tis",
+    "tis",
 }
 
 _OCR_CONFUSION_PATTERNS: tuple[tuple[re.Pattern[str], str], ...] = (
@@ -97,6 +99,9 @@ _OCR_CONFUSION_PATTERNS: tuple[tuple[re.Pattern[str], str], ...] = (
     (re.compile(r"\bfopm\b", flags=re.IGNORECASE), "OCR probable: 'Fopm' devrait être 'form'"),
     (re.compile(r"\bcolld\b", flags=re.IGNORECASE), "OCR probable: 'Colld' devrait être 'could'"),
     (re.compile(r"\bhlnger\b", flags=re.IGNORECASE), "OCR probable: 'Hlnger' devrait être 'hunger'"),
+    (re.compile(r"\b(?:didnta|closb|boprow|pepson|loks|ahemi|secl|4nder|ou'd)\b", flags=re.IGNORECASE), "OCR probable: token appris du dernier batch à vérifier"),
+    (re.compile(r"\b(?:could|should|would)\s+ve\b", flags=re.IGNORECASE), "contraction anglaise probable: lire could've/should've/would've"),
+    (re.compile(r"\b(?:im|ive|ill|id)\b", flags=re.IGNORECASE), "contraction avec I probable: vérifier I'm/I've/I'll/I'd"),
     (re.compile(r"\b(?:tslrlmi|napehouse|nestern|individlals)\b", flags=re.IGNORECASE), "OCR probable: token inconnu/rompu à vérifier"),
     (re.compile(r"\bbmusthvb\s+gallenl\s+asle+p\s+inifront\s+computers?\b", flags=re.IGNORECASE), "OCR évident: devrait être \"I must've fallen asleep in front of my computer\""),
     (re.compile(r"\b(?:rlpted|lnneces|hideolt|yol|iwas|idont|iguess|wolld|bizarpe|wopld|iaeely|lessil|evepy|theip|dsich|aohto|dollarman|thess|bmusthvb|gallenl|aslep|inifront|t0)\b", flags=re.IGNORECASE), "OCR probable: token appris du corpus à vérifier"),
@@ -114,6 +119,8 @@ _FRAGMENT_ONLY_WORDS = {
     "or",
     "and",
     "but",
+    "right",
+    "gotta",
 }
 
 _LIKELY_MISSING_PREFIX_STARTS = {
@@ -125,6 +132,17 @@ _LIKELY_MISSING_PREFIX_STARTS = {
     "and",
     "then",
     "with",
+    "maybe",
+    "after",
+    "right",
+}
+
+_LIKELY_MISSING_SUFFIX_ENDS = {
+    "on",
+    "give",
+    "goes",
+    "gotta",
+    "hey",
 }
 
 _SAFE_UPPERCASE_TOKENS = {
@@ -215,9 +233,19 @@ class TranslationQualityChecker:
             if len(source_word_list) <= 2 and structure_source.strip().endswith(":"):
                 warnings.append("fragment OCR terminé par ':' probable: vérifier/fusionner")
             if source_word_list and source_word_list[0] in _LIKELY_MISSING_PREFIX_STARTS:
-                warnings.append("début de phrase possiblement manquant: vérifier la bulle précédente")
+                warnings.append("début de phrase possiblement manquant: en manga vérifier aussi la bulle à droite")
+            if source_word_list and source_word_list[-1] in _LIKELY_MISSING_SUFFIX_ENDS:
+                warnings.append("fin de bulle possiblement manquante: vérifier la suite du texte")
             if len(source_word_list) >= 4 and re.search(r"[A-Za-z0-9\"')]$", structure_source):
                 warnings.append("ponctuation finale possiblement manquante")
+            if structure_source.strip().startswith("..."):
+                warnings.append("fragment commençant par ellipse: probablement suite d'une bulle précédente")
+            if re.search(r"[=()%@#]", source):
+                warnings.append("symboles OCR suspects dans le texte: relire la bulle complète")
+            if re.fullmatch(r"(?i)right[?.]?", structure_source.strip()):
+                warnings.append("ambiguïté: 'right?' peut signifier 'n'est-ce pas ?' selon le contexte")
+            if re.search(r"(?i)\b(?:stats|slime|handy|clear my name|come up with|don't be silly|no way|here you go)\b", structure_source):
+                warnings.append("expression anglaise/contextuelle: vérifier le rendu naturel en français")
             sentence_breaks = re.findall(r"[.!?][\"')\]]?(?=\s+[A-Z\"'])", structure_source)
             if len(source_word_list) >= 14 and sentence_breaks:
                 warnings.append("bloc long avec plusieurs phrases: vérifier si deux bulles ont été fusionnées")

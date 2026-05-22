@@ -13,7 +13,7 @@ _TEXT_CHAR_RE = re.compile(r"[A-Za-zÀ-ÖØ-öø-ÿ0-9ぁ-んァ-ン一-龯々�
 _LETTER_RE = re.compile(r"[A-Za-zÀ-ÖØ-öø-ÿぁ-んァ-ン一-龯々]")
 _NOISE_ONLY_RE = re.compile(r"^[0-9\s<>{}\[\]().,;:!?/\\|_+*=~`'\"-]+$")
 _SFX_LABEL_RE = re.compile(
-    r"^(?:whisper|sob|shock|jaka|sfx|bam|bang|boom|thud|clap|rustle|slam|tap|tch|ugh|huh|hey|yeah|jolt|gasp|slap|wobble|yawn|sposh|flash|tremble|fidget|twitch|fwooo)[.!?:, -]*$",
+    r"^(?:whisper|sob|shock|jaka|sfx|bam|bang|boom|thud|clap|rustle|slam|tap|tch|ugh|huh|hey|yeah|jolt|gasp|slap|wobble|yawn|sposh|flash|tremble|fidget|twitch|fwooo|nod|scribble)[.!?:, -]*$",
     flags=re.IGNORECASE,
 )
 

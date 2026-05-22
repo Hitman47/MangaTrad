@@ -78,3 +78,14 @@ def test_fifth_review_batch_punctuation_digits_and_hyphenation_examples() -> Non
     assert normalize_ocr_text_for_translation("WE'LL ACCEPT THIS QUEST,, ,") == "WE'LL ACCEPT THIS QUEST..."
     assert normalize_ocr_text_for_translation("The RECEPTION ANDPOID At Mei's MANU- FACTURER TOLD ME") == "The RECEPTION android At Mei's MANUFACTURER TOLD ME"
     assert normalize_ocr_text_for_translation("WHAT Ape yo4 TALKING Abolt? THIS IS No TIME To Be ACTING STUBBORNI") == "WHAT Are you TALKING About? THIS IS No TIME To Be ACTING STUBBORN!"
+
+
+def test_sixth_review_batch_incomplete_bubbles_questions_and_contractions() -> None:
+    assert normalize_ocr_text_for_translation("DO NOT YOURSELF") == "do not torture yourself"
+    assert normalize_ocr_text_for_translation("DO Some- thing! I'm Counting ON") == "DO something! I'm Counting ON you...!!"
+    assert normalize_ocr_text_for_translation("WHAT GOING") == "what are you going to do?!"
+    assert normalize_ocr_text_for_translation("Could accomp any you?") == "Could I accompany you?"
+    assert normalize_ocr_text_for_translation("there'@ NO WAY Theo COULD Ve pulled It OFF!") == "there's no way theo could've pulled it off!"
+    assert normalize_ocr_text_for_translation("CAN I BOPROW THAT Volume AGAIN?") == "CAN I borrow THAT Volume AGAIN?"
+    assert normalize_ocr_text_for_translation("WHAT The,") == "what the...?!"
+    assert normalize_ocr_text_for_translation("4NDER- STOOD.") == "Understood."

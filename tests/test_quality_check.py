@@ -177,3 +177,42 @@ def test_quality_flags_possible_fused_bubbles_from_review_notes() -> None:
     warnings = TranslationQualityChecker().check_block(block)
 
     assert any("deux bulles" in warning or "fusion" in warning for warning in warnings)
+
+
+def test_quality_flags_incomplete_manga_fragments_and_ambiguous_expressions() -> None:
+    checker = TranslationQualityChecker()
+    fragment = OcrBlock(
+        id="b",
+        bbox=[0, 0, 1, 1],
+        source_lang="en",
+        ocr_text="DO something! I'm Counting ON",
+        normalized_source_text="do something! I am counting on",
+        translation_fr="Fais quelque chose je compte sur",
+        confidence=0.9,
+    )
+    warnings = checker.check_block(fragment)
+    assert any("fin de bulle" in warning for warning in warnings)
+
+    ellipsis = OcrBlock(
+        id="b2",
+        bbox=[0, 0, 1, 1],
+        source_lang="en",
+        ocr_text=". AFTER",
+        normalized_source_text="...after me?!",
+        translation_fr="...Après moi ?!",
+        confidence=0.9,
+    )
+    warnings = checker.check_block(ellipsis)
+    assert any("ellipse" in warning for warning in warnings)
+
+    right = OcrBlock(
+        id="b3",
+        bbox=[0, 0, 1, 1],
+        source_lang="en",
+        ocr_text="Right",
+        normalized_source_text="Right?",
+        translation_fr="N'est-ce pas ?",
+        confidence=0.9,
+    )
+    warnings = checker.check_block(right)
+    assert any("ambiguïté" in warning for warning in warnings)
