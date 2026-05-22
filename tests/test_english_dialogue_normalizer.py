@@ -332,3 +332,14 @@ def test_well_is_not_expanded_as_we_will() -> None:
     prepared = EnglishDialogueNormalizer.prepare("Well, ACTUALLY, THAT'S WHAT HAPPENED.")
 
     assert prepared.normalized_text == "well, actually, that is what happened."
+
+
+def test_latest_replay_misses_get_deterministic_overrides() -> None:
+    assert EnglishDialogueNormalizer.prepare("They're ALL So").override_translation_fr == "Ils sont tous si... jeunes..."
+    assert EnglishDialogueNormalizer.prepare("FujiMLRA,").override_translation_fr == "...Fujimura..."
+    assert EnglishDialogueNormalizer.prepare("is that s?").override_translation_fr == "Vraiment ?"
+    assert EnglishDialogueNormalizer.prepare("be great if").override_translation_fr == "Ce serait super si"
+    assert (
+        EnglishDialogueNormalizer.prepare("NOW I GOTTA Get Out Before Sensei CATCHES me...").override_translation_fr
+        == "Il faut que je me tire avant que Sensei ne me surprenne..."
+    )
