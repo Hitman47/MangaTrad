@@ -4,6 +4,7 @@ import re
 from dataclasses import dataclass
 
 from cbz_manga_translator.ocr.manga_font import repair_manga_font_confusions
+from cbz_manga_translator.ocr.memory import default_ocr_memory
 from cbz_manga_translator.translate.memory import default_translation_memory
 
 _LATIN_LETTER_RE = re.compile(r"[A-Za-zÀ-ÖØ-öø-ÿ]")
@@ -726,6 +727,9 @@ class EnglishDialogueNormalizer:
 
     @classmethod
     def correct_ocr_text(cls, text: str) -> str:
+        learned = default_ocr_memory().lookup(text)
+        if learned:
+            text = learned
         corrected = cls.soften_all_caps(text)
         corrected = corrected.replace("’", "'").replace("`", "'").replace("´", "'")
         corrected = re.sub(r"[_]+", " ", corrected)

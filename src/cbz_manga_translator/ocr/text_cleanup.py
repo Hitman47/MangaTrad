@@ -3,6 +3,7 @@ from __future__ import annotations
 import re
 
 from cbz_manga_translator.ocr.manga_font import repair_manga_font_confusions
+from cbz_manga_translator.ocr.memory import default_ocr_memory
 
 _SFX_EDGE_RE = re.compile(
     r"^(whisper|sob|shock|jaka|sfx|bam|bang|boom|thud|clap|rustle|slam|tap|jolt|gasp|slap|wobble|yawn|sposh|flash|tremble|fidget|twitch|fwooo|nod|scribble)\b[.!?:, -]*"
@@ -360,6 +361,9 @@ def normalize_english_ocr_casing(text: str) -> str:
 
 
 def normalize_ocr_text_for_translation(text: str) -> str:
+    learned = default_ocr_memory().lookup(text)
+    if learned:
+        text = learned
     value = normalize_english_ocr_casing(normalize_spacing_and_punctuation(text))
     if len(_WORD_RE.findall(value)) >= 5:
         previous = None
