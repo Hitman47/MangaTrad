@@ -4,8 +4,10 @@ from pathlib import Path
 
 from cbz_manga_translator.core.cache import ProjectCache
 from cbz_manga_translator.core.models import OcrBlock, PageRecord, ProjectData
+from cbz_manga_translator.translate.argos import ArgosTranslator
 from cbz_manga_translator.translate.english_dialogue_normalizer import EnglishDialogueNormalizer
 from cbz_manga_translator.translate.memory import (
+    TranslationMemory,
     build_translation_memory,
     canonical_memory_key,
     clear_translation_memory_cache,
@@ -74,3 +76,35 @@ def test_english_normalizer_uses_external_translation_memory(tmp_path: Path, mon
         clear_translation_memory_cache()
 
     assert prepared.override_translation_fr == "Phrase apprise."
+
+
+def test_memory_fuzzy_lookup_tolerates_small_ocr_noise() -> None:
+    memory = TranslationMemory(
+        {
+            "just who do you think i am? i am sonic sodom, y'know!": "Mais pour qui me prends-tu ?",
+        }
+    )
+
+    assert memory.lookup("Jst who DO You Think I AM? I am Sonic Sodom, Yknow!") == "Mais pour qui me prends-tu ?"
+
+
+def test_argos_uses_memory_for_pre_normalized_blocks(tmp_path: Path, monkeypatch) -> None:
+    memory_path = tmp_path / "memory.json"
+    memory = TranslationMemory({"local residents are advised": "Les residents locaux sont conseilles."})
+    write_translation_memory(memory, {}, memory_path)
+    monkeypatch.setenv("MANGATRAD_TRANSLATION_MEMORY", str(memory_path))
+    clear_translation_memory_cache()
+    block = OcrBlock(
+        id="b1",
+        bbox=[0, 0, 1, 1],
+        source_lang="en",
+        ocr_text="LOCAL Residents ARE Advised",
+        normalized_source_text="LOCAL Residents ARE Advised",
+    )
+
+    try:
+        prepared = ArgosTranslator._prepare_block_text(block, "en")
+    finally:
+        clear_translation_memory_cache()
+
+    assert prepared.override_translation_fr == "Les residents locaux sont conseilles."

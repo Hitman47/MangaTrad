@@ -5,6 +5,7 @@ import os
 import re
 from collections import Counter, defaultdict
 from dataclasses import dataclass
+from difflib import SequenceMatcher
 from functools import lru_cache
 from pathlib import Path
 from typing import Iterable
@@ -33,7 +34,34 @@ class TranslationMemory:
     entries: dict[str, str]
 
     def lookup(self, source: str) -> str:
-        return self.entries.get(canonical_memory_key(source), "")
+        key = canonical_memory_key(source)
+        exact = self.entries.get(key, "")
+        if exact:
+            return exact
+        return self._lookup_fuzzy(key)
+
+    def _lookup_fuzzy(self, key: str) -> str:
+        if len(key) < 16 or len(self.entries) > 2000:
+            return ""
+        key_tokens = set(re.findall(r"[a-z0-9']+", key))
+        if len(key_tokens) < 3:
+            return ""
+        best_value = ""
+        best_score = 0.0
+        for candidate, value in self.entries.items():
+            if abs(len(candidate) - len(key)) > max(12, int(len(key) * 0.25)):
+                continue
+            candidate_tokens = set(re.findall(r"[a-z0-9']+", candidate))
+            if not candidate_tokens:
+                continue
+            token_overlap = len(key_tokens & candidate_tokens) / max(len(key_tokens), len(candidate_tokens))
+            if token_overlap < 0.72:
+                continue
+            score = SequenceMatcher(None, key, candidate).ratio()
+            if score > best_score:
+                best_score = score
+                best_value = value
+        return best_value if best_score >= 0.94 else ""
 
 
 def _default_memory_candidates() -> list[Path]:

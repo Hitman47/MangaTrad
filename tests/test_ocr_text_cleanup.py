@@ -118,6 +118,18 @@ def test_replay_global_common_ocr_repairs() -> None:
     assert normalize_ocr_text_for_translation("Let's hurryi") == "Let's Hurry!"
     assert normalize_ocr_text_for_translation("Here I Gol") == "Here I Go!"
     assert normalize_ocr_text_for_translation("Hlhi?") == "HUH!?"
-    assert normalize_ocr_text_for_translation("Kow About") == "How About"
+    assert normalize_ocr_text_for_translation("Kow About") == "How About it?"
     assert normalize_ocr_text_for_translation("you'll under... stand once you do!") == "you'll understand once you do!"
     assert normalize_ocr_text_for_translation("Hunt... Ing") == "...I'm hunting you!!"
+
+
+def test_replay_learned_intraword_ellipsis_and_short_fragment_repairs() -> None:
+    assert normalize_ocr_text_for_translation("trou... bling?") == "troubling?"
+    assert normalize_ocr_text_for_translation("Are you ser... ious?") == "Are you serious?"
+    assert normalize_ocr_text_for_translation("so some... one roofied and kid... napped us?") == "so someone roofied and kidnapped us?"
+    assert normalize_ocr_text_for_translation("In PAR... Ticu... LAR.") == "In particular."
+    assert normalize_ocr_text_for_translation("Why Did I") == "Why Did I...?"
+    assert normalize_ocr_text_for_translation("this IS MY FAULT") == "this IS MY FAULT...?"
+    assert normalize_ocr_text_for_translation("they aren't making") == "they aren't making a move..."
+    assert normalize_ocr_text_for_translation("fine,") == "fine..."
+    assert normalize_ocr_text_for_translation("then") == "then?"

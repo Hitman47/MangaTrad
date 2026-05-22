@@ -433,6 +433,8 @@ class ArgosTranslator:
             )
             prepared.corrected_text = block.ocr_corrected_text or block.ocr_text
             prepared.normalized_source_text = block.normalized_source_text
+            if source_lang == "en":
+                prepared.override_translation_fr = EnglishDialogueNormalizer.translation_override(block.normalized_source_text)
             return prepared
         return cls._prepare_source_text(
             source_text,

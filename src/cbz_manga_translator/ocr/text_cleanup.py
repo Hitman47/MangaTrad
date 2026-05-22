@@ -21,6 +21,41 @@ _APOSTROPHE_REPLACEMENTS = {
 
 
 
+_ELLIPSIS_JOIN_WORDS = {
+    "apparently",
+    "asphyxiation",
+    "circumstances",
+    "drugged",
+    "interrupted",
+    "kidnapped",
+    "natsuko",
+    "particular",
+    "prepared",
+    "serious",
+    "someone",
+    "troubling",
+    "understand",
+    "useless",
+    "yutaro",
+}
+
+
+def _repair_intraword_ellipsis(text: str) -> str:
+    value = re.sub(r"\b(mobu|miwako)[.]{3}\s*san\b", r"\1-san", text, flags=re.IGNORECASE)
+    value = re.sub(r"\bpar[.]{3}\s*ticu[.]{3}\s*lar\b", "particular", value, flags=re.IGNORECASE)
+    value = re.sub(r"\blnder[.]{3}\s*stand\b", "UNDERSTAND", value, flags=re.IGNORECASE)
+
+    def join_known(match: re.Match[str]) -> str:
+        joined = f"{match.group(1)}{match.group(2)}"
+        return joined if joined.lower() in _ELLIPSIS_JOIN_WORDS else match.group(0)
+
+    previous = None
+    while previous != value:
+        previous = value
+        value = re.sub(r"\b([A-Za-z]{2,})[.]{3}\s*([A-Za-z]{2,})\b", join_known, value)
+    return value
+
+
 _COMMON_OCR_WORD_FIXES: tuple[tuple[re.Pattern[str], str], ...] = (
     (re.compile(r"\bEnolgh\b", flags=re.IGNORECASE), "enough"),
     (re.compile(r"\bcolrse\b", flags=re.IGNORECASE), "course"),
@@ -216,6 +251,23 @@ _CONTEXTUAL_OCR_FIXES: tuple[tuple[re.Pattern[str], str], ...] = (
     (re.compile(r"\bHere\s+I\s+Go[Il1]\b", flags=re.IGNORECASE), "Here I Go!"),
     (re.compile(r"\byou['’]?ll\s+under[.]{3}\s*stand\b", flags=re.IGNORECASE), "you'll understand"),
     (re.compile(r"\bHunt[.]{3}\s*Ing\s*$", flags=re.IGNORECASE), "...I'm hunting you!!"),
+    (re.compile(r"^Why\s+Did\s+I$", flags=re.IGNORECASE), "Why Did I...?"),
+    (re.compile(r"^this\s+IS\s+MY\s+FAULT$", flags=re.IGNORECASE), "this IS MY FAULT...?"),
+    (re.compile(r"^they\s+aren['\u2019]?t\s+making$", flags=re.IGNORECASE), "they aren't making a move..."),
+    (re.compile(r"^uh[.]\s+no\s+Reason$", flags=re.IGNORECASE), "uh. no Reason...?"),
+    (re.compile(r"^fine,$", flags=re.IGNORECASE), "fine..."),
+    (re.compile(r"^Now$", flags=re.IGNORECASE), "Now..."),
+    (re.compile(r"^IS\s+This[.]$", flags=re.IGNORECASE), "IS This..."),
+    (re.compile(r"^FROM\s+Now$", flags=re.IGNORECASE), "FROM Now on ..."),
+    (re.compile(r"^it\s+is\s+a\s+good$", flags=re.IGNORECASE), "it is a good tune"),
+    (re.compile(r"^How\s+About$", flags=re.IGNORECASE), "How About it?"),
+    (re.compile(r"^Hmm$", flags=re.IGNORECASE), "Hmm?!"),
+    (re.compile(r"^then$", flags=re.IGNORECASE), "then?"),
+    (re.compile(r"^a\s+fortune\s+teller,$", flags=re.IGNORECASE), "a fortune teller..."),
+    (re.compile(r"^GOD,$", flags=re.IGNORECASE), "GOD..."),
+    (re.compile(r"^AHH,$", flags=re.IGNORECASE), "AHH..."),
+    (re.compile(r"\bremem\s+ber\b", flags=re.IGNORECASE), "remember"),
+    (re.compile(r"\bIhave\b", flags=re.IGNORECASE), "I have"),
 )
 
 
@@ -240,6 +292,7 @@ def normalize_spacing_and_punctuation(text: str) -> str:
     value = re.sub(r"([!?])\s+\1", r"\1\1", value)
     value = re.sub(r"\?\s+!", "?!", value)
     value = re.sub(r"\.\s*\.\s*\.\s*", "...", value)
+    value = _repair_intraword_ellipsis(value)
     value = re.sub(r"\.\.\.(?=[A-Za-z])", lambda m: "..." if m.start() == 0 else "... ", value)
     value = re.sub(r"(?<!\.)\.\.(?!\.)", ".", value)
     value = re.sub(r"\b(Ms|Mrs|Mr|Dr):(?=\s+[A-Z])", r"\1.", value, flags=re.IGNORECASE)

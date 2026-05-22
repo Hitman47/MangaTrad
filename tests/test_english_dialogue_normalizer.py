@@ -304,3 +304,14 @@ def test_replay_global_common_translation_overrides() -> None:
     assert EnglishDialogueNormalizer.prepare("Whats that sound").override_translation_fr == "C'est quoi ce bruit ?"
     assert EnglishDialogueNormalizer.prepare("Kow About it?").override_translation_fr == "Qu'en penses-tu ?"
     assert EnglishDialogueNormalizer.prepare("Is it trying to flee?").override_translation_fr == "Est-ce qu'il essaie de s'enfuir ?"
+
+
+def test_replay_learned_intraword_ellipsis_and_short_fragment_normalization() -> None:
+    assert EnglishDialogueNormalizer.prepare("Are you ser... ious?").normalized_text == "Are you serious?"
+    assert EnglishDialogueNormalizer.prepare("so some... one roofied and kid... napped us?").normalized_text == "so someone roofied and kidnapped us?"
+    assert EnglishDialogueNormalizer.prepare("In PAR... Ticu... LAR.").corrected_text == "In particular."
+    assert EnglishDialogueNormalizer.prepare("Why Did I").normalized_text == "Why Did I...?"
+    assert EnglishDialogueNormalizer.prepare("this IS MY FAULT").normalized_text == "this IS MY FAULT...?"
+    assert EnglishDialogueNormalizer.prepare("they aren't making").normalized_text == "they aren't making a move..."
+    assert EnglishDialogueNormalizer.prepare("fine,").normalized_text == "fine..."
+    assert EnglishDialogueNormalizer.prepare("then").normalized_text == "then?"

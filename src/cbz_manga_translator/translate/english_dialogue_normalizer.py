@@ -28,6 +28,24 @@ _ING_EXCEPTIONS = {
     "riskin": "risking",
 }
 
+_ELLIPSIS_JOIN_WORDS = {
+    "apparently",
+    "asphyxiation",
+    "circumstances",
+    "drugged",
+    "interrupted",
+    "kidnapped",
+    "natsuko",
+    "particular",
+    "prepared",
+    "serious",
+    "someone",
+    "troubling",
+    "understand",
+    "useless",
+    "yutaro",
+}
+
 # OCR-specific fixes: these are deliberately applied before colloquial English
 # normalization. They fix visual confusions observed in comic fonts without
 # modifying the raw OCR field saved in the project cache.
@@ -274,6 +292,23 @@ _DIALOGUE_NORMALIZATIONS: tuple[tuple[re.Pattern[str], str], ...] = (
     (re.compile(r"\bhere\s+i\s+go[il1]\b", flags=re.IGNORECASE), "here I go!"),
     (re.compile(r"\byou['’]?ll\s+under[.]{3}\s*stand\b", flags=re.IGNORECASE), "you'll understand"),
     (re.compile(r"\bhunt[.]{3}\s*ing\s*$", flags=re.IGNORECASE), "...I'm hunting you!!"),
+    (re.compile(r"^why\s+did\s+i$", flags=re.IGNORECASE), "Why Did I...?"),
+    (re.compile(r"^this\s+is\s+my\s+fault$", flags=re.IGNORECASE), "this IS MY FAULT...?"),
+    (re.compile(r"^they\s+aren['\u2019]?t\s+making$", flags=re.IGNORECASE), "they aren't making a move..."),
+    (re.compile(r"^uh[.]\s+no\s+reason$", flags=re.IGNORECASE), "uh. no Reason...?"),
+    (re.compile(r"^fine,$", flags=re.IGNORECASE), "fine..."),
+    (re.compile(r"^now$", flags=re.IGNORECASE), "Now..."),
+    (re.compile(r"^is\s+this[.]$", flags=re.IGNORECASE), "IS This..."),
+    (re.compile(r"^from\s+now$", flags=re.IGNORECASE), "FROM Now on ..."),
+    (re.compile(r"^it\s+is\s+a\s+good$", flags=re.IGNORECASE), "it is a good tune"),
+    (re.compile(r"^how\s+about$", flags=re.IGNORECASE), "How About it?"),
+    (re.compile(r"^hmm$", flags=re.IGNORECASE), "Hmm?!"),
+    (re.compile(r"^then$", flags=re.IGNORECASE), "then?"),
+    (re.compile(r"^a\s+fortune\s+teller,$", flags=re.IGNORECASE), "a fortune teller..."),
+    (re.compile(r"^god,$", flags=re.IGNORECASE), "GOD..."),
+    (re.compile(r"^ahh,$", flags=re.IGNORECASE), "AHH..."),
+    (re.compile(r"\bremem\s+ber\b", flags=re.IGNORECASE), "remember"),
+    (re.compile(r"\bihave\b", flags=re.IGNORECASE), "I have"),
     (re.compile(r"\bs0\s+many\s+here\s+already[:. ]+\s*w!\s*$", flags=re.IGNORECASE), "so many here already...!!"),
     (re.compile(r"\baaand,\s+it['’]?s\s+getting\s+worse[:. ]+$", flags=re.IGNORECASE), "aaand, it's getting worse..."),
     (re.compile(r"\bhe\s+hasn['’]?t\s+either,\s*$", flags=re.IGNORECASE), "he hasn't come today either."),
@@ -669,7 +704,16 @@ class EnglishDialogueNormalizer:
         while previous != fixed:
             previous = fixed
             fixed = re.sub(r"\b([A-Za-z]{2,})-\s+([A-Za-z]{2,})\b", join_soft_hyphen, fixed)
+            fixed = re.sub(r"\b(mobu|miwako)[.]{3}\s*san\b", r"\1-san", fixed, flags=re.IGNORECASE)
+            fixed = re.sub(r"\bpar[.]{3}\s*ticu[.]{3}\s*lar\b", "particular", fixed, flags=re.IGNORECASE)
+            fixed = re.sub(r"\blnder[.]{3}\s*stand\b", "UNDERSTAND", fixed, flags=re.IGNORECASE)
+            fixed = re.sub(r"\b([A-Za-z]{2,})[.]{3}\s*([A-Za-z]{2,})\b", cls._join_intraword_ellipsis, fixed)
         return fixed
+
+    @staticmethod
+    def _join_intraword_ellipsis(match: re.Match[str]) -> str:
+        joined = f"{match.group(1)}{match.group(2)}"
+        return joined if joined.lower() in _ELLIPSIS_JOIN_WORDS else match.group(0)
 
     @classmethod
     def correct_ocr_text(cls, text: str) -> str:
