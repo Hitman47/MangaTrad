@@ -62,6 +62,23 @@ def test_review_filter_uses_external_ignore_memory(tmp_path: Path, monkeypatch) 
         clear_ignore_memory_cache()
 
 
+def test_review_filter_does_not_apply_learned_ignore_to_dialogue_like_text(tmp_path: Path, monkeypatch) -> None:
+    memory_path = tmp_path / "ignore_memory.json"
+    memory, metadata = build_ignore_memory([])
+    memory.entries["on your mark, take aim at the 100 meter target! selector on full, fire in short bursts!"] = "ignore appris"
+    write_ignore_memory(memory, metadata, memory_path)
+    monkeypatch.setenv("MANGATRAD_IGNORE_MEMORY", str(memory_path))
+    clear_ignore_memory_cache()
+
+    try:
+        block = _block("ON YOUR MARK, TAKE AIM At THE 100 meter TARGET! SELECTOR ON Full, FIRE IN SHORT BURSTS!")
+        assert non_reviewable_reason(block) == ""
+        assert apply_review_filters([block]) == 0
+        assert block.manual_status == "unchecked"
+    finally:
+        clear_ignore_memory_cache()
+
+
 def test_signage_and_standalone_sfx_are_auto_ignored() -> None:
     assert non_reviewable_reason(_block("Convenience store ATM")) == "signalétique/interface"
     assert non_reviewable_reason(_block("Fee Phone Card Fee Transfer")) == "signalétique/interface"
