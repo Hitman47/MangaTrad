@@ -176,3 +176,14 @@ def test_zone_fallback_batch_font_digit_repairs() -> None:
 def test_candidate_quality_prefers_reviewed_font_digit_repairs() -> None:
     assert candidate_quality("If I only KNEW About This a few Hours AGO.", 0.53) > candidate_quality("If I only KNEW About This a few Houps AGO.", 0.53)
     assert candidate_quality("Student Body", 0.62) > candidate_quality("Student B0DY", 0.62)
+
+
+def test_latest_clean_batch_ocr_repairs() -> None:
+    assert normalize_ocr_text_for_translation("Who 6ives A RAMN About HAVING A Perfectly Accurate Setupi?") == "Who gives A DAMN About HAVING A Perfectly Accurate Setup!!?"
+    assert normalize_ocr_text_for_translation("Howdid it even Get to this Point?") == "How did it even Get to this Point?"
+    assert normalize_ocr_text_for_translation("THAT ONE Ooo Incident EARLIER this Morningb") == "THAT ONE Ooo Incident EARLIER this Morning"
+    assert normalize_ocr_text_for_translation("A DESK Posi... TION. Let's \"NG SEE,") == "A DESK POSITION. Let's \"NG SEE..."
+    assert normalize_ocr_text_for_translation("PC TIC Le MARKETING SE OR Promo... TIONS,") == "PC TIC Le MARKETING SE OR Promotions..."
+    assert normalize_ocr_text_for_translation("MAYU, I MUST E NODDED OFF.") == "MAYU, I must've nodded off."
+    assert normalize_ocr_text_for_translation("CAPTAIN HIPO.") == "captain hiro."
+    assert normalize_ocr_text_for_translation("V WAIT A Second, GIANT!") == "WAIT A Second, GIANT!"

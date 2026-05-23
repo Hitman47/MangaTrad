@@ -303,6 +303,7 @@ def normalize_spacing_and_punctuation(text: str) -> str:
     value = re.sub(r"(?<=\d),\s+(?=\d{3}\b)", ",", value)
     value = re.sub(r"([!?.,;:])\s+([!?.,;:])", r"\1\2", value)
     value = re.sub(r"([!?])\s+\1", r"\1\1", value)
+    value = re.sub(r"!\s+\?", "!?", value)
     value = re.sub(r"\?\s+!", "?!", value)
     value = re.sub(r"\.\s*\.\s*\.\s*", "...", value)
     value = _repair_intraword_ellipsis(value)

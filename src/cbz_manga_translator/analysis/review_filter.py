@@ -80,6 +80,8 @@ def is_sfx_or_noise(text: str) -> bool:
     upper = value.upper()
     if upper in _SFX_WORDS:
         return True
+    if re.search(r"\bsparkle\b", value, flags=re.IGNORECASE) and len(re.findall(r"[A-Za-z]+", value)) <= 3:
+        return True
     letters = [char for char in value if char.isalpha()]
     if len(letters) <= 2:
         return True

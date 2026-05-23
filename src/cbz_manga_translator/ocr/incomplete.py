@@ -73,6 +73,8 @@ def is_probably_fused_source(text: str) -> bool:
     sfx_hits = _SFX_MIX_RE.findall(source)
     if sfx_hits and len(words) >= 4:
         return True
+    if re.search(r"\ball\s+righty!\s+then\?\s+we(?:'re| are)\s+off\.?$", source, flags=re.IGNORECASE):
+        return True
     sentence_breaks = re.findall(r"[.!?][\"')\]]?(?=\s+[A-Z\"'])", source)
     if len(words) >= 14 and sentence_breaks:
         return True

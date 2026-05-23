@@ -24,6 +24,7 @@ def test_does_not_flag_complete_common_dialogue() -> None:
 def test_detects_fused_sfx_or_multiple_bubbles() -> None:
     assert is_probably_fused_source("Krehble 4h, Seriously? You MEAN THAT? Krembue")
     assert is_probably_fused_source("They say you should live life counting the good things instead of the bad, don't they!? Like manga or songs.")
+    assert is_probably_fused_source("ALL RIGHTY! then? WE'RE OFF.")
 
 
 def test_zone_quality_warnings_are_stable() -> None:

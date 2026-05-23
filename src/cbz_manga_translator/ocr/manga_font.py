@@ -70,6 +70,18 @@ _MANGA_FONT_REPAIRS: tuple[tuple[re.Pattern[str], str], ...] = (
     (re.compile(r"^\s*They['’]?re\s+ALL\s+So\s*$", flags=re.IGNORECASE), "They're ALL So ...Young..."),
     (re.compile(r"\bTHINK\s+About\s+I,\s+AN\s+UNARMED\b", flags=re.IGNORECASE), "Think about it. an unarmed"),
     (re.compile(r"^\s*L\s+(You\s+FOOLS)\b", flags=re.IGNORECASE), r"\1!"),
+    (re.compile(r"\b6ives\b", flags=re.IGNORECASE), "gives"),
+    (re.compile(r"\b(?:RAMN|RARN)\b", flags=re.IGNORECASE), "DAMN"),
+    (re.compile(r"\bSetupi\b", flags=re.IGNORECASE), "Setup!!"),
+    (re.compile(r"\bHowdid\b", flags=re.IGNORECASE), "How did"),
+    (re.compile(r"\bMorningb\b", flags=re.IGNORECASE), "Morning"),
+    (re.compile(r"\bPosi[.]{3}\s*TION\b", flags=re.IGNORECASE), "POSITION"),
+    (re.compile(r"\bPromo[.]{3}\s*TIONS,?", flags=re.IGNORECASE), "Promotions..."),
+    (re.compile(r"\bmust\s+e\s+nodded\s+off\b", flags=re.IGNORECASE), "must've nodded off"),
+    (re.compile(r"\bCAPTAIN\s+HIPO\b", flags=re.IGNORECASE), "captain hiro"),
+    (re.compile(r"^\s*V\s+(WAIT\b)", flags=re.IGNORECASE), r"\1"),
+    (re.compile(r"\bGET\s+It,\s*!\s*y!\b", flags=re.IGNORECASE), "GET It!"),
+    (re.compile(r"(Let's\s+\"?NG\s+SEE),\s*$", flags=re.IGNORECASE), r"\1..."),
 )
 
 

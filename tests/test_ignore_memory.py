@@ -84,3 +84,5 @@ def test_signage_and_standalone_sfx_are_auto_ignored() -> None:
     assert non_reviewable_reason(_block("Fee Phone Card Fee Transfer")) == "signalétique/interface"
     assert non_reviewable_reason(_block("CREAK")) == "sfx/bruit"
     assert non_reviewable_reason(_block("LUNGE")) == "sfx/bruit"
+    assert non_reviewable_reason(_block("Sparkle Ie Ispa")) == "sfx/bruit"
+    assert non_reviewable_reason(_block("Sparkle +s")) == "sfx/bruit"
