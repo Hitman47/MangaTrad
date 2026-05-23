@@ -54,7 +54,7 @@ def is_probably_incomplete_source(text: str) -> bool:
     if source.startswith("...") or source.startswith(". "):
         return True
     has_terminal_punctuation = bool(_TERMINAL_RE.search(source))
-    if _INCOMPLETE_START_RE.search(source) and (len(words) <= 9 or not has_terminal_punctuation):
+    if _INCOMPLETE_START_RE.search(source) and not has_terminal_punctuation:
         return True
     if not has_terminal_punctuation and _INCOMPLETE_END_RE.search(source):
         return True

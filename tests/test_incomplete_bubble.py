@@ -18,6 +18,7 @@ def test_detects_reviewed_incomplete_bubble_shapes() -> None:
 def test_does_not_flag_complete_common_dialogue() -> None:
     assert not is_probably_incomplete_source("WHAT YA DOIN' UP THERE?")
     assert not is_probably_incomplete_source("The Tiger I Just SLASHED was A Mirage!")
+    assert not is_probably_incomplete_source("But it's FAR Too LATE FOR THAT!")
 
 
 def test_detects_fused_sfx_or_multiple_bubbles() -> None:
