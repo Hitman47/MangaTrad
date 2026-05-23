@@ -51,6 +51,24 @@ def test_infographic_page_is_marked_non_reviewable() -> None:
     assert all(block.manual_status == "ignored" for block in blocks)
 
 
+def test_extra_dense_character_profile_page_is_marked_non_reviewable() -> None:
+    blocks = [
+        _block("CHARACTERS Currently holds the majority within the West Oasis government and the opposing faction", 1),
+        _block("West Oasis Government Mitsuru Master and pupil", 2),
+        _block("Kosuna (Koizumi Taiko)", 3),
+        _block("Aspiring", 4),
+        _block("In control of", 5),
+        _block("A group that proposes using remnant technology from the Dark Ages to aid the Opposing Faction", 6),
+        _block("combat", 7),
+        _block("The Vixen of the Desert defects to the Majority Faction", 8),
+        _block("The Opposing Faction", 9),
+    ]
+
+    assert page_non_reviewable_reason(blocks) == "page non exploitable: fiche personnages/extra dense"
+    assert apply_review_filters(blocks) == len(blocks)
+    assert all(block.manual_status == "ignored" for block in blocks)
+
+
 def test_dialogue_page_is_not_auto_ignored() -> None:
     blocks = [
         _block("What are you doing here?", 1),

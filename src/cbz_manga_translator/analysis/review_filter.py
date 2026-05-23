@@ -27,6 +27,15 @@ _TECHNICAL_RE = re.compile(
     flags=re.IGNORECASE,
 )
 
+_REFERENCE_PAGE_RE = re.compile(
+    r"\b("
+    r"characters?|majority\s+faction|opposing\s+faction|west\s+oasis\s+government|"
+    r"cyborg\s+soldiers?|master\s+and\s+pupil|in\s+control\s+of|aspiring|"
+    r"government|faction|profile|relationship\s+chart"
+    r")\b",
+    flags=re.IGNORECASE,
+)
+
 _MEASURE_RE = re.compile(r"^\s*\d[\d,.\soO]*(?:m|km|cm|mm|%)\s*$", flags=re.IGNORECASE)
 _SFX_WORDS = {
     "4-UM",
@@ -114,6 +123,17 @@ def is_technical_infographic(text: str) -> bool:
     return False
 
 
+def is_reference_profile_text(text: str) -> bool:
+    value = " ".join(text.strip().split())
+    if not value:
+        return False
+    if _REFERENCE_PAGE_RE.search(value):
+        return True
+    words = re.findall(r"[A-Za-z][A-Za-z']+", value)
+    titlecase = [word for word in words if len(word) >= 3 and word[:1].isupper() and word[1:].islower()]
+    return len(words) >= 8 and len(titlecase) >= 4 and not re.search(r"[!?]", value)
+
+
 def non_reviewable_reason(block: OcrBlock) -> str:
     source = _block_source(block)
     learned = default_ignore_memory().lookup(source)
@@ -141,7 +161,7 @@ def _is_dialogue_like(text: str) -> bool:
 
 def page_non_reviewable_reason(blocks: Iterable[OcrBlock]) -> str:
     items = list(blocks)
-    if len(items) < 10:
+    if len(items) < 6:
         return ""
     reasons = [non_reviewable_reason(block) for block in items]
     reason_count = sum(1 for reason in reasons if reason)
@@ -149,6 +169,10 @@ def page_non_reviewable_reason(blocks: Iterable[OcrBlock]) -> str:
     dialogue_count = sum(1 for block in items if _is_dialogue_like(_block_source(block)))
     if technical_count >= 5 and reason_count / len(items) >= 0.55 and dialogue_count <= max(2, len(items) // 5):
         return "page non exploitable: infographie/signaletique"
+    reference_count = sum(1 for block in items if is_reference_profile_text(_block_source(block)))
+    dialogue_punctuation_count = sum(1 for block in items if re.search(r"[!?]", _block_source(block)))
+    if reference_count >= max(4, len(items) // 2) and dialogue_punctuation_count <= max(1, len(items) // 5):
+        return "page non exploitable: fiche personnages/extra dense"
     if reason_count / len(items) >= 0.75 and dialogue_count <= max(1, len(items) // 6):
         return "page non exploitable: non-dialogue"
     return ""
