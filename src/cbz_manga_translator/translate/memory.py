@@ -25,6 +25,32 @@ def canonical_memory_key(text: str) -> str:
     return compact
 
 
+_FRENCH_SOURCE_WORD_RE = re.compile(
+    r"\b(?:je|tu|il|elle|nous|vous|ils|elles|le|la|les|un|une|des|de|du|"
+    r"ce|cette|ca|est|suis|sont|etre|avoir|pas|que|qui|quoi|ou|pourquoi|"
+    r"comment|avec|sans|dans|sur|plus|moins|tres|faire|faut|voila|mais|"
+    r"donc|alors|comme|pour)\b",
+    re.IGNORECASE,
+)
+_ENGLISH_SOURCE_WORD_RE = re.compile(
+    r"\b(?:i|you|we|they|he|she|it|what|why|how|where|when|who|the|a|an|to|"
+    r"of|and|or|is|are|was|were|be|been|have|has|had|do|does|did|not|can|"
+    r"will|would|should|could|wanna|gonna|gotta)\b",
+    re.IGNORECASE,
+)
+
+
+def _source_looks_like_translation(source: str, translation: str) -> bool:
+    key = canonical_memory_key(source)
+    if not key:
+        return False
+    if translation and key == canonical_memory_key(translation):
+        return True
+    french_hits = len(_FRENCH_SOURCE_WORD_RE.findall(key))
+    english_hits = len(_ENGLISH_SOURCE_WORD_RE.findall(key))
+    return french_hits >= 2 and english_hits == 0
+
+
 def block_memory_source(block: OcrBlock) -> str:
     return (block.normalized_source_text or block.ocr_corrected_text or block.ocr_text).strip()
 
@@ -166,8 +192,12 @@ def build_translation_memory(
                 scanned_blocks += 1
                 if block.manual_status not in target_statuses:
                     continue
-                sources = block_memory_sources(block)
                 translation = (block.translation_fr or block.raw_translation_fr).strip()
+                sources = {
+                    source
+                    for source in block_memory_sources(block)
+                    if not _source_looks_like_translation(source, translation)
+                }
                 keys = {
                     canonical_memory_key(alias)
                     for source in sources

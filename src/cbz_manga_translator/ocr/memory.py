@@ -20,6 +20,32 @@ def canonical_ocr_key(text: str) -> str:
     return compact
 
 
+_FRENCH_CORRECTION_WORD_RE = re.compile(
+    r"\b(?:je|tu|il|elle|nous|vous|ils|elles|le|la|les|un|une|des|de|du|"
+    r"ce|cette|ca|est|suis|sont|etre|avoir|pas|que|qui|quoi|ou|pourquoi|"
+    r"comment|avec|sans|dans|sur|plus|moins|tres|faire|faut|voila|mais|"
+    r"donc|alors|comme|pour)\b",
+    re.IGNORECASE,
+)
+_ENGLISH_CORRECTION_WORD_RE = re.compile(
+    r"\b(?:i|you|we|they|he|she|it|what|why|how|where|when|who|the|a|an|to|"
+    r"of|and|or|is|are|was|were|be|been|have|has|had|do|does|did|not|can|"
+    r"will|would|should|could|wanna|gonna|gotta)\b",
+    re.IGNORECASE,
+)
+
+
+def _looks_like_translation(value: str, translation: str) -> bool:
+    key = canonical_ocr_key(value)
+    if not key:
+        return False
+    if translation and key == canonical_ocr_key(translation):
+        return True
+    french_hits = len(_FRENCH_CORRECTION_WORD_RE.findall(key))
+    english_hits = len(_ENGLISH_CORRECTION_WORD_RE.findall(key))
+    return french_hits >= 2 and english_hits == 0
+
+
 @dataclass(slots=True)
 class OcrCorrectionMemory:
     entries: dict[str, str]
@@ -91,7 +117,10 @@ def build_ocr_memory(
                     continue
                 original = block.ocr_text.strip()
                 corrected = block.ocr_corrected_text.strip()
+                translation = (block.translation_fr or block.raw_translation_fr).strip()
                 if len(original) < min_source_chars or len(corrected) < min_source_chars:
+                    continue
+                if _looks_like_translation(corrected, translation):
                     continue
                 key = canonical_ocr_key(original)
                 corrected_key = canonical_ocr_key(corrected)

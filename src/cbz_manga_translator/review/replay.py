@@ -48,6 +48,7 @@ class ReplayBlockResult:
     actual_source: str
     expected_translation: str
     actual_translation: str
+    source_evaluation: str = "checked"
 
 
 @dataclass(slots=True)
@@ -79,6 +80,34 @@ def text_similarity(left: str, right: str) -> float:
     if not left_key or not right_key:
         return 0.0
     return SequenceMatcher(None, left_key, right_key).ratio()
+
+
+_FRENCH_SOURCE_WORD_RE = re.compile(
+    r"\b(?:je|j|tu|il|elle|nous|vous|ils|elles|le|la|les|un|une|des|de|du|"
+    r"ce|cette|ca|ça|est|suis|sont|etre|être|avoir|pas|que|qui|quoi|ou|où|"
+    r"pourquoi|comment|avec|sans|dans|sur|plus|moins|tres|très|faire|faut|"
+    r"voila|voilà|mais|donc|alors|comme|pour|pere|père|mere|mère)\b",
+    re.IGNORECASE,
+)
+_ENGLISH_SOURCE_WORD_RE = re.compile(
+    r"\b(?:i|you|we|they|he|she|it|what|why|how|where|when|who|the|a|an|to|"
+    r"of|and|or|is|are|was|were|be|been|have|has|had|do|does|did|not|don|"
+    r"can|will|would|should|could|wanna|gonna|gotta)\b",
+    re.IGNORECASE,
+)
+
+
+def expected_source_is_translation_like(expected_source: str, expected_translation: str) -> bool:
+    source_key = canonical_text(expected_source)
+    translation_key = canonical_text(expected_translation)
+    if not source_key or not translation_key:
+        return False
+    if text_similarity(expected_source, expected_translation) >= 0.82:
+        return True
+    french_hits = len(_FRENCH_SOURCE_WORD_RE.findall(source_key))
+    english_hits = len(_ENGLISH_SOURCE_WORD_RE.findall(source_key))
+    has_french_accent = bool(re.search(r"[àâçéèêëîïôùûüÿœ]", source_key))
+    return (french_hits + int(has_french_accent)) >= 2 and english_hits == 0
 
 
 def bbox_iou(left: list[int], right: list[int]) -> float:
@@ -191,8 +220,13 @@ def replay_review_project(
                 continue
             actual_source = block_source_text(candidate)
             actual_translation = candidate.translation_fr or candidate.raw_translation_fr
-            source_score = text_similarity(expected_source, actual_source)
             translation_score = text_similarity(expected_translation, actual_translation)
+            source_evaluation = "checked"
+            if expected_source_is_translation_like(expected_source, expected_translation):
+                source_evaluation = "skipped_translation_in_source"
+                source_score = 1.0 if translation_score >= translation_threshold else text_similarity(expected_source, actual_source)
+            else:
+                source_score = text_similarity(expected_source, actual_source)
             source_ok = source_score >= source_threshold
             translation_ok = translation_score >= translation_threshold
             if source_ok and translation_ok:
@@ -216,6 +250,7 @@ def replay_review_project(
                     actual_source=actual_source,
                     expected_translation=expected_translation,
                     actual_translation=actual_translation,
+                    source_evaluation=source_evaluation,
                 )
             )
 
@@ -265,6 +300,7 @@ def write_replay_report(report: ReplayReport, output_dir: str | Path) -> tuple[P
                 f"### p{item.page_index + 1} · {item.target_block_id} · {item.status}",
                 "",
                 f"- Match bbox: {item.bbox_iou:.2f}",
+                f"- Source evaluation: `{item.source_evaluation}`",
                 f"- Similarité source: {item.source_similarity:.2f}",
                 f"- Similarité traduction: {item.translation_similarity:.2f}",
                 f"- Source attendue: `{item.expected_source}`",

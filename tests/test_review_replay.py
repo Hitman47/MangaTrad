@@ -89,6 +89,56 @@ def test_replay_review_project_compares_reprocessed_page_to_human_review(tmp_pat
     assert report.results[0].status == "match"
 
 
+def test_replay_review_project_skips_source_when_old_review_stored_translation(tmp_path: Path) -> None:
+    class FakeStoredTranslationTranslator:
+        def translate_blocks(self, blocks, source_lang, **kwargs):  # type: ignore[no-untyped-def]
+            for block in blocks:
+                block.normalized_source_text = "she has got an idiot like that for an old man."
+                block.translation_fr = "Je veux aller la bas."
+                block.raw_translation_fr = block.translation_fr
+            return blocks
+
+    image = tmp_path / "page.jpg"
+    Image.new("RGB", (80, 80), "white").save(image)
+    project_path = tmp_path / "project.reviewed.json"
+    ProjectCache.save(
+        project_path,
+        ProjectData(
+            cbz_path=str(tmp_path),
+            pages=[
+                PageRecord(
+                    page_index=0,
+                    image_name=str(image),
+                    blocks=[
+                        OcrBlock(
+                            id="human",
+                            bbox=[10, 10, 60, 40],
+                            source_lang="en",
+                            ocr_text="Je veux aller la bas.",
+                            normalized_source_text="Je veux aller la bas.",
+                            translation_fr="Je veux aller la bas.",
+                            manual_status="edited",
+                        )
+                    ],
+                )
+            ],
+        ),
+    )
+
+    report = replay_review_project(
+        project_path,
+        max_pages=1,
+        use_gpu=False,
+        recognizer=FakeRecognizer(),
+        translator=FakeStoredTranslationTranslator(),
+    )
+
+    assert report.source_matches == 1
+    assert report.full_matches == 1
+    assert report.results[0].status == "match"
+    assert report.results[0].source_evaluation == "skipped_translation_in_source"
+
+
 def test_write_replay_report(tmp_path: Path) -> None:
     report = ReplayReport(
         project_path="project.reviewed.json",
