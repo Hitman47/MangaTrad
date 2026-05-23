@@ -118,6 +118,26 @@ def test_argos_configure_device_uses_minisbd(monkeypatch) -> None:
     assert settings.device == "cpu"
 
 
+def test_argos_configure_device_clears_cached_stanza_translations(monkeypatch) -> None:
+    import argostranslate.translate as translate
+
+    class _CachedLanguages:
+        cleared = False
+
+        def cache_clear(self) -> None:
+            self.cleared = True
+
+    cached_languages = _CachedLanguages()
+    stale_translates = [object()]
+    monkeypatch.setattr(translate, "get_installed_languages", cached_languages)
+    monkeypatch.setattr(translate, "installed_translates", stale_translates)
+
+    ArgosTranslator._configure_device(use_gpu=False)
+
+    assert cached_languages.cleared is True
+    assert stale_translates == []
+
+
 class _CudaFailTranslation:
     def translate(self, text: str) -> str:
         raise RuntimeError("CUDA failed with error out of memory")

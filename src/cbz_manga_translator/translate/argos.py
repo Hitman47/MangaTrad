@@ -87,6 +87,21 @@ class ArgosTranslator:
             argos_settings.device = "cuda" if use_gpu else "cpu"
         except Exception:
             pass
+        ArgosTranslator._clear_argos_language_cache()
+
+    @staticmethod
+    def _clear_argos_language_cache() -> None:
+        try:
+            import argostranslate.translate as argos_translate
+
+            cache_clear = getattr(argos_translate.get_installed_languages, "cache_clear", None)
+            if callable(cache_clear):
+                cache_clear()
+            installed_translates = getattr(argos_translate, "installed_translates", None)
+            if isinstance(installed_translates, list):
+                installed_translates.clear()
+        except Exception:
+            return
 
     @staticmethod
     def _is_cuda_out_of_memory(exc: Exception) -> bool:
@@ -176,6 +191,7 @@ class ArgosTranslator:
         We therefore probe each installed language pair. This also reports pairs
         that Argos can satisfy through its own translation object resolution.
         """
+        ArgosTranslator._configure_device(use_gpu=False)
         _, argos_translate = ArgosTranslator._argostranslate_modules()
         languages = list(argos_translate.get_installed_languages())
         pairs: set[tuple[str, str]] = set()
