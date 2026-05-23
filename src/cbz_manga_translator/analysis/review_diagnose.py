@@ -109,6 +109,8 @@ def classify_block(block: OcrBlock, page_index: int) -> list[DiagnosticItem]:
 
     if "[fusion]" in notes or "fusion" in notes:
         items.append(_make_item(block, page_index, "fusion_or_bad_zone", "note humaine fusion"))
+    elif "[zone]" in notes:
+        items.append(_make_item(block, page_index, "missing_or_bad_zone", "note humaine bbox/crop incorrect"))
     elif any(token in notes for token in ("zone", "manque", "oubli", "pas lu", "bulle", "texte trop court")):
         items.append(_make_item(block, page_index, "missing_or_bad_zone", "note humaine zone/texte manquant"))
 

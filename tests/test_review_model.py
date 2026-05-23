@@ -6,6 +6,7 @@ from cbz_manga_translator.review.model import (
     apply_review_to_block,
     default_reviewed_path,
     iter_review_items,
+    is_bad_zone_block,
     is_fused_block,
     is_sfx_block,
     load_review_project,
@@ -89,6 +90,18 @@ def test_fused_decision_marks_review_with_searchable_note():
     assert review_decision_for_block(block) == "fused"
 
 
+def test_zone_decision_marks_review_with_searchable_note():
+    block = OcrBlock(id="b1", bbox=[1, 2, 3, 4], source_lang="en", ocr_text="partial text")
+
+    apply_review_to_block(block, decision="zone", notes="crop trop petit")
+
+    assert block.manual_status == "review"
+    assert "[zone]" in block.review_notes
+    assert "crop trop petit" in block.review_notes
+    assert is_bad_zone_block(block)
+    assert review_decision_for_block(block) == "zone"
+
+
 def test_apply_review_to_block_does_not_store_unchanged_mirror_fields():
     block = OcrBlock(
         id="b1",
@@ -167,3 +180,31 @@ def test_iter_review_items_exposes_fused_decision():
     assert item.review_decision == "fused"
     assert "fusion" in item.display
     assert "bulles melangees" in item.notes_preview
+
+
+def test_iter_review_items_exposes_zone_decision():
+    project = ProjectData(
+        cbz_path="corpus",
+        pages=[
+            PageRecord(
+                page_index=0,
+                image_name="page.jpg",
+                blocks=[
+                    OcrBlock(
+                        id="b1",
+                        bbox=[1, 2, 3, 4],
+                        source_lang="en",
+                        ocr_text="partial text",
+                        manual_status="review",
+                        review_notes="[zone] bbox trop petite",
+                    )
+                ],
+            )
+        ],
+    )
+
+    item = next(iter(iter_review_items(project)))
+
+    assert item.review_decision == "zone"
+    assert "zone" in item.display
+    assert "bbox trop petite" in item.notes_preview

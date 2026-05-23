@@ -19,7 +19,7 @@ def test_review_app_labels_are_explicit_and_pairable():
 
 
 def test_review_app_decision_help_mentions_all_decisions():
-    for decision in ["validate", "correct", "review", "ignore", "sfx"]:
+    for decision in ["validate", "correct", "review", "fused", "zone", "ignore", "sfx"]:
         assert decision in DECISION_HELP_TEXT
 
 
@@ -34,5 +34,5 @@ def test_review_workbench_help_mentions_safe_workflow():
 
 
 def test_review_filters_cover_done_todo_and_sfx_states():
-    for label in ["À traiter", "Corrections faites", "À revoir", "Validés", "Ignorés", "SFX"]:
+    for label in ["À traiter", "Corrections faites", "À revoir", "Fusion", "Zones", "Validés", "Ignorés", "SFX"]:
         assert label in FILTER_OPTIONS

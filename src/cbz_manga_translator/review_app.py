@@ -25,6 +25,7 @@ DECISION_HELP_TEXT = """Décisions rapides :
 - correct : OCR/source/traduction corrigé(e).
 - review : doute, à revoir plus tard.
 - fused : bulles ou SFX fusionnés avec une bulle, à retraiter/séparer.
+- zone : bbox/crop incorrect, bulle coupée ou une bulle séparée en plusieurs zones.
 - ignore : bloc inutile / parasite.
 - sfx : bruit, onomatopée, effet sonore."""
 
@@ -59,6 +60,7 @@ FILTER_OPTIONS = [
     "Corrections faites",
     "À revoir",
     "Fusion",
+    "Zones",
     "Validés",
     "Ignorés",
     "SFX",
@@ -506,6 +508,7 @@ class ReviewWindow(_QT_MAINWINDOW_BASE):
             ("Ignorer (I)", "ignore", 2, 0, "Bloc parasite/inutile : sauvegarde et passe au suivant.", "DangerButton"),
             ("Bulle fusionnée", "fused", 2, 1, "Bulles/SFX fusionnés : marque fusion et passe au suivant.", ""),
             ("Précédent", "prev_only", 2, 2, "Va au bloc précédent, avec confirmation si besoin.", ""),
+            ("Zone incorrecte", "zone", 3, 1, "Bbox/crop trop petit ou bulle séparée : marque zone et passe au suivant.", ""),
             ("Suivant", "next_only", 3, 2, "Va au bloc suivant, avec confirmation si besoin.", ""),
         ]
         for label, decision, row, col, tooltip, obj_name in specs:
@@ -573,9 +576,10 @@ class ReviewWindow(_QT_MAINWINDOW_BASE):
         ignored = sum(1 for item in all_items if item.review_decision == "ignore")
         sfx = sum(1 for item in all_items if item.review_decision == "sfx")
         fused = sum(1 for item in all_items if item.review_decision == "fused")
+        zone = sum(1 for item in all_items if item.review_decision == "zone")
         review = sum(1 for item in all_items if item.review_decision == "review")
         self.queue_summary.setText(
-            f"Total {total} · à traiter {todo} · corrigés {corrected} · validés {validated} · ignorés {ignored} · SFX {sfx} · fusion {fused}\n"
+            f"Total {total} · à traiter {todo} · corrigés {corrected} · validés {validated} · ignorés {ignored} · SFX {sfx} · fusion {fused} · zones {zone}\n"
             f"HIGH {high} · MED {med} · à revoir {review} · visibles {self.list_widget.count()} · filtre : {filter_name}"
         )
 
@@ -592,6 +596,8 @@ class ReviewWindow(_QT_MAINWINDOW_BASE):
             return item.review_decision == "review"
         if filter_name == "Fusion":
             return item.review_decision == "fused"
+        if filter_name == "Zones":
+            return item.review_decision == "zone"
         if filter_name == "Validés":
             return item.review_decision == "validate"
         if filter_name == "Ignorés":
@@ -701,7 +707,7 @@ class ReviewWindow(_QT_MAINWINDOW_BASE):
     def _mark_corrected_dirty(self) -> None:
         if self._is_loading_block:
             return
-        if self.decision_combo.currentText() not in {"correct", "ignore", "sfx"}:
+        if self.decision_combo.currentText() not in {"correct", "ignore", "sfx", "fused", "zone"}:
             self.decision_combo.setCurrentText("correct")
             self.action_status.setText("Correction détectée : la décision est passée à correct.")
         self._mark_dirty()

@@ -127,6 +127,33 @@ def test_apply_review_pack_preserves_fused_decision(tmp_path: Path) -> None:
     assert block.review_notes.startswith("[fusion]")
 
 
+def test_apply_review_pack_preserves_zone_decision(tmp_path: Path) -> None:
+    project = _project()
+    project_path = tmp_path / "project.json"
+    ProjectCache.save(project_path, project)
+    review_csv = tmp_path / "review.csv"
+    with review_csv.open("w", encoding="utf-8-sig", newline="") as handle:
+        writer = csv.DictWriter(
+            handle,
+            fieldnames=["review_decision", "review_notes", "page_index", "block_id"],
+        )
+        writer.writeheader()
+        writer.writerow({
+            "review_decision": "zone",
+            "review_notes": "bbox trop petite",
+            "page_index": "0",
+            "block_id": "a1",
+        })
+
+    out_project = tmp_path / "reviewed.json"
+    result = apply_review_pack(project_path, review_csv, output_project_path=out_project)
+
+    assert result.review_blocks == 1
+    block = ProjectCache.load(out_project).pages[0].blocks[0]
+    assert block.manual_status == "review"
+    assert block.review_notes.startswith("[zone]")
+
+
 def test_apply_review_pack_reads_tsv_with_commas(tmp_path: Path) -> None:
     project = _project()
     project_path = tmp_path / "project.json"
