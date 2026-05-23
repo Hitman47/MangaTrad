@@ -29,6 +29,17 @@ def block_memory_source(block: OcrBlock) -> str:
     return (block.normalized_source_text or block.ocr_corrected_text or block.ocr_text).strip()
 
 
+def block_memory_sources(block: OcrBlock) -> set[str]:
+    """Return all source spellings worth binding to the human translation."""
+    sources = {
+        block.ocr_text.strip(),
+        block.ocr_corrected_text.strip(),
+        block.normalized_source_text.strip(),
+        block_memory_source(block),
+    }
+    return {source for source in sources if source}
+
+
 def memory_source_aliases(source: str) -> set[str]:
     aliases = {source}
     try:
@@ -155,16 +166,20 @@ def build_translation_memory(
                 scanned_blocks += 1
                 if block.manual_status not in target_statuses:
                     continue
-                source = block_memory_source(block)
+                sources = block_memory_sources(block)
                 translation = (block.translation_fr or block.raw_translation_fr).strip()
-                keys = {canonical_memory_key(alias) for alias in memory_source_aliases(source)}
+                keys = {
+                    canonical_memory_key(alias)
+                    for source in sources
+                    for alias in memory_source_aliases(source)
+                }
                 keys = {key for key in keys if len(key) >= min_source_chars}
                 if not keys or not translation:
                     continue
                 eligible_blocks += 1
                 for key in keys:
                     buckets[key][translation] += 1
-                    examples.setdefault(key, source)
+                    examples.setdefault(key, block_memory_source(block))
 
     entries: dict[str, str] = {}
     conflicts: dict[str, dict[str, int]] = {}

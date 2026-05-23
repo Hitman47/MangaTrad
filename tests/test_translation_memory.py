@@ -63,6 +63,40 @@ def test_build_translation_memory_uses_human_corrected_blocks(tmp_path: Path) ->
     assert memory.lookup("ignored") == ""
 
 
+def test_build_translation_memory_learns_raw_corrected_and_normalized_aliases(tmp_path: Path) -> None:
+    project_path = tmp_path / "project.reviewed.json"
+    ProjectCache.save(
+        project_path,
+        ProjectData(
+            cbz_path="corpus",
+            pages=[
+                PageRecord(
+                    page_index=0,
+                    image_name="page.jpg",
+                    blocks=[
+                        OcrBlock(
+                            id="b1",
+                            bbox=[0, 0, 1, 1],
+                            source_lang="en",
+                            ocr_text="MAGIC? i From A TAMER? I",
+                            ocr_corrected_text="magic?! from a tamer?!",
+                            normalized_source_text="magic?! from a tamer?!",
+                            translation_fr="De la magie ?! De la part d'un dompteur ?!",
+                            manual_status="edited",
+                        )
+                    ],
+                )
+            ],
+        ),
+    )
+
+    memory, metadata = build_translation_memory([project_path])
+
+    assert metadata["eligible_blocks"] == 1
+    assert memory.lookup("MAGIC? i From A TAMER? I") == "De la magie ?! De la part d'un dompteur ?!"
+    assert memory.lookup("magic?! from a tamer?!") == "De la magie ?! De la part d'un dompteur ?!"
+
+
 def test_english_normalizer_uses_external_translation_memory(tmp_path: Path, monkeypatch) -> None:
     memory_path = tmp_path / "memory.json"
     memory, metadata = build_translation_memory([])
