@@ -6,13 +6,14 @@ import json
 import random
 import re
 import shutil
+from io import BytesIO
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Iterable, Literal
 
 from cbz_manga_translator.core.cbz_reader import CbzReader
 
-SamplingMode = Literal["stratified", "random", "mixed"]
+SamplingMode = Literal["stratified", "random", "mixed", "busy"]
 SeriesSamplingMode = Literal["mixed", "first", "last", "random"]
 SUPPORTED_VOLUME_EXTENSIONS = (".cbz", ".zip")
 
@@ -320,7 +321,90 @@ def choose_page_indices(
             selected.add(rng.choice(candidates))
         return sorted(selected)[:pages_per_volume]
 
+    if mode == "busy":
+        # Image-aware selection happens in sample_corpus where page bytes are available.
+        # Keep this deterministic fallback for callers that only have page counts.
+        return _choose_stratified(candidates, pages_per_volume, rng)
+
     raise ValueError(f"Unsupported sampling mode: {mode}")
+
+
+def _candidate_page_indices(page_count: int, *, skip_first: int, skip_last: int) -> list[int]:
+    start = min(max(skip_first, 0), page_count)
+    end_exclusive = max(start, page_count - max(skip_last, 0))
+    return list(range(start, end_exclusive)) or list(range(page_count))
+
+
+def _score_busy_page(data: bytes) -> float:
+    """Estimate how likely a page contains difficult text zones.
+
+    Dense manga pages tend to have many ink transitions: screentones, panel
+    borders, overlapping bubbles and SFX. Blank pages or solid dark pages are
+    deliberately penalized so the challenge corpus does not waste review time.
+    """
+    try:
+        from PIL import Image
+
+        with Image.open(BytesIO(data)) as image:
+            image = image.convert("L")
+            image.thumbnail((192, 192))
+            width, height = image.size
+            pixel_data = getattr(image, "get_flattened_data", image.getdata)()
+            pixels = list(pixel_data)
+    except Exception:
+        return 0.0
+    if not pixels or width <= 1 or height <= 1:
+        return 0.0
+
+    dark_fraction = sum(1 for pixel in pixels if pixel < 210) / len(pixels)
+    if dark_fraction < 0.015:
+        return 0.0
+    if dark_fraction > 0.92:
+        return 0.05
+
+    horizontal_edges = 0
+    horizontal_total = height * (width - 1)
+    for y in range(height):
+        offset = y * width
+        for x in range(width - 1):
+            if abs(pixels[offset + x] - pixels[offset + x + 1]) > 32:
+                horizontal_edges += 1
+
+    vertical_edges = 0
+    vertical_total = (height - 1) * width
+    for y in range(height - 1):
+        offset = y * width
+        next_offset = (y + 1) * width
+        for x in range(width):
+            if abs(pixels[offset + x] - pixels[next_offset + x]) > 32:
+                vertical_edges += 1
+
+    edge_density = (horizontal_edges + vertical_edges) / max(1, horizontal_total + vertical_total)
+    balanced_ink = min(dark_fraction, 1.0 - dark_fraction)
+    return edge_density * 3.0 + balanced_ink
+
+
+def _choose_busy_page_indices(
+    reader: CbzReader,
+    image_names: list[str],
+    pages_per_volume: int,
+    *,
+    seed: int,
+    volume_index: int,
+    skip_first: int,
+    skip_last: int,
+) -> list[int]:
+    candidates = _candidate_page_indices(len(image_names), skip_first=skip_first, skip_last=skip_last)
+    if pages_per_volume >= len(candidates):
+        return candidates
+    rng = random.Random(f"busy:{seed}:{volume_index}:{len(image_names)}:{pages_per_volume}")
+    scored: list[tuple[float, int]] = []
+    for index in candidates:
+        score = _score_busy_page(reader.read_image_bytes(image_names[index]))
+        # Tiny deterministic jitter prevents permanent ties between similar pages.
+        scored.append((score + rng.random() * 0.0001, index))
+    selected = [index for _score, index in sorted(scored, reverse=True)[:pages_per_volume]]
+    return sorted(selected)
 
 
 def _choose_stratified(candidates: list[int], count: int, rng: random.Random) -> list[int]:
@@ -399,15 +483,26 @@ def sample_corpus(
             continue
 
         processed += 1
-        indices = choose_page_indices(
-            len(image_names),
-            pages_per_volume,
-            seed=seed,
-            volume_index=source.index,
-            mode=mode,
-            skip_first=skip_first,
-            skip_last=skip_last,
-        )
+        if mode == "busy":
+            indices = _choose_busy_page_indices(
+                reader,
+                image_names,
+                pages_per_volume,
+                seed=seed,
+                volume_index=source.index,
+                skip_first=skip_first,
+                skip_last=skip_last,
+            )
+        else:
+            indices = choose_page_indices(
+                len(image_names),
+                pages_per_volume,
+                seed=seed,
+                volume_index=source.index,
+                mode=mode,
+                skip_first=skip_first,
+                skip_last=skip_last,
+            )
         volume_output_dir = pages_dir / source.series_label / source.label
         volume_output_dir.mkdir(parents=True, exist_ok=True)
 

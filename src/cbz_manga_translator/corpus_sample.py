@@ -30,9 +30,9 @@ def main() -> int:
     parser.add_argument("--seed", type=int, default=47, help="Deterministic sampling seed.")
     parser.add_argument(
         "--mode",
-        choices=["mixed", "stratified", "random"],
+        choices=["mixed", "stratified", "random", "busy"],
         default="mixed",
-        help="Page sampling strategy. mixed = mostly balanced plus random jitter.",
+        help="Page sampling strategy. busy = visually dense challenge pages for harder OCR review.",
     )
     parser.add_argument(
         "--series-mode",

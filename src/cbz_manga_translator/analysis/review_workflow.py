@@ -12,7 +12,7 @@ from cbz_manga_translator.core.models import ProjectData, OcrBlock
 
 RiskBand = Literal["high", "medium", "ok"]
 
-_DECISION_VALUES = ["", "validate", "correct", "review", "ignore", "sfx"]
+_DECISION_VALUES = ["", "validate", "correct", "review", "fused", "ignore", "sfx"]
 
 # User-facing order: each editable field is placed immediately next to the
 # evidence needed to fill it. Technical identifiers are pushed to the right.
@@ -89,7 +89,7 @@ Il est plus simple à corriger que le TSV : colonnes lisibles, filtres, lignes f
 
 Colonnes à remplir uniquement :
 
-- `Décision` : liste déroulante `validate`, `correct`, `review`, `ignore`, `sfx`.
+- `Décision` : liste déroulante `validate`, `correct`, `review`, `fused`, `ignore`, `sfx`.
 - `OCR corrigé à remplir` : OCR corrigé si l'OCR brut est faux.
 - `Source corrigée à remplir` : texte source final, si la normalisation doit être forcée.
 - `Traduction FR corrigée à remplir` : traduction française corrigée.
@@ -106,6 +106,7 @@ Décisions :
 - `validate` : la traduction finale est correcte telle quelle.
 - `correct` : tu as rempli au moins une correction OCR/source/FR.
 - `review` : bloc à revoir plus tard.
+- `fused` : plusieurs bulles, ou SFX mélangé à une bulle ; à retraiter/séparer.
 - `ignore` : bloc inutile pour l'apprentissage.
 - `sfx` : bruit/SFX/onomatopée ou texte non-dialogue à ignorer.
 
@@ -315,10 +316,10 @@ def _write_review_workbook(path: Path, rows: list[dict[str, str]]) -> None:
     # Decision dropdown.
     decision_col = _REVIEW_FIELDNAMES.index("review_decision") + 1
     decision_letter = get_column_letter(decision_col)
-    dv = DataValidation(type="list", formula1='"validate,correct,review,ignore,sfx"', allow_blank=True)
-    dv.error = "Choisis validate, correct, review, ignore ou sfx."
+    dv = DataValidation(type="list", formula1='"validate,correct,review,fused,ignore,sfx"', allow_blank=True)
+    dv.error = "Choisis validate, correct, review, fused, ignore ou sfx."
     dv.errorTitle = "Décision invalide"
-    dv.prompt = "validate = OK, correct = correction faite, review = à revoir, ignore = inutile, sfx = bruit/onomatopée."
+    dv.prompt = "validate = OK, correct = correction faite, review = à revoir, fused = bulles/SFX fusionnés, ignore = inutile, sfx = bruit/onomatopée."
     dv.promptTitle = "Décision MangaTrad"
     ws.add_data_validation(dv)
     dv.add(f"{decision_letter}2:{decision_letter}{len(rows)+1}")
@@ -355,7 +356,7 @@ def _write_review_workbook(path: Path, rows: list[dict[str, str]]) -> None:
     instructions["A4"] = "2. Utilise la liste déroulante Décision."
     instructions["A5"] = "3. OCR brut → OCR corrigé ; Source à vérifier → Source corrigée ; Traduction actuelle → Traduction corrigée."
     instructions["A6"] = "4. Ne modifie pas les colonnes techniques à droite : page_index, block_id, image_name, bbox."
-    instructions["A7"] = "5. Sauvegarde le .xlsx, puis réinjecte-le avec corpus_apply_review."
+    instructions["A7"] = "5. Mets fused quand la bbox mélange plusieurs bulles/SFX ; sauvegarde le .xlsx, puis réinjecte-le avec corpus_apply_review."
     instructions.column_dimensions["A"].width = 120
 
     wb.save(path)
@@ -518,6 +519,10 @@ def apply_review_pack(
             block.translation_fr = corrected_fr
             block.raw_translation_fr = block.raw_translation_fr or corrected_fr
             row_changed = True
+        if decision in {"sfx", "noise"} and not review_notes.lower().startswith("[sfx]"):
+            review_notes = f"[sfx] {review_notes}".strip()
+        if decision in {"fused", "fusion", "merged", "merge"} and not review_notes.lower().startswith("[fusion]"):
+            review_notes = f"[fusion] {review_notes}".strip()
         if review_notes and getattr(block, "review_notes", "") != review_notes:
             block.review_notes = review_notes
             row_changed = True
@@ -525,7 +530,7 @@ def apply_review_pack(
             block.manual_status = "ignored"
             ignored += 1
             row_changed = True
-        elif decision in {"review", "revoir", "a revoir", "todo"}:
+        elif decision in {"review", "revoir", "a revoir", "todo", "fused", "fusion", "merged", "merge"}:
             block.manual_status = "review"
             review += 1
             row_changed = True

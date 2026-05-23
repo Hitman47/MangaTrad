@@ -2,9 +2,11 @@ from __future__ import annotations
 
 import csv
 import zipfile
+from io import BytesIO
 from pathlib import Path
 
 import pytest
+from PIL import Image, ImageDraw
 
 from cbz_manga_translator.analysis.corpus_sampler import (
     choose_page_indices,
@@ -22,6 +24,30 @@ def _make_fake_cbz(path: Path, count: int) -> None:
             archive.writestr(f"page_{index:03d}.jpg", f"fake image {index}".encode())
 
 
+def _jpg_bytes(image: Image.Image) -> bytes:
+    buffer = BytesIO()
+    image.save(buffer, format="JPEG")
+    return buffer.getvalue()
+
+
+def _make_visual_cbz(path: Path) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with zipfile.ZipFile(path, "w") as archive:
+        for index in range(1, 9):
+            image = Image.new("RGB", (120, 160), "white")
+            draw = ImageDraw.Draw(image)
+            if index in {4, 6}:
+                for y in range(0, 160, 8):
+                    draw.line((0, y, 120, y), fill="black", width=2)
+                for x in range(0, 120, 10):
+                    draw.line((x, 0, x, 160), fill="black", width=2)
+                draw.ellipse((20, 20, 105, 70), outline="black", width=3)
+                draw.rectangle((14, 92, 110, 132), outline="black", width=3)
+            elif index == 5:
+                draw.rectangle((0, 0, 120, 160), fill="black")
+            archive.writestr(f"page_{index:03d}.jpg", _jpg_bytes(image))
+
+
 def test_choose_page_indices_is_deterministic_and_skips_edges() -> None:
     first = choose_page_indices(100, 10, seed=47, volume_index=1, mode="mixed", skip_first=2, skip_last=1)
     second = choose_page_indices(100, 10, seed=47, volume_index=1, mode="mixed", skip_first=2, skip_last=1)
@@ -29,6 +55,26 @@ def test_choose_page_indices_is_deterministic_and_skips_edges() -> None:
     assert len(first) == 10
     assert min(first) >= 2
     assert max(first) <= 98
+
+
+def test_busy_sampling_prefers_visually_dense_pages(tmp_path: Path) -> None:
+    serie = tmp_path / "Busy"
+    _make_visual_cbz(serie / "vol1.cbz")
+
+    result = sample_corpus(
+        [serie],
+        tmp_path / "corpus",
+        pages_per_volume=2,
+        volumes_per_series=1,
+        seed=47,
+        mode="busy",
+        skip_first=0,
+        skip_last=0,
+    )
+
+    with result.manifest_csv.open(encoding="utf-8", newline="") as handle:
+        rows = list(csv.DictReader(handle))
+    assert [row["source_page_number"] for row in rows] == ["4", "6"]
 
 
 def test_read_volume_list_supports_comments_and_relative_paths(tmp_path: Path) -> None:

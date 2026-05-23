@@ -152,6 +152,16 @@ def compute_quality_features(block: OcrBlock) -> QualityFeatures:
     if re.search(r"[a-z][A-Z]|[A-Z][a-z][A-Z]", source):
         score += 10
         reasons.append("random OCR casing")
+    if ":" in source and not re.search(r"\b(?:chapter|vol|volume|no|number|page)\s*:", source, flags=re.IGNORECASE):
+        score += 16
+        reasons.append("suspect colon punctuation")
+    if len(_tokens(source)) >= 3 and re.search(r"[:,]\s*$", source):
+        score += 16
+        reasons.append("probable missing ellipsis or strong punctuation")
+    if re.match(r"(?i)^\s*(?:what|why|how|where|when|who|is|are|do|did|does|can|could|would|should|will)\b", source):
+        if "?" not in source:
+            score += 18
+            reasons.append("probable missing question mark")
 
     score = max(0, min(100, score))
     if block.manual_status == "validated":

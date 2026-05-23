@@ -254,7 +254,12 @@ class TranslationQualityChecker:
                 warnings.append("fragment OCR isolé probable: vérifier/fusionner avec une bulle voisine")
             if len(source_word_list) <= 2 and structure_source.strip().endswith(":"):
                 warnings.append("fragment OCR terminé par ':' probable: vérifier/fusionner")
+            if ":" in source and not re.search(r"\b(?:chapter|vol|volume|no|number|page)\s*:", source, flags=re.IGNORECASE):
+                warnings.append("ponctuation ':' suspecte: souvent '.', '...', '!' ou '?' en fonte manga")
             has_terminal_punctuation = bool(re.search(r"[.!?][\"')\]]?$", structure_source.strip()))
+            if re.match(r"(?i)^\s*(?:what|why|how|where|when|who|is|are|do|did|does|can|could|would|should|will)\b", structure_source):
+                if "?" not in structure_source:
+                    warnings.append("point d'interrogation probablement manquant: relire la ponctuation de la bulle")
             if source_word_list and source_word_list[0] in _LIKELY_MISSING_PREFIX_STARTS and not has_terminal_punctuation:
                 warnings.append("début de phrase possiblement manquant: en manga vérifier aussi la bulle à droite")
             if source_word_list and source_word_list[-1] in _LIKELY_MISSING_SUFFIX_ENDS:
@@ -263,6 +268,8 @@ class TranslationQualityChecker:
                 warnings.append("zone de texte probablement trop courte: OCR à relire avec crop élargi/fallback")
             if len(source_word_list) >= 4 and re.search(r"[A-Za-z0-9\"')]$", structure_source):
                 warnings.append("ponctuation finale possiblement manquante")
+            if len(source_word_list) >= 3 and re.search(r"[:,]\s*$", source):
+                warnings.append("fin en ':' ou ',' suspecte: probablement ellipse ou ponctuation forte")
             if structure_source.strip().startswith("..."):
                 warnings.append("fragment commençant par ellipse: probablement suite d'une bulle précédente")
             if re.search(r"\.\.$|[.][.](?![.])", structure_source):

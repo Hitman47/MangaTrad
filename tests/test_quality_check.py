@@ -304,3 +304,29 @@ def test_quality_flags_manga_font_confusion_profile() -> None:
     warnings = checker.check_block(block)
 
     assert any("fonte manga" in warning for warning in warnings)
+
+
+def test_quality_prioritizes_colon_and_missing_question_punctuation() -> None:
+    checker = TranslationQualityChecker()
+    colon = OcrBlock(
+        id="colon",
+        bbox=[0, 0, 1, 1],
+        source_lang="en",
+        ocr_text="OR MAYBE THE CREATIVE TEAM:",
+        translation_fr="Ou peut-être l'équipe créative.",
+        confidence=0.92,
+    )
+    question = OcrBlock(
+        id="question",
+        bbox=[0, 0, 1, 1],
+        source_lang="en",
+        ocr_text="What are you doing",
+        translation_fr="Que fais-tu",
+        confidence=0.92,
+    )
+
+    colon_warnings = checker.check_block(colon)
+    question_warnings = checker.check_block(question)
+
+    assert any("':' suspecte" in warning for warning in colon_warnings)
+    assert any("interrogation" in warning for warning in question_warnings)
