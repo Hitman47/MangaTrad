@@ -287,19 +287,31 @@ class EasyOcrEngine:
         x1, y1, x2, y2 = bbox
         bw = max(1, x2 - x1)
         bh = max(1, y2 - y1)
-        margin = max(8, int(max(bw, bh) * 0.18))
-        crop_box = (
-            max(0, x1 - margin),
-            max(0, y1 - margin),
-            min(width, x2 + margin),
-            min(height, y2 + margin),
-        )
-        crop = image.crop(crop_box)
-
         def padded(img: Image.Image, pad: int) -> Image.Image:
             return ImageOps.expand(img, border=pad, fill="white")
 
+        def crop_with_margin(ratio: float, minimum: int) -> tuple[Image.Image, int]:
+            margin = max(minimum, int(max(bw, bh) * ratio))
+            crop_box = (
+                max(0, x1 - margin),
+                max(0, y1 - margin),
+                min(width, x2 + margin),
+                min(height, y2 + margin),
+            )
+            return image.crop(crop_box), margin
+
+        crop, margin = crop_with_margin(0.18, 8)
         variants: list[tuple[str, Image.Image]] = [("crop", crop), ("crop_pad", padded(crop, max(8, margin // 2)))]
+        for name, ratio, minimum in (("wide32", 0.32, 12), ("wide50", 0.50, 18)):
+            wide_crop, wide_margin = crop_with_margin(ratio, minimum)
+            wide_padded = padded(wide_crop, max(8, wide_margin // 2))
+            variants.append((name, wide_crop))
+            variants.append((f"{name}_pad", wide_padded))
+            wide_x2 = wide_padded.resize(
+                (max(1, wide_crop.width * 2), max(1, wide_crop.height * 2)),
+                Image.Resampling.LANCZOS,
+            )
+            variants.append((f"{name}_x2_gray", ImageOps.autocontrast(ImageOps.grayscale(wide_x2))))
         for factor in (2, 3, 4):
             base = padded(crop, max(8, margin // 2)).resize(
                 (max(1, crop.width * factor), max(1, crop.height * factor)),
@@ -316,10 +328,13 @@ class EasyOcrEngine:
                 variants.append((f"x{factor}_threshold_{threshold}", thresholded))
 
         paths: list[Path] = []
-        seen: set[bytes] = set()
+        seen: set[tuple[tuple[int, int], bytes]] = set()
         for index, (name, variant) in enumerate(variants):
             out = temp_dir / f"ocr_variant_{index:02d}_{name}.png"
-            signature = variant.resize((min(12, variant.width), min(12, variant.height))).tobytes()
+            signature = (
+                variant.size,
+                variant.resize((min(12, variant.width), min(12, variant.height))).tobytes(),
+            )
             if signature in seen:
                 continue
             seen.add(signature)

@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from PIL import Image
+
 from cbz_manga_translator.ocr.easyocr_engine import EasyOcrEngine
 
 
@@ -135,3 +137,14 @@ def test_cuda_out_of_memory_detection() -> None:
     assert EasyOcrEngine._is_cuda_out_of_memory(RuntimeError("CUDA error: out of memory"))
     assert EasyOcrEngine._is_cuda_out_of_memory(RuntimeError("cudaErrorMemoryAllocation"))
     assert not EasyOcrEngine._is_cuda_out_of_memory(RuntimeError("file not found"))
+
+
+def test_crop_variants_include_wide_zone_retries(tmp_path) -> None:
+    image_path = tmp_path / "page.png"
+    Image.new("RGB", (240, 240), "white").save(image_path)
+
+    paths = EasyOcrEngine._crop_variants(image_path, [80, 80, 140, 130], tmp_path)
+    names = [path.name for path in paths]
+
+    assert any("wide32" in name for name in names)
+    assert any("wide50" in name for name in names)

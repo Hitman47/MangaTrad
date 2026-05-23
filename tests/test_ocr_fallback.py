@@ -60,3 +60,15 @@ def test_improve_blocks_uses_local_correction_without_optional_backends(tmp_path
     assert changed == 1
     assert blocks[0].ocr_text == "please unhook this"
     assert blocks[0].ocr_alternatives
+
+
+def test_fallback_treats_probably_incomplete_bubble_as_suspect() -> None:
+    block = OcrBlock(
+        id="p0000_b0001",
+        bbox=[0, 0, 100, 50],
+        source_lang="en",
+        ocr_text="NOW I GOTTA Get Out Before Sensei CATCHES",
+        confidence=0.95,
+    )
+
+    assert OcrFallbackEngine._is_suspect(block, 0.20)

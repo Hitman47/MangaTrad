@@ -232,6 +232,7 @@ def test_quality_prioritizes_ellipsis_zone_and_sfx_fusion_problems() -> None:
     )
     warnings = checker.check_block(short_zone)
     assert any("zone de texte" in warning for warning in warnings)
+    assert any("crop" in warning and "fallback" in warning for warning in warnings)
 
     ellipsis = OcrBlock(
         id="ellipsis",
@@ -255,6 +256,22 @@ def test_quality_prioritizes_ellipsis_zone_and_sfx_fusion_problems() -> None:
     )
     warnings = checker.check_block(fused)
     assert any("SFX" in warning and "fusion" in warning for warning in warnings)
+    assert any("fusion probable" in warning for warning in warnings)
+
+
+def test_quality_flags_reviewed_incomplete_bubble_for_wide_crop() -> None:
+    block = OcrBlock(
+        id="incomplete",
+        bbox=[0, 0, 1, 1],
+        source_lang="en",
+        ocr_text="NOW I GOTTA Get Out Before Sensei CATCHES",
+        translation_fr="Maintenant je dois sortir avant que Sensei attrape",
+        confidence=0.95,
+    )
+
+    warnings = TranslationQualityChecker().check_block(block)
+
+    assert any("zone/bulle probablement incomplete" in warning for warning in warnings)
 
 
 def test_quality_flags_manga_font_confusion_profile() -> None:

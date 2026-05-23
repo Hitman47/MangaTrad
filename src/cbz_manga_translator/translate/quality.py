@@ -4,6 +4,7 @@ import re
 from collections.abc import Iterable
 
 from cbz_manga_translator.core.models import OcrBlock, SourceLang
+from cbz_manga_translator.ocr.incomplete import zone_quality_warnings
 
 _WORD_RE = re.compile(r"[A-Za-zÀ-ÖØ-öø-ÿ']+")
 _ASCII_WORD_RE = re.compile(r"[A-Za-z']+")
@@ -247,6 +248,7 @@ class TranslationQualityChecker:
             slang_hits = sorted((source_tokens | corrected_tokens) & _SOURCE_SLANG_WORDS)
 
             structure_source = normalized or corrected or source
+            warnings.extend(zone_quality_warnings(structure_source))
             source_word_list = self._ascii_tokens(structure_source)
             if len(source_word_list) == 1 and source_word_list[0] in _FRAGMENT_ONLY_WORDS:
                 warnings.append("fragment OCR isolé probable: vérifier/fusionner avec une bulle voisine")

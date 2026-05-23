@@ -7,6 +7,7 @@ from pathlib import Path
 from cbz_manga_translator.core.models import OcrBlock, SourceLang
 from cbz_manga_translator.ocr.candidates import OcrCandidate, bad_ocr_tokens, candidate_quality, word_tokens
 from cbz_manga_translator.ocr.easyocr_engine import EasyOcrEngine
+from cbz_manga_translator.ocr.incomplete import is_probably_fused_source, is_probably_incomplete_source
 from cbz_manga_translator.ocr.paddleocr_engine import PaddleOcrEngine
 from cbz_manga_translator.ocr.tesseract_engine import TesseractOcrEngine
 from cbz_manga_translator.ocr.text_cleanup import normalize_ocr_text_for_translation
@@ -78,6 +79,8 @@ class OcrFallbackEngine:
         if not text:
             return True
         if block.quality_warnings:
+            return True
+        if is_probably_incomplete_source(text) or is_probably_fused_source(text):
             return True
         if block.confidence is not None and block.confidence < max(0.72, min_confidence):
             return True
