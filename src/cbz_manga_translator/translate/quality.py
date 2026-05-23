@@ -254,7 +254,8 @@ class TranslationQualityChecker:
                 warnings.append("fragment OCR isolé probable: vérifier/fusionner avec une bulle voisine")
             if len(source_word_list) <= 2 and structure_source.strip().endswith(":"):
                 warnings.append("fragment OCR terminé par ':' probable: vérifier/fusionner")
-            if source_word_list and source_word_list[0] in _LIKELY_MISSING_PREFIX_STARTS:
+            has_terminal_punctuation = bool(re.search(r"[.!?][\"')\]]?$", structure_source.strip()))
+            if source_word_list and source_word_list[0] in _LIKELY_MISSING_PREFIX_STARTS and not has_terminal_punctuation:
                 warnings.append("début de phrase possiblement manquant: en manga vérifier aussi la bulle à droite")
             if source_word_list and source_word_list[-1] in _LIKELY_MISSING_SUFFIX_ENDS:
                 warnings.append("fin de bulle possiblement manquante: vérifier la suite du texte")

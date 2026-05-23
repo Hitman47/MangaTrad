@@ -274,6 +274,22 @@ def test_quality_flags_reviewed_incomplete_bubble_for_wide_crop() -> None:
     assert any("zone/bulle probablement incomplete" in warning for warning in warnings)
 
 
+def test_quality_does_not_flag_complete_but_sentence_as_missing_prefix() -> None:
+    block = OcrBlock(
+        id="complete",
+        bbox=[0, 0, 1, 1],
+        source_lang="en",
+        ocr_text="But it's FAR Too LATE FOR THAT!",
+        normalized_source_text="But it is FAR Too LATE FOR THAT!",
+        translation_fr="Mais c'est trop tard pour ça!",
+        confidence=0.95,
+    )
+
+    warnings = TranslationQualityChecker().check_block(block)
+
+    assert not any("phrase possiblement manquant" in warning for warning in warnings)
+
+
 def test_quality_flags_manga_font_confusion_profile() -> None:
     checker = TranslationQualityChecker()
     block = OcrBlock(
