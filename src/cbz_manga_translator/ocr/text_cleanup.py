@@ -197,7 +197,14 @@ _COMMON_OCR_WORD_FIXES: tuple[tuple[re.Pattern[str], str], ...] = (
     (re.compile(r"\bWERE\b"), "were"),
     (re.compile(r"\bHAVE\b"), "have"),
     (re.compile(r"\bDAYS\b"), "days"),
+    (re.compile(r"\bAGO\b"), "ago"),
     (re.compile(r"\bAgo\b"), "ago"),
+    (re.compile(r"\bHoups\b", flags=re.IGNORECASE), "Hours"),
+    (re.compile(r"\bB0DY\b", flags=re.IGNORECASE), "Body"),
+    (re.compile(r"\bTHOLSAND\b", flags=re.IGNORECASE), "THOUSAND"),
+    (re.compile(r"\bEntipe\b", flags=re.IGNORECASE), "Entire"),
+    (re.compile(r"\bEtire\b", flags=re.IGNORECASE), "Entire"),
+    (re.compile(r"\bSevenn\b", flags=re.IGNORECASE), "Seven"),
 )
 
 _CONTEXTUAL_OCR_FIXES: tuple[tuple[re.Pattern[str], str], ...] = (
@@ -303,6 +310,7 @@ def normalize_spacing_and_punctuation(text: str) -> str:
     value = re.sub(r"\.\.\.(?=[A-Za-z])", lambda m: "..." if m.start() == 0 else "... ", value)
     value = re.sub(r"(?<!\.)\.\.(?!\.)", ".", value)
     value = re.sub(r"\b(Ms|Mrs|Mr|Dr):(?=\s+[A-Z])", r"\1.", value, flags=re.IGNORECASE)
+    value = re.sub(r":\s*['\"]?\s*~$", "...", value)
     value = re.sub(r":\s*\.\.\.", "...", value)
     value = re.sub(r"[:.]+\s*=$", "...", value)
     value = re.sub(r"(?:,\s*){2,}$", "...", value)

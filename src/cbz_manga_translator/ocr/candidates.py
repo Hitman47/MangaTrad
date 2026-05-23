@@ -27,6 +27,11 @@ _BAD_OCR_TOKENS = {
     "napehouse",
     "nestern",
     "tslrlmi",
+    "houps",
+    "tholsand",
+    "entipe",
+    "etire",
+    "sevenn",
 }
 
 _COMMON_ENGLISH_WORDS = {
@@ -42,8 +47,12 @@ _COMMON_ENGLISH_WORDS = {
     "agency", "individuals", "abilities", "skills", "earn", "keep", "master", "animal",
     "form", "staff", "backup", "sake", "bomb", "explosion", "button", "press", "company",
     "dorm", "posthaste", "lad", "ideals", "mafia", "battle", "fault", "cry",
+    "body", "hours", "hour", "few", "first", "place", "seven", "star", "academy",
+    "student", "challenge", "dared", "thousand", "hundred", "hunting", "recognized",
+    "player", "town", "guess", "happen", "revealed", "late",
 }
 
+_RAW_BAD_OCR_RE = re.compile(r"\b(?:houps|b0dy|tholsand|entipe|etire|sevenn)\b", flags=re.IGNORECASE)
 _WORD_RE = re.compile(r"[A-Za-zÀ-ÖØ-öø-ÿぁ-んァ-ン一-龯々ー']+")
 _LETTER_RE = re.compile(r"[A-Za-zÀ-ÖØ-öø-ÿぁ-んァ-ン一-龯々]")
 
@@ -80,6 +89,7 @@ def candidate_quality(text: str, confidence: float | None = None, *, bonus: floa
     words = _WORD_RE.findall(compact)
     lower_words = {word.lower().strip("'") for word in words}
     bad_token_penalty = sum(3.0 for token in lower_words if token in _BAD_OCR_TOKENS)
+    raw_bad_token_penalty = len(_RAW_BAD_OCR_RE.findall(str(text))) * 1.4
     semicolon_penalty = str(text).count(";") * 0.70
     random_case_penalty = 1.15 if has_random_ocr_casing(str(text)) else 0.0
     weird_symbol_penalty = sum(compact.count(char) for char in "|_{}[]<>") * 0.65
@@ -98,6 +108,7 @@ def candidate_quality(text: str, confidence: float | None = None, *, bonus: floa
         + dictionary_bonus
         + bonus
         - bad_token_penalty
+        - raw_bad_token_penalty
         - semicolon_penalty
         - random_case_penalty
         - weird_symbol_penalty

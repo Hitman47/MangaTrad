@@ -165,3 +165,14 @@ def test_latest_reviewed_manga_font_examples() -> None:
     assert normalize_ocr_text_for_translation("MADE Itw") == "MADE It!!"
     assert normalize_ocr_text_for_translation("Ishe DEAD?") == "Is he DEAD?"
     assert normalize_ocr_text_for_translation("OSAMU... KUN.") == "Osamu-kun."
+
+
+def test_zone_fallback_batch_font_digit_repairs() -> None:
+    assert normalize_ocr_text_for_translation("If I only KNEW About This a few Houps AGO: ' ~") == "If I only KNEW About This a few Hours ago..."
+    assert normalize_ocr_text_for_translation("I told The entire ACADEMY Student B0DY To CHALLENGE Me.") == "I told The entire ACADEMY Student Body To CHALLENGE Me."
+    assert normalize_ocr_text_for_translation("All two THOLSAND Sevenn students") == "All two THOUSAND Seven students"
+
+
+def test_candidate_quality_prefers_reviewed_font_digit_repairs() -> None:
+    assert candidate_quality("If I only KNEW About This a few Hours AGO.", 0.53) > candidate_quality("If I only KNEW About This a few Houps AGO.", 0.53)
+    assert candidate_quality("Student Body", 0.62) > candidate_quality("Student B0DY", 0.62)
