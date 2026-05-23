@@ -3,6 +3,7 @@ from __future__ import annotations
 import re
 from collections.abc import Iterable
 
+from cbz_manga_translator.analysis.ignore_memory import default_ignore_memory
 from cbz_manga_translator.core.models import OcrBlock, SourceLang
 
 
@@ -36,6 +37,7 @@ _SFX_WORDS = {
     "CHATTER",
     "CLACK",
     "CLICK",
+    "CREAK",
     "CRASH",
     "DEEEAD",
     "FUMP",
@@ -44,6 +46,7 @@ _SFX_WORDS = {
     "KACHA",
     "KA CHA",
     "KIDCK",
+    "LUNGE",
     "PINCH",
     "POKE",
     "POKE POKE",
@@ -54,6 +57,8 @@ _SFX_WORDS = {
     "TWITCH",
     "WHISPER",
 }
+
+_SIGNAGE_TERMS = {"atm", "card", "fee", "phone", "transfer", "store", "convenience"}
 
 
 def _block_source(block: OcrBlock) -> str:
@@ -81,7 +86,17 @@ def is_sfx_or_noise(text: str) -> bool:
     repeated = re.sub(r"[^A-Z]", "", upper)
     if len(repeated) >= 5 and len(set(repeated)) <= 3 and upper == value:
         return True
+    if re.fullmatch(r"(?i)[a-z]{2,}a{3,}(?:\s*\([^)]{2,}\))?", value):
+        return True
     return False
+
+
+def is_signage_or_ui_text(text: str) -> bool:
+    value = " ".join(text.strip().split()).lower()
+    if not value:
+        return False
+    hits = {term for term in _SIGNAGE_TERMS if re.search(rf"\b{re.escape(term)}\b", value)}
+    return len(hits) >= 2
 
 
 def is_technical_infographic(text: str) -> bool:
@@ -99,8 +114,13 @@ def is_technical_infographic(text: str) -> bool:
 
 def non_reviewable_reason(block: OcrBlock) -> str:
     source = _block_source(block)
+    learned = default_ignore_memory().lookup(source)
+    if learned:
+        return learned
     if is_scanlation_credit(source):
         return "credit scantrad"
+    if is_signage_or_ui_text(source):
+        return "signalétique/interface"
     if is_technical_infographic(source):
         return "infographie/signaletique"
     if is_sfx_or_noise(source):
