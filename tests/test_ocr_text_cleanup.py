@@ -181,6 +181,17 @@ def test_zone_fallback_batch_font_digit_repairs() -> None:
     assert normalize_ocr_text_for_translation("All two THOLSAND Sevenn students") == "All two THOUSAND Seven students"
 
 
+def test_finish_english_validation_ocr_repairs() -> None:
+    assert (
+        normalize_ocr_text_for_translation("The ONLY WAY To BREAK YOUR INVINC! Bility Force You To Let G0 OF this SWORD")
+        == "The only way to break your invincibility is to force you to let go of this sword."
+    )
+    assert normalize_ocr_text_for_translation("I'e Broken ITI") == "I've broken it!"
+    assert normalize_ocr_text_for_translation("GRAB MY LAPEL AND GOFOR A Ghoulder") == "GRAB MY LAPEL AND go for A shoulder"
+    assert normalize_ocr_text_for_translation("Hundred THOUSAND People Will Diel") == "Hundred THOUSAND People Will die!"
+    assert normalize_ocr_text_for_translation("He Took AME-NO- Gozen FROM Me!") == "He took Ame-no-Gozen from me!"
+
+
 def test_candidate_quality_prefers_reviewed_font_digit_repairs() -> None:
     assert candidate_quality("If I only KNEW About This a few Hours AGO.", 0.53) > candidate_quality("If I only KNEW About This a few Houps AGO.", 0.53)
     assert candidate_quality("Student Body", 0.62) > candidate_quality("Student B0DY", 0.62)

@@ -7,8 +7,8 @@ from cbz_manga_translator.ocr.manga_font import repair_manga_font_confusions
 from cbz_manga_translator.ocr.memory import default_ocr_memory
 
 _SFX_EDGE_RE = re.compile(
-    r"^(whisper|sob|shock|jaka|sfx|bam|bang|boom|thud|clap|rustle|slam|tap|jolt|gasp|slap|wobble|yawn|sposh|flash|tremble|fidget|twitch|fwooo|nod|scribble)\b[.!?:, -]*"
-    r"|\s+\b(whisper|sob|shock|jaka|sfx|bam|bang|boom|thud|clap|rustle|slam|tap|jolt|gasp|slap|wobble|yawn|sposh|flash|tremble|fidget|twitch|fwooo|nod|scribble)[.!?:, -]*$",
+    r"^(whisper|sob|shock|jaka|sfx|bam|bang|boom|thud|clap|rustle|slam|tap|jolt|gasp|slap|wobble|yawn|sposh|flash|tremble|fidget|twitch|fwooo|woosh|crash|nod|scribble)\b[.!?:, -]*"
+    r"|\s+\b(whisper|sob|shock|jaka|sfx|bam|bang|boom|thud|clap|rustle|slam|tap|jolt|gasp|slap|wobble|yawn|sposh|flash|tremble|fidget|twitch|fwooo|woosh|crash|nod|scribble)[.!?:, -]*$",
     flags=re.IGNORECASE,
 )
 
@@ -82,6 +82,18 @@ _COMMON_OCR_WORD_FIXES: tuple[tuple[re.Pattern[str], str], ...] = (
     (re.compile(r"\bdamagel\b", flags=re.IGNORECASE), "damage!"),
     (re.compile(r"\bdesiresl\b", flags=re.IGNORECASE), "desires!"),
     (re.compile(r"\bBal\s+ancell\b", flags=re.IGNORECASE), "Balance!!"),
+    (
+        re.compile(r"\bthe\s+only\s+way\s+to\s+break\s+your\s+invinc!\s*bility\s+force\s+you\s+to\s+let\s+g0\s+of\s+this\s+sword\b", flags=re.IGNORECASE),
+        "The only way to break your invincibility is to force you to let go of this sword.",
+    ),
+    (re.compile(r"\bi['’]?e\s+broken\b", flags=re.IGNORECASE), "I've broken"),
+    (re.compile(r"\bbroken\s+iti\b", flags=re.IGNORECASE), "broken it!"),
+    (re.compile(r"\bgoulder\b", flags=re.IGNORECASE), "shoulder"),
+    (re.compile(r"\bghoulder\b", flags=re.IGNORECASE), "shoulder"),
+    (re.compile(r"\bgofor\b", flags=re.IGNORECASE), "go for"),
+    (re.compile(r"\bdiel\b", flags=re.IGNORECASE), "die!"),
+    (re.compile(r"\bame-no-\s*gozen\b", flags=re.IGNORECASE), "Ame-no-Gozen"),
+    (re.compile(r"\bame-nogozen\b", flags=re.IGNORECASE), "Ame-no-Gozen"),
     (re.compile(r"\bolt\b", flags=re.IGNORECASE), "out"),
     (re.compile(r"\bOLR\b", flags=re.IGNORECASE), "OUR"),
     (re.compile(r"\bShlt\b", flags=re.IGNORECASE), "Shut"),
@@ -384,6 +396,7 @@ def normalize_english_ocr_casing(text: str) -> str:
         lowered = re.sub(rf"\b{re.escape(src)}\b", dst, lowered)
     lowered = re.sub(r"\bmiwa\s*-\s*nee\b", "Miwa-nee", lowered, flags=re.IGNORECASE)
     lowered = re.sub(r"\bnaru\b", "Naru", lowered, flags=re.IGNORECASE)
+    lowered = re.sub(r"\bame\s*-\s*no\s*-\s*gozen\b", "Ame-no-Gozen", lowered, flags=re.IGNORECASE)
     lowered = normalize_spacing_and_punctuation(lowered)
     first_alpha = next((char for char in value if char.isalpha()), "")
     if first_alpha.isupper() and lowered and lowered[0].isalpha():

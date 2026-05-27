@@ -21,6 +21,41 @@ from cbz_manga_translator.translate.quality import TranslationQualityChecker
 IMAGE_SUFFIXES = {".jpg", ".jpeg", ".png", ".webp", ".bmp", ".tif", ".tiff"}
 
 
+def _looks_like_expensive_color_info_page(image_path: str | Path, source_lang: SourceLang) -> bool:
+    """Cheaply skip color-heavy appendix/infographic pages in English corpus runs."""
+    if source_lang != "en":
+        return False
+    try:
+        from PIL import Image
+
+        with Image.open(image_path) as image:
+            rgb = image.convert("RGB")
+            rgb.thumbnail((320, 320))
+            pixel_source = getattr(rgb, "get_flattened_data", rgb.getdata)
+            pixels = list(pixel_source())
+    except Exception:
+        return False
+    if not pixels:
+        return False
+    total = len(pixels)
+    saturated = 0
+    dark = 0
+    ink = 0
+    for red, green, blue in pixels:
+        high = max(red, green, blue)
+        low = min(red, green, blue)
+        if high - low > 45 and high < 245:
+            saturated += 1
+        if high < 90:
+            dark += 1
+        if low < 230:
+            ink += 1
+    saturated_ratio = saturated / total
+    dark_ratio = dark / total
+    ink_ratio = ink / total
+    return saturated_ratio >= 0.06 and dark_ratio >= 0.08 and ink_ratio >= 0.35
+
+
 
 def _count_images_under(path: Path, *, max_count: int | None = None) -> int:
     if not path.exists():
@@ -524,6 +559,26 @@ def process_corpus(
             pages_skipped += 1
             blocks_total += len(page.blocks)
             warnings_total += sum(1 for block in page.blocks if block.quality_warnings)
+            continue
+
+        if _looks_like_expensive_color_info_page(entry.image_path, source_lang):
+            page.blocks = []
+            page.status = "ignored"
+            pages_skipped += 1
+            if checkpoint_every > 0:
+                ProjectCache.save(cache_path, project)
+                _write_progress(
+                    progress_path,
+                    {
+                        "pages_total": len(entries),
+                        "pages_processed": pages_processed,
+                        "pages_skipped": pages_skipped,
+                        "last_page_index": local_index,
+                        "last_image_path": str(entry.image_path),
+                        "last_skip_reason": "page non exploitable: infographie couleur dense",
+                        "elapsed_seconds": round(time.monotonic() - started, 3),
+                    },
+                )
             continue
 
         blocks = recognizer.recognize(

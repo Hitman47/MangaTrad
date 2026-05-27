@@ -74,7 +74,7 @@ def _has_obvious_english_residue(text: str) -> bool:
 def _source_residue_hits(source: str, translation: str) -> set[str]:
     source_tokens = {token.lower().strip("'") for token in _tokens(source) if len(token) >= 4}
     translation_tokens = {token.lower().strip("'") for token in _tokens(translation) if len(token) >= 4}
-    safe = {"naru", "miwa", "atsushi", "dazai", "kanade", "fujimura", "usami", "rashomon"}
+    safe = {"naru", "miwa", "atsushi", "dazai", "kanade", "fujimura", "usami", "rashomon", "gozen"}
     # Keep only tokens that are more likely English residue/OCR garbage than names.
     return (source_tokens & translation_tokens) - safe
 

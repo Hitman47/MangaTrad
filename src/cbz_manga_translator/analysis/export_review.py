@@ -89,14 +89,16 @@ def export_review_dataset(project: ProjectData, output_dir: str | Path) -> dict[
     glossary_lines = [f"{item['term']}  # count={item['count']}" for item in learning.glossary_candidates]
     glossary_path.write_text("\n".join(glossary_lines) + ("\n" if glossary_lines else ""), encoding="utf-8")
 
-    high_risk_count = sum(1 for row in rows if int(row["risk_score"]) >= 55)
-    medium_risk_count = sum(1 for row in rows if 25 <= int(row["risk_score"]) < 55)
-    ok_count = sum(1 for row in rows if int(row["risk_score"]) < 25)
+    actionable_rows = [row for row in rows if row.get("suggested_action") not in {"ignored", "validated"}]
+    ignored_count = sum(1 for row in rows if row.get("suggested_action") == "ignored")
+    high_risk_count = sum(1 for row in actionable_rows if int(row["risk_score"]) >= 55)
+    medium_risk_count = sum(1 for row in actionable_rows if 25 <= int(row["risk_score"]) < 55)
+    ok_count = sum(1 for row in actionable_rows if int(row["risk_score"]) < 25)
     from collections import Counter
 
     reason_counter: Counter[str] = Counter()
     series_counter: Counter[str] = Counter()
-    for row in rows:
+    for row in actionable_rows:
         series_counter[str(row.get("series_label") or "unknown")] += 1
         for reason in str(row.get("risk_reasons") or "").split(" | "):
             reason = reason.strip()
@@ -108,6 +110,8 @@ def export_review_dataset(project: ProjectData, output_dir: str | Path) -> dict[
         "",
         f"- Pages: {len(project.pages)}",
         f"- Blocks: {len(rows)}",
+        f"- Actionable blocks: {len(actionable_rows)}",
+        f"- Ignored blocks: {ignored_count}",
         f"- High risk blocks: {high_risk_count}",
         f"- Medium risk blocks: {medium_risk_count}",
         f"- Probably OK blocks: {ok_count}",

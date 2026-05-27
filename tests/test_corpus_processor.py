@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from PIL import Image
+from PIL import Image, ImageDraw
 
 from cbz_manga_translator.analysis.corpus_processor import process_corpus, read_corpus_manifest
 from cbz_manga_translator.core.models import OcrBlock
@@ -49,6 +49,11 @@ class RecordingTranslator(FakeTranslator):
     def translate_blocks(self, blocks, source_lang, **kwargs):
         self.use_gpu_values.append(kwargs["use_gpu"])
         return super().translate_blocks(blocks, source_lang, **kwargs)
+
+
+class FailingRecognizer(FakeRecognizer):
+    def recognize(self, image_path, source_lang, page_index, **kwargs):
+        raise AssertionError("recognizer should not run for skipped non-dialogue pages")
 
 
 def test_read_corpus_manifest_resolves_output_relpath(tmp_path: Path) -> None:
@@ -217,6 +222,40 @@ def test_process_corpus_accepts_pages_only_corpus(tmp_path: Path) -> None:
     assert result.pages_processed == 1
     assert result.review_csv.exists()
     assert "SeriesA" in result.review_csv.read_text(encoding="utf-8-sig")
+
+
+def test_process_corpus_skips_color_heavy_info_pages_before_ocr(tmp_path: Path) -> None:
+    corpus = tmp_path / "corpus"
+    pages_dir = corpus / "pages" / "SeriesA" / "Vol01"
+    pages_dir.mkdir(parents=True)
+    image = pages_dir / "sample_001__page_0209.png"
+    page = Image.new("RGB", (900, 1300), "white")
+    draw = ImageDraw.Draw(page)
+    for x0, y0, x1, y1, color in (
+        (120, 120, 780, 360, (0, 170, 220)),
+        (120, 430, 780, 720, (40, 40, 40)),
+        (120, 780, 780, 1180, (20, 120, 210)),
+    ):
+        draw.rectangle((x0, y0, x1, y1), fill=color)
+    page.save(image)
+    (corpus / "manifest.jsonl").write_text(
+        json.dumps({"series_label": "SeriesA", "output_relpath": str(image.relative_to(corpus)).replace("\\", "/")}) + "\n",
+        encoding="utf-8",
+    )
+
+    result = process_corpus(
+        corpus,
+        tmp_path / "run",
+        source_lang="en",
+        limit=1,
+        recognizer=FailingRecognizer(),
+        translator=FakeTranslator(),
+    )
+
+    assert result.pages_processed == 0
+    assert result.pages_skipped == 1
+    project = json.loads(result.cache_path.read_text(encoding="utf-8"))
+    assert project["pages"][0]["status"] == "ignored"
 
 
 def test_read_corpus_manifest_accepts_manifest_file_path(tmp_path: Path) -> None:

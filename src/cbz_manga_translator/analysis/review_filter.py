@@ -39,6 +39,9 @@ _REFERENCE_PAGE_RE = re.compile(
 _MEASURE_RE = re.compile(r"^\s*\d[\d,.\soO]*(?:m|km|cm|mm|%)\s*$", flags=re.IGNORECASE)
 _SFX_WORDS = {
     "4-UM",
+    "AAAA",
+    "AHHH",
+    "AHHH-",
     "@ORGL OOO",
     "BLAM",
     "BUMP",
@@ -65,6 +68,7 @@ _SFX_WORDS = {
     "THUD",
     "TWITCH",
     "WHISPER",
+    "WOOSH",
 }
 
 _SIGNAGE_TERMS = {"atm", "card", "fee", "phone", "transfer", "store", "convenience"}
@@ -87,7 +91,7 @@ def is_sfx_or_noise(text: str) -> bool:
     if not value:
         return True
     upper = value.upper()
-    if upper in _SFX_WORDS:
+    if upper in _SFX_WORDS or upper.strip(" .!?:,-") in _SFX_WORDS:
         return True
     if re.search(r"\bsparkle\b", value, flags=re.IGNORECASE) and len(re.findall(r"[A-Za-z]+", value)) <= 3:
         return True

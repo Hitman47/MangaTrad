@@ -13,8 +13,8 @@ _JAPANESE_RE = re.compile(r"[ぁ-んァ-ン一-龯々ー]")
 _SPACE_BEFORE_PUNCT_RE = re.compile(r"\s+([,.;:!?])")
 _MULTI_SPACE_RE = re.compile(r"\s+")
 _SFX_EDGE_RE = re.compile(
-    r"^(whisper|sob|shock|jaka|sfx|bam|bang|boom|thud|clap|rustle|slam|tap|jolt|gasp|slap|wobble|yawn|sposh|flash|tremble|fidget|twitch|fwooo|nod|scribble)\b[.!?:, -]*"
-    r"|\s+\b(whisper|sob|shock|jaka|sfx|bam|bang|boom|thud|clap|rustle|slam|tap|jolt|gasp|slap|wobble|yawn|sposh|flash|tremble|fidget|twitch|fwooo|nod|scribble)[.!?:, -]*$",
+    r"^(whisper|sob|shock|jaka|sfx|bam|bang|boom|thud|clap|rustle|slam|tap|jolt|gasp|slap|wobble|yawn|sposh|flash|tremble|fidget|twitch|fwooo|woosh|crash|nod|scribble)\b[.!?:, -]*"
+    r"|\s+\b(whisper|sob|shock|jaka|sfx|bam|bang|boom|thud|clap|rustle|slam|tap|jolt|gasp|slap|wobble|yawn|sposh|flash|tremble|fidget|twitch|fwooo|woosh|crash|nod|scribble)[.!?:, -]*$",
     flags=re.IGNORECASE,
 )
 
@@ -125,6 +125,18 @@ _OCR_CORRECTIONS: tuple[tuple[re.Pattern[str], str], ...] = (
     (re.compile(r"\bdamagel\b", flags=re.IGNORECASE), "damage!"),
     (re.compile(r"\bdesiresl\b", flags=re.IGNORECASE), "desires!"),
     (re.compile(r"\bbal\s+ancell\b", flags=re.IGNORECASE), "Balance!!"),
+    (
+        re.compile(r"\bthe\s+only\s+way\s+to\s+break\s+your\s+invinc!\s*bility\s+force\s+you\s+to\s+let\s+g0\s+of\s+this\s+sword\b", flags=re.IGNORECASE),
+        "The only way to break your invincibility is to force you to let go of this sword.",
+    ),
+    (re.compile(r"\bi['’]?e\s+broken\b", flags=re.IGNORECASE), "I've broken"),
+    (re.compile(r"\bbroken\s+iti\b", flags=re.IGNORECASE), "broken it!"),
+    (re.compile(r"\bgoulder\b", flags=re.IGNORECASE), "shoulder"),
+    (re.compile(r"\bghoulder\b", flags=re.IGNORECASE), "shoulder"),
+    (re.compile(r"\bgofor\b", flags=re.IGNORECASE), "go for"),
+    (re.compile(r"\bdiel\b", flags=re.IGNORECASE), "die!"),
+    (re.compile(r"\bame-no-\s*gozen\b", flags=re.IGNORECASE), "Ame-no-Gozen"),
+    (re.compile(r"\bame-nogozen\b", flags=re.IGNORECASE), "Ame-no-Gozen"),
     (re.compile(r"\bs0\s+many\s+here\s+already[:. ]+\s*w!\s*$", flags=re.IGNORECASE), "so many here already...!!"),
     (re.compile(r"\baaand,\s+it['’]?s\s+getting\s+worse[:. ]+$", flags=re.IGNORECASE), "aaand, it's getting worse..."),
     (re.compile(r"\bth'\b", flags=re.IGNORECASE), "that"),
@@ -395,6 +407,8 @@ _TOKEN_NORMALIZATIONS: tuple[tuple[re.Pattern[str], str], ...] = (
 )
 
 _TRANSLATION_OVERRIDES: dict[str, str] = {
+    "grab my lapel and go for a shoulder": "Attrape mon revers et vise l'epaule.",
+    "he took ame-no-gozen from me!": "Il m'a pris Ame-no-Gozen !",
     "what are you doing up there?": "Qu’est-ce que tu fais là-haut ?",
     "what are you doing up there": "Qu’est-ce que tu fais là-haut ?",
     "haven't i told you not to climb anywhere dangerous?": "Je ne t’ai pas dit de ne pas grimper dans des endroits dangereux ?",

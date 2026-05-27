@@ -54,6 +54,23 @@ def test_quality_features_flags_suspicious_block() -> None:
     assert features.reasons
 
 
+def test_quality_features_allow_preserved_proper_nouns() -> None:
+    block = OcrBlock(
+        id="proper",
+        bbox=[1, 2, 3, 4],
+        source_lang="en",
+        ocr_text="He Took AME-NO- Gozen FROM Me!",
+        ocr_corrected_text="He Took Ame-no-Gozen FROM Me!",
+        normalized_source_text="He Took Ame-no-Gozen FROM Me!",
+        translation_fr="Il m'a pris Ame-no-Gozen !",
+        confidence=0.86,
+    )
+
+    features = compute_quality_features(block)
+
+    assert "source residue copied into translation" not in features.reasons
+
+
 def test_learning_report_extracts_memory() -> None:
     report = build_learning_report(sample_project())
     assert report.summary["learnable_blocks"] == 1

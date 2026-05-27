@@ -118,6 +118,23 @@ def test_quality_flags_source_residue_copied_to_translation() -> None:
     assert any("source recopi" in warning or "anglais" in warning for warning in warnings)
 
 
+def test_quality_allows_preserved_proper_nouns() -> None:
+    block = OcrBlock(
+        id="b",
+        bbox=[0, 0, 1, 1],
+        source_lang="en",
+        ocr_text="He Took AME-NO- Gozen FROM Me!",
+        ocr_corrected_text="He Took Ame-no-Gozen FROM Me!",
+        normalized_source_text="He Took Ame-no-Gozen FROM Me!",
+        translation_fr="Il m'a pris Ame-no-Gozen !",
+        confidence=0.86,
+    )
+
+    warnings = TranslationQualityChecker().check_block(block)
+
+    assert not any("source recopi" in warning for warning in warnings)
+
+
 def test_quality_flags_missing_prefix_and_missing_terminal_punctuation() -> None:
     block = OcrBlock(
         id="b",

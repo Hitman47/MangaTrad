@@ -30,7 +30,7 @@ _SHORT_ZONE_RE = re.compile(
 )
 _SFX_MIX_RE = re.compile(
     r"\b(?:whisper|sob|shock|jaka|sfx|bam|bang|boom|thud|clap|rustle|slam|tap|tch|"
-    r"jolt|gasp|slap|wobble|yawn|fidget|twitch|fwooo|nod|scribble|krehble|krembue|"
+    r"jolt|gasp|slap|wobble|yawn|fidget|twitch|fwooo|woosh|crash|nod|scribble|krehble|krembue|"
     r"shivr|fwoop|brip|whooosh)\b",
     flags=re.IGNORECASE,
 )

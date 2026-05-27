@@ -362,3 +362,17 @@ def test_latest_replay_misses_get_deterministic_overrides() -> None:
         EnglishDialogueNormalizer.prepare("NOW I GOTTA Get Out Before Sensei CATCHES me...").override_translation_fr
         == "Il faut que je me tire avant que Sensei ne me surprenne..."
     )
+
+
+def test_finish_english_validation_ocr_repairs_in_normalizer() -> None:
+    assert (
+        EnglishDialogueNormalizer.prepare("The ONLY WAY To BREAK YOUR INVINC! Bility Force You To Let G0 OF this SWORD").corrected_text
+        == "The only way to break your invincibility is to force you to let go of this sword."
+    )
+    assert EnglishDialogueNormalizer.prepare("I'e Broken ITI").corrected_text == "I've broken it!"
+    assert EnglishDialogueNormalizer.prepare("GRAB MY LAPEL AND GOFOR A Ghoulder").corrected_text == "grab my lapel and go for a shoulder"
+    assert EnglishDialogueNormalizer.prepare("GRAB MY LAPEL AND GOFOR A Ghoulder").override_translation_fr == "Attrape mon revers et vise l'epaule."
+    assert EnglishDialogueNormalizer.prepare("Hundred THOUSAND People Will Diel").corrected_text == "Hundred THOUSAND People Will die!"
+    gozen = EnglishDialogueNormalizer.prepare("He Took AME-NO- Gozen FROM Me!")
+    assert gozen.corrected_text == "He Took Ame-no-Gozen FROM Me!"
+    assert gozen.override_translation_fr == "Il m'a pris Ame-no-Gozen !"

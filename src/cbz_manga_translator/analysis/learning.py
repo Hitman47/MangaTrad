@@ -58,7 +58,7 @@ def build_learning_report(project: ProjectData, *, max_examples: int = 100) -> L
                     if len(candidate) >= 3 and candidate.upper() != candidate:
                         glossary_counter[candidate] += 1
             features = compute_quality_features(block)
-            if features.risk_score >= 55:
+            if features.risk_score >= 55 and features.action not in {"ignored", "validated"}:
                 high_risk.append({
                     "page_index": page.page_index,
                     "image_name": page.image_name,
