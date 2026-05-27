@@ -317,6 +317,13 @@ def test_replay_learned_intraword_ellipsis_and_short_fragment_normalization() ->
     assert EnglishDialogueNormalizer.prepare("then").normalized_text == "then?"
 
 
+def test_zone_fix_batch_preserves_then_question_with_hyphenated_target() -> None:
+    prepared = EnglishDialogueNormalizer.prepare("then? THERE ARE EASIER TAR- GETS.")
+
+    assert prepared.corrected_text == "then? there are easier targets."
+    assert prepared.normalized_text == "then? there are easier targets."
+
+
 def test_manga_font_ul_i_bang_confusion_profile_in_normalizer() -> None:
     assert EnglishDialogueNormalizer.prepare("ISN'T Lrabe COMING TODAY?").corrected_text == "isn't Urabe coming today?"
     assert EnglishDialogueNormalizer.prepare("Now that You MEN... TIONED THE Previous Prez").corrected_text == "Now that You MENTIONED THE Previous Prez"

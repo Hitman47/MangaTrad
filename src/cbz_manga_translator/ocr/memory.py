@@ -46,6 +46,17 @@ def _looks_like_translation(value: str, translation: str) -> bool:
     return french_hits >= 2 and english_hits == 0
 
 
+def _drops_strong_punctuation(original: str, corrected: str) -> bool:
+    original_key = canonical_ocr_key(original)
+    corrected_key = canonical_ocr_key(corrected)
+    for char in ("?", "!"):
+        if char in original_key and char not in corrected_key:
+            return True
+    if "..." in original_key and "..." not in corrected_key:
+        return True
+    return False
+
+
 @dataclass(slots=True)
 class OcrCorrectionMemory:
     entries: dict[str, str]
@@ -121,6 +132,8 @@ def build_ocr_memory(
                 if len(original) < min_source_chars or len(corrected) < min_source_chars:
                     continue
                 if _looks_like_translation(corrected, translation):
+                    continue
+                if _drops_strong_punctuation(original, corrected):
                     continue
                 key = canonical_ocr_key(original)
                 corrected_key = canonical_ocr_key(corrected)

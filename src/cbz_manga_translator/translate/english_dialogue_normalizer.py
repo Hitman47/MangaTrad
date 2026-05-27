@@ -555,6 +555,7 @@ _TRANSLATION_OVERRIDES: dict[str, str] = {
     "just leave it be": "Laisse tomber",
     "like, come on": "Mais enfin...",
     "by no means may you fail!": "Tu ne dois en aucun cas échouer !!",
+    "a fortune teller": "Une voyante...",
     "a fortune teller,": "Une voyante...",
     "a fortune teller...": "Une voyante...",
     "where will it end?": "... Où cela va-t-il s'arrêter ?",
