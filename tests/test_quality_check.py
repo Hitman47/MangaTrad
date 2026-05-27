@@ -152,6 +152,29 @@ def test_quality_allows_recent_busy_batch_proper_names() -> None:
     assert not any("source recopi" in warning for warning in warnings)
 
 
+def test_quality_allows_preserved_transit_and_french_caps() -> None:
+    transit = OcrBlock(
+        id="transit",
+        bbox=[0, 0, 1, 1],
+        source_lang="en",
+        ocr_text='MEANS I\'m Like YOUR "public TRANSIT" For the DAY.',
+        translation_fr='En gros, je suis ton "transport public" pour la journee.',
+        confidence=0.86,
+    )
+    no = OcrBlock(
+        id="no",
+        bbox=[0, 0, 1, 1],
+        source_lang="en",
+        ocr_text="NO",
+        translation_fr="NON",
+        confidence=0.86,
+    )
+
+    checker = TranslationQualityChecker()
+    assert not any("source recopi" in warning for warning in checker.check_block(transit))
+    assert not any("MAJUSCULES" in warning for warning in checker.check_block(no))
+
+
 def test_quality_flags_missing_prefix_and_missing_terminal_punctuation() -> None:
     block = OcrBlock(
         id="b",

@@ -167,7 +167,7 @@ _LIKELY_MISSING_SUFFIX_ENDS = {
 }
 
 _SAFE_UPPERCASE_TOKENS = {
-    "OK", "SFX", "RASHOMON", "DAZAI", "TANIZAKI", "ATSUSHI", "NAOMI", "KUNIKIDA",
+    "OK", "NON", "SFX", "RASHOMON", "DAZAI", "TANIZAKI", "ATSUSHI", "NAOMI", "KUNIKIDA",
 }
 
 _TRANSLATION_ENGLISH_RESIDUE_RE = re.compile(
@@ -178,7 +178,10 @@ _TRANSLATION_ENGLISH_RESIDUE_RE = re.compile(
     flags=re.IGNORECASE,
 )
 
-_SAFE_SOURCE_RESIDUE = {"naru", "miwa", "atsushi", "dazai", "kanade", "fujimura", "usami", "rashomon", "gozen", "kariu"}
+_SAFE_SOURCE_RESIDUE = {
+    "naru", "miwa", "atsushi", "dazai", "kanade", "fujimura", "usami", "rashomon",
+    "gozen", "kariu", "vayne", "provost", "ichinose", "public", "transit",
+}
 
 
 def _copied_source_residue(source: str, translation: str) -> list[str]:

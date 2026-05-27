@@ -103,6 +103,28 @@ def test_quality_features_allow_manga_tilde_punctuation() -> None:
     assert "suspicious symbols" not in features.reasons
 
 
+def test_quality_features_allow_known_preserved_terms_and_french_caps() -> None:
+    transit = OcrBlock(
+        id="transit",
+        bbox=[1, 2, 3, 4],
+        source_lang="en",
+        ocr_text='MEANS I\'m Like YOUR "public TRANSIT" For the DAY.',
+        translation_fr='En gros, je suis ton "transport public" pour la journee.',
+        confidence=0.86,
+    )
+    no = OcrBlock(
+        id="no",
+        bbox=[1, 2, 3, 4],
+        source_lang="en",
+        ocr_text="NO",
+        translation_fr="NON",
+        confidence=0.86,
+    )
+
+    assert "source residue copied into translation" not in compute_quality_features(transit).reasons
+    assert "uppercase residue in translation" not in compute_quality_features(no).reasons
+
+
 def test_learning_report_extracts_memory() -> None:
     report = build_learning_report(sample_project())
     assert report.summary["learnable_blocks"] == 1

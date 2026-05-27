@@ -32,6 +32,21 @@ def test_scanlation_credit_blocks_are_auto_ignored() -> None:
     assert blocks[0].review_notes.startswith("[auto-ignore]")
 
 
+def test_sfx_caption_blocks_are_auto_ignored() -> None:
+    blocks = [
+        _block("Sfx: kasha", 1),
+        _block("EXHALING THE SMOKE Sfx: f4", 2),
+        _block("What on earth is this person?", 3),
+    ]
+
+    changed = apply_review_filters(blocks)
+
+    assert changed == 2
+    assert blocks[0].manual_status == "ignored"
+    assert blocks[1].manual_status == "ignored"
+    assert blocks[2].manual_status == "unchecked"
+
+
 def test_infographic_page_is_marked_non_reviewable() -> None:
     blocks = [
         _block("Phase 4", 1),
@@ -88,6 +103,7 @@ def test_short_dialogue_fragments_are_kept_for_review() -> None:
         _block("YES.", 2),
         _block("AGAIN.", 3),
         _block("WAY. ~", 4),
+        _block("NO", 5),
     ]
 
     assert apply_review_filters(blocks) == 0

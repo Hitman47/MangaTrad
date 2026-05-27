@@ -258,6 +258,34 @@ def test_process_corpus_skips_color_heavy_info_pages_before_ocr(tmp_path: Path) 
     assert project["pages"][0]["status"] == "ignored"
 
 
+def test_process_corpus_skips_oversized_pages_for_fast_validation(tmp_path: Path) -> None:
+    corpus = tmp_path / "corpus"
+    pages_dir = corpus / "pages" / "SeriesA" / "Vol01"
+    pages_dir.mkdir(parents=True)
+    image = pages_dir / "sample_001__page_0209.png"
+    Image.new("RGB", (1200, 1200), "white").save(image)
+    (corpus / "manifest.jsonl").write_text(
+        json.dumps({"series_label": "SeriesA", "output_relpath": str(image.relative_to(corpus)).replace("\\", "/")}) + "\n",
+        encoding="utf-8",
+    )
+
+    result = process_corpus(
+        corpus,
+        tmp_path / "run",
+        source_lang="en",
+        limit=1,
+        recognizer=FailingRecognizer(),
+        translator=FakeTranslator(),
+        max_image_megapixels=1.0,
+    )
+
+    assert result.pages_processed == 0
+    assert result.pages_skipped == 1
+    assert "1.44 MP > 1.00 MP" in (tmp_path / "run" / "mangatrad_corpus_progress.json").read_text(encoding="utf-8")
+    project = json.loads(result.cache_path.read_text(encoding="utf-8"))
+    assert project["pages"][0]["status"] == "ignored"
+
+
 def test_read_corpus_manifest_accepts_manifest_file_path(tmp_path: Path) -> None:
     corpus = tmp_path / "corpus"
     image = corpus / "pages" / "SeriesA" / "Vol01" / "sample_001__page_0001.jpg"

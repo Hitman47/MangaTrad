@@ -389,3 +389,18 @@ def test_busy_validation_dialogue_overrides() -> None:
         == "Allez, rapprochez-vous l'un de l'autre."
     )
     assert EnglishDialogueNormalizer.prepare("KARIU YOUR FACE Is SCARY").override_translation_fr == "Kariu, ton visage fait peur."
+    assert EnglishDialogueNormalizer.prepare("S0 PEAL COLDW!").corrected_text == "so real cold!!!"
+    assert EnglishDialogueNormalizer.prepare("It's really Trlelll").corrected_text == "It's really true!!!"
+    provost = EnglishDialogueNormalizer.prepare("Th-the Provosti? Did She Foresee all OF this:: .?")
+    assert provost.corrected_text == "Th-the Provost? Did She Foresee all OF this...?"
+    assert provost.override_translation_fr == "La Provost ?! Elle avait prevu tout ca... ?"
+    ichinose = EnglishDialogueNormalizer.prepare("Well This girl Ichinose Got Me A COMMERCIAL DRIVER'S License")
+    assert ichinose.override_translation_fr == "Eh bien, cette fille, Ichinose, m'a obtenu un permis de conduire professionnel."
+    transit = EnglishDialogueNormalizer.prepare('MEANS I\'m Like YOUR "Plblic TRANSIT" For the DAY.')
+    assert transit.corrected_text == 'MEANS I\'m Like YOUR "public TRANSIT" For the DAY.'
+    assert transit.override_translation_fr == 'En gros, je suis ton "transport public" pour la journee.'
+    peek = EnglishDialogueNormalizer.prepare("You REALLY CAME Peek.")
+    assert peek.corrected_text == "You REALLY came to peek...?"
+    assert peek.override_translation_fr == "Tu es vraiment venue jeter un oeil... ?"
+    misunderstanding = EnglishDialogueNormalizer.prepare("IT'S A MISUN- DER- STAND- INGU JUST Now... SOMEONE was")
+    assert misunderstanding.override_translation_fr == "C'est un malentendu !! A l'instant... quelqu'un etait..."

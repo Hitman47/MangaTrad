@@ -31,7 +31,7 @@ _TRANSLATION_RESIDUE_RE = re.compile(
     flags=re.IGNORECASE,
 )
 _UPPERCASE_WORD_RE = re.compile(r"\b[A-Z]{3,}\b")
-_SAFE_UPPERCASE = {"OK", "SFX", "RASHOMON", "DAZAI", "TANIZAKI", "ATSUSHI", "NAOMI", "KUNIKIDA"}
+_SAFE_UPPERCASE = {"OK", "NON", "SFX", "RASHOMON", "DAZAI", "TANIZAKI", "ATSUSHI", "NAOMI", "KUNIKIDA"}
 
 _SAFE_UNTRANSLATED = {
     "ok", "okay", "aww", "ah", "oh", "uh", "um", "hm", "hmm", "hum", "hey", "yo", "gon", "bam", "boom",
@@ -74,7 +74,10 @@ def _has_obvious_english_residue(text: str) -> bool:
 def _source_residue_hits(source: str, translation: str) -> set[str]:
     source_tokens = {token.lower().strip("'") for token in _tokens(source) if len(token) >= 4}
     translation_tokens = {token.lower().strip("'") for token in _tokens(translation) if len(token) >= 4}
-    safe = {"naru", "miwa", "atsushi", "dazai", "kanade", "fujimura", "usami", "rashomon", "gozen", "kariu"}
+    safe = {
+        "naru", "miwa", "atsushi", "dazai", "kanade", "fujimura", "usami", "rashomon",
+        "gozen", "kariu", "vayne", "provost", "ichinose", "public", "transit",
+    }
     # Keep only tokens that are more likely English residue/OCR garbage than names.
     return (source_tokens & translation_tokens) - safe
 

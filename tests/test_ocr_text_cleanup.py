@@ -190,6 +190,12 @@ def test_finish_english_validation_ocr_repairs() -> None:
     assert normalize_ocr_text_for_translation("GRAB MY LAPEL AND GOFOR A Ghoulder") == "GRAB MY LAPEL AND go for A shoulder"
     assert normalize_ocr_text_for_translation("Hundred THOUSAND People Will Diel") == "Hundred THOUSAND People Will die!"
     assert normalize_ocr_text_for_translation("He Took AME-NO- Gozen FROM Me!") == "He took Ame-no-Gozen from me!"
+    assert normalize_ocr_text_for_translation("S0 PEAL COLDW!") == "so real cold!!!"
+    assert normalize_ocr_text_for_translation("It's really Trlelll") == "It's really true!!!"
+    assert normalize_ocr_text_for_translation("Th-the Provosti?") == "Th-the Provost?"
+    assert normalize_ocr_text_for_translation('YOUR "Plblic TRANSIT"') == 'YOUR "public TRANSIT"'
+    assert normalize_ocr_text_for_translation("MISUN- DER- STAND- INGU") == "misunderstanding"
+    assert normalize_ocr_text_for_translation("You REALLY CAME Peek.") == "You REALLY came to peek...?"
 
 
 def test_candidate_quality_prefers_reviewed_font_digit_repairs() -> None:

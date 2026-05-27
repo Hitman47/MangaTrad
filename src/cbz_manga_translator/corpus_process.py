@@ -57,6 +57,12 @@ def main() -> int:
     parser.add_argument("--glossary", type=Path, default=None, help="Optional text file with project glossary rules.")
     parser.add_argument("--force", action="store_true", help="Reprocess pages even if cached blocks already exist.")
     parser.add_argument("--checkpoint-every", type=int, default=10, help="Save cache/progress every N processed pages.")
+    parser.add_argument(
+        "--max-image-megapixels",
+        type=float,
+        default=None,
+        help="Skip pages above this image size before OCR. Useful for quick hard validation batches.",
+    )
     args = parser.parse_args()
 
     glossary_terms = args.glossary.read_text(encoding="utf-8") if args.glossary else None
@@ -84,6 +90,7 @@ def main() -> int:
         force=args.force,
         checkpoint_every=args.checkpoint_every,
         raw_terms=glossary_terms,
+        max_image_megapixels=args.max_image_megapixels,
     )
 
     print(f"Pages corpus      : {result.pages_total}")

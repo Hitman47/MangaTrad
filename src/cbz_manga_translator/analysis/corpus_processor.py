@@ -56,6 +56,49 @@ def _looks_like_expensive_color_info_page(image_path: str | Path, source_lang: S
     return saturated_ratio >= 0.06 and dark_ratio >= 0.08 and ink_ratio >= 0.35
 
 
+def _image_megapixels(image_path: str | Path) -> float | None:
+    try:
+        from PIL import Image
+
+        with Image.open(image_path) as image:
+            return (image.width * image.height) / 1_000_000
+    except Exception:
+        return None
+
+
+def _skip_page(
+    *,
+    page: PageRecord,
+    cache_path: Path,
+    progress_path: Path,
+    project: ProjectData,
+    checkpoint_every: int,
+    pages_processed: int,
+    pages_skipped: int,
+    pages_total: int,
+    local_index: int,
+    image_path: str | Path,
+    reason: str,
+    started: float,
+) -> None:
+    page.blocks = []
+    page.status = "ignored"
+    if checkpoint_every > 0:
+        ProjectCache.save(cache_path, project)
+        _write_progress(
+            progress_path,
+            {
+                "pages_total": pages_total,
+                "pages_processed": pages_processed,
+                "pages_skipped": pages_skipped,
+                "last_page_index": local_index,
+                "last_image_path": str(image_path),
+                "last_skip_reason": reason,
+                "elapsed_seconds": round(time.monotonic() - started, 3),
+            },
+        )
+
+
 
 def _count_images_under(path: Path, *, max_count: int | None = None) -> int:
     if not path.exists():
@@ -513,6 +556,7 @@ def process_corpus(
     recognizer: Recognizer | None = None,
     translator: Translator | None = None,
     quality_checker: TranslationQualityChecker | None = None,
+    max_image_megapixels: float | None = None,
 ) -> CorpusProcessResult:
     """Batch OCR/translate a sampled corpus and export review datasets.
 
@@ -551,6 +595,8 @@ def process_corpus(
     pages_skipped = 0
     blocks_total = 0
     warnings_total = 0
+    last_skip_reason = ""
+    last_skip_image = ""
 
     for local_index, entry in selected_entries:
         page = project.pages[local_index]
@@ -561,24 +607,45 @@ def process_corpus(
             warnings_total += sum(1 for block in page.blocks if block.quality_warnings)
             continue
 
-        if _looks_like_expensive_color_info_page(entry.image_path, source_lang):
-            page.blocks = []
-            page.status = "ignored"
+        megapixels = _image_megapixels(entry.image_path)
+        if max_image_megapixels is not None and max_image_megapixels > 0 and megapixels is not None and megapixels > max_image_megapixels:
             pages_skipped += 1
-            if checkpoint_every > 0:
-                ProjectCache.save(cache_path, project)
-                _write_progress(
-                    progress_path,
-                    {
-                        "pages_total": len(entries),
-                        "pages_processed": pages_processed,
-                        "pages_skipped": pages_skipped,
-                        "last_page_index": local_index,
-                        "last_image_path": str(entry.image_path),
-                        "last_skip_reason": "page non exploitable: infographie couleur dense",
-                        "elapsed_seconds": round(time.monotonic() - started, 3),
-                    },
-                )
+            last_skip_reason = f"page ignoree pour test rapide: {megapixels:.2f} MP > {max_image_megapixels:.2f} MP"
+            last_skip_image = str(entry.image_path)
+            _skip_page(
+                page=page,
+                cache_path=cache_path,
+                progress_path=progress_path,
+                project=project,
+                checkpoint_every=checkpoint_every,
+                pages_processed=pages_processed,
+                pages_skipped=pages_skipped,
+                pages_total=len(entries),
+                local_index=local_index,
+                image_path=entry.image_path,
+                reason=last_skip_reason,
+                started=started,
+            )
+            continue
+
+        if _looks_like_expensive_color_info_page(entry.image_path, source_lang):
+            pages_skipped += 1
+            last_skip_reason = "page non exploitable: infographie couleur dense"
+            last_skip_image = str(entry.image_path)
+            _skip_page(
+                page=page,
+                cache_path=cache_path,
+                progress_path=progress_path,
+                project=project,
+                checkpoint_every=checkpoint_every,
+                pages_processed=pages_processed,
+                pages_skipped=pages_skipped,
+                pages_total=len(entries),
+                local_index=local_index,
+                image_path=entry.image_path,
+                reason=last_skip_reason,
+                started=started,
+            )
             continue
 
         blocks = recognizer.recognize(
@@ -643,19 +710,20 @@ def process_corpus(
     ProjectCache.save(cache_path, project)
     exported = export_review_dataset(project, analysis_dir)
     elapsed = time.monotonic() - started
-    _write_progress(
-        progress_path,
-        {
-            "pages_total": len(entries),
-            "pages_processed": pages_processed,
-            "pages_skipped": pages_skipped,
-            "blocks_total": blocks_total,
-            "warnings_total": warnings_total,
-            "elapsed_seconds": round(elapsed, 3),
-            "cache_path": str(cache_path),
-            "analysis_dir": str(analysis_dir),
-        },
-    )
+    progress_payload = {
+        "pages_total": len(entries),
+        "pages_processed": pages_processed,
+        "pages_skipped": pages_skipped,
+        "blocks_total": blocks_total,
+        "warnings_total": warnings_total,
+        "elapsed_seconds": round(elapsed, 3),
+        "cache_path": str(cache_path),
+        "analysis_dir": str(analysis_dir),
+    }
+    if last_skip_reason:
+        progress_payload["last_skip_reason"] = last_skip_reason
+        progress_payload["last_skip_image"] = last_skip_image
+    _write_progress(progress_path, progress_payload)
 
     return CorpusProcessResult(
         pages_total=len(entries),
