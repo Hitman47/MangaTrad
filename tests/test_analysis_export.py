@@ -134,6 +134,18 @@ def test_quality_features_allow_known_preserved_terms_and_french_caps() -> None:
     )
     assert "source residue copied into translation" not in compute_quality_features(cool).reasons
 
+    boss = OcrBlock(
+        id="boss",
+        bbox=[1, 2, 3, 4],
+        source_lang="en",
+        ocr_text="The strongest boss in the game...",
+        translation_fr="le boss le plus fort du jeu...",
+        confidence=0.86,
+    )
+    boss_reasons = compute_quality_features(boss).reasons
+    assert "probable English residue in French translation" not in boss_reasons
+    assert "source residue copied into translation" not in boss_reasons
+
 
 def test_learning_report_extracts_memory() -> None:
     report = build_learning_report(sample_project())

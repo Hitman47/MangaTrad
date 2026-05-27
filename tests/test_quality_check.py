@@ -220,6 +220,22 @@ def test_quality_allows_french_service_word() -> None:
     assert not any("source recopi" in warning for warning in warnings)
 
 
+def test_quality_allows_french_game_boss_word() -> None:
+    block = OcrBlock(
+        id="boss",
+        bbox=[0, 0, 1, 1],
+        source_lang="en",
+        ocr_text="The strongest boss in the game...",
+        translation_fr="le boss le plus fort du jeu...",
+        confidence=0.9,
+    )
+
+    warnings = TranslationQualityChecker().check_block(block)
+
+    assert not any("anglais restants" in warning for warning in warnings)
+    assert not any("source recopi" in warning for warning in warnings)
+
+
 def test_quality_flags_missing_prefix_and_missing_terminal_punctuation() -> None:
     block = OcrBlock(
         id="b",

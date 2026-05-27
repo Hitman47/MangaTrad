@@ -437,7 +437,15 @@ def test_new_busy_review_batch_overrides() -> None:
     assert eliminate.normalized_text == "it is trying to eliminate Elizabeth."
     assert eliminate.override_translation_fr == "Il essaie d'eliminer Elizabeth."
 
+    this_is = EnglishDialogueNormalizer.prepare("THIS IS.")
+    assert this_is.normalized_text == "this is..."
+    assert this_is.override_translation_fr == "C'est..."
+
+    boss = EnglishDialogueNormalizer.prepare("The STRONGEST BOSS IN The GAME,.")
+    assert boss.normalized_text == "the strongest boss in the game..."
+    assert boss.override_translation_fr == "le boss le plus fort du jeu..."
+
     anomaly = EnglishDialogueNormalizer.prepare("The ANOMALY Who has Derailed The plotl")
     assert anomaly.corrected_text == "The ANOMALY Who has Derailed The plot!"
-    assert anomaly.normalized_text == "the anomaly who has derailed the plot!"
-    assert anomaly.override_translation_fr == "L'anomalie qui a fait derailler l'intrigue !"
+    assert anomaly.normalized_text == "...the anomaly who has derailed the plot!"
+    assert anomaly.override_translation_fr == "...L'anomalie qui a fait derailler l'intrigue !"

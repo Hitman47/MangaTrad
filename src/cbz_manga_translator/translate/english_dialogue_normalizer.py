@@ -275,6 +275,9 @@ _PRONOUN_CORRECTIONS: tuple[tuple[re.Pattern[str], str], ...] = (
 )
 
 _DIALOGUE_NORMALIZATIONS: tuple[tuple[re.Pattern[str], str], ...] = (
+    (re.compile(r"^THIS\s+IS[.]$", flags=re.IGNORECASE), "this is..."),
+    (re.compile(r"^The\s+STRONGEST\s+BOSS\s+IN\s+The\s+GAME[,.\s]+$", flags=re.IGNORECASE), "the strongest boss in the game..."),
+    (re.compile(r"^The\s+ANOMALY\s+Who\s+has\s+Derailed\s+The\s+plot!$", flags=re.IGNORECASE), "...the anomaly who has derailed the plot!"),
     (re.compile(r"^We\s+shouldn['â€™]?t\s+Even\s+Be\s+Here\s+To\s+Begin\s+with!$", flags=re.IGNORECASE), "we shouldn't even be here to begin with!"),
     (re.compile(r"^WO\s+shouldn['â€™]?t\s+Even\s+Be\s+Here\s+To\s+Begin\s+with!$", flags=re.IGNORECASE), "we shouldn't even be here to begin with!"),
     (re.compile(r"^AND\s+For\s+THAT\s+You\s+SHALL\s+Die\s+a\s+thousand\s+DEATHS!$", flags=re.IGNORECASE), "and for that you shall die a thousand deaths!"),
@@ -438,6 +441,11 @@ _TOKEN_NORMALIZATIONS: tuple[tuple[re.Pattern[str], str], ...] = (
 )
 
 _TRANSLATION_OVERRIDES: dict[str, str] = {
+    "this is...": "C'est...",
+    "this is": "C'est...",
+    "the strongest boss in the game...": "le boss le plus fort du jeu...",
+    "the strongest boss in the game": "le boss le plus fort du jeu...",
+    "...the anomaly who has derailed the plot!": "...L'anomalie qui a fait derailler l'intrigue !",
     "grab my lapel and go for a shoulder": "Attrape mon revers et vise l'epaule.",
     "he took ame-no-gozen from me!": "Il m'a pris Ame-no-Gozen !",
     "we just need someone to take the picture": "Il nous faut juste quelqu'un pour prendre la photo.",

@@ -13,7 +13,7 @@ _ENGLISH_WORDS = {
     "no", "yes", "what", "why", "where", "when", "how", "who", "this", "that", "here",
     "there", "now", "then", "man", "director", "house", "key", "trip", "tokyo",
     "orphanage", "food", "shelter", "steal", "tiger", "agency", "skills", "bomb",
-    "button", "press", "boss", "company", "dorm", "battle", "fault", "cry",
+    "button", "press", "company", "dorm", "battle", "fault", "cry",
 }
 
 
@@ -25,7 +25,7 @@ _BAD_OCR_SOURCE_RE = re.compile(
 )
 _TRANSLATION_RESIDUE_RE = re.compile(
     r"\b(?:orphanage|food|shelter|steal|tiger|agency|skills?|earn|master|animal|form|staff|"
-    r"backup|sake|bomb|dampen|explosion|button|press|boss|company|dorm|posthaste|lad|ideals|"
+    r"backup|sake|bomb|dampen|explosion|button|press|company|dorm|posthaste|lad|ideals|"
     r"mafia|battle|fault|cry|days?|place|else|worldly|knowledge|individuals?|bandit|star|"
     r"mercenary|guy|dollarman|fick|smug|slam|contents|beans?)\b",
     flags=re.IGNORECASE,
@@ -77,7 +77,7 @@ def _source_residue_hits(source: str, translation: str) -> set[str]:
     safe = {
         "naru", "miwa", "atsushi", "dazai", "kanade", "fujimura", "usami", "rashomon",
         "gozen", "kariu", "vayne", "provost", "ichinose", "public", "transit",
-        "cool", "elizabeth", "hardcore", "rock", "service",
+        "cool", "elizabeth", "hardcore", "rock", "service", "boss",
     }
     # Keep only tokens that are more likely English residue/OCR garbage than names.
     return (source_tokens & translation_tokens) - safe

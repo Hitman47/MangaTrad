@@ -58,7 +58,6 @@ _ENGLISH_RESIDUE_WORDS = {
     "fault",
     "cry",
     "days",
-    "boss",
     "company",
     "dorm",
 }
@@ -172,7 +171,7 @@ _SAFE_UPPERCASE_TOKENS = {
 
 _TRANSLATION_ENGLISH_RESIDUE_RE = re.compile(
     r"\b(?:orphanage|food|shelter|steal|tiger|agency|skills?|earn|master|animal|form|staff|"
-    r"backup|sake|bomb|dampen|explosion|button|press|boss|company|dorm|posthaste|lad|ideals|"
+    r"backup|sake|bomb|dampen|explosion|button|press|company|dorm|posthaste|lad|ideals|"
     r"mafia|battle|fault|cry|days?|place|else|worldly|knowledge|individuals?|bandit|star|"
     r"mercenary|guy|dollarman|fick|smug|slam|contents|beans?)\b",
     flags=re.IGNORECASE,
@@ -181,7 +180,7 @@ _TRANSLATION_ENGLISH_RESIDUE_RE = re.compile(
 _SAFE_SOURCE_RESIDUE = {
     "naru", "miwa", "atsushi", "dazai", "kanade", "fujimura", "usami", "rashomon",
     "gozen", "kariu", "vayne", "provost", "ichinose", "public", "transit",
-    "cool", "elizabeth", "hardcore", "rock", "service",
+    "cool", "elizabeth", "hardcore", "rock", "service", "boss",
 }
 
 
