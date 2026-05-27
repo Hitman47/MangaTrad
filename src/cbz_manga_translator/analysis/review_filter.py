@@ -46,30 +46,47 @@ _SFX_WORDS = {
     "BLAM",
     "BUMP",
     "CHA",
+    "CHAK",
     "CHATTER",
     "CLACK",
     "CLICK",
     "CREAK",
     "CRASH",
     "DEEEAD",
+    "DON",
+    "DONCHAN",
+    "DONCHAN BACHA",
+    "DONCHAN (BACHA)",
     "FUMP",
     "FWP",
     "FBY",
     "KACHA",
     "KA CHA",
+    "KGH",
+    "KGH!",
+    "KHUNK",
     "KIDCK",
+    "KLINK",
     "LIGHTING UP",
     "LUNGE",
+    "NGHH",
+    "NGHHH",
+    "NGHHH!",
     "PINCH",
+    "PLINK",
+    "PNK",
     "POKE",
     "POKE POKE",
     "RUMBLE",
+    "RIP",
     "SILENCE",
     "SLAM",
+    "SWOOSH",
     "THUD",
     "TWITCH",
     "WHISPER",
     "WOOSH",
+    "WOOSH WOOSH",
 }
 
 _SIGNAGE_TERMS = {"atm", "card", "fee", "phone", "transfer", "store", "convenience"}
@@ -166,7 +183,7 @@ def _is_dialogue_like(text: str) -> bool:
     words = re.findall(r"[A-Za-z][A-Za-z']+", text)
     if len(words) >= 5:
         return True
-    return bool(re.search(r"\b(I|you|we|he|she|they|what|why|how|when|where|can|could|would|should|will|are|is)\b", text, flags=re.IGNORECASE))
+    return bool(re.search(r"\b(I|you|we|he|she|they|what|why|how|when|where|can|could|would|should|will|are|is|hey)\b", text, flags=re.IGNORECASE))
 
 
 def page_non_reviewable_reason(blocks: Iterable[OcrBlock]) -> str:
@@ -183,7 +200,7 @@ def page_non_reviewable_reason(blocks: Iterable[OcrBlock]) -> str:
     dialogue_punctuation_count = sum(1 for block in items if re.search(r"[!?]", _block_source(block)))
     if reference_count >= max(4, len(items) // 2) and dialogue_punctuation_count <= max(1, len(items) // 5):
         return "page non exploitable: fiche personnages/extra dense"
-    if reason_count / len(items) >= 0.75 and dialogue_count <= max(1, len(items) // 6):
+    if reason_count / len(items) >= 0.75 and dialogue_count == 0:
         return "page non exploitable: non-dialogue"
     return ""
 

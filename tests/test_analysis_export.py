@@ -124,6 +124,16 @@ def test_quality_features_allow_known_preserved_terms_and_french_caps() -> None:
     assert "source residue copied into translation" not in compute_quality_features(transit).reasons
     assert "uppercase residue in translation" not in compute_quality_features(no).reasons
 
+    cool = OcrBlock(
+        id="cool",
+        bbox=[1, 2, 3, 4],
+        source_lang="en",
+        ocr_text="SO COOL!",
+        translation_fr="Trop cool !",
+        confidence=0.86,
+    )
+    assert "source residue copied into translation" not in compute_quality_features(cool).reasons
+
 
 def test_learning_report_extracts_memory() -> None:
     report = build_learning_report(sample_project())

@@ -37,16 +37,38 @@ def test_sfx_caption_blocks_are_auto_ignored() -> None:
         _block("Sfx: kasha", 1),
         _block("EXHALING THE SMOKE Sfx: f4", 2),
         _block("LIGHTING up", 4),
+        _block("Woosh WOOSH", 5),
+        _block("Swoosh", 6),
+        _block("KHUNK", 7),
+        _block("CHAK", 8),
+        _block("PNK", 9),
+        _block("DON", 10),
+        _block("DONCHAN (BACHA)", 11),
+        _block("NGHHH!", 12),
+        _block("rip", 13),
         _block("What on earth is this person?", 3),
     ]
 
     changed = apply_review_filters(blocks)
 
-    assert changed == 3
-    assert blocks[0].manual_status == "ignored"
-    assert blocks[1].manual_status == "ignored"
-    assert blocks[2].manual_status == "ignored"
-    assert blocks[3].manual_status == "unchecked"
+    assert changed == 12
+    assert all(block.manual_status == "ignored" for block in blocks[:-1])
+    assert blocks[-1].manual_status == "unchecked"
+
+
+def test_sfx_heavy_page_keeps_short_dialogue() -> None:
+    blocks = [
+        _block("KHUNK", 1),
+        _block("PLINK", 2),
+        _block("Woosh WOOSH", 3),
+        _block("Swoosh", 4),
+        _block("CHAK", 5),
+        _block("Hey!", 6),
+    ]
+
+    apply_review_filters(blocks)
+
+    assert [block.manual_status for block in blocks] == ["ignored", "ignored", "ignored", "ignored", "ignored", "unchecked"]
 
 
 def test_infographic_page_is_marked_non_reviewable() -> None:

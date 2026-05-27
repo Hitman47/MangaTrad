@@ -77,6 +77,7 @@ def _source_residue_hits(source: str, translation: str) -> set[str]:
     safe = {
         "naru", "miwa", "atsushi", "dazai", "kanade", "fujimura", "usami", "rashomon",
         "gozen", "kariu", "vayne", "provost", "ichinose", "public", "transit",
+        "cool",
     }
     # Keep only tokens that are more likely English residue/OCR garbage than names.
     return (source_tokens & translation_tokens) - safe

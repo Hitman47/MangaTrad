@@ -408,3 +408,9 @@ def test_busy_validation_dialogue_overrides() -> None:
     person = EnglishDialogueNormalizer.prepare("WHAT ON IS THIS PERSON?!")
     assert person.corrected_text == "what on earth is this person?!"
     assert person.override_translation_fr == "C'est quoi, cette personne ?!"
+    assert EnglishDialogueNormalizer.prepare("(OOL!").override_translation_fr == "Trop cool !"
+    energy = EnglishDialogueNormalizer.prepare("I don't know Too WELL MYSELF, But They're pretty Much bands Who play With A Lot OF ENERGY!")
+    assert energy.override_translation_fr == "Je ne m'y connais pas trop, mais ce sont surtout des groupes qui jouent avec beaucoup d'energie !"
+    band = EnglishDialogueNormalizer.prepare("I Guess They're a Melodic HARDCORE OR MAYBE Loud ROCK BAND, Hlh?")
+    assert band.override_translation_fr == "Je dirais que c'est du hardcore melodique, ou peut-etre un groupe de rock bruyant, hein ?"
+    assert EnglishDialogueNormalizer.prepare("Hey!").override_translation_fr == "He !"

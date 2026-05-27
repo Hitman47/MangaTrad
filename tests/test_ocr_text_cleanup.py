@@ -199,6 +199,8 @@ def test_finish_english_validation_ocr_repairs() -> None:
     assert normalize_ocr_text_for_translation("LNBEL!") == "unbelievable!"
     assert normalize_ocr_text_for_translation("WHAT ON IS THIS PERSON?!") == "what on earth is this person?!"
     assert normalize_ocr_text_for_translation("COMMERCIAL DRIVER'S License") == "COMMERCIAL driver's license."
+    assert normalize_ocr_text_for_translation("(OOL!") == "SO COOL!"
+    assert normalize_ocr_text_for_translation("Hlh?") == "huh?"
 
 
 def test_candidate_quality_prefers_reviewed_font_digit_repairs() -> None:

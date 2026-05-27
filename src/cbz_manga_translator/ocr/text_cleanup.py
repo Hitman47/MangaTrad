@@ -103,6 +103,8 @@ _COMMON_OCR_WORD_FIXES: tuple[tuple[re.Pattern[str], str], ...] = (
     (re.compile(r"\blnbel\b!?", flags=re.IGNORECASE), "unbelievable!"),
     (re.compile(r"\bwhat\s+on\s+is\s+this\s+person\b", flags=re.IGNORECASE), "what on earth is this person"),
     (re.compile(r"\bdriver['’]s\s+license\s*$", flags=re.IGNORECASE), "driver's license."),
+    (re.compile(r"\bhlh\?", flags=re.IGNORECASE), "huh?"),
+    (re.compile(r"\(\s*ool!?", flags=re.IGNORECASE), "SO COOL!"),
     (re.compile(r":{2,}\s*[.]?\?"), "...?"),
     (re.compile(r"\bolt\b", flags=re.IGNORECASE), "out"),
     (re.compile(r"\bOLR\b", flags=re.IGNORECASE), "OUR"),

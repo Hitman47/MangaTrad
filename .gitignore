@@ -44,6 +44,7 @@ data/cache/
 .easyocr/
 .huggingface/
 models/
+graphify-out/cache/
 
 # Logs and temporary files
 *.log
