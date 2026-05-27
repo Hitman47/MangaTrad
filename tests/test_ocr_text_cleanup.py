@@ -35,6 +35,10 @@ def test_normalize_linebreak_hyphen_and_common_ocr_typos() -> None:
     assert normalize_ocr_text_for_translation("ISN'T THAT WHAT A MAN'S POMANCE IS") == "ISN'T THAT WHAT A MAN'S ROMANCE IS"
     assert normalize_ocr_text_for_translation("THAT REASON IS WAY TOO STRANCE ISN'T") == "THAT REASON IS WAY TOO STRANGE ISN'T"
     assert normalize_ocr_text_for_translation("I've WAITED FOR TOO Loncw") == "I've WAITED FOR TOO LONG!!!"
+    assert normalize_ocr_text_for_translation("He 'return- ed the dam age?!") == "He returned the damage?!"
+    assert normalize_ocr_text_for_translation("He 'returned the damage?!") == "He returned the damage?!"
+    assert normalize_ocr_text_for_translation("Bal ancell") == "Balance!!"
+    assert normalize_ocr_text_for_translation("Obviously, sensed the danger, and so returned the damagel") == "Obviously, I sensed the danger, and so returned the damage!"
 
 
 def test_review_learned_ocr_cleanup_examples() -> None:

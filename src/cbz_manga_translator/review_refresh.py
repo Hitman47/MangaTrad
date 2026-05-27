@@ -55,7 +55,7 @@ def _refresh_blocks_with_rules(blocks: list[OcrBlock], source_lang: SourceLang, 
     if source_lang != "en":
         return
     for block in blocks:
-        source = (block.normalized_source_text or block.ocr_corrected_text or block.ocr_text).strip()
+        source = block.ocr_text.strip()
         if not source:
             continue
         prepared = EnglishDialogueNormalizer.prepare(source, normalize_english=normalize_english)
@@ -149,6 +149,7 @@ def refresh_review_project(
     quality_checker = quality_checker or TranslationQualityChecker()
 
     if blocks:
+        _refresh_blocks_with_rules(blocks, source_lang, normalize_english=normalize_english)
         if translate_argos:
             translator = translator or ArgosTranslator()
             translator.translate_blocks(
@@ -160,8 +161,6 @@ def refresh_review_project(
                 use_builtin_glossary=use_builtin_glossary,
                 force=True,
             )
-        else:
-            _refresh_blocks_with_rules(blocks, source_lang, normalize_english=normalize_english)
         quality_checker.apply(blocks, source_lang=source_lang)
 
     ocr_fallback_blocks = 0

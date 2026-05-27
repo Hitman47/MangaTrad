@@ -324,6 +324,18 @@ def test_zone_fix_batch_preserves_then_question_with_hyphenated_target() -> None
     assert prepared.normalized_text == "then? there are easier targets."
 
 
+def test_hard_english_batch_repairs_i_bang_hyphen_and_missing_ellipsis() -> None:
+    assert EnglishDialogueNormalizer.prepare("As a warrior follow my desiresl!").corrected_text == "As a warrior follow my desires!!"
+    assert EnglishDialogueNormalizer.prepare("For stronger oppon- ents").corrected_text == "For stronger opponents..."
+    assert EnglishDialogueNormalizer.prepare("For more intense battles").corrected_text == "For more intense battles..."
+    assert EnglishDialogueNormalizer.prepare("The captain and Vayne").corrected_text == "The captain... and Vayne"
+    assert EnglishDialogueNormalizer.prepare("He 'return- ed the dam age?!").corrected_text == "He returned the damage?!"
+    assert EnglishDialogueNormalizer.prepare("He 'returned the damage?!").corrected_text == "He returned the damage?!"
+    assert EnglishDialogueNormalizer.prepare("Bal ancell").corrected_text == "Balance!!"
+    assert EnglishDialogueNormalizer.prepare("Obviously, sensed the danger, and so returned the damagel").corrected_text == "Obviously, I sensed the danger, and so returned the damage!"
+    assert EnglishDialogueNormalizer.prepare("C'mere AND Enter- TAIN Me Somel").corrected_text == "C'mere AND EnterTAIN Me some!"
+
+
 def test_manga_font_ul_i_bang_confusion_profile_in_normalizer() -> None:
     assert EnglishDialogueNormalizer.prepare("ISN'T Lrabe COMING TODAY?").corrected_text == "isn't Urabe coming today?"
     assert EnglishDialogueNormalizer.prepare("Now that You MEN... TIONED THE Previous Prez").corrected_text == "Now that You MENTIONED THE Previous Prez"
