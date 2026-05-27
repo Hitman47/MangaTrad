@@ -252,6 +252,8 @@ class TranslationQualityChecker:
             warnings.append("source probablement non japonaise: verifier le dossier corpus ou source-lang")
 
         if not translation:
+            if lang == "ja":
+                warnings.append("fragment japonais non traduit: OCR trop court/faible")
             warnings.append("traduction vide")
             return warnings
 

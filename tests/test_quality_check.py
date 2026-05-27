@@ -345,4 +345,5 @@ def test_quality_flags_non_japanese_source_when_running_ja_mode() -> None:
     warnings = TranslationQualityChecker().check_block(block)
 
     assert any("non japonaise" in warning for warning in warnings)
+    assert any("fragment japonais" in warning for warning in warnings)
     assert any("traduction vide" in warning for warning in warnings)

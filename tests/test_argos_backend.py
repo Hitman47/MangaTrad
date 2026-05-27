@@ -195,3 +195,61 @@ def test_argos_translation_recovers_from_cuda_oom_even_when_gpu_flag_is_false(mo
 
     assert calls == [False, False]
     assert block.translation_fr == "fr:Hello there"
+
+
+def test_argos_skips_unreliable_japanese_fragments(monkeypatch) -> None:
+    translator = ArgosTranslator()
+
+    def fail_chain(*args, **kwargs):  # type: ignore[no-untyped-def]
+        raise AssertionError("Unreliable Japanese OCR fragments must not be sent to Argos")
+
+    monkeypatch.setattr(translator, "_translation_chain", fail_chain)
+    blocks = [
+        OcrBlock(id="symbol", bbox=[0, 0, 1, 1], source_lang="ja", ocr_text="@", confidence=0.1),
+        OcrBlock(id="short", bbox=[0, 0, 1, 1], source_lang="ja", ocr_text="青", confidence=0.2),
+        OcrBlock(id="medium", bbox=[0, 0, 1, 1], source_lang="ja", ocr_text="我喜ちかに", confidence=0.58),
+    ]
+
+    translator.translate_blocks(blocks, "ja")
+
+    assert [block.translation_fr for block in blocks] == ["", "", ""]
+    assert all("fragment japonais" in block.quality_warnings[-1] for block in blocks)
+
+
+def test_argos_translates_confident_japanese_text(monkeypatch) -> None:
+    translator = ArgosTranslator()
+    calls: list[str] = []
+
+    class _Translation:
+        def translate(self, text: str) -> str:
+            calls.append(text)
+            return "Une phrase lisible."
+
+    monkeypatch.setattr(translator, "_translation_chain", lambda _source_lang, *, use_gpu: [_Translation()])
+    block = OcrBlock(
+        id="ja",
+        bbox=[0, 0, 1, 1],
+        source_lang="ja",
+        ocr_text="今日は会社に行きます",
+        confidence=0.95,
+    )
+
+    translator.translate_blocks([block], "ja")
+
+    assert calls == ["今日は会社に行きます"]
+    assert block.translation_fr == "Une phrase lisible."
+
+
+def test_argos_keeps_japanese_numeric_amounts_translatable(monkeypatch) -> None:
+    translator = ArgosTranslator()
+
+    class _Translation:
+        def translate(self, text: str) -> str:
+            return "8,2 millions"
+
+    monkeypatch.setattr(translator, "_translation_chain", lambda _source_lang, *, use_gpu: [_Translation()])
+    block = OcrBlock(id="amount", bbox=[0, 0, 1, 1], source_lang="ja", ocr_text="820万", confidence=0.9)
+
+    translator.translate_blocks([block], "ja")
+
+    assert block.translation_fr == "8,2 millions"

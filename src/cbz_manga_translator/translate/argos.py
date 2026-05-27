@@ -13,6 +13,9 @@ from cbz_manga_translator.translate.english_dialogue_normalizer import EnglishDi
 
 _SPACE_BEFORE_PUNCT_RE = re.compile(r"\s+([,.;:!?])")
 _WORD_CHARS_RE = re.compile(r"[A-Za-z0-9]")
+_JAPANESE_CHAR_RE = re.compile(r"[\u3041-\u309f\u30a0-\u30ff\u3400-\u9fff]")
+_LOW_VALUE_JA_SYMBOL_RE = re.compile(r"^[\s@#=_~{}<>|\\/\[\]()`'\".,:;!?・…。、「」『』（）\-]+$")
+_JA_NUMERIC_AMOUNT_RE = re.compile(r"[0-9０-９].*[万億円千百]")
 
 
 class ArgosTranslationError(RuntimeError):
@@ -430,6 +433,27 @@ class ArgosTranslator:
     def _block_source_text(block: OcrBlock) -> str:
         return (block.normalized_source_text or block.ocr_corrected_text or block.ocr_text).strip()
 
+    @staticmethod
+    def _should_skip_ja_translation(block: OcrBlock, source_text: str) -> bool:
+        compact = "".join(source_text.split())
+        if not compact:
+            return True
+        japanese_chars = len(_JAPANESE_CHAR_RE.findall(compact))
+        confidence = block.confidence
+        if _LOW_VALUE_JA_SYMBOL_RE.fullmatch(compact):
+            return True
+        if japanese_chars <= 5 and not _JA_NUMERIC_AMOUNT_RE.search(compact):
+            return True
+        if confidence is not None and confidence < 0.35:
+            return True
+        if confidence is not None and confidence < 0.65 and japanese_chars <= 5:
+            return True
+        if confidence is not None and confidence < 0.60 and japanese_chars <= 3:
+            return True
+        if japanese_chars <= 1 and len(compact) <= 3:
+            return True
+        return False
+
     @classmethod
     def _prepare_block_text(
         cls,
@@ -471,11 +495,19 @@ class ArgosTranslator:
         use_builtin_glossary: bool = True,
         force: bool = False,
     ) -> list[OcrBlock]:
-        targets = [
-            block
-            for block in blocks
-            if self._block_source_text(block) and (force or not is_translation_protected(block))
-        ]
+        targets: list[OcrBlock] = []
+        for block in blocks:
+            source_text = self._block_source_text(block)
+            if not source_text or (not force and is_translation_protected(block)):
+                continue
+            if source_lang == "ja" and not force and self._should_skip_ja_translation(block, source_text):
+                block.raw_translation_fr = ""
+                block.translation_fr = ""
+                note = "fragment japonais non traduit automatiquement: OCR faible/court"
+                if note not in block.quality_warnings:
+                    block.quality_warnings.append(note)
+                continue
+            targets.append(block)
         prepared_texts = [
             self._prepare_block_text(
                 block,
