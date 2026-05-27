@@ -146,6 +146,7 @@ def replay_review_project(
     *,
     source_lang: SourceLang = "en",
     max_pages: int | None = None,
+    page_indices: set[int] | None = None,
     statuses: set[str] | None = None,
     min_iou: float = 0.35,
     source_threshold: float = 0.92,
@@ -169,6 +170,8 @@ def replay_review_project(
     active_ocr_gpu = use_gpu if ocr_use_gpu is None else ocr_use_gpu
 
     pages = [page for page in project.pages if _target_blocks(page, target_statuses)]
+    if page_indices is not None:
+        pages = [page for page in pages if page.page_index in page_indices]
     if max_pages is not None:
         pages = pages[:max_pages]
 

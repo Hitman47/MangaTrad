@@ -14,6 +14,7 @@ from cbz_manga_translator.review.replay import (
     text_similarity,
     write_replay_report,
 )
+from cbz_manga_translator.review_replay import _failure_page_indices, _parse_index_list
 
 
 class FakeRecognizer:
@@ -45,6 +46,10 @@ def test_text_similarity_normalizes_case_and_spacing() -> None:
 
 def test_bbox_iou() -> None:
     assert bbox_iou([0, 0, 10, 10], [5, 5, 15, 15]) == 25 / 175
+
+
+def test_parse_index_list_accepts_ranges_and_page_prefix() -> None:
+    assert _parse_index_list("p3,5-7,10") == {3, 5, 6, 7, 10}
 
 
 def test_replay_review_project_compares_reprocessed_page_to_human_review(tmp_path: Path) -> None:
@@ -87,6 +92,43 @@ def test_replay_review_project_compares_reprocessed_page_to_human_review(tmp_pat
     assert report.target_blocks == 1
     assert report.full_matches == 1
     assert report.results[0].status == "match"
+
+
+def test_replay_review_project_can_target_specific_page_indices(tmp_path: Path) -> None:
+    image = tmp_path / "page.jpg"
+    Image.new("RGB", (80, 80), "white").save(image)
+    project_path = tmp_path / "project.reviewed.json"
+    pages = []
+    for page_index in (0, 1):
+        pages.append(
+            PageRecord(
+                page_index=page_index,
+                image_name=str(image),
+                blocks=[
+                    OcrBlock(
+                        id=f"human{page_index}",
+                        bbox=[10, 10, 60, 40],
+                        source_lang="en",
+                        ocr_text="SHE'S G0T An IDIOT Like that FOR AM OLD MAN.",
+                        normalized_source_text="she has got an idiot like that for an old man.",
+                        translation_fr="Elle a un idiot comme ça pour père.",
+                        manual_status="edited",
+                    )
+                ],
+            )
+        )
+    ProjectCache.save(project_path, ProjectData(cbz_path=str(tmp_path), pages=pages))
+
+    report = replay_review_project(
+        project_path,
+        page_indices={1},
+        use_gpu=False,
+        recognizer=FakeRecognizer(),
+        translator=FakeTranslator(),
+    )
+
+    assert report.pages_replayed == 1
+    assert report.results[0].page_index == 1
 
 
 def test_replay_review_project_skips_source_when_old_review_stored_translation(tmp_path: Path) -> None:
@@ -137,6 +179,16 @@ def test_replay_review_project_skips_source_when_old_review_stored_translation(t
     assert report.full_matches == 1
     assert report.results[0].status == "match"
     assert report.results[0].source_evaluation == "skipped_translation_in_source"
+
+
+def test_failure_page_indices_reads_previous_replay_report(tmp_path: Path) -> None:
+    report_path = tmp_path / "report.json"
+    report_path.write_text(
+        """{"results":[{"page_index":3,"status":"match"},{"page_index":7,"status":"missing"},{"page_index":7,"status":"mismatch"}]}""",
+        encoding="utf-8",
+    )
+
+    assert _failure_page_indices(report_path, {"missing", "mismatch"}) == {7}
 
 
 def test_write_replay_report(tmp_path: Path) -> None:
