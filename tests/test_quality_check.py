@@ -135,6 +135,23 @@ def test_quality_allows_preserved_proper_nouns() -> None:
     assert not any("source recopi" in warning for warning in warnings)
 
 
+def test_quality_allows_recent_busy_batch_proper_names() -> None:
+    block = OcrBlock(
+        id="b",
+        bbox=[0, 0, 1, 1],
+        source_lang="en",
+        ocr_text="KARIU YOUR FACE Is SCARY",
+        ocr_corrected_text="kariu your face is scary",
+        normalized_source_text="kariu your face is scary",
+        translation_fr="Kariu, ton visage fait peur.",
+        confidence=0.86,
+    )
+
+    warnings = TranslationQualityChecker().check_block(block)
+
+    assert not any("source recopi" in warning for warning in warnings)
+
+
 def test_quality_flags_missing_prefix_and_missing_terminal_punctuation() -> None:
     block = OcrBlock(
         id="b",

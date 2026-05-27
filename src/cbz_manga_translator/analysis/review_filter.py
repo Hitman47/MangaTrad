@@ -11,7 +11,7 @@ _AUTO_WARNING = "auto-ignore: non-dialogue probable"
 
 _SCANLATION_RE = re.compile(
     r"\b("
-    r"mangafox|hosted\s+at|we\s+take\s+no\s+credit|credit\s+goes|"
+    r"mangafox|i?mangareader(?:net)?|hosted\s+at|we\s+take\s+no\s+credit|credit\s+goes|"
     r"appropriate\s+parties|creation\s+editing|scanlation|raws?|translator|"
     r"reader|viewer|upload(?:ed|er)"
     r")\b",

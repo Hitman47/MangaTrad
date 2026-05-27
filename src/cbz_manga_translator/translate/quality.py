@@ -178,7 +178,7 @@ _TRANSLATION_ENGLISH_RESIDUE_RE = re.compile(
     flags=re.IGNORECASE,
 )
 
-_SAFE_SOURCE_RESIDUE = {"naru", "miwa", "atsushi", "dazai", "kanade", "fujimura", "usami", "rashomon", "gozen"}
+_SAFE_SOURCE_RESIDUE = {"naru", "miwa", "atsushi", "dazai", "kanade", "fujimura", "usami", "rashomon", "gozen", "kariu"}
 
 
 def _copied_source_residue(source: str, translation: str) -> list[str]:

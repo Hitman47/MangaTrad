@@ -409,6 +409,9 @@ _TOKEN_NORMALIZATIONS: tuple[tuple[re.Pattern[str], str], ...] = (
 _TRANSLATION_OVERRIDES: dict[str, str] = {
     "grab my lapel and go for a shoulder": "Attrape mon revers et vise l'epaule.",
     "he took ame-no-gozen from me!": "Il m'a pris Ame-no-Gozen !",
+    "we just need someone to take the picture": "Il nous faut juste quelqu'un pour prendre la photo.",
+    "alright get closer to each other~": "Allez, rapprochez-vous l'un de l'autre.",
+    "kariu your face is scary": "Kariu, ton visage fait peur.",
     "what are you doing up there?": "Qu’est-ce que tu fais là-haut ?",
     "what are you doing up there": "Qu’est-ce que tu fais là-haut ?",
     "haven't i told you not to climb anywhere dangerous?": "Je ne t’ai pas dit de ne pas grimper dans des endroits dangereux ?",
@@ -621,6 +624,8 @@ _NO_TRANSLATE_CANONICAL: dict[str, str] = {
     "uhh": "Euh...",
     "um": "Hum...",
     "umm": "Hum...",
+    "hum": "Hum.",
+    "hum.": "Hum.",
     "hm": "Hmm...",
     "hmm": "Hmm...",
     "hmm?!": "Hmm?!",

@@ -18,15 +18,17 @@ def test_scanlation_credit_blocks_are_auto_ignored() -> None:
     blocks = [
         _block("This image is hosted at mangafox com", 1),
         _block("we take no credit for creation editing or translation", 2),
+        _block("imangareadernet", 4),
         _block("What are you doing here?", 3),
     ]
 
     changed = apply_review_filters(blocks)
 
-    assert changed == 2
+    assert changed == 3
     assert blocks[0].manual_status == "ignored"
     assert blocks[1].manual_status == "ignored"
-    assert blocks[2].manual_status == "unchecked"
+    assert blocks[2].manual_status == "ignored"
+    assert blocks[3].manual_status == "unchecked"
     assert blocks[0].review_notes.startswith("[auto-ignore]")
 
 

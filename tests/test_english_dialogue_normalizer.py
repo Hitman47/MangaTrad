@@ -376,3 +376,16 @@ def test_finish_english_validation_ocr_repairs_in_normalizer() -> None:
     gozen = EnglishDialogueNormalizer.prepare("He Took AME-NO- Gozen FROM Me!")
     assert gozen.corrected_text == "He Took Ame-no-Gozen FROM Me!"
     assert gozen.override_translation_fr == "Il m'a pris Ame-no-Gozen !"
+
+
+def test_busy_validation_dialogue_overrides() -> None:
+    assert EnglishDialogueNormalizer.prepare("Hum.").override_translation_fr == "Hum."
+    assert (
+        EnglishDialogueNormalizer.prepare("We Just Need Someone To TAKE The Picture").override_translation_fr
+        == "Il nous faut juste quelqu'un pour prendre la photo."
+    )
+    assert (
+        EnglishDialogueNormalizer.prepare("ALRIGHT Get CLOSER To EACH Other~").override_translation_fr
+        == "Allez, rapprochez-vous l'un de l'autre."
+    )
+    assert EnglishDialogueNormalizer.prepare("KARIU YOUR FACE Is SCARY").override_translation_fr == "Kariu, ton visage fait peur."

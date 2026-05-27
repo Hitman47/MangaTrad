@@ -71,6 +71,38 @@ def test_quality_features_allow_preserved_proper_nouns() -> None:
     assert "source residue copied into translation" not in features.reasons
 
 
+def test_quality_features_allow_recent_busy_batch_proper_names() -> None:
+    block = OcrBlock(
+        id="proper2",
+        bbox=[1, 2, 3, 4],
+        source_lang="en",
+        ocr_text="KARIU YOUR FACE Is SCARY",
+        ocr_corrected_text="kariu your face is scary",
+        normalized_source_text="kariu your face is scary",
+        translation_fr="Kariu, ton visage fait peur.",
+        confidence=0.86,
+    )
+
+    features = compute_quality_features(block)
+
+    assert "source residue copied into translation" not in features.reasons
+
+
+def test_quality_features_allow_manga_tilde_punctuation() -> None:
+    block = OcrBlock(
+        id="tilde",
+        bbox=[1, 2, 3, 4],
+        source_lang="en",
+        ocr_text="ALRIGHT Get CLOSER To EACH Other~",
+        translation_fr="Allez, rapprochez-vous l'un de l'autre.",
+        confidence=0.86,
+    )
+
+    features = compute_quality_features(block)
+
+    assert "suspicious symbols" not in features.reasons
+
+
 def test_learning_report_extracts_memory() -> None:
     report = build_learning_report(sample_project())
     assert report.summary["learnable_blocks"] == 1
