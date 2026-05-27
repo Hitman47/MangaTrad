@@ -181,7 +181,7 @@ _TRANSLATION_ENGLISH_RESIDUE_RE = re.compile(
 _SAFE_SOURCE_RESIDUE = {
     "naru", "miwa", "atsushi", "dazai", "kanade", "fujimura", "usami", "rashomon",
     "gozen", "kariu", "vayne", "provost", "ichinose", "public", "transit",
-    "cool",
+    "cool", "hardcore", "rock",
 }
 
 

@@ -175,6 +175,21 @@ def test_quality_allows_preserved_transit_and_french_caps() -> None:
     assert not any("MAJUSCULES" in warning for warning in checker.check_block(no))
 
 
+def test_quality_allows_music_genre_terms() -> None:
+    block = OcrBlock(
+        id="music",
+        bbox=[0, 0, 1, 1],
+        source_lang="en",
+        ocr_text="I Guess They're a Melodic HARDCORE OR MAYBE Loud ROCK BAND, huh?",
+        translation_fr="Je dirais que c'est du hardcore melodique, ou peut-etre un groupe de rock bruyant, hein ?",
+        confidence=0.9,
+    )
+
+    warnings = TranslationQualityChecker().check_block(block)
+
+    assert not any("source recopi" in warning for warning in warnings)
+
+
 def test_quality_flags_missing_prefix_and_missing_terminal_punctuation() -> None:
     block = OcrBlock(
         id="b",

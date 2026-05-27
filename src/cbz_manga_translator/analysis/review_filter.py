@@ -45,6 +45,7 @@ _SFX_WORDS = {
     "@ORGL OOO",
     "BLAM",
     "BUMP",
+    "BUM",
     "CHA",
     "CHAK",
     "CHATTER",
@@ -65,6 +66,8 @@ _SFX_WORDS = {
     "KGH",
     "KGH!",
     "KHUNK",
+    "KLDO",
+    "KUDO (RANT)",
     "KIDCK",
     "KLINK",
     "LIGHTING UP",
@@ -110,9 +113,10 @@ def is_sfx_or_noise(text: str) -> bool:
     if not value:
         return True
     upper = value.upper()
-    if upper.strip(" .!?:,-") in _SHORT_DIALOGUE_WORDS:
+    stripped = upper.strip(" .!?:,-()'\"")
+    if stripped in _SHORT_DIALOGUE_WORDS:
         return False
-    if upper in _SFX_WORDS or upper.strip(" .!?:,-") in _SFX_WORDS:
+    if upper in _SFX_WORDS or stripped in _SFX_WORDS:
         return True
     if re.search(r"\bsfx\s*:", value, flags=re.IGNORECASE) and len(re.findall(r"[A-Za-z0-9]+", value)) <= 6:
         return True

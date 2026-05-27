@@ -118,6 +118,7 @@ def test_fast_ten_batch_reviewed_ocr_examples() -> None:
     assert normalize_ocr_text_for_translation("I'm THE SOUTH-OASIS.") == "In THE SOUTH-OASIS."
     assert normalize_ocr_text_for_translation("S0 MANY HERE ALREADY:. W!") == "so many here already...!!"
     assert normalize_ocr_text_for_translation("AAAND, It's GETTING WORSE:. .") == "aaand, it's getting worse..."
+    assert normalize_ocr_text_for_translation("MAID UNI- FORMG") == "maid uniform"
 
 
 def test_replay_global_common_ocr_repairs() -> None:

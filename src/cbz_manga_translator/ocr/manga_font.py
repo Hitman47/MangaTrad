@@ -81,6 +81,7 @@ _MANGA_FONT_REPAIRS: tuple[tuple[re.Pattern[str], str], ...] = (
     (re.compile(r"\bCAPTAIN\s+HIPO\b", flags=re.IGNORECASE), "captain hiro"),
     (re.compile(r"^\s*V\s+(WAIT\b)", flags=re.IGNORECASE), r"\1"),
     (re.compile(r"\bGET\s+It,\s*!\s*y!\b", flags=re.IGNORECASE), "GET It!"),
+    (re.compile(r"\bUNIFORMG\b", flags=re.IGNORECASE), "uniform"),
     (re.compile(r"(Let's\s+\"?NG\s+SEE),\s*$", flags=re.IGNORECASE), r"\1..."),
 )
 
