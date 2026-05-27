@@ -539,8 +539,6 @@ def process_corpus(
         )
 
         if fallback_mode != "off" and blocks:
-            # First pass QC gives fallback something meaningful to target.
-            quality_checker.apply(blocks, source_lang=source_lang)
             only_suspect = fallback_mode == "suspects"
             blocks, _ = fallback_engine.improve_blocks(
                 entry.image_path,

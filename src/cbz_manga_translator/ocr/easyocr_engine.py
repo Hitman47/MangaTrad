@@ -218,17 +218,21 @@ class EasyOcrEngine:
 
     @staticmethod
     def _can_merge(group: list[OcrBlock], block: OcrBlock) -> bool:
+        return EasyOcrEngine._merge_score(group, block) is not None
+
+    @staticmethod
+    def _merge_score(group: list[OcrBlock], block: OcrBlock) -> float | None:
         group_has_sfx = any(EasyOcrEngine._looks_like_sfx_label(item.ocr_text) for item in group)
         block_is_sfx = EasyOcrEngine._looks_like_sfx_label(block.ocr_text)
         if group_has_sfx != block_is_sfx:
-            return False
+            return None
 
         group_bbox = EasyOcrEngine._bbox_union(group)
         bbox = block.bbox
         avg_line_height = sum(EasyOcrEngine._bbox_height(item.bbox) for item in group + [block]) / (len(group) + 1)
         gap = EasyOcrEngine._vertical_gap(group_bbox, bbox)
         if gap > max(34, avg_line_height * 1.45):
-            return False
+            return None
 
         overlap_ratio = EasyOcrEngine._x_overlap_ratio(group_bbox, bbox)
         group_cx, _ = EasyOcrEngine._bbox_center(group_bbox)
@@ -237,8 +241,10 @@ class EasyOcrEngine:
         width_allowance = max(EasyOcrEngine._bbox_width(group_bbox), EasyOcrEngine._bbox_width(bbox)) * 0.85
 
         if overlap_ratio >= 0.18:
-            return True
-        return center_dx <= max(45, width_allowance)
+            return overlap_ratio * 100.0 - (center_dx / max(1.0, width_allowance)) * 18.0 - gap * 0.20
+        if center_dx <= max(45, width_allowance):
+            return 24.0 - (center_dx / max(1.0, width_allowance)) * 20.0 - gap * 0.20
+        return None
 
     @staticmethod
     def _join_texts(lines: list[OcrBlock], source_lang: SourceLang) -> str:
@@ -259,10 +265,12 @@ class EasyOcrEngine:
         groups: list[list[OcrBlock]] = []
         for block in sorted(blocks, key=lambda item: cls._line_sort_key(item, source_lang)):
             best_group: list[OcrBlock] | None = None
+            best_score: float | None = None
             for group in groups:
-                if cls._can_merge(group, block):
+                score = cls._merge_score(group, block)
+                if score is not None and (best_score is None or score > best_score):
                     best_group = group
-                    break
+                    best_score = score
             if best_group is None:
                 groups.append([block])
             else:

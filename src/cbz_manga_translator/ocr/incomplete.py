@@ -14,6 +14,7 @@ _INCOMPLETE_END_RE = re.compile(
     r"\b(?:and|but|or|if|that|this|the|a|an|to|of|for|from|with|without|before|after|"
     r"because|about|into|onto|on|in|at|as|than|then|while|when|where|who|what|why|how|"
     r"gotta|gonna|wanna|lemme|should|could|would|can|cannot|can't|will|still|just|"
+    r"is|isn't|isnt|aren't|arent|don't|dont|doesn't|doesnt|are|am|was|were|be|been|being|do|does|did|has|have|had|"
     r"catches|counting|change|sources|place|understanding|mis|doi)\s*$",
     flags=re.IGNORECASE,
 )

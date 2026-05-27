@@ -130,6 +130,58 @@ class OcrFallbackEngine:
                 candidate.note = f"{candidate.note}; fusion probable".strip("; ")
         return sorted(candidates, key=lambda item: item.score, reverse=True)
 
+    @staticmethod
+    def _normalize_words(text: str) -> list[str]:
+        return [word.lower().strip("'") for word in word_tokens(normalize_ocr_text_for_translation(text))]
+
+    @staticmethod
+    def _has_inserted_noise(current_words: list[str], candidate_words: list[str]) -> bool:
+        if not current_words or not candidate_words:
+            return True
+        cursor = 0
+        extras_before_match = 0
+        extras_between_matches = 0
+        matched = 0
+        for word in candidate_words:
+            if cursor < len(current_words) and word == current_words[cursor]:
+                cursor += 1
+                matched += 1
+                continue
+            if matched == 0:
+                extras_before_match += 1
+            elif cursor < len(current_words):
+                extras_between_matches += 1
+        if cursor < max(1, int(len(current_words) * 0.75)):
+            return True
+        return extras_before_match > 0 or extras_between_matches > 0
+
+    @classmethod
+    def _is_auto_replacement_safe(cls, block: OcrBlock, candidate: OcrCandidate) -> bool:
+        current = normalize_ocr_text_for_translation(block.ocr_text)
+        proposed = normalize_ocr_text_for_translation(candidate.text)
+        if not current or not proposed or current == proposed:
+            return False
+        current_words = cls._normalize_words(current)
+        candidate_words = cls._normalize_words(proposed)
+        if not current_words or not candidate_words:
+            return False
+        if candidate.engine == "ocr-corrections":
+            return abs(len(candidate_words) - len(current_words)) <= 1
+        if cls._has_inserted_noise(current_words, candidate_words):
+            return False
+        extra_words = max(0, len(candidate_words) - len(current_words))
+        if extra_words > max(3, int(len(current_words) * 0.45)):
+            return False
+        single_letter_noise = [
+            word for word in candidate_words
+            if len(word) == 1 and word not in {"a", "i"} and word not in current_words
+        ]
+        if single_letter_noise:
+            return False
+        if re.search(r"(^|[\s])(?:\d+|[(){}\[\]<>_|\\]+)(?=\s|$)", proposed):
+            return False
+        return True
+
     def _easyocr_crop_candidates(
         self,
         image_path: Path,
@@ -247,7 +299,9 @@ class OcrFallbackEngine:
             if not candidates:
                 continue
             current_score = self.candidate_quality(block.ocr_text, block.confidence)
-            best = candidates[0]
+            best = next((candidate for candidate in candidates if self._is_auto_replacement_safe(block, candidate)), None)
+            if best is None:
+                continue
             if best.text and best.text != block.ocr_text and best.score >= current_score + min_score_gain:
                 old_text = block.ocr_text
                 block.ocr_text = best.text

@@ -74,6 +74,33 @@ def test_fallback_treats_probably_incomplete_bubble_as_suspect() -> None:
     assert OcrFallbackEngine._is_suspect(block, 0.20)
 
 
+def test_fallback_treats_auxiliary_end_without_punctuation_as_suspect() -> None:
+    block = OcrBlock(
+        id="p0000_b0001",
+        bbox=[0, 0, 100, 50],
+        source_lang="en",
+        ocr_text="ISN'T THAT WHAT A MAN'S ROMANCE IS",
+        confidence=0.95,
+    )
+
+    assert OcrFallbackEngine._is_suspect(block, 0.20)
+
+
+def test_auto_replacement_allows_suffix_completion_but_rejects_inserted_noise() -> None:
+    block = OcrBlock(
+        id="zone",
+        bbox=[0, 0, 100, 50],
+        source_lang="en",
+        ocr_text="ISN'T THAT WHAT A MAN'S ROMANCE IS",
+        confidence=0.90,
+    )
+    good = OcrCandidate("easyocr-crop", "ISN'T THAT WHAT A MAN'S ROMANCE IS ABOUT!!!", 0.8, 11.5, "wide32")
+    noisy = OcrCandidate("easyocr-crop", "P Ai THAT WHAT A MAN'S ROMANCE IS ABOUT!!! 4", 0.8, 13.0, "wide50")
+
+    assert OcrFallbackEngine._is_auto_replacement_safe(block, good)
+    assert not OcrFallbackEngine._is_auto_replacement_safe(block, noisy)
+
+
 def test_fallback_rerank_demotes_overwide_zone_candidates() -> None:
     block = OcrBlock(
         id="zone",

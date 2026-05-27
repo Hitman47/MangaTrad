@@ -32,6 +32,9 @@ def test_normalize_linebreak_hyphen_and_common_ocr_typos() -> None:
     assert normalize_ocr_text_for_translation("CERTAIN CIRCUM- STANCES") == "CERTAIN CIRCUMSTANCES"
     assert normalize_ocr_text_for_translation("YeS. He TRANS- FORMED INTO ANIMAL Fopm") == "Yes. he transformed into animal form"
     assert normalize_ocr_text_for_translation("The Tiger TCO WAS sighted FOLR DAYS Ago.") == "The Tiger TCO was sighted four days ago."
+    assert normalize_ocr_text_for_translation("ISN'T THAT WHAT A MAN'S POMANCE IS") == "ISN'T THAT WHAT A MAN'S ROMANCE IS"
+    assert normalize_ocr_text_for_translation("THAT REASON IS WAY TOO STRANCE ISN'T") == "THAT REASON IS WAY TOO STRANGE ISN'T"
+    assert normalize_ocr_text_for_translation("I've WAITED FOR TOO Loncw") == "I've WAITED FOR TOO LONG!!!"
 
 
 def test_review_learned_ocr_cleanup_examples() -> None:

@@ -108,6 +108,34 @@ def test_postprocess_keeps_reviewed_sfx_labels_out_of_dialogue_merge() -> None:
     assert all("SLAP" not in text and "TREMBLE" not in text for text in dialogue)
 
 
+def test_postprocess_prefers_best_aligned_group_when_bubbles_are_close() -> None:
+    engine = EasyOcrEngine()
+    raw_results = [
+        (poly(696, 564, 744, 590), "WHO", 0.78),
+        (poly(577, 593, 655, 633), "I've", 0.77),
+        (poly(690, 590, 752, 618), "CARES", 0.99),
+        (poly(690, 614, 752, 642), "ABOUT", 0.79),
+        (poly(558, 630, 674, 670), "WAITED", 0.98),
+        (poly(690, 640, 750, 666), "THOSE", 0.96),
+        (poly(555, 671, 677, 713), "FOR TOO", 0.28),
+        (poly(686, 666, 752, 690), "SMALL", 0.99),
+        (poly(684, 690, 756, 716), "DETAILS", 0.99),
+        (poly(565, 711, 667, 753), "LONG!!!", 0.63),
+    ]
+
+    blocks = engine._postprocess_results(
+        raw_results,
+        source_lang="en",
+        page_index=6,
+        min_confidence=0.20,
+        merge_lines=True,
+        filter_noise=True,
+    )
+
+    assert "I've WAITED FOR TOO LONG!!!" in [block.ocr_text for block in blocks]
+    assert "WHO CARES ABOUT THOSE SMALL DETAILS" in [block.ocr_text for block in blocks]
+
+
 def test_postprocess_keeps_scribble_and_nod_sfx_out_of_dialogue_merge() -> None:
     engine = EasyOcrEngine()
     raw_results = [
