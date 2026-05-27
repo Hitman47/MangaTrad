@@ -119,6 +119,11 @@ def test_fast_ten_batch_reviewed_ocr_examples() -> None:
     assert normalize_ocr_text_for_translation("S0 MANY HERE ALREADY:. W!") == "so many here already...!!"
     assert normalize_ocr_text_for_translation("AAAND, It's GETTING WORSE:. .") == "aaand, it's getting worse..."
     assert normalize_ocr_text_for_translation("MAID UNI- FORMG") == "maid uniform"
+    assert normalize_ocr_text_for_translation("WO Sholldnt Even Be Here To Begin Withi") == "We shouldn't Even Be Here To Begin with!"
+    assert normalize_ocr_text_for_translation("The ANOMALY Who has Derailed The plotl") == "The ANOMALY Who has Derailed The plot!"
+    assert normalize_ocr_text_for_translation("It'strynng To eliminate Elizabeth.") == "It's trying To eliminate Elizabeth."
+    assert normalize_ocr_text_for_translation("AND For THAT You SHALL Die AJTHOUSAND DEATHS!") == "AND For THAT You SHALL Die a thousand DEATHS!"
+    assert normalize_ocr_text_for_translation("The FLNERAL SERVICEWW!") == "The FUNERAL SERVICE!!"
 
 
 def test_replay_global_common_ocr_repairs() -> None:

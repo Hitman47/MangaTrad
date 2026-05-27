@@ -190,6 +190,36 @@ def test_quality_allows_music_genre_terms() -> None:
     assert not any("source recopi" in warning for warning in warnings)
 
 
+def test_quality_allows_preserved_elizabeth_name() -> None:
+    block = OcrBlock(
+        id="name",
+        bbox=[0, 0, 1, 1],
+        source_lang="en",
+        ocr_text="It's trying To eliminate Elizabeth.",
+        translation_fr="Il essaie d'eliminer Elizabeth.",
+        confidence=0.9,
+    )
+
+    warnings = TranslationQualityChecker().check_block(block)
+
+    assert not any("source recopi" in warning for warning in warnings)
+
+
+def test_quality_allows_french_service_word() -> None:
+    block = OcrBlock(
+        id="service",
+        bbox=[0, 0, 1, 1],
+        source_lang="en",
+        ocr_text="The funeral service!!",
+        translation_fr="Le service funebre !",
+        confidence=0.9,
+    )
+
+    warnings = TranslationQualityChecker().check_block(block)
+
+    assert not any("source recopi" in warning for warning in warnings)
+
+
 def test_quality_flags_missing_prefix_and_missing_terminal_punctuation() -> None:
     block = OcrBlock(
         id="b",

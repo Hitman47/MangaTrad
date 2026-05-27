@@ -43,9 +43,13 @@ _SFX_WORDS = {
     "AHHH",
     "AHHH-",
     "@ORGL OOO",
+    "6EEE74",
+    "BIPV",
     "BLAM",
+    "BOOOMI",
     "BUMP",
     "BUM",
+    "BWODON",
     "CHA",
     "CHAK",
     "CHATTER",
@@ -58,9 +62,13 @@ _SFX_WORDS = {
     "DONCHAN",
     "DONCHAN BACHA",
     "DONCHAN (BACHA)",
+    "DWOOM",
+    "FLASH",
     "FUMP",
+    "FWOOO",
     "FWP",
     "FBY",
+    "GEEEL",
     "KACHA",
     "KA CHA",
     "KGH",
@@ -75,6 +83,7 @@ _SFX_WORDS = {
     "NGHH",
     "NGHHH",
     "NGHHH!",
+    "ORAG HHHL",
     "PINCH",
     "PLINK",
     "PNK",
@@ -85,6 +94,7 @@ _SFX_WORDS = {
     "SILENCE",
     "SLAM",
     "SWOOSH",
+    "SQUEEZE",
     "THUD",
     "TWITCH",
     "WHISPER",
@@ -116,7 +126,8 @@ def is_sfx_or_noise(text: str) -> bool:
     stripped = upper.strip(" .!?:,-()'\"")
     if stripped in _SHORT_DIALOGUE_WORDS:
         return False
-    if upper in _SFX_WORDS or stripped in _SFX_WORDS:
+    normalized_sound = re.sub(r"[^A-Z0-9]+", " ", upper).strip()
+    if upper in _SFX_WORDS or stripped in _SFX_WORDS or normalized_sound in _SFX_WORDS:
         return True
     if re.search(r"\bsfx\s*:", value, flags=re.IGNORECASE) and len(re.findall(r"[A-Za-z0-9]+", value)) <= 6:
         return True
@@ -125,6 +136,13 @@ def is_sfx_or_noise(text: str) -> bool:
     letters = [char for char in value if char.isalpha()]
     if len(letters) <= 2:
         return True
+    words = re.findall(r"[A-Za-z]+", value)
+    if len(words) == 1:
+        compact = "".join(words).lower()
+        if len(compact) >= 5 and re.fullmatch(r"[bcdfghjklmnpqrstvwxyz]*[aeiou]{2,}[bcdfghjklmnpqrstvwxyz]*", compact):
+            return True
+        if len(compact) >= 5 and re.fullmatch(r"(?:[bcdfghjklmnpqrstvwxyz]{2,}|[a-z]*[bcdfghjklmnpqrstvwxyz]{3,}[a-z]*)", compact):
+            return True
     repeated = re.sub(r"[^A-Z]", "", upper)
     if len(repeated) >= 5 and len(set(repeated)) <= 3 and upper == value:
         return True

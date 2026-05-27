@@ -64,6 +64,8 @@ _MANGA_FONT_REPAIRS: tuple[tuple[re.Pattern[str], str], ...] = (
     (re.compile(r"\bGREAT\s+Ip\b", flags=re.IGNORECASE), "GREAT If"),
     (re.compile(r"\bMADE\s+Itw\b", flags=re.IGNORECASE), "MADE It!!"),
     (re.compile(r"\bIshe\b", flags=re.IGNORECASE), "Is he"),
+    (re.compile(r"\bIt['â€™]?strynng\b", flags=re.IGNORECASE), "It's trying"),
+    (re.compile(r"\bAJTHOUSAND\b", flags=re.IGNORECASE), "a thousand"),
     (re.compile(r"\bOSAMU[.]{3}\s*KUN[.]?\b", flags=re.IGNORECASE), "Osamu-kun"),
     (re.compile(r"^\s*is\s+that\s+s\?\s*$", flags=re.IGNORECASE), "is that so?"),
     (re.compile(r"^\s*be\s+great\s+if\s*$", flags=re.IGNORECASE), "It would Be GREAT If"),
@@ -82,6 +84,11 @@ _MANGA_FONT_REPAIRS: tuple[tuple[re.Pattern[str], str], ...] = (
     (re.compile(r"^\s*V\s+(WAIT\b)", flags=re.IGNORECASE), r"\1"),
     (re.compile(r"\bGET\s+It,\s*!\s*y!\b", flags=re.IGNORECASE), "GET It!"),
     (re.compile(r"\bUNIFORMG\b", flags=re.IGNORECASE), "uniform"),
+    (re.compile(r"\bSholldnt\b", flags=re.IGNORECASE), "shouldn't"),
+    (re.compile(r"\bplotl\b", flags=re.IGNORECASE), "plot!"),
+    (re.compile(r"\bWithi\b", flags=re.IGNORECASE), "with!"),
+    (re.compile(r"\bFLNERAL\b", flags=re.IGNORECASE), "FUNERAL"),
+    (re.compile(r"\bSERVICEWW\b", flags=re.IGNORECASE), "SERVICE!"),
     (re.compile(r"(Let's\s+\"?NG\s+SEE),\s*$", flags=re.IGNORECASE), r"\1..."),
 )
 

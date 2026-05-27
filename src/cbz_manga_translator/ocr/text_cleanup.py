@@ -323,6 +323,7 @@ _CONTEXTUAL_OCR_FIXES: tuple[tuple[re.Pattern[str], str], ...] = (
     (re.compile(r"^GOD,$", flags=re.IGNORECASE), "GOD..."),
     (re.compile(r"^AHH,$", flags=re.IGNORECASE), "AHH..."),
     (re.compile(r"^MAID\s+uniform$", flags=re.IGNORECASE), "maid uniform"),
+    (re.compile(r"^WO\s+shouldn't\b", flags=re.IGNORECASE), "We shouldn't"),
     (re.compile(r"\bremem\s+ber\b", flags=re.IGNORECASE), "remember"),
     (re.compile(r"\bIhave\b", flags=re.IGNORECASE), "I have"),
 )

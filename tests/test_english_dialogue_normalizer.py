@@ -414,3 +414,30 @@ def test_busy_validation_dialogue_overrides() -> None:
     band = EnglishDialogueNormalizer.prepare("I Guess They're a Melodic HARDCORE OR MAYBE Loud ROCK BAND, Hlh?")
     assert band.override_translation_fr == "Je dirais que c'est du hardcore melodique, ou peut-etre un groupe de rock bruyant, hein ?"
     assert EnglishDialogueNormalizer.prepare("Hey!").override_translation_fr == "He !"
+
+
+def test_new_busy_review_batch_overrides() -> None:
+    shouldnt = EnglishDialogueNormalizer.prepare("WO Sholldnt Even Be Here To Begin Withi")
+    assert shouldnt.corrected_text == "We shouldn't Even Be Here To Begin with!"
+    assert shouldnt.normalized_text == "we shouldn't even be here to begin with!"
+    assert shouldnt.override_translation_fr == "Nous ne devrions meme pas etre ici pour commencer !"
+
+    deaths = EnglishDialogueNormalizer.prepare("AND For THAT You SHALL Die AJTHOUSAND DEATHS!")
+    assert deaths.corrected_text == "and for that you shall die a thousand deaths!"
+    assert deaths.normalized_text == "and for that you shall die a thousand deaths!"
+    assert deaths.override_translation_fr == "Et pour ca, tu mourras mille fois !"
+
+    funeral = EnglishDialogueNormalizer.prepare("The FLNERAL SERVICEWW!")
+    assert funeral.corrected_text == "the FUNERAL SERVICE!!"
+    assert funeral.normalized_text == "the funeral service!!"
+    assert funeral.override_translation_fr == "Le service funebre !"
+
+    eliminate = EnglishDialogueNormalizer.prepare("It'strynng To eliminate Elizabeth.")
+    assert eliminate.corrected_text == "It's trying To eliminate Elizabeth."
+    assert eliminate.normalized_text == "it is trying to eliminate Elizabeth."
+    assert eliminate.override_translation_fr == "Il essaie d'eliminer Elizabeth."
+
+    anomaly = EnglishDialogueNormalizer.prepare("The ANOMALY Who has Derailed The plotl")
+    assert anomaly.corrected_text == "The ANOMALY Who has Derailed The plot!"
+    assert anomaly.normalized_text == "the anomaly who has derailed the plot!"
+    assert anomaly.override_translation_fr == "L'anomalie qui a fait derailler l'intrigue !"
