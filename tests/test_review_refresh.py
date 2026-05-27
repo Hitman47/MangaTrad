@@ -2,6 +2,7 @@ from pathlib import Path
 
 from cbz_manga_translator.core.cache import ProjectCache
 from cbz_manga_translator.core.models import OcrBlock, PageRecord, ProjectData
+from cbz_manga_translator.ocr.candidates import OcrCandidate
 from cbz_manga_translator.review_refresh import default_refreshed_path, refresh_review_project
 
 
@@ -20,6 +21,14 @@ class DummyQualityChecker:
         for block in blocks:
             block.quality_warnings = ["checked"]
         return len(blocks)
+
+
+class DummyZoneFallback:
+    def collect_candidates(self, image_path, block, source_lang, **kwargs):  # type: ignore[no-untyped-def]
+        return [
+            OcrCandidate("easyocr-crop", "isn't that what a man's romance is about!!!", 0.91, 12.0, "wide crop"),
+            OcrCandidate("current", block.ocr_text, block.confidence, 3.0, "current"),
+        ]
 
 
 def test_default_refreshed_path() -> None:
@@ -153,3 +162,45 @@ def test_refresh_review_project_rules_only_is_default(tmp_path: Path) -> None:
     assert result.refreshed_blocks == 1
     assert block.translation_fr == "Hi-yaaa-!"
     assert block.manual_status == "unchecked"
+
+
+def test_refresh_review_project_collects_zone_ocr_alternatives_without_replacing(tmp_path: Path) -> None:
+    image = tmp_path / "page.jpg"
+    image.write_bytes(b"fake image path is enough for dummy fallback")
+    project_path = tmp_path / "project.reviewed.json"
+    ProjectCache.save(
+        project_path,
+        ProjectData(
+            cbz_path=str(tmp_path),
+            pages=[
+                PageRecord(
+                    page_index=0,
+                    image_name=str(image),
+                    blocks=[
+                        OcrBlock(
+                            id="zone",
+                            bbox=[0, 0, 100, 40],
+                            source_lang="en",
+                            ocr_text="ISN'T THAT WHAT A MAN'S POMANCE IS",
+                            review_notes="[zone]",
+                            manual_status="review",
+                        )
+                    ],
+                )
+            ],
+        ),
+    )
+    out = tmp_path / "out.json"
+
+    result = refresh_review_project(
+        project_path,
+        out,
+        ocr_fallback_zones=True,
+        fallback_engine=DummyZoneFallback(),  # type: ignore[arg-type]
+    )
+
+    block = ProjectCache.load(out).pages[0].blocks[0]
+    assert result.ocr_fallback_blocks == 1
+    assert block.ocr_text == "ISN'T THAT WHAT A MAN'S POMANCE IS"
+    assert block.ocr_alternatives[0]["text"] == "isn't that what a man's romance is about!!!"
+    assert any("OCR zone fallback" in warning for warning in block.quality_warnings)

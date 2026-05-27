@@ -72,3 +72,22 @@ def test_fallback_treats_probably_incomplete_bubble_as_suspect() -> None:
     )
 
     assert OcrFallbackEngine._is_suspect(block, 0.20)
+
+
+def test_fallback_rerank_demotes_overwide_zone_candidates() -> None:
+    block = OcrBlock(
+        id="zone",
+        bbox=[0, 0, 100, 50],
+        source_lang="en",
+        ocr_text="I've WAITED",
+        confidence=0.90,
+    )
+    candidates = [
+        OcrCandidate("easyocr-crop", "Whi CAR! KVE ABO( WAITED Thos SMA For TOO DETA! nu^III", 0.8, 11.5, "wide50"),
+        OcrCandidate("easyocr-crop", "I've WAITED SN For Too", 0.7, 6.3, "wide32"),
+    ]
+
+    ranked = OcrFallbackEngine._rerank_candidates_for_block(block, candidates)
+
+    assert ranked[0].text == "I've WAITED SN For Too"
+    assert "crop trop large" in ranked[-1].note

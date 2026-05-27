@@ -7,7 +7,7 @@ from pathlib import Path
 from cbz_manga_translator.core.models import OcrBlock, SourceLang
 from cbz_manga_translator.ocr.candidates import OcrCandidate, bad_ocr_tokens, candidate_quality, word_tokens
 from cbz_manga_translator.ocr.easyocr_engine import EasyOcrEngine
-from cbz_manga_translator.ocr.incomplete import is_probably_fused_source, is_probably_incomplete_source
+from cbz_manga_translator.ocr.incomplete import is_probably_fused_source, is_probably_incomplete_source, zone_issue_categories
 from cbz_manga_translator.ocr.paddleocr_engine import PaddleOcrEngine
 from cbz_manga_translator.ocr.tesseract_engine import TesseractOcrEngine
 from cbz_manga_translator.ocr.text_cleanup import normalize_ocr_text_for_translation
@@ -103,6 +103,33 @@ class OcrFallbackEngine:
                 best_by_text[text_key] = candidate
         return sorted(best_by_text.values(), key=lambda item: item.score, reverse=True)
 
+    @staticmethod
+    def _rerank_candidates_for_block(block: OcrBlock, candidates: list[OcrCandidate]) -> list[OcrCandidate]:
+        current_words = word_tokens(block.ocr_text)
+        current_count = max(1, len(current_words))
+        current_categories = set(zone_issue_categories(block.ocr_text))
+        for candidate in candidates:
+            candidate_words = word_tokens(candidate.text)
+            candidate_count = len(candidate_words)
+            if not candidate_count:
+                continue
+            extra_words = max(0, candidate_count - current_count)
+            allowed_extra = max(3, int(current_count * 0.45))
+            if extra_words > allowed_extra:
+                candidate.score -= min(8.0, (extra_words - allowed_extra) * 0.85)
+                candidate.note = f"{candidate.note}; penalite expansion large".strip("; ")
+            if candidate_count / current_count > 1.75:
+                candidate.score -= 2.2
+                candidate.note = f"{candidate.note}; probable crop trop large".strip("; ")
+            candidate_categories = set(zone_issue_categories(candidate.text))
+            if "sfx_mixed" in candidate_categories and "sfx_mixed" not in current_categories:
+                candidate.score -= 2.8
+                candidate.note = f"{candidate.note}; SFX melange probable".strip("; ")
+            if "fused_bubble" in candidate_categories and "fused_bubble" not in current_categories:
+                candidate.score -= 1.8
+                candidate.note = f"{candidate.note}; fusion probable".strip("; ")
+        return sorted(candidates, key=lambda item: item.score, reverse=True)
+
     def _easyocr_crop_candidates(
         self,
         image_path: Path,
@@ -188,7 +215,7 @@ class OcrFallbackEngine:
             for candidate in self.paddle_engine.recognize_crop(image_path, block.bbox, source_lang, use_gpu=use_gpu):
                 candidates.append(candidate)
 
-        return self._dedupe_candidates(candidates)
+        return self._rerank_candidates_for_block(block, self._dedupe_candidates(candidates))
 
     def improve_blocks(
         self,
