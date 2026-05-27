@@ -10,6 +10,7 @@ from pathlib import Path
 from cbz_manga_translator.analysis.review_filter import non_reviewable_reason
 from cbz_manga_translator.core.cache import ProjectCache
 from cbz_manga_translator.core.models import OcrBlock
+from cbz_manga_translator.ocr.incomplete import zone_issue_categories
 
 
 @dataclass(slots=True)
@@ -93,6 +94,22 @@ def _make_item(block: OcrBlock, page_index: int, category: str, reason: str) -> 
     )
 
 
+def _zone_categories_from_notes(notes: str) -> list[str]:
+    compact = notes.lower()
+    categories: list[str] = []
+    if any(token in compact for token in ("sfx", "onomato", "onomatop", "sonore")) and any(token in compact for token in ("fusion", "melange", "mélange")):
+        categories.append("sfx_mixed")
+    if any(token in compact for token in ("fusion", "fusionne", "fusionné", "fusionnes", "fusionnés", "merged")):
+        categories.append("fused_bubble")
+    if any(token in compact for token in ("split", "separe", "sépar", "2 zones", "deux zones", "plusieurs zones")):
+        categories.append("split_bubble")
+    if any(token in compact for token in ("trop petit", "petite", "crop", "coupe", "coupé", "manque", "pas lu", "oubli")):
+        categories.append("zone_too_small")
+    if "[zone]" in compact and not categories:
+        categories.append("zone_too_small")
+    return categories
+
+
 def classify_block(block: OcrBlock, page_index: int) -> list[DiagnosticItem]:
     items: list[DiagnosticItem] = []
     raw = block.ocr_text.strip()
@@ -107,12 +124,14 @@ def classify_block(block: OcrBlock, page_index: int) -> list[DiagnosticItem]:
         reason = auto_reason or "ignore humain non couvert automatiquement"
         items.append(_make_item(block, page_index, "sfx_or_non_dialogue", reason))
 
-    if "[fusion]" in notes or "fusion" in notes:
-        items.append(_make_item(block, page_index, "fusion_or_bad_zone", "note humaine fusion"))
-    elif "[zone]" in notes:
-        items.append(_make_item(block, page_index, "missing_or_bad_zone", "note humaine bbox/crop incorrect"))
-    elif any(token in notes for token in ("zone", "manque", "oubli", "pas lu", "bulle", "texte trop court")):
-        items.append(_make_item(block, page_index, "missing_or_bad_zone", "note humaine zone/texte manquant"))
+    note_categories = _zone_categories_from_notes(notes)
+    for category in note_categories:
+        items.append(_make_item(block, page_index, category, "note humaine zone/bbox"))
+
+    structure_source = normalized or corrected or raw
+    for category in zone_issue_categories(structure_source):
+        if category not in note_categories:
+            items.append(_make_item(block, page_index, category, "heuristique texte/zone"))
 
     if corrected and _compact(corrected) != _compact(raw):
         letter_score = SequenceMatcher(None, _letters_digits(raw), _letters_digits(corrected)).ratio()

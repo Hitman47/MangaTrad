@@ -37,6 +37,22 @@ def _project(path: Path) -> Path:
                             manual_status="review",
                         ),
                         OcrBlock(
+                            id="zone",
+                            bbox=[0, 0, 10, 10],
+                            source_lang="en",
+                            ocr_text="WAIT A SEC, You guys",
+                            review_notes="[zone] bbox trop petit",
+                            manual_status="review",
+                        ),
+                        OcrBlock(
+                            id="split",
+                            bbox=[0, 0, 10, 10],
+                            source_lang="en",
+                            ocr_text="...after me?!",
+                            review_notes="[zone] bulle separee en deux zones",
+                            manual_status="review",
+                        ),
+                        OcrBlock(
                             id="sfx",
                             bbox=[0, 0, 10, 10],
                             source_lang="en",
@@ -55,11 +71,13 @@ def _project(path: Path) -> Path:
 def test_diagnose_review_project_classifies_common_failures(tmp_path: Path) -> None:
     report = diagnose_review_project(_project(tmp_path / "project.reviewed.json"))
 
-    assert report.total_blocks == 3
-    assert report.changed_blocks == 3
+    assert report.total_blocks == 5
+    assert report.changed_blocks == 5
     assert report.category_counts["punctuation"] == 1
     assert report.category_counts["translation"] == 1
-    assert report.category_counts["fusion_or_bad_zone"] == 1
+    assert report.category_counts["fused_bubble"] == 1
+    assert report.category_counts["zone_too_small"] >= 1
+    assert report.category_counts["split_bubble"] >= 1
     assert report.category_counts["sfx_or_non_dialogue"] == 1
     assert report.scores["ignored_auto_covered"] == 1.0
 

@@ -4,6 +4,9 @@ import re
 
 INCOMPLETE_BUBBLE_WARNING = "zone/bulle probablement incomplete: relire avec crop elargi/fallback"
 FUSED_BUBBLE_WARNING = "fusion probable: bulle, SFX ou plusieurs bulles dans la meme bbox"
+ZONE_TOO_SMALL_WARNING = "zone trop petite probable: texte coupe dans la bulle"
+SPLIT_BUBBLE_WARNING = "bulle probablement separee en plusieurs zones"
+SFX_MIXED_WARNING = "SFX probablement melange avec une bulle de dialogue"
 
 _WORD_RE = re.compile(r"[A-Za-z']+")
 _TERMINAL_RE = re.compile(r"(?:[.!?][\"')\]]?|[.!?][\"')\]]*\s*)$")
@@ -63,6 +66,36 @@ def is_probably_incomplete_source(text: str) -> bool:
     return False
 
 
+def is_probably_too_small_zone(text: str) -> bool:
+    source = _compact(text)
+    if not source:
+        return False
+    words = _words(source)
+    if len(words) < 2:
+        return False
+    if _SHORT_ZONE_RE.search(source):
+        return True
+    if source.endswith((",", ":", ";")) and len(words) >= 2:
+        return True
+    if len(words) >= 3 and not _TERMINAL_RE.search(source) and _INCOMPLETE_END_RE.search(source):
+        return True
+    return False
+
+
+def is_probably_split_bubble(text: str) -> bool:
+    source = _compact(text)
+    if not source:
+        return False
+    words = _words(source)
+    if len(words) < 2:
+        return False
+    if source.startswith("...") or source.startswith(". "):
+        return True
+    if _INCOMPLETE_START_RE.search(source) and not _TERMINAL_RE.search(source):
+        return True
+    return False
+
+
 def is_probably_fused_source(text: str) -> bool:
     source = _compact(text)
     if not source:
@@ -81,10 +114,39 @@ def is_probably_fused_source(text: str) -> bool:
     return False
 
 
+def has_probably_mixed_sfx(text: str) -> bool:
+    source = _compact(text)
+    if not source:
+        return False
+    words = _words(source)
+    sfx_hits = _SFX_MIX_RE.findall(source)
+    return bool(sfx_hits and len(words) >= 4)
+
+
+def zone_issue_categories(text: str) -> list[str]:
+    categories: list[str] = []
+    if is_probably_too_small_zone(text):
+        categories.append("zone_too_small")
+    if is_probably_split_bubble(text):
+        categories.append("split_bubble")
+    if has_probably_mixed_sfx(text):
+        categories.append("sfx_mixed")
+    if is_probably_fused_source(text):
+        categories.append("fused_bubble")
+    return categories
+
+
 def zone_quality_warnings(text: str) -> list[str]:
     warnings: list[str] = []
+    categories = zone_issue_categories(text)
+    if "zone_too_small" in categories:
+        warnings.append(ZONE_TOO_SMALL_WARNING)
+    if "split_bubble" in categories:
+        warnings.append(SPLIT_BUBBLE_WARNING)
     if is_probably_incomplete_source(text):
         warnings.append(INCOMPLETE_BUBBLE_WARNING)
-    if is_probably_fused_source(text):
+    if "sfx_mixed" in categories:
+        warnings.append(SFX_MIXED_WARNING)
+    if "fused_bubble" in categories:
         warnings.append(FUSED_BUBBLE_WARNING)
     return warnings

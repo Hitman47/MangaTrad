@@ -3,8 +3,12 @@ from __future__ import annotations
 from cbz_manga_translator.ocr.incomplete import (
     FUSED_BUBBLE_WARNING,
     INCOMPLETE_BUBBLE_WARNING,
+    SFX_MIXED_WARNING,
+    SPLIT_BUBBLE_WARNING,
+    ZONE_TOO_SMALL_WARNING,
     is_probably_fused_source,
     is_probably_incomplete_source,
+    zone_issue_categories,
     zone_quality_warnings,
 )
 
@@ -29,5 +33,16 @@ def test_detects_fused_sfx_or_multiple_bubbles() -> None:
 
 def test_zone_quality_warnings_are_stable() -> None:
     warnings = zone_quality_warnings("NOW I GOTTA Get Out Before Sensei CATCHES")
+    assert ZONE_TOO_SMALL_WARNING in warnings
     assert INCOMPLETE_BUBBLE_WARNING in warnings
     assert FUSED_BUBBLE_WARNING not in warnings
+
+
+def test_zone_issue_categories_are_specific() -> None:
+    assert "zone_too_small" in zone_issue_categories("WAIT A SEC, You guys")
+    assert "split_bubble" in zone_issue_categories("...after me?!")
+    assert "sfx_mixed" in zone_issue_categories("Krehble 4h, Seriously? You MEAN THAT? Krembue")
+    warnings = zone_quality_warnings("...after me?!")
+    assert SPLIT_BUBBLE_WARNING in warnings
+    warnings = zone_quality_warnings("Krehble 4h, Seriously? You MEAN THAT? Krembue")
+    assert SFX_MIXED_WARNING in warnings
