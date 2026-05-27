@@ -61,6 +61,7 @@ FILTER_OPTIONS = [
     "À revoir",
     "Fusion",
     "Zones",
+    "Alternatives OCR",
     "Validés",
     "Ignorés",
     "SFX",
@@ -75,6 +76,32 @@ STATUS_COLORS = {
 
 class _LazyQt:
     QApplication = None
+
+
+def item_matches_filter(item: ReviewItem, filter_name: str) -> bool:
+    if filter_name == "À traiter":
+        return item.review_decision in {"unchecked", "review", "fused", "zone"}
+    if filter_name == "Risques HIGH/MED":
+        return item.risk_band in {"HIGH", "MED"} and item.review_decision not in {"validate", "ignore", "sfx"}
+    if filter_name == "High":
+        return item.risk_band == "HIGH" and item.review_decision not in {"validate", "ignore", "sfx"}
+    if filter_name == "Corrections faites":
+        return item.review_decision == "correct"
+    if filter_name == "À revoir":
+        return item.review_decision == "review"
+    if filter_name == "Fusion":
+        return item.review_decision == "fused"
+    if filter_name == "Zones":
+        return item.review_decision == "zone"
+    if filter_name == "Alternatives OCR":
+        return "alternative" in item.diagnostic_preview.lower()
+    if filter_name == "Validés":
+        return item.review_decision == "validate"
+    if filter_name == "Ignorés":
+        return item.review_decision == "ignore"
+    if filter_name == "SFX":
+        return item.review_decision == "sfx"
+    return True
 
 
 def _qt():
@@ -584,27 +611,7 @@ class ReviewWindow(_QT_MAINWINDOW_BASE):
         )
 
     def _item_matches_filter(self, item: ReviewItem, filter_name: str) -> bool:
-        if filter_name == "À traiter":
-            return item.review_decision in {"unchecked", "review"}
-        if filter_name == "Risques HIGH/MED":
-            return item.risk_band in {"HIGH", "MED"} and item.review_decision not in {"validate", "ignore", "sfx"}
-        if filter_name == "High":
-            return item.risk_band == "HIGH" and item.review_decision not in {"validate", "ignore", "sfx"}
-        if filter_name == "Corrections faites":
-            return item.review_decision == "correct"
-        if filter_name == "À revoir":
-            return item.review_decision == "review"
-        if filter_name == "Fusion":
-            return item.review_decision == "fused"
-        if filter_name == "Zones":
-            return item.review_decision == "zone"
-        if filter_name == "Validés":
-            return item.review_decision == "validate"
-        if filter_name == "Ignorés":
-            return item.review_decision == "ignore"
-        if filter_name == "SFX":
-            return item.review_decision == "sfx"
-        return True
+        return item_matches_filter(item, filter_name)
 
     def _on_selection_changed(self, current, previous) -> None:
         if self._ignore_selection_guard:
@@ -686,7 +693,7 @@ class ReviewWindow(_QT_MAINWINDOW_BASE):
             self.notes_text.setPlainText(getattr(block, "review_notes", ""))
             if block.ocr_alternatives:
                 alt_lines = [
-                    f"{idx + 1}. {alt.get('source', '?')} · score={alt.get('score', '')} · {alt.get('text', '')}"
+                    f"{idx + 1}. {alt.get('engine', alt.get('source', '?'))} · score={alt.get('score', '')} · {alt.get('text', '')}"
                     for idx, alt in enumerate(block.ocr_alternatives[:10])
                 ]
                 warnings = (warnings + "\n\nAlternatives OCR:\n" + "\n".join(alt_lines)).strip()
