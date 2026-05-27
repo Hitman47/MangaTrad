@@ -221,6 +221,17 @@ class TranslationQualityChecker:
         ]
         return bool(uppercase_words)
 
+    @staticmethod
+    def _looks_like_non_japanese_source(text: str) -> bool:
+        japanese_chars = len(_JAPANESE_RE.findall(text))
+        ascii_tokens = _ASCII_WORD_RE.findall(text)
+        if japanese_chars >= 2 or len(ascii_tokens) < 3:
+            return False
+        if _FRENCH_SIGNAL_RE.search(text):
+            return True
+        latin_letters = sum(1 for char in text if ("A" <= char <= "Z") or ("a" <= char <= "z"))
+        return latin_letters >= 18 and len(ascii_tokens) >= 5
+
     def check_block(self, block: OcrBlock, source_lang: SourceLang | None = None) -> list[str]:
         lang = source_lang or block.source_lang
         source = " ".join(block.ocr_text.split())
@@ -236,6 +247,9 @@ class TranslationQualityChecker:
         if not source:
             warnings.append("OCR vide")
             return warnings
+
+        if lang == "ja" and self._looks_like_non_japanese_source(source):
+            warnings.append("source probablement non japonaise: verifier le dossier corpus ou source-lang")
 
         if not translation:
             warnings.append("traduction vide")

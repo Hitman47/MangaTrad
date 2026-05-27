@@ -330,3 +330,19 @@ def test_quality_prioritizes_colon_and_missing_question_punctuation() -> None:
 
     assert any("':' suspecte" in warning for warning in colon_warnings)
     assert any("interrogation" in warning for warning in question_warnings)
+
+
+def test_quality_flags_non_japanese_source_when_running_ja_mode() -> None:
+    block = OcrBlock(
+        id="ja_mismatch",
+        bbox=[0, 0, 1, 1],
+        source_lang="ja",
+        ocr_text="Et puis avec plus de 200 heures de vol.",
+        translation_fr="",
+        confidence=0.9,
+    )
+
+    warnings = TranslationQualityChecker().check_block(block)
+
+    assert any("non japonaise" in warning for warning in warnings)
+    assert any("traduction vide" in warning for warning in warnings)
