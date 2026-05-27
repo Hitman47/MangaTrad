@@ -117,6 +117,7 @@ def test_replay_global_common_ocr_repairs() -> None:
     assert normalize_ocr_text_for_translation("4nder... stood.") == "Understood."
     assert normalize_ocr_text_for_translation("Let's hurryi") == "Let's Hurry!"
     assert normalize_ocr_text_for_translation("Here I Gol") == "Here I Go!"
+    assert normalize_ocr_text_for_translation("Here:..") == "Here..."
     assert normalize_ocr_text_for_translation("Hlhi?") == "HUH!?"
     assert normalize_ocr_text_for_translation("Kow About") == "How About it?"
     assert normalize_ocr_text_for_translation("you'll under... stand once you do!") == "you'll understand once you do!"

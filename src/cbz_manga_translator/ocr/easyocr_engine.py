@@ -103,6 +103,87 @@ class EasyOcrEngine:
         return 0
 
     @staticmethod
+    def _bbox_iou(a: list[int], b: list[int]) -> float:
+        ix1 = max(a[0], b[0])
+        iy1 = max(a[1], b[1])
+        ix2 = min(a[2], b[2])
+        iy2 = min(a[3], b[3])
+        intersection = max(0, ix2 - ix1) * max(0, iy2 - iy1)
+        if intersection <= 0:
+            return 0.0
+        area_a = EasyOcrEngine._bbox_width(a) * EasyOcrEngine._bbox_height(a)
+        area_b = EasyOcrEngine._bbox_width(b) * EasyOcrEngine._bbox_height(b)
+        union = area_a + area_b - intersection
+        return 0.0 if union <= 0 else intersection / union
+
+    @staticmethod
+    def _bbox_min_overlap(a: list[int], b: list[int]) -> float:
+        ix1 = max(a[0], b[0])
+        iy1 = max(a[1], b[1])
+        ix2 = min(a[2], b[2])
+        iy2 = min(a[3], b[3])
+        intersection = max(0, ix2 - ix1) * max(0, iy2 - iy1)
+        if intersection <= 0:
+            return 0.0
+        area_a = EasyOcrEngine._bbox_width(a) * EasyOcrEngine._bbox_height(a)
+        area_b = EasyOcrEngine._bbox_width(b) * EasyOcrEngine._bbox_height(b)
+        return intersection / max(1, min(area_a, area_b))
+
+    def _append_supplemental_blocks(
+        self,
+        blocks: list[OcrBlock],
+        raw_results: list[Any],
+        source_lang: SourceLang,
+        page_index: int,
+        min_confidence: float,
+        merge_lines: bool,
+        filter_noise: bool,
+    ) -> list[OcrBlock]:
+        cls = type(self)
+        if not raw_results:
+            return blocks
+        rescue_blocks = self._postprocess_results(
+            raw_results,
+            source_lang=source_lang,
+            page_index=page_index,
+            min_confidence=min_confidence,
+            merge_lines=merge_lines,
+            filter_noise=filter_noise,
+        )
+        merged = list(blocks)
+        for rescue in rescue_blocks:
+            duplicate = False
+            for existing in merged:
+                overlap = max(cls._bbox_iou(rescue.bbox, existing.bbox), cls._bbox_min_overlap(rescue.bbox, existing.bbox))
+                if overlap >= 0.85 or cls._bbox_iou(rescue.bbox, existing.bbox) >= 0.70:
+                    duplicate = True
+                    break
+            if duplicate:
+                continue
+            rescue.id = f"p{page_index:04d}_s{len(merged):04d}"
+            rescue.quality_warnings.append("OCR supplemental low-text pass")
+            merged.append(rescue)
+        ordered_merged = sorted(merged, key=lambda item: cls._line_sort_key(item, source_lang))
+        for order, block in enumerate(ordered_merged):
+            block.reading_order = order
+        return ordered_merged
+
+    @staticmethod
+    def _read_supplemental_results(reader: Any, image_path: Path) -> list[Any]:
+        try:
+            return reader.readtext(
+                str(image_path),
+                detail=1,
+                paragraph=False,
+                text_threshold=0.35,
+                low_text=0.25,
+                link_threshold=0.25,
+                mag_ratio=1.5,
+            )
+        except Exception:
+            return []
+
+    @staticmethod
     def _looks_like_noise(text: str, confidence: float | None, min_confidence: float) -> bool:
         compact = " ".join(str(text).strip().split())
         if not compact:
@@ -412,11 +493,15 @@ class EasyOcrEngine:
         merge_lines: bool = True,
         filter_noise: bool = True,
         refine_crops: bool = True,
+        rescue_small_text: bool = False,
     ) -> list[OcrBlock]:
         image_path = Path(image_path)
         reader = self._reader(source_lang, use_gpu=use_gpu)
         try:
             raw_results = reader.readtext(str(image_path), detail=1, paragraph=False)
+            supplemental_results: list[Any] = []
+            if source_lang == "en" and rescue_small_text:
+                supplemental_results = self._read_supplemental_results(reader, image_path)
         except Exception as exc:
             if not (use_gpu and self._is_cuda_out_of_memory(exc)):
                 raise
@@ -424,6 +509,9 @@ class EasyOcrEngine:
             reader = self._reader(source_lang, use_gpu=False)
             try:
                 raw_results = reader.readtext(str(image_path), detail=1, paragraph=False)
+                supplemental_results = []
+                if source_lang == "en" and rescue_small_text:
+                    supplemental_results = self._read_supplemental_results(reader, image_path)
             except Exception as retry_exc:
                 if not self._is_cuda_out_of_memory(retry_exc):
                     raise
@@ -446,5 +534,15 @@ class EasyOcrEngine:
                 use_gpu=use_gpu,
                 min_confidence=min_confidence,
                 filter_noise=filter_noise,
+            )
+        if source_lang == "en" and rescue_small_text and supplemental_results:
+            blocks = self._append_supplemental_blocks(
+                blocks,
+                supplemental_results,
+                source_lang,
+                page_index,
+                min_confidence,
+                merge_lines,
+                filter_noise,
             )
         return blocks

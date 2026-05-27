@@ -306,6 +306,7 @@ def normalize_spacing_and_punctuation(text: str) -> str:
     value = re.sub(r"!\s+\?", "!?", value)
     value = re.sub(r"\?\s+!", "?!", value)
     value = re.sub(r"\.\s*\.\s*\.\s*", "...", value)
+    value = re.sub(r":\s*(?:\.\s*){2,}", "...", value)
     value = _repair_intraword_ellipsis(value)
     value = repair_manga_font_confusions(value)
     value = re.sub(r"\.\.\.(?=[A-Za-z])", lambda m: "..." if m.start() == 0 else "... ", value)

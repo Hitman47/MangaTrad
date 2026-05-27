@@ -36,6 +36,11 @@ def main() -> int:
         help="Enable expensive EasyOCR crop refinement during primary OCR. Use for difficult pages; slower.",
     )
     parser.add_argument(
+        "--rescue-small-text",
+        action="store_true",
+        help="Enable a slower low-text EasyOCR pass to recover missed short dialogue/interjections.",
+    )
+    parser.add_argument(
         "--fallback",
         choices=["off", "suspects", "all"],
         default="suspects",
@@ -68,6 +73,7 @@ def main() -> int:
         merge_lines=not args.no_merge_lines,
         filter_noise=not args.no_filter_noise,
         refine_crops=args.refine_crops,
+        rescue_small_text=args.rescue_small_text,
         fallback=args.fallback,
         include_optional_ocr=args.include_optional_ocr,
         translate=not args.ocr_only,

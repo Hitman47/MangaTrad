@@ -133,6 +133,61 @@ def test_candidate_quality_prefers_more_complete_dialogue() -> None:
     assert EasyOcrEngine._candidate_quality("GRAMMA LOOKY THAT", 0.51) > EasyOcrEngine._candidate_quality("GRAMMA; THAT;", 0.51)
 
 
+def test_append_supplemental_blocks_does_not_modify_existing_block() -> None:
+    engine = EasyOcrEngine()
+    blocks = engine._postprocess_results(
+        [(poly(100, 100, 170, 130), "GET", 0.64)],
+        source_lang="en",
+        page_index=0,
+        min_confidence=0.20,
+        merge_lines=True,
+        filter_noise=True,
+    )
+
+    rescued = engine._append_supplemental_blocks(
+        blocks,
+        [(poly(98, 98, 190, 132), "I GET IT!!", 0.72), (poly(20, 20, 55, 42), "NO!", 0.62)],
+        source_lang="en",
+        page_index=0,
+        min_confidence=0.20,
+        merge_lines=True,
+        filter_noise=True,
+    )
+
+    assert [block.ocr_text for block in rescued] == ["NO!", "GET"]
+    assert blocks[0].ocr_text == "GET"
+
+
+def test_recognize_uses_supplemental_low_text_pass_for_english(tmp_path) -> None:
+    class FakeReader:
+        def __init__(self) -> None:
+            self.calls = []
+
+        def readtext(self, image_path, **kwargs):  # type: ignore[no-untyped-def]
+            self.calls.append(kwargs)
+            if "text_threshold" in kwargs:
+                return [(poly(20, 20, 55, 42), "NO!", 0.62)]
+            return []
+
+    class TestEngine(EasyOcrEngine):
+        def __init__(self, reader: FakeReader) -> None:
+            super().__init__()
+            self.reader = reader
+
+        def _reader(self, source_lang, use_gpu):  # type: ignore[no-untyped-def]
+            return self.reader
+
+    image_path = tmp_path / "page.png"
+    Image.new("RGB", (80, 80), "white").save(image_path)
+    reader = FakeReader()
+    engine = TestEngine(reader)
+
+    blocks = engine.recognize(image_path, "en", 0, use_gpu=False, refine_crops=False, rescue_small_text=True)
+
+    assert [block.ocr_text for block in blocks] == ["NO!"]
+    assert any("text_threshold" in call for call in reader.calls)
+
+
 def test_cuda_out_of_memory_detection() -> None:
     assert EasyOcrEngine._is_cuda_out_of_memory(RuntimeError("CUDA error: out of memory"))
     assert EasyOcrEngine._is_cuda_out_of_memory(RuntimeError("cudaErrorMemoryAllocation"))

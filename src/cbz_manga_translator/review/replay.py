@@ -153,6 +153,7 @@ def replay_review_project(
     use_gpu: bool = True,
     ocr_use_gpu: bool | None = None,
     refine_crops: bool = False,
+    rescue_small_text: bool = False,
     fallback: str = "off",
     recognizer: Recognizer | None = None,
     translator: Translator | None = None,
@@ -183,6 +184,7 @@ def replay_review_project(
             merge_lines=True,
             filter_noise=True,
             refine_crops=refine_crops,
+            rescue_small_text=rescue_small_text,
         )
         if fallback != "off":
             # Keep this command deliberately simple and reproducible for replay tests.

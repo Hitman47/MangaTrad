@@ -129,6 +129,7 @@ class Recognizer(Protocol):
         merge_lines: bool = True,
         filter_noise: bool = True,
         refine_crops: bool = True,
+        rescue_small_text: bool = False,
     ) -> list[OcrBlock]: ...
 
 
@@ -463,6 +464,7 @@ def process_corpus(
     merge_lines: bool = True,
     filter_noise: bool = True,
     refine_crops: bool = False,
+    rescue_small_text: bool = False,
     fallback: str = "off",
     include_optional_ocr: bool = False,
     translate: bool = True,
@@ -533,6 +535,7 @@ def process_corpus(
             merge_lines=merge_lines,
             filter_noise=filter_noise,
             refine_crops=refine_crops,
+            rescue_small_text=rescue_small_text,
         )
 
         if fallback_mode != "off" and blocks:

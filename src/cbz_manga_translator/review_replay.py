@@ -18,6 +18,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--cpu", action="store_true", help="Force OCR et traduction CPU.")
     parser.add_argument("--ocr-cpu", action="store_true", help="Force seulement l'OCR CPU.")
     parser.add_argument("--refine-crops", action="store_true", help="OCR crop refinement, plus lent.")
+    parser.add_argument("--rescue-small-text", action="store_true", help="Second passage OCR lent pour petits textes/interjections.")
     parser.add_argument("--min-iou", type=float, default=0.35, help="Recouvrement bbox minimum pour matcher un bloc.")
     parser.add_argument("--source-threshold", type=float, default=0.92)
     parser.add_argument("--translation-threshold", type=float, default=0.85)
@@ -36,6 +37,7 @@ def main(argv: list[str] | None = None) -> int:
         use_gpu=not args.cpu,
         ocr_use_gpu=False if args.ocr_cpu else None,
         refine_crops=args.refine_crops,
+        rescue_small_text=args.rescue_small_text,
     )
     json_path, md_path = write_replay_report(report, output_dir)
     print(f"Pages rejouées       : {report.pages_replayed}")
