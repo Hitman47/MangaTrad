@@ -19,16 +19,20 @@ def test_scanlation_credit_blocks_are_auto_ignored() -> None:
         _block("This image is hosted at mangafox com", 1),
         _block("we take no credit for creation editing or translation", 2),
         _block("imangareadernet", 4),
+        _block("Read more FREE comics on ReadComicOnline. to", 5),
+        _block("This image is hosted at mangafox com AII creditgoes to the appropriate parties involved", 6),
         _block("What are you doing here?", 3),
     ]
 
     changed = apply_review_filters(blocks)
 
-    assert changed == 3
+    assert changed == 5
     assert blocks[0].manual_status == "ignored"
     assert blocks[1].manual_status == "ignored"
     assert blocks[2].manual_status == "ignored"
-    assert blocks[3].manual_status == "unchecked"
+    assert blocks[3].manual_status == "ignored"
+    assert blocks[4].manual_status == "ignored"
+    assert blocks[5].manual_status == "unchecked"
     assert blocks[0].review_notes.startswith("[auto-ignore]")
 
 
@@ -103,6 +107,23 @@ def test_infographic_page_is_marked_non_reviewable() -> None:
     assert page_non_reviewable_reason(blocks)
     assert apply_review_filters(blocks) == len(blocks)
     assert all(block.manual_status == "ignored" for block in blocks)
+
+
+def test_technical_reference_blocks_are_auto_ignored() -> None:
+    blocks = [
+        _block("SPECIFICATION Model Number Generation Year of Deployment Manufacturer Jump Unit Engine Height", 1),
+        _block("UN Forces Type 77 TSF Gekishin", 2),
+        _block("Operation Lucifer: The Beginning of Humanity's Counter-Attack", 3),
+        _block("What are you doing here?", 4),
+    ]
+
+    changed = apply_review_filters(blocks)
+
+    assert changed == 3
+    assert blocks[0].manual_status == "ignored"
+    assert blocks[1].manual_status == "ignored"
+    assert blocks[2].manual_status == "ignored"
+    assert blocks[3].manual_status == "unchecked"
 
 
 def test_extra_dense_character_profile_page_is_marked_non_reviewable() -> None:

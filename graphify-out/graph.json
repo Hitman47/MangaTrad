@@ -143,7 +143,7 @@
       "source_file": "src/cbz_manga_translator/app.py",
       "source_location": "L41",
       "id": "src_cbz_manga_translator_app_py_int",
-      "community": 7,
+      "community": 14,
       "norm_label": "int"
     },
     {
@@ -438,7 +438,7 @@
       "label": "main()",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/ignore_memory_build.py",
-      "source_location": "L9",
+      "source_location": "L10",
       "id": "cbz_manga_translator_ignore_memory_build_main",
       "community": 4,
       "norm_label": "main()"
@@ -447,7 +447,7 @@
       "label": "str",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/ignore_memory_build.py",
-      "source_location": "L9",
+      "source_location": "L10",
       "id": "src_cbz_manga_translator_ignore_memory_build_py_str",
       "community": 4,
       "norm_label": "str"
@@ -456,7 +456,7 @@
       "label": "int",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/ignore_memory_build.py",
-      "source_location": "L9",
+      "source_location": "L10",
       "id": "src_cbz_manga_translator_ignore_memory_build_py_int",
       "community": 4,
       "norm_label": "int"
@@ -501,7 +501,7 @@
       "label": "main()",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/ocr_memory_build.py",
-      "source_location": "L9",
+      "source_location": "L10",
       "id": "cbz_manga_translator_ocr_memory_build_main",
       "community": 22,
       "norm_label": "main()"
@@ -510,7 +510,7 @@
       "label": "str",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/ocr_memory_build.py",
-      "source_location": "L9",
+      "source_location": "L10",
       "id": "src_cbz_manga_translator_ocr_memory_build_py_str",
       "community": 22,
       "norm_label": "str"
@@ -519,7 +519,7 @@
       "label": "int",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/ocr_memory_build.py",
-      "source_location": "L9",
+      "source_location": "L10",
       "id": "src_cbz_manga_translator_ocr_memory_build_py_int",
       "community": 22,
       "norm_label": "int"
@@ -1290,6 +1290,42 @@
       "norm_label": "main()"
     },
     {
+      "label": "review_regression.py",
+      "file_type": "code",
+      "source_file": "src/cbz_manga_translator/review_regression.py",
+      "source_location": "L1",
+      "id": "src_cbz_manga_translator_review_regression_py",
+      "community": 23,
+      "norm_label": "review_regression.py"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "src/cbz_manga_translator/review_regression.py",
+      "source_location": "L7",
+      "id": "cbz_manga_translator_review_regression_main",
+      "community": 23,
+      "norm_label": "main()"
+    },
+    {
+      "label": "str",
+      "file_type": "code",
+      "source_file": "src/cbz_manga_translator/review_regression.py",
+      "source_location": "L7",
+      "id": "src_cbz_manga_translator_review_regression_py_str",
+      "community": 23,
+      "norm_label": "str"
+    },
+    {
+      "label": "int",
+      "file_type": "code",
+      "source_file": "src/cbz_manga_translator/review_regression.py",
+      "source_location": "L7",
+      "id": "src_cbz_manga_translator_review_regression_py_int",
+      "community": 23,
+      "norm_label": "int"
+    },
+    {
       "label": "replay.py",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/review/replay.py",
@@ -1430,7 +1466,7 @@
       "source_file": "src/cbz_manga_translator/server.py",
       "source_location": "L26",
       "id": "src_cbz_manga_translator_server_py_sourcelang",
-      "community": 14,
+      "community": 17,
       "norm_label": "sourcelang"
     },
     {
@@ -1617,7 +1653,7 @@
       "label": "main()",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/translation_memory_build.py",
-      "source_location": "L9",
+      "source_location": "L10",
       "id": "cbz_manga_translator_translation_memory_build_main",
       "community": 13,
       "norm_label": "main()"
@@ -1626,7 +1662,7 @@
       "label": "str",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/translation_memory_build.py",
-      "source_location": "L9",
+      "source_location": "L10",
       "id": "src_cbz_manga_translator_translation_memory_build_py_str",
       "community": 13,
       "norm_label": "str"
@@ -1635,7 +1671,7 @@
       "label": "int",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/translation_memory_build.py",
-      "source_location": "L9",
+      "source_location": "L10",
       "id": "src_cbz_manga_translator_translation_memory_build_py_int",
       "community": 13,
       "norm_label": "int"
@@ -1700,7 +1736,7 @@
       "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
       "source_location": "L24",
       "id": "src_cbz_manga_translator_analysis_corpus_processor_py_sourcelang",
-      "community": 7,
+      "community": 14,
       "norm_label": "sourcelang"
     },
     {
@@ -1709,7 +1745,7 @@
       "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
       "source_location": "L24",
       "id": "src_cbz_manga_translator_analysis_corpus_processor_py_bool",
-      "community": 7,
+      "community": 14,
       "norm_label": "bool"
     },
     {
@@ -1817,7 +1853,7 @@
       "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
       "source_location": "L198",
       "id": "analysis_corpus_processor_recognizer",
-      "community": 14,
+      "community": 7,
       "norm_label": "recognizer"
     },
     {
@@ -1844,7 +1880,7 @@
       "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
       "source_location": "L199",
       "id": "src_cbz_manga_translator_analysis_corpus_processor_py_ocrblock",
-      "community": 7,
+      "community": 14,
       "norm_label": "ocrblock"
     },
     {
@@ -1853,7 +1889,7 @@
       "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
       "source_location": "L214",
       "id": "analysis_corpus_processor_translator",
-      "community": 7,
+      "community": 14,
       "norm_label": "translator"
     },
     {
@@ -1862,7 +1898,7 @@
       "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
       "source_location": "L215",
       "id": "analysis_corpus_processor_translator_translate_blocks",
-      "community": 7,
+      "community": 14,
       "norm_label": ".translate_blocks()"
     },
     {
@@ -2690,7 +2726,7 @@
       "source_file": "src/cbz_manga_translator/analysis/export_review.py",
       "source_location": "L56",
       "id": "src_cbz_manga_translator_analysis_export_review_py_projectdata",
-      "community": 8,
+      "community": 7,
       "norm_label": "projectdata"
     },
     {
@@ -2861,7 +2897,7 @@
       "source_file": "src/cbz_manga_translator/analysis/ignore_memory.py",
       "source_location": "L91",
       "id": "src_cbz_manga_translator_analysis_ignore_memory_py_object",
-      "community": 7,
+      "community": 4,
       "norm_label": "object"
     },
     {
@@ -2879,7 +2915,7 @@
       "source_file": "src/cbz_manga_translator/analysis/learning.py",
       "source_location": "L1",
       "id": "src_cbz_manga_translator_analysis_learning_py",
-      "community": 23,
+      "community": 8,
       "norm_label": "learning.py"
     },
     {
@@ -2888,7 +2924,7 @@
       "source_file": "src/cbz_manga_translator/analysis/learning.py",
       "source_location": "L16",
       "id": "analysis_learning_learningreport",
-      "community": 23,
+      "community": 8,
       "norm_label": "learningreport"
     },
     {
@@ -2897,7 +2933,7 @@
       "source_file": "src/cbz_manga_translator/analysis/learning.py",
       "source_location": "L23",
       "id": "analysis_learning_learningreport_to_dict",
-      "community": 23,
+      "community": 7,
       "norm_label": ".to_dict()"
     },
     {
@@ -2906,7 +2942,7 @@
       "source_file": "src/cbz_manga_translator/analysis/learning.py",
       "source_location": "L23",
       "id": "src_cbz_manga_translator_analysis_learning_py_str",
-      "community": 23,
+      "community": 7,
       "norm_label": "str"
     },
     {
@@ -2915,7 +2951,7 @@
       "source_file": "src/cbz_manga_translator/analysis/learning.py",
       "source_location": "L23",
       "id": "src_cbz_manga_translator_analysis_learning_py_any",
-      "community": 23,
+      "community": 7,
       "norm_label": "any"
     },
     {
@@ -2924,7 +2960,7 @@
       "source_file": "src/cbz_manga_translator/analysis/learning.py",
       "source_location": "L27",
       "id": "analysis_learning_source_for_memory",
-      "community": 23,
+      "community": 8,
       "norm_label": "_source_for_memory()"
     },
     {
@@ -2933,7 +2969,7 @@
       "source_file": "src/cbz_manga_translator/analysis/learning.py",
       "source_location": "L27",
       "id": "src_cbz_manga_translator_analysis_learning_py_ocrblock",
-      "community": 23,
+      "community": 8,
       "norm_label": "ocrblock"
     },
     {
@@ -2942,7 +2978,7 @@
       "source_file": "src/cbz_manga_translator/analysis/learning.py",
       "source_location": "L31",
       "id": "analysis_learning_is_learnable",
-      "community": 23,
+      "community": 8,
       "norm_label": "_is_learnable()"
     },
     {
@@ -2951,7 +2987,7 @@
       "source_file": "src/cbz_manga_translator/analysis/learning.py",
       "source_location": "L31",
       "id": "src_cbz_manga_translator_analysis_learning_py_bool",
-      "community": 23,
+      "community": 7,
       "norm_label": "bool"
     },
     {
@@ -2960,7 +2996,7 @@
       "source_file": "src/cbz_manga_translator/analysis/learning.py",
       "source_location": "L35",
       "id": "analysis_learning_build_learning_report",
-      "community": 23,
+      "community": 8,
       "norm_label": "build_learning_report()"
     },
     {
@@ -2969,7 +3005,7 @@
       "source_file": "src/cbz_manga_translator/analysis/learning.py",
       "source_location": "L35",
       "id": "src_cbz_manga_translator_analysis_learning_py_projectdata",
-      "community": 23,
+      "community": 7,
       "norm_label": "projectdata"
     },
     {
@@ -2978,7 +3014,7 @@
       "source_file": "src/cbz_manga_translator/analysis/learning.py",
       "source_location": "L35",
       "id": "src_cbz_manga_translator_analysis_learning_py_int",
-      "community": 23,
+      "community": 7,
       "norm_label": "int"
     },
     {
@@ -3282,7 +3318,7 @@
       "label": "_block_source()",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/analysis/review_filter.py",
-      "source_location": "L109",
+      "source_location": "L112",
       "id": "analysis_review_filter_block_source",
       "community": 4,
       "norm_label": "_block_source()"
@@ -3291,7 +3327,7 @@
       "label": "OcrBlock",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/analysis/review_filter.py",
-      "source_location": "L109",
+      "source_location": "L112",
       "id": "src_cbz_manga_translator_analysis_review_filter_py_ocrblock",
       "community": 4,
       "norm_label": "ocrblock"
@@ -3300,7 +3336,7 @@
       "label": "str",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/analysis/review_filter.py",
-      "source_location": "L109",
+      "source_location": "L112",
       "id": "src_cbz_manga_translator_analysis_review_filter_py_str",
       "community": 4,
       "norm_label": "str"
@@ -3309,7 +3345,7 @@
       "label": "is_scanlation_credit()",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/analysis/review_filter.py",
-      "source_location": "L117",
+      "source_location": "L120",
       "id": "analysis_review_filter_is_scanlation_credit",
       "community": 4,
       "norm_label": "is_scanlation_credit()"
@@ -3318,7 +3354,7 @@
       "label": "bool",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/analysis/review_filter.py",
-      "source_location": "L117",
+      "source_location": "L120",
       "id": "src_cbz_manga_translator_analysis_review_filter_py_bool",
       "community": 4,
       "norm_label": "bool"
@@ -3327,7 +3363,7 @@
       "label": "is_sfx_or_noise()",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/analysis/review_filter.py",
-      "source_location": "L121",
+      "source_location": "L124",
       "id": "analysis_review_filter_is_sfx_or_noise",
       "community": 4,
       "norm_label": "is_sfx_or_noise()"
@@ -3336,7 +3372,7 @@
       "label": "is_signage_or_ui_text()",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/analysis/review_filter.py",
-      "source_location": "L154",
+      "source_location": "L157",
       "id": "analysis_review_filter_is_signage_or_ui_text",
       "community": 4,
       "norm_label": "is_signage_or_ui_text()"
@@ -3345,7 +3381,7 @@
       "label": "is_technical_infographic()",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/analysis/review_filter.py",
-      "source_location": "L162",
+      "source_location": "L165",
       "id": "analysis_review_filter_is_technical_infographic",
       "community": 4,
       "norm_label": "is_technical_infographic()"
@@ -3354,7 +3390,7 @@
       "label": "is_reference_profile_text()",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/analysis/review_filter.py",
-      "source_location": "L175",
+      "source_location": "L178",
       "id": "analysis_review_filter_is_reference_profile_text",
       "community": 4,
       "norm_label": "is_reference_profile_text()"
@@ -3363,7 +3399,7 @@
       "label": "non_reviewable_reason()",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/analysis/review_filter.py",
-      "source_location": "L186",
+      "source_location": "L189",
       "id": "analysis_review_filter_non_reviewable_reason",
       "community": 4,
       "norm_label": "non_reviewable_reason()"
@@ -3372,7 +3408,7 @@
       "label": "_is_dialogue_like()",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/analysis/review_filter.py",
-      "source_location": "L204",
+      "source_location": "L207",
       "id": "analysis_review_filter_is_dialogue_like",
       "community": 4,
       "norm_label": "_is_dialogue_like()"
@@ -3381,7 +3417,7 @@
       "label": "page_non_reviewable_reason()",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/analysis/review_filter.py",
-      "source_location": "L211",
+      "source_location": "L214",
       "id": "analysis_review_filter_page_non_reviewable_reason",
       "community": 4,
       "norm_label": "page_non_reviewable_reason()"
@@ -3390,7 +3426,7 @@
       "label": "apply_review_filters()",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/analysis/review_filter.py",
-      "source_location": "L230",
+      "source_location": "L233",
       "id": "analysis_review_filter_apply_review_filters",
       "community": 4,
       "norm_label": "apply_review_filters()"
@@ -3399,7 +3435,7 @@
       "label": "SourceLang",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/analysis/review_filter.py",
-      "source_location": "L230",
+      "source_location": "L233",
       "id": "src_cbz_manga_translator_analysis_review_filter_py_sourcelang",
       "community": 4,
       "norm_label": "sourcelang"
@@ -3408,10 +3444,163 @@
       "label": "int",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/analysis/review_filter.py",
-      "source_location": "L230",
+      "source_location": "L233",
       "id": "src_cbz_manga_translator_analysis_review_filter_py_int",
       "community": 4,
       "norm_label": "int"
+    },
+    {
+      "label": "review_regression.py",
+      "file_type": "code",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L1",
+      "id": "src_cbz_manga_translator_analysis_review_regression_py",
+      "community": 23,
+      "norm_label": "review_regression.py"
+    },
+    {
+      "label": "RegressionItem",
+      "file_type": "code",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L17",
+      "id": "analysis_review_regression_regressionitem",
+      "community": 23,
+      "norm_label": "regressionitem"
+    },
+    {
+      "label": "RegressionReport",
+      "file_type": "code",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L36",
+      "id": "analysis_review_regression_regressionreport",
+      "community": 23,
+      "norm_label": "regressionreport"
+    },
+    {
+      "label": "discover_review_projects()",
+      "file_type": "code",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L51",
+      "id": "analysis_review_regression_discover_review_projects",
+      "community": 23,
+      "norm_label": "discover_review_projects()"
+    },
+    {
+      "label": "str",
+      "file_type": "code",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L51",
+      "id": "src_cbz_manga_translator_analysis_review_regression_py_str",
+      "community": 23,
+      "norm_label": "str"
+    },
+    {
+      "label": "Path",
+      "file_type": "code",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L51",
+      "id": "src_cbz_manga_translator_analysis_review_regression_py_path",
+      "community": 23,
+      "norm_label": "path"
+    },
+    {
+      "label": "_changed_or_reviewed()",
+      "file_type": "code",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L75",
+      "id": "analysis_review_regression_changed_or_reviewed",
+      "community": 23,
+      "norm_label": "_changed_or_reviewed()"
+    },
+    {
+      "label": "OcrBlock",
+      "file_type": "code",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L75",
+      "id": "src_cbz_manga_translator_analysis_review_regression_py_ocrblock",
+      "community": 23,
+      "norm_label": "ocrblock"
+    },
+    {
+      "label": "bool",
+      "file_type": "code",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L75",
+      "id": "src_cbz_manga_translator_analysis_review_regression_py_bool",
+      "community": 7,
+      "norm_label": "bool"
+    },
+    {
+      "label": "_predict_source()",
+      "file_type": "code",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L88",
+      "id": "analysis_review_regression_predict_source",
+      "community": 23,
+      "norm_label": "_predict_source()"
+    },
+    {
+      "label": "_predict_translation()",
+      "file_type": "code",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L93",
+      "id": "analysis_review_regression_predict_translation",
+      "community": 23,
+      "norm_label": "_predict_translation()"
+    },
+    {
+      "label": "_source_similarity()",
+      "file_type": "code",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L97",
+      "id": "analysis_review_regression_source_similarity",
+      "community": 23,
+      "norm_label": "_source_similarity()"
+    },
+    {
+      "label": "float",
+      "file_type": "code",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L97",
+      "id": "src_cbz_manga_translator_analysis_review_regression_py_float",
+      "community": 23,
+      "norm_label": "float"
+    },
+    {
+      "label": "evaluate_block()",
+      "file_type": "code",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L108",
+      "id": "analysis_review_regression_evaluate_block",
+      "community": 23,
+      "norm_label": "evaluate_block()"
+    },
+    {
+      "label": "int",
+      "file_type": "code",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L108",
+      "id": "src_cbz_manga_translator_analysis_review_regression_py_int",
+      "community": 7,
+      "norm_label": "int"
+    },
+    {
+      "label": "run_review_regression()",
+      "file_type": "code",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L212",
+      "id": "analysis_review_regression_run_review_regression",
+      "community": 23,
+      "norm_label": "run_review_regression()"
+    },
+    {
+      "label": "write_regression_report()",
+      "file_type": "code",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L273",
+      "id": "analysis_review_regression_write_regression_report",
+      "community": 23,
+      "norm_label": "write_regression_report()"
     },
     {
       "label": "review_workflow.py",
@@ -3752,7 +3941,7 @@
       "source_file": "src/cbz_manga_translator/core/block_view.py",
       "source_location": "L12",
       "id": "core_block_view_blockstats",
-      "community": 66,
+      "community": 7,
       "norm_label": "blockstats"
     },
     {
@@ -3824,7 +4013,7 @@
       "source_file": "src/cbz_manga_translator/core/block_view.py",
       "source_location": "L57",
       "id": "blockfilter",
-      "community": 7,
+      "community": 66,
       "norm_label": "blockfilter"
     },
     {
@@ -3860,7 +4049,7 @@
       "source_file": "src/cbz_manga_translator/core/block_view.py",
       "source_location": "L101",
       "id": "core_block_view_page_block_stats",
-      "community": 66,
+      "community": 7,
       "norm_label": "page_block_stats()"
     },
     {
@@ -5741,7 +5930,7 @@
       "source_file": "src/cbz_manga_translator/ocr/paddleocr_engine.py",
       "source_location": "L1",
       "id": "src_cbz_manga_translator_ocr_paddleocr_engine_py",
-      "community": 2,
+      "community": 29,
       "norm_label": "paddleocr_engine.py"
     },
     {
@@ -5768,7 +5957,7 @@
       "source_file": "src/cbz_manga_translator/ocr/paddleocr_engine.py",
       "source_location": "L18",
       "id": "ocr_paddleocr_engine_available",
-      "community": 2,
+      "community": 29,
       "norm_label": "available()"
     },
     {
@@ -5777,7 +5966,7 @@
       "source_file": "src/cbz_manga_translator/ocr/paddleocr_engine.py",
       "source_location": "L18",
       "id": "src_cbz_manga_translator_ocr_paddleocr_engine_py_bool",
-      "community": 2,
+      "community": 29,
       "norm_label": "bool"
     },
     {
@@ -5786,7 +5975,7 @@
       "source_file": "src/cbz_manga_translator/ocr/paddleocr_engine.py",
       "source_location": "L27",
       "id": "ocr_paddleocr_engine_lang_code",
-      "community": 2,
+      "community": 29,
       "norm_label": "_lang_code()"
     },
     {
@@ -5795,7 +5984,7 @@
       "source_file": "src/cbz_manga_translator/ocr/paddleocr_engine.py",
       "source_location": "L27",
       "id": "src_cbz_manga_translator_ocr_paddleocr_engine_py_sourcelang",
-      "community": 2,
+      "community": 29,
       "norm_label": "sourcelang"
     },
     {
@@ -5804,7 +5993,7 @@
       "source_file": "src/cbz_manga_translator/ocr/paddleocr_engine.py",
       "source_location": "L27",
       "id": "src_cbz_manga_translator_ocr_paddleocr_engine_py_str",
-      "community": 2,
+      "community": 29,
       "norm_label": "str"
     },
     {
@@ -5813,7 +6002,7 @@
       "source_file": "src/cbz_manga_translator/ocr/paddleocr_engine.py",
       "source_location": "L30",
       "id": "ocr_paddleocr_engine_paddleocrengine_instance",
-      "community": 2,
+      "community": 29,
       "norm_label": "._instance()"
     },
     {
@@ -5822,7 +6011,7 @@
       "source_file": "src/cbz_manga_translator/ocr/paddleocr_engine.py",
       "source_location": "L30",
       "id": "src_cbz_manga_translator_ocr_paddleocr_engine_py_any",
-      "community": 2,
+      "community": 29,
       "norm_label": "any"
     },
     {
@@ -5831,7 +6020,7 @@
       "source_file": "src/cbz_manga_translator/ocr/paddleocr_engine.py",
       "source_location": "L44",
       "id": "ocr_paddleocr_engine_crop",
-      "community": 2,
+      "community": 29,
       "norm_label": "_crop()"
     },
     {
@@ -5840,7 +6029,7 @@
       "source_file": "src/cbz_manga_translator/ocr/paddleocr_engine.py",
       "source_location": "L44",
       "id": "src_cbz_manga_translator_ocr_paddleocr_engine_py_path",
-      "community": 2,
+      "community": 29,
       "norm_label": "path"
     },
     {
@@ -5849,7 +6038,7 @@
       "source_file": "src/cbz_manga_translator/ocr/paddleocr_engine.py",
       "source_location": "L44",
       "id": "src_cbz_manga_translator_ocr_paddleocr_engine_py_int",
-      "community": 2,
+      "community": 29,
       "norm_label": "int"
     },
     {
@@ -5858,7 +6047,7 @@
       "source_file": "src/cbz_manga_translator/ocr/paddleocr_engine.py",
       "source_location": "L59",
       "id": "ocr_paddleocr_engine_extract_texts",
-      "community": 2,
+      "community": 29,
       "norm_label": "_extract_texts()"
     },
     {
@@ -5867,7 +6056,7 @@
       "source_file": "src/cbz_manga_translator/ocr/paddleocr_engine.py",
       "source_location": "L59",
       "id": "src_cbz_manga_translator_ocr_paddleocr_engine_py_float",
-      "community": 2,
+      "community": 29,
       "norm_label": "float"
     },
     {
@@ -5876,7 +6065,7 @@
       "source_file": "src/cbz_manga_translator/ocr/paddleocr_engine.py",
       "source_location": "L78",
       "id": "ocr_paddleocr_engine_paddleocrengine_recognize_crop",
-      "community": 2,
+      "community": 29,
       "norm_label": ".recognize_crop()"
     },
     {
@@ -5885,7 +6074,7 @@
       "source_file": "src/cbz_manga_translator/ocr/paddleocr_engine.py",
       "source_location": "L78",
       "id": "src_cbz_manga_translator_ocr_paddleocr_engine_py_ocrcandidate",
-      "community": 2,
+      "community": 29,
       "norm_label": "ocrcandidate"
     },
     {
@@ -5903,7 +6092,7 @@
       "source_file": "src/cbz_manga_translator/ocr/tesseract_engine.py",
       "source_location": "L1",
       "id": "src_cbz_manga_translator_ocr_tesseract_engine_py",
-      "community": 2,
+      "community": 108,
       "norm_label": "tesseract_engine.py"
     },
     {
@@ -5921,7 +6110,7 @@
       "source_file": "src/cbz_manga_translator/ocr/tesseract_engine.py",
       "source_location": "L19",
       "id": "ocr_tesseract_engine_available",
-      "community": 2,
+      "community": 108,
       "norm_label": "available()"
     },
     {
@@ -5930,7 +6119,7 @@
       "source_file": "src/cbz_manga_translator/ocr/tesseract_engine.py",
       "source_location": "L19",
       "id": "src_cbz_manga_translator_ocr_tesseract_engine_py_bool",
-      "community": 2,
+      "community": 108,
       "norm_label": "bool"
     },
     {
@@ -5939,7 +6128,7 @@
       "source_file": "src/cbz_manga_translator/ocr/tesseract_engine.py",
       "source_location": "L29",
       "id": "ocr_tesseract_engine_lang_code",
-      "community": 2,
+      "community": 108,
       "norm_label": "_lang_code()"
     },
     {
@@ -5948,7 +6137,7 @@
       "source_file": "src/cbz_manga_translator/ocr/tesseract_engine.py",
       "source_location": "L29",
       "id": "src_cbz_manga_translator_ocr_tesseract_engine_py_sourcelang",
-      "community": 2,
+      "community": 108,
       "norm_label": "sourcelang"
     },
     {
@@ -5957,7 +6146,7 @@
       "source_file": "src/cbz_manga_translator/ocr/tesseract_engine.py",
       "source_location": "L29",
       "id": "src_cbz_manga_translator_ocr_tesseract_engine_py_str",
-      "community": 2,
+      "community": 108,
       "norm_label": "str"
     },
     {
@@ -5966,7 +6155,7 @@
       "source_file": "src/cbz_manga_translator/ocr/tesseract_engine.py",
       "source_location": "L33",
       "id": "ocr_tesseract_engine_prepare_crop",
-      "community": 2,
+      "community": 108,
       "norm_label": "_prepare_crop()"
     },
     {
@@ -5975,7 +6164,7 @@
       "source_file": "src/cbz_manga_translator/ocr/tesseract_engine.py",
       "source_location": "L33",
       "id": "src_cbz_manga_translator_ocr_tesseract_engine_py_path",
-      "community": 2,
+      "community": 108,
       "norm_label": "path"
     },
     {
@@ -5984,7 +6173,7 @@
       "source_file": "src/cbz_manga_translator/ocr/tesseract_engine.py",
       "source_location": "L33",
       "id": "src_cbz_manga_translator_ocr_tesseract_engine_py_int",
-      "community": 2,
+      "community": 108,
       "norm_label": "int"
     },
     {
@@ -5993,7 +6182,7 @@
       "source_file": "src/cbz_manga_translator/ocr/tesseract_engine.py",
       "source_location": "L57",
       "id": "ocr_tesseract_engine_clean",
-      "community": 2,
+      "community": 108,
       "norm_label": "_clean()"
     },
     {
@@ -6002,7 +6191,7 @@
       "source_file": "src/cbz_manga_translator/ocr/tesseract_engine.py",
       "source_location": "L62",
       "id": "ocr_tesseract_engine_tesseractocrengine_recognize_crop",
-      "community": 2,
+      "community": 108,
       "norm_label": ".recognize_crop()"
     },
     {
@@ -6011,7 +6200,7 @@
       "source_file": "src/cbz_manga_translator/ocr/tesseract_engine.py",
       "source_location": "L62",
       "id": "src_cbz_manga_translator_ocr_tesseract_engine_py_ocrcandidate",
-      "community": 2,
+      "community": 108,
       "norm_label": "ocrcandidate"
     },
     {
@@ -6290,7 +6479,7 @@
       "source_file": "src/cbz_manga_translator/review/model.py",
       "source_location": "L107",
       "id": "src_cbz_manga_translator_review_model_py_int",
-      "community": 7,
+      "community": 0,
       "norm_label": "int"
     },
     {
@@ -6317,7 +6506,7 @@
       "source_file": "src/cbz_manga_translator/review/model.py",
       "source_location": "L134",
       "id": "src_cbz_manga_translator_review_model_py_projectdata",
-      "community": 7,
+      "community": 0,
       "norm_label": "projectdata"
     },
     {
@@ -6326,7 +6515,7 @@
       "source_file": "src/cbz_manga_translator/review/model.py",
       "source_location": "L158",
       "id": "review_model_find_page",
-      "community": 7,
+      "community": 0,
       "norm_label": "find_page()"
     },
     {
@@ -6461,7 +6650,7 @@
       "source_file": "src/cbz_manga_translator/review/replay.py",
       "source_location": "L39",
       "id": "review_replay_replayblockresult",
-      "community": 29,
+      "community": 20,
       "norm_label": "replayblockresult"
     },
     {
@@ -6470,7 +6659,7 @@
       "source_file": "src/cbz_manga_translator/review/replay.py",
       "source_location": "L55",
       "id": "review_replay_replayreport",
-      "community": 29,
+      "community": 20,
       "norm_label": "replayreport"
     },
     {
@@ -6515,7 +6704,7 @@
       "source_file": "src/cbz_manga_translator/review/replay.py",
       "source_location": "L100",
       "id": "src_cbz_manga_translator_review_replay_py_bool",
-      "community": 20,
+      "community": 7,
       "norm_label": "bool"
     },
     {
@@ -6731,7 +6920,7 @@
       "source_file": "src/cbz_manga_translator/translate/argos.py",
       "source_location": "L110",
       "id": "src_cbz_manga_translator_translate_argos_py_exception",
-      "community": 14,
+      "community": 5,
       "norm_label": "exception"
     },
     {
@@ -6776,7 +6965,7 @@
       "source_file": "src/cbz_manga_translator/translate/argos.py",
       "source_location": "L137",
       "id": "src_cbz_manga_translator_translate_argos_py_path",
-      "community": 14,
+      "community": 5,
       "norm_label": "path"
     },
     {
@@ -6911,7 +7100,7 @@
       "source_file": "src/cbz_manga_translator/translate/argos.py",
       "source_location": "L326",
       "id": "pattern",
-      "community": 14,
+      "community": 5,
       "norm_label": "pattern"
     },
     {
@@ -6956,7 +7145,7 @@
       "source_file": "src/cbz_manga_translator/translate/argos.py",
       "source_location": "L374",
       "id": "src_cbz_manga_translator_translate_argos_py_int",
-      "community": 14,
+      "community": 5,
       "norm_label": "int"
     },
     {
@@ -7118,7 +7307,7 @@
       "source_file": "src/cbz_manga_translator/translate/english_dialogue_normalizer.py",
       "source_location": "L742",
       "id": "translate_english_dialogue_normalizer_englishdialoguenormalizer",
-      "community": 14,
+      "community": 5,
       "norm_label": "englishdialoguenormalizer"
     },
     {
@@ -7253,7 +7442,7 @@
       "source_file": "src/cbz_manga_translator/translate/english_dialogue_normalizer.py",
       "source_location": "L743",
       "id": "translate_english_dialogue_normalizer_rationale_743",
-      "community": 14,
+      "community": 5,
       "norm_label": "deterministic local normalizer for noisy english manga dialogue.      this sits"
     },
     {
@@ -8279,7 +8468,7 @@
       "source_file": "tests/test_block_view.py",
       "source_location": "L1",
       "id": "tests_test_block_view_py",
-      "community": 66,
+      "community": 109,
       "norm_label": "test_block_view.py"
     },
     {
@@ -8288,7 +8477,7 @@
       "source_file": "tests/test_block_view.py",
       "source_location": "L11",
       "id": "tests_test_block_view_block",
-      "community": 66,
+      "community": 109,
       "norm_label": "block()"
     },
     {
@@ -8297,7 +8486,7 @@
       "source_file": "tests/test_block_view.py",
       "source_location": "L29",
       "id": "tests_test_block_view_test_block_display_source_prefers_normalized_then_corrected_then_raw",
-      "community": 66,
+      "community": 109,
       "norm_label": "test_block_display_source_prefers_normalized_then_corrected_then_raw()"
     },
     {
@@ -8306,7 +8495,7 @@
       "source_file": "tests/test_block_view.py",
       "source_location": "L39",
       "id": "tests_test_block_view_test_visible_blocks_filters_without_mutating_input_order",
-      "community": 66,
+      "community": 109,
       "norm_label": "test_visible_blocks_filters_without_mutating_input_order()"
     },
     {
@@ -8315,7 +8504,7 @@
       "source_file": "tests/test_block_view.py",
       "source_location": "L55",
       "id": "tests_test_block_view_test_search_matches_ocr_translation_and_warnings",
-      "community": 66,
+      "community": 109,
       "norm_label": "test_search_matches_ocr_translation_and_warnings()"
     },
     {
@@ -8324,7 +8513,7 @@
       "source_file": "tests/test_block_view.py",
       "source_location": "L68",
       "id": "tests_test_block_view_test_page_and_project_stats",
-      "community": 66,
+      "community": 109,
       "norm_label": "test_page_and_project_stats()"
     },
     {
@@ -10464,7 +10653,7 @@
       "label": "test_sfx_caption_blocks_are_auto_ignored()",
       "file_type": "code",
       "source_file": "tests/test_review_filter.py",
-      "source_location": "L35",
+      "source_location": "L39",
       "id": "tests_test_review_filter_test_sfx_caption_blocks_are_auto_ignored",
       "community": 4,
       "norm_label": "test_sfx_caption_blocks_are_auto_ignored()"
@@ -10473,7 +10662,7 @@
       "label": "test_sfx_heavy_page_keeps_short_dialogue()",
       "file_type": "code",
       "source_file": "tests/test_review_filter.py",
-      "source_location": "L72",
+      "source_location": "L76",
       "id": "tests_test_review_filter_test_sfx_heavy_page_keeps_short_dialogue",
       "community": 4,
       "norm_label": "test_sfx_heavy_page_keeps_short_dialogue()"
@@ -10482,16 +10671,25 @@
       "label": "test_infographic_page_is_marked_non_reviewable()",
       "file_type": "code",
       "source_file": "tests/test_review_filter.py",
-      "source_location": "L87",
+      "source_location": "L91",
       "id": "tests_test_review_filter_test_infographic_page_is_marked_non_reviewable",
       "community": 4,
       "norm_label": "test_infographic_page_is_marked_non_reviewable()"
     },
     {
+      "label": "test_technical_reference_blocks_are_auto_ignored()",
+      "file_type": "code",
+      "source_file": "tests/test_review_filter.py",
+      "source_location": "L112",
+      "id": "tests_test_review_filter_test_technical_reference_blocks_are_auto_ignored",
+      "community": 4,
+      "norm_label": "test_technical_reference_blocks_are_auto_ignored()"
+    },
+    {
       "label": "test_extra_dense_character_profile_page_is_marked_non_reviewable()",
       "file_type": "code",
       "source_file": "tests/test_review_filter.py",
-      "source_location": "L108",
+      "source_location": "L129",
       "id": "tests_test_review_filter_test_extra_dense_character_profile_page_is_marked_non_reviewable",
       "community": 4,
       "norm_label": "test_extra_dense_character_profile_page_is_marked_non_reviewable()"
@@ -10500,7 +10698,7 @@
       "label": "test_dialogue_page_is_not_auto_ignored()",
       "file_type": "code",
       "source_file": "tests/test_review_filter.py",
-      "source_location": "L126",
+      "source_location": "L147",
       "id": "tests_test_review_filter_test_dialogue_page_is_not_auto_ignored",
       "community": 4,
       "norm_label": "test_dialogue_page_is_not_auto_ignored()"
@@ -10509,7 +10707,7 @@
       "label": "test_short_dialogue_fragments_are_kept_for_review()",
       "file_type": "code",
       "source_file": "tests/test_review_filter.py",
-      "source_location": "L137",
+      "source_location": "L158",
       "id": "tests_test_review_filter_test_short_dialogue_fragments_are_kept_for_review",
       "community": 4,
       "norm_label": "test_short_dialogue_fragments_are_kept_for_review()"
@@ -10749,12 +10947,93 @@
       "norm_label": "test_refresh_review_project_collects_zone_ocr_alternatives_without_replacing()"
     },
     {
+      "label": "test_review_regression.py",
+      "file_type": "code",
+      "source_file": "tests/test_review_regression.py",
+      "source_location": "L1",
+      "id": "tests_test_review_regression_py",
+      "community": 23,
+      "norm_label": "test_review_regression.py"
+    },
+    {
+      "label": "_project()",
+      "file_type": "code",
+      "source_file": "tests/test_review_regression.py",
+      "source_location": "L13",
+      "id": "tests_test_review_regression_project",
+      "community": 23,
+      "norm_label": "_project()"
+    },
+    {
+      "label": "Path",
+      "file_type": "code",
+      "source_file": "tests/test_review_regression.py",
+      "source_location": "L13",
+      "id": "tests_test_review_regression_py_path",
+      "community": 23,
+      "norm_label": "path"
+    },
+    {
+      "label": "test_review_regression_scores_history()",
+      "file_type": "code",
+      "source_file": "tests/test_review_regression.py",
+      "source_location": "L67",
+      "id": "tests_test_review_regression_test_review_regression_scores_history",
+      "community": 23,
+      "norm_label": "test_review_regression_scores_history()"
+    },
+    {
+      "label": "test_review_regression_uses_page_context_for_ignored_blocks()",
+      "file_type": "code",
+      "source_file": "tests/test_review_regression.py",
+      "source_location": "L80",
+      "id": "tests_test_review_regression_test_review_regression_uses_page_context_for_ignored_blocks",
+      "community": 23,
+      "norm_label": "test_review_regression_uses_page_context_for_ignored_blocks()"
+    },
+    {
+      "label": "test_review_regression_treats_contraction_expansion_as_source_match()",
+      "file_type": "code",
+      "source_file": "tests/test_review_regression.py",
+      "source_location": "L119",
+      "id": "tests_test_review_regression_test_review_regression_treats_contraction_expansion_as_source_match",
+      "community": 23,
+      "norm_label": "test_review_regression_treats_contraction_expansion_as_source_match()"
+    },
+    {
+      "label": "test_discover_review_projects_from_directory()",
+      "file_type": "code",
+      "source_file": "tests/test_review_regression.py",
+      "source_location": "L150",
+      "id": "tests_test_review_regression_test_discover_review_projects_from_directory",
+      "community": 23,
+      "norm_label": "test_discover_review_projects_from_directory()"
+    },
+    {
+      "label": "test_write_regression_report()",
+      "file_type": "code",
+      "source_file": "tests/test_review_regression.py",
+      "source_location": "L157",
+      "id": "tests_test_review_regression_test_write_regression_report",
+      "community": 23,
+      "norm_label": "test_write_regression_report()"
+    },
+    {
+      "label": "test_review_regression_cli()",
+      "file_type": "code",
+      "source_file": "tests/test_review_regression.py",
+      "source_location": "L165",
+      "id": "tests_test_review_regression_test_review_regression_cli",
+      "community": 23,
+      "norm_label": "test_review_regression_cli()"
+    },
+    {
       "label": "test_review_replay.py",
       "file_type": "code",
       "source_file": "tests/test_review_replay.py",
       "source_location": "L1",
       "id": "tests_test_review_replay_py",
-      "community": 29,
+      "community": 20,
       "norm_label": "test_review_replay.py"
     },
     {
@@ -10763,7 +11042,7 @@
       "source_file": "tests/test_review_replay.py",
       "source_location": "L20",
       "id": "tests_test_review_replay_fakerecognizer",
-      "community": 29,
+      "community": 20,
       "norm_label": "fakerecognizer"
     },
     {
@@ -10772,7 +11051,7 @@
       "source_file": "tests/test_review_replay.py",
       "source_location": "L21",
       "id": "tests_test_review_replay_fakerecognizer_recognize",
-      "community": 29,
+      "community": 20,
       "norm_label": ".recognize()"
     },
     {
@@ -10781,7 +11060,7 @@
       "source_file": "tests/test_review_replay.py",
       "source_location": "L33",
       "id": "tests_test_review_replay_faketranslator",
-      "community": 29,
+      "community": 20,
       "norm_label": "faketranslator"
     },
     {
@@ -10790,7 +11069,7 @@
       "source_file": "tests/test_review_replay.py",
       "source_location": "L34",
       "id": "tests_test_review_replay_faketranslator_translate_blocks",
-      "community": 29,
+      "community": 20,
       "norm_label": ".translate_blocks()"
     },
     {
@@ -10799,7 +11078,7 @@
       "source_file": "tests/test_review_replay.py",
       "source_location": "L43",
       "id": "tests_test_review_replay_test_text_similarity_normalizes_case_and_spacing",
-      "community": 29,
+      "community": 20,
       "norm_label": "test_text_similarity_normalizes_case_and_spacing()"
     },
     {
@@ -10808,7 +11087,7 @@
       "source_file": "tests/test_review_replay.py",
       "source_location": "L47",
       "id": "tests_test_review_replay_test_bbox_iou",
-      "community": 29,
+      "community": 20,
       "norm_label": "test_bbox_iou()"
     },
     {
@@ -10817,7 +11096,7 @@
       "source_file": "tests/test_review_replay.py",
       "source_location": "L51",
       "id": "tests_test_review_replay_test_parse_index_list_accepts_ranges_and_page_prefix",
-      "community": 29,
+      "community": 20,
       "norm_label": "test_parse_index_list_accepts_ranges_and_page_prefix()"
     },
     {
@@ -10826,7 +11105,7 @@
       "source_file": "tests/test_review_replay.py",
       "source_location": "L55",
       "id": "tests_test_review_replay_test_replay_review_project_compares_reprocessed_page_to_human_review",
-      "community": 29,
+      "community": 20,
       "norm_label": "test_replay_review_project_compares_reprocessed_page_to_human_review()"
     },
     {
@@ -10835,7 +11114,7 @@
       "source_file": "tests/test_review_replay.py",
       "source_location": "L55",
       "id": "tests_test_review_replay_py_path",
-      "community": 29,
+      "community": 20,
       "norm_label": "path"
     },
     {
@@ -10844,7 +11123,7 @@
       "source_file": "tests/test_review_replay.py",
       "source_location": "L97",
       "id": "tests_test_review_replay_test_replay_review_project_can_target_specific_page_indices",
-      "community": 29,
+      "community": 20,
       "norm_label": "test_replay_review_project_can_target_specific_page_indices()"
     },
     {
@@ -10853,7 +11132,7 @@
       "source_file": "tests/test_review_replay.py",
       "source_location": "L134",
       "id": "tests_test_review_replay_test_replay_review_project_skips_source_when_old_review_stored_translation",
-      "community": 29,
+      "community": 20,
       "norm_label": "test_replay_review_project_skips_source_when_old_review_stored_translation()"
     },
     {
@@ -10862,7 +11141,7 @@
       "source_file": "tests/test_review_replay.py",
       "source_location": "L184",
       "id": "tests_test_review_replay_test_failure_page_indices_reads_previous_replay_report",
-      "community": 29,
+      "community": 20,
       "norm_label": "test_failure_page_indices_reads_previous_replay_report()"
     },
     {
@@ -10871,7 +11150,7 @@
       "source_file": "tests/test_review_replay.py",
       "source_location": "L194",
       "id": "tests_test_review_replay_test_write_replay_report",
-      "community": 29,
+      "community": 20,
       "norm_label": "test_write_replay_report()"
     },
     {
@@ -11033,7 +11312,7 @@
       "source_file": "tests/test_translation_memory.py",
       "source_location": "L24",
       "id": "tests_test_translation_memory_py_path",
-      "community": 7,
+      "community": 13,
       "norm_label": "path"
     },
     {
@@ -14542,7 +14821,7 @@
       "file_type": "rationale",
       "source_file": "src/cbz_manga_translator/translate/english_dialogue_normalizer.py",
       "source_location": "L735",
-      "community": 14,
+      "community": 5,
       "norm_label": "deterministic local normalizer for noisy english manga dialogue.      this sits",
       "id": "translate_english_dialogue_normalizer_rationale_735"
     },
@@ -14596,7 +14875,7 @@
       "file_type": "rationale",
       "source_file": "src/cbz_manga_translator/translate/english_dialogue_normalizer.py",
       "source_location": "L709",
-      "community": 14,
+      "community": 5,
       "norm_label": "deterministic local normalizer for noisy english manga dialogue.      this sits",
       "id": "translate_english_dialogue_normalizer_rationale_709"
     },
@@ -15439,6 +15718,17 @@
       "target": "analysis_ignore_memory_write_ignore_memory"
     },
     {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/cbz_manga_translator/ignore_memory_build.py",
+      "source_location": "L21",
+      "weight": 1.0,
+      "source": "cbz_manga_translator_ignore_memory_build_main",
+      "target": "analysis_review_regression_discover_review_projects"
+    },
+    {
       "relation": "references",
       "context": "return_type",
       "confidence": "EXTRACTED",
@@ -15521,6 +15811,17 @@
       "confidence_score": 1.0,
       "source": "src_cbz_manga_translator_ocr_memory_build_py",
       "target": "cbz_manga_translator_ocr_memory_build_main"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/cbz_manga_translator/ocr_memory_build.py",
+      "source_location": "L23",
+      "weight": 1.0,
+      "source": "cbz_manga_translator_ocr_memory_build_main",
+      "target": "analysis_review_regression_discover_review_projects"
     },
     {
       "relation": "calls",
@@ -19043,6 +19344,60 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/review_regression.py",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "src_cbz_manga_translator_review_regression_py",
+      "target": "cbz_manga_translator_review_regression_main",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/cbz_manga_translator/review_regression.py",
+      "source_location": "L17",
+      "weight": 1.0,
+      "source": "cbz_manga_translator_review_regression_main",
+      "target": "analysis_review_regression_run_review_regression"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/cbz_manga_translator/review_regression.py",
+      "source_location": "L22",
+      "weight": 1.0,
+      "source": "cbz_manga_translator_review_regression_main",
+      "target": "analysis_review_regression_write_regression_report"
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/review_regression.py",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "cbz_manga_translator_review_regression_main",
+      "target": "src_cbz_manga_translator_review_regression_py_int",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "generic_arg",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/review_regression.py",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "cbz_manga_translator_review_regression_main",
+      "target": "src_cbz_manga_translator_review_regression_py_str",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "src/cbz_manga_translator/review_replay.py",
       "source_location": "L28",
       "weight": 1.0,
@@ -20919,6 +21274,17 @@
       "confidence_score": 1.0,
       "source": "src_cbz_manga_translator_translation_memory_build_py",
       "target": "cbz_manga_translator_translation_memory_build_main"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/cbz_manga_translator/translation_memory_build.py",
+      "source_location": "L23",
+      "weight": 1.0,
+      "source": "cbz_manga_translator_translation_memory_build_main",
+      "target": "analysis_review_regression_discover_review_projects"
     },
     {
       "relation": "references",
@@ -28317,6 +28683,17 @@
       "context": "call",
       "confidence": "INFERRED",
       "confidence_score": 0.8,
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L120",
+      "weight": 1.0,
+      "source": "analysis_review_regression_evaluate_block",
+      "target": "analysis_review_diagnose_classify_block"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
       "source_file": "src/cbz_manga_translator/analysis/review_diagnose.py",
       "source_location": "L183",
       "weight": 1.0,
@@ -28863,6 +29240,17 @@
       "context": "call",
       "confidence": "INFERRED",
       "confidence_score": 0.8,
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L123",
+      "weight": 1.0,
+      "source": "analysis_review_regression_evaluate_block",
+      "target": "analysis_review_filter_non_reviewable_reason"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
       "source_file": "tests/test_ignore_memory.py",
       "source_location": "L75",
       "weight": 1.0,
@@ -28911,6 +29299,17 @@
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "analysis_review_filter_apply_review_filters",
+      "target": "analysis_review_filter_page_non_reviewable_reason"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L232",
+      "weight": 1.0,
+      "source": "analysis_review_regression_run_review_regression",
       "target": "analysis_review_filter_page_non_reviewable_reason"
     },
     {
@@ -29057,6 +29456,17 @@
       "target": "analysis_review_filter_apply_review_filters"
     },
     {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "tests/test_review_filter.py",
+      "source_location": "L120",
+      "weight": 1.0,
+      "source": "tests_test_review_filter_test_technical_reference_blocks_are_auto_ignored",
+      "target": "analysis_review_filter_apply_review_filters"
+    },
+    {
       "relation": "uses",
       "confidence": "INFERRED",
       "source_file": "src/cbz_manga_translator/analysis/review_filter.py",
@@ -29075,6 +29485,797 @@
       "confidence_score": 0.5,
       "source": "src_cbz_manga_translator_analysis_review_filter_py_int",
       "target": "core_models_ocrblock"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L75",
+      "weight": 1.0,
+      "source": "src_cbz_manga_translator_analysis_review_regression_py",
+      "target": "analysis_review_regression_changed_or_reviewed",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L51",
+      "weight": 1.0,
+      "source": "src_cbz_manga_translator_analysis_review_regression_py",
+      "target": "analysis_review_regression_discover_review_projects",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L108",
+      "weight": 1.0,
+      "source": "src_cbz_manga_translator_analysis_review_regression_py",
+      "target": "analysis_review_regression_evaluate_block",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L88",
+      "weight": 1.0,
+      "source": "src_cbz_manga_translator_analysis_review_regression_py",
+      "target": "analysis_review_regression_predict_source",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L93",
+      "weight": 1.0,
+      "source": "src_cbz_manga_translator_analysis_review_regression_py",
+      "target": "analysis_review_regression_predict_translation",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L17",
+      "weight": 1.0,
+      "source": "src_cbz_manga_translator_analysis_review_regression_py",
+      "target": "analysis_review_regression_regressionitem",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L36",
+      "weight": 1.0,
+      "source": "src_cbz_manga_translator_analysis_review_regression_py",
+      "target": "analysis_review_regression_regressionreport",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L212",
+      "weight": 1.0,
+      "source": "src_cbz_manga_translator_analysis_review_regression_py",
+      "target": "analysis_review_regression_run_review_regression",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L97",
+      "weight": 1.0,
+      "source": "src_cbz_manga_translator_analysis_review_regression_py",
+      "target": "analysis_review_regression_source_similarity",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L273",
+      "weight": 1.0,
+      "source": "src_cbz_manga_translator_analysis_review_regression_py",
+      "target": "analysis_review_regression_write_regression_report",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L108",
+      "weight": 1.0,
+      "source": "analysis_review_regression_evaluate_block",
+      "target": "analysis_review_regression_regressionitem",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L8",
+      "weight": 0.8,
+      "source": "analysis_review_regression_regressionitem",
+      "target": "core_cache_projectcache",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L9",
+      "weight": 0.8,
+      "source": "analysis_review_regression_regressionitem",
+      "target": "core_models_ocrblock",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L13",
+      "weight": 0.8,
+      "source": "analysis_review_regression_regressionitem",
+      "target": "translate_english_dialogue_normalizer_englishdialoguenormalizer",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L8",
+      "weight": 0.8,
+      "source": "analysis_review_regression_regressionreport",
+      "target": "core_cache_projectcache",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L9",
+      "weight": 0.8,
+      "source": "analysis_review_regression_regressionreport",
+      "target": "core_models_ocrblock",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L13",
+      "weight": 0.8,
+      "source": "analysis_review_regression_regressionreport",
+      "target": "translate_english_dialogue_normalizer_englishdialoguenormalizer",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L212",
+      "weight": 1.0,
+      "source": "analysis_review_regression_run_review_regression",
+      "target": "analysis_review_regression_regressionreport",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L273",
+      "weight": 1.0,
+      "source": "analysis_review_regression_write_regression_report",
+      "target": "analysis_review_regression_regressionreport",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "generic_arg",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L51",
+      "weight": 1.0,
+      "source": "analysis_review_regression_discover_review_projects",
+      "target": "src_cbz_manga_translator_analysis_review_regression_py_path",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "generic_arg",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L51",
+      "weight": 1.0,
+      "source": "analysis_review_regression_discover_review_projects",
+      "target": "src_cbz_manga_translator_analysis_review_regression_py_str",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L218",
+      "weight": 1.0,
+      "source": "analysis_review_regression_run_review_regression",
+      "target": "analysis_review_regression_discover_review_projects",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "tests/test_review_regression.py",
+      "source_location": "L154",
+      "weight": 1.0,
+      "source": "tests_test_review_regression_test_discover_review_projects_from_directory",
+      "target": "analysis_review_regression_discover_review_projects"
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L108",
+      "weight": 1.0,
+      "source": "analysis_review_regression_evaluate_block",
+      "target": "src_cbz_manga_translator_analysis_review_regression_py_str",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L88",
+      "weight": 1.0,
+      "source": "analysis_review_regression_predict_source",
+      "target": "src_cbz_manga_translator_analysis_review_regression_py_str",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L93",
+      "weight": 1.0,
+      "source": "analysis_review_regression_predict_translation",
+      "target": "src_cbz_manga_translator_analysis_review_regression_py_str",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "generic_arg",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L212",
+      "weight": 1.0,
+      "source": "analysis_review_regression_run_review_regression",
+      "target": "src_cbz_manga_translator_analysis_review_regression_py_str",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L97",
+      "weight": 1.0,
+      "source": "analysis_review_regression_source_similarity",
+      "target": "src_cbz_manga_translator_analysis_review_regression_py_str",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L273",
+      "weight": 1.0,
+      "source": "analysis_review_regression_write_regression_report",
+      "target": "src_cbz_manga_translator_analysis_review_regression_py_str",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L8",
+      "weight": 0.8,
+      "source": "src_cbz_manga_translator_analysis_review_regression_py_str",
+      "target": "core_cache_projectcache",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L9",
+      "weight": 0.8,
+      "source": "src_cbz_manga_translator_analysis_review_regression_py_str",
+      "target": "core_models_ocrblock",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L13",
+      "weight": 0.8,
+      "source": "src_cbz_manga_translator_analysis_review_regression_py_str",
+      "target": "translate_english_dialogue_normalizer_englishdialoguenormalizer",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L108",
+      "weight": 1.0,
+      "source": "analysis_review_regression_evaluate_block",
+      "target": "src_cbz_manga_translator_analysis_review_regression_py_path",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "generic_arg",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L212",
+      "weight": 1.0,
+      "source": "analysis_review_regression_run_review_regression",
+      "target": "src_cbz_manga_translator_analysis_review_regression_py_path",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "generic_arg",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L273",
+      "weight": 1.0,
+      "source": "analysis_review_regression_write_regression_report",
+      "target": "src_cbz_manga_translator_analysis_review_regression_py_path",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L8",
+      "weight": 0.8,
+      "source": "src_cbz_manga_translator_analysis_review_regression_py_path",
+      "target": "core_cache_projectcache",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L9",
+      "weight": 0.8,
+      "source": "src_cbz_manga_translator_analysis_review_regression_py_path",
+      "target": "core_models_ocrblock",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L13",
+      "weight": 0.8,
+      "source": "src_cbz_manga_translator_analysis_review_regression_py_path",
+      "target": "translate_english_dialogue_normalizer_englishdialoguenormalizer",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L77",
+      "weight": 1.0,
+      "source": "analysis_review_regression_changed_or_reviewed",
+      "target": "review_model_block_source_text"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L83",
+      "weight": 1.0,
+      "source": "analysis_review_regression_changed_or_reviewed",
+      "target": "review_replay_text_similarity"
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L75",
+      "weight": 1.0,
+      "source": "analysis_review_regression_changed_or_reviewed",
+      "target": "src_cbz_manga_translator_analysis_review_regression_py_bool",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L75",
+      "weight": 1.0,
+      "source": "analysis_review_regression_changed_or_reviewed",
+      "target": "src_cbz_manga_translator_analysis_review_regression_py_ocrblock",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L224",
+      "weight": 1.0,
+      "source": "analysis_review_regression_run_review_regression",
+      "target": "analysis_review_regression_changed_or_reviewed",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L108",
+      "weight": 1.0,
+      "source": "analysis_review_regression_evaluate_block",
+      "target": "src_cbz_manga_translator_analysis_review_regression_py_ocrblock",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L8",
+      "weight": 0.8,
+      "source": "src_cbz_manga_translator_analysis_review_regression_py_ocrblock",
+      "target": "core_cache_projectcache",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L9",
+      "weight": 0.8,
+      "source": "src_cbz_manga_translator_analysis_review_regression_py_ocrblock",
+      "target": "core_models_ocrblock",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L13",
+      "weight": 0.8,
+      "source": "src_cbz_manga_translator_analysis_review_regression_py_ocrblock",
+      "target": "translate_english_dialogue_normalizer_englishdialoguenormalizer",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L8",
+      "weight": 0.8,
+      "source": "src_cbz_manga_translator_analysis_review_regression_py_bool",
+      "target": "core_cache_projectcache",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L9",
+      "weight": 0.8,
+      "source": "src_cbz_manga_translator_analysis_review_regression_py_bool",
+      "target": "core_models_ocrblock",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L13",
+      "weight": 0.8,
+      "source": "src_cbz_manga_translator_analysis_review_regression_py_bool",
+      "target": "translate_english_dialogue_normalizer_englishdialoguenormalizer",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L162",
+      "weight": 1.0,
+      "source": "analysis_review_regression_evaluate_block",
+      "target": "analysis_review_regression_predict_source",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L89",
+      "weight": 1.0,
+      "source": "analysis_review_regression_predict_source",
+      "target": "ocr_text_cleanup_normalize_ocr_text_for_translation"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L167",
+      "weight": 1.0,
+      "source": "analysis_review_regression_evaluate_block",
+      "target": "analysis_review_regression_predict_translation",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L164",
+      "weight": 1.0,
+      "source": "analysis_review_regression_evaluate_block",
+      "target": "analysis_review_regression_source_similarity",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L101",
+      "weight": 1.0,
+      "source": "analysis_review_regression_source_similarity",
+      "target": "review_replay_text_similarity"
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L97",
+      "weight": 1.0,
+      "source": "analysis_review_regression_source_similarity",
+      "target": "src_cbz_manga_translator_analysis_review_regression_py_float",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L108",
+      "weight": 1.0,
+      "source": "analysis_review_regression_evaluate_block",
+      "target": "src_cbz_manga_translator_analysis_review_regression_py_float",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L212",
+      "weight": 1.0,
+      "source": "analysis_review_regression_run_review_regression",
+      "target": "src_cbz_manga_translator_analysis_review_regression_py_float",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L8",
+      "weight": 0.8,
+      "source": "src_cbz_manga_translator_analysis_review_regression_py_float",
+      "target": "core_cache_projectcache",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L9",
+      "weight": 0.8,
+      "source": "src_cbz_manga_translator_analysis_review_regression_py_float",
+      "target": "core_models_ocrblock",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L13",
+      "weight": 0.8,
+      "source": "src_cbz_manga_translator_analysis_review_regression_py_float",
+      "target": "translate_english_dialogue_normalizer_englishdialoguenormalizer",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L118",
+      "weight": 1.0,
+      "source": "analysis_review_regression_evaluate_block",
+      "target": "review_model_block_source_text"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L117",
+      "weight": 1.0,
+      "source": "analysis_review_regression_evaluate_block",
+      "target": "review_model_review_decision_for_block"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L163",
+      "weight": 1.0,
+      "source": "analysis_review_regression_evaluate_block",
+      "target": "review_replay_expected_source_is_translation_like"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L173",
+      "weight": 1.0,
+      "source": "analysis_review_regression_evaluate_block",
+      "target": "review_replay_text_similarity"
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L108",
+      "weight": 1.0,
+      "source": "analysis_review_regression_evaluate_block",
+      "target": "src_cbz_manga_translator_analysis_review_regression_py_int",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L226",
+      "weight": 1.0,
+      "source": "analysis_review_regression_run_review_regression",
+      "target": "analysis_review_regression_evaluate_block",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L8",
+      "weight": 0.8,
+      "source": "src_cbz_manga_translator_analysis_review_regression_py_int",
+      "target": "core_cache_projectcache",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L9",
+      "weight": 0.8,
+      "source": "src_cbz_manga_translator_analysis_review_regression_py_int",
+      "target": "core_models_ocrblock",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
+      "source_location": "L13",
+      "weight": 0.8,
+      "source": "src_cbz_manga_translator_analysis_review_regression_py_int",
+      "target": "translate_english_dialogue_normalizer_englishdialoguenormalizer",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "tests/test_review_regression.py",
+      "source_location": "L70",
+      "weight": 1.0,
+      "source": "tests_test_review_regression_test_review_regression_scores_history",
+      "target": "analysis_review_regression_run_review_regression"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "tests/test_review_regression.py",
+      "source_location": "L145",
+      "weight": 1.0,
+      "source": "tests_test_review_regression_test_review_regression_treats_contraction_expansion_as_source_match",
+      "target": "analysis_review_regression_run_review_regression"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "tests/test_review_regression.py",
+      "source_location": "L114",
+      "weight": 1.0,
+      "source": "tests_test_review_regression_test_review_regression_uses_page_context_for_ignored_blocks",
+      "target": "analysis_review_regression_run_review_regression"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "tests/test_review_regression.py",
+      "source_location": "L158",
+      "weight": 1.0,
+      "source": "tests_test_review_regression_test_write_regression_report",
+      "target": "analysis_review_regression_run_review_regression"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "tests/test_review_regression.py",
+      "source_location": "L159",
+      "weight": 1.0,
+      "source": "tests_test_review_regression_test_write_regression_report",
+      "target": "analysis_review_regression_write_regression_report"
     },
     {
       "relation": "contains",
@@ -31392,6 +32593,16 @@
       "confidence_score": 0.5,
       "source": "tests_test_review_refresh_py_path",
       "target": "core_cache_projectcache"
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "tests/test_review_regression.py",
+      "source_location": "L8",
+      "weight": 0.8,
+      "source": "tests_test_review_regression_py_path",
+      "target": "core_cache_projectcache",
+      "confidence_score": 0.5
     },
     {
       "relation": "uses",
@@ -34020,6 +35231,16 @@
     {
       "relation": "uses",
       "confidence": "INFERRED",
+      "source_file": "tests/test_review_regression.py",
+      "source_location": "L9",
+      "weight": 0.8,
+      "source": "tests_test_review_regression_py_path",
+      "target": "core_models_ocrblock",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
       "source_file": "tests/test_review_replay.py",
       "source_location": "L8",
       "weight": 0.8,
@@ -34631,6 +35852,16 @@
     {
       "relation": "uses",
       "confidence": "INFERRED",
+      "source_file": "tests/test_review_regression.py",
+      "source_location": "L9",
+      "weight": 0.8,
+      "source": "tests_test_review_regression_py_path",
+      "target": "core_models_pagerecord",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
       "source_file": "tests/test_review_replay.py",
       "source_location": "L8",
       "weight": 0.8,
@@ -35098,6 +36329,16 @@
       "confidence_score": 0.5,
       "source": "tests_test_review_refresh_py_path",
       "target": "core_models_projectdata"
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "tests/test_review_regression.py",
+      "source_location": "L9",
+      "weight": 0.8,
+      "source": "tests_test_review_regression_py_path",
+      "target": "core_models_projectdata",
+      "confidence_score": 0.5
     },
     {
       "relation": "uses",
@@ -44764,9 +46005,9 @@
       "source_file": "src/cbz_manga_translator/translate/english_dialogue_normalizer.py",
       "source_location": "L743",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "translate_english_dialogue_normalizer_rationale_743",
-      "target": "translate_english_dialogue_normalizer_englishdialoguenormalizer",
-      "confidence_score": 1.0
+      "target": "translate_english_dialogue_normalizer_englishdialoguenormalizer"
     },
     {
       "relation": "calls",
@@ -46325,9 +47566,9 @@
       "source_file": "src/cbz_manga_translator/translate/quality.py",
       "source_location": "L194",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "translate_quality_rationale_194",
-      "target": "translate_quality_translationqualitychecker",
-      "confidence_score": 1.0
+      "target": "translate_quality_translationqualitychecker"
     },
     {
       "relation": "rationale_for",
@@ -49846,9 +51087,9 @@
       "source_file": "tests/test_quality_check.py",
       "source_location": "L223",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_quality_check_py",
-      "target": "tests_test_quality_check_test_quality_allows_french_game_boss_word",
-      "confidence_score": 1.0
+      "target": "tests_test_quality_check_test_quality_allows_french_game_boss_word"
     },
     {
       "relation": "contains",
@@ -50412,6 +51653,16 @@
       "target": "tests_test_review_filter_test_short_dialogue_fragments_are_kept_for_review"
     },
     {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_review_filter.py",
+      "source_location": "L112",
+      "weight": 1.0,
+      "source": "tests_test_review_filter_py",
+      "target": "tests_test_review_filter_test_technical_reference_blocks_are_auto_ignored",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "references",
       "context": "parameter_type",
       "confidence": "EXTRACTED",
@@ -50520,6 +51771,17 @@
       "confidence_score": 1.0,
       "source": "tests_test_review_filter_test_short_dialogue_fragments_are_kept_for_review",
       "target": "tests_test_review_filter_block"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_review_filter.py",
+      "source_location": "L114",
+      "weight": 1.0,
+      "source": "tests_test_review_filter_test_technical_reference_blocks_are_auto_ignored",
+      "target": "tests_test_review_filter_block",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -50872,6 +52134,197 @@
       "confidence_score": 1.0,
       "source": "tests_test_review_refresh_test_refresh_review_project_rules_only_is_default",
       "target": "tests_test_review_refresh_py_path"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_review_regression.py",
+      "source_location": "L13",
+      "weight": 1.0,
+      "source": "tests_test_review_regression_py",
+      "target": "tests_test_review_regression_project",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_review_regression.py",
+      "source_location": "L150",
+      "weight": 1.0,
+      "source": "tests_test_review_regression_py",
+      "target": "tests_test_review_regression_test_discover_review_projects_from_directory",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_review_regression.py",
+      "source_location": "L165",
+      "weight": 1.0,
+      "source": "tests_test_review_regression_py",
+      "target": "tests_test_review_regression_test_review_regression_cli",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_review_regression.py",
+      "source_location": "L67",
+      "weight": 1.0,
+      "source": "tests_test_review_regression_py",
+      "target": "tests_test_review_regression_test_review_regression_scores_history",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_review_regression.py",
+      "source_location": "L119",
+      "weight": 1.0,
+      "source": "tests_test_review_regression_py",
+      "target": "tests_test_review_regression_test_review_regression_treats_contraction_expansion_as_source_match",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_review_regression.py",
+      "source_location": "L80",
+      "weight": 1.0,
+      "source": "tests_test_review_regression_py",
+      "target": "tests_test_review_regression_test_review_regression_uses_page_context_for_ignored_blocks",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_review_regression.py",
+      "source_location": "L157",
+      "weight": 1.0,
+      "source": "tests_test_review_regression_py",
+      "target": "tests_test_review_regression_test_write_regression_report",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_review_regression.py",
+      "source_location": "L13",
+      "weight": 1.0,
+      "source": "tests_test_review_regression_project",
+      "target": "tests_test_review_regression_py_path",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_review_regression.py",
+      "source_location": "L151",
+      "weight": 1.0,
+      "source": "tests_test_review_regression_test_discover_review_projects_from_directory",
+      "target": "tests_test_review_regression_project",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_review_regression.py",
+      "source_location": "L166",
+      "weight": 1.0,
+      "source": "tests_test_review_regression_test_review_regression_cli",
+      "target": "tests_test_review_regression_project",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_review_regression.py",
+      "source_location": "L68",
+      "weight": 1.0,
+      "source": "tests_test_review_regression_test_review_regression_scores_history",
+      "target": "tests_test_review_regression_project",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_review_regression.py",
+      "source_location": "L158",
+      "weight": 1.0,
+      "source": "tests_test_review_regression_test_write_regression_report",
+      "target": "tests_test_review_regression_project",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_review_regression.py",
+      "source_location": "L150",
+      "weight": 1.0,
+      "source": "tests_test_review_regression_test_discover_review_projects_from_directory",
+      "target": "tests_test_review_regression_py_path",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_review_regression.py",
+      "source_location": "L165",
+      "weight": 1.0,
+      "source": "tests_test_review_regression_test_review_regression_cli",
+      "target": "tests_test_review_regression_py_path",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_review_regression.py",
+      "source_location": "L67",
+      "weight": 1.0,
+      "source": "tests_test_review_regression_test_review_regression_scores_history",
+      "target": "tests_test_review_regression_py_path",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_review_regression.py",
+      "source_location": "L119",
+      "weight": 1.0,
+      "source": "tests_test_review_regression_test_review_regression_treats_contraction_expansion_as_source_match",
+      "target": "tests_test_review_regression_py_path",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_review_regression.py",
+      "source_location": "L80",
+      "weight": 1.0,
+      "source": "tests_test_review_regression_test_review_regression_uses_page_context_for_ignored_blocks",
+      "target": "tests_test_review_regression_py_path",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_review_regression.py",
+      "source_location": "L157",
+      "weight": 1.0,
+      "source": "tests_test_review_regression_test_write_regression_report",
+      "target": "tests_test_review_regression_py_path",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -55103,5 +56556,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "3927282e90224f6f0c17ccd8ad0cb53647b816b0"
+  "built_at_commit": "a15abb50b3a47dbe1c7d8da45953dff87981d9be"
 }

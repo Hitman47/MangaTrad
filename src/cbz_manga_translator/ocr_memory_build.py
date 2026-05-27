@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
+from cbz_manga_translator.analysis.review_regression import discover_review_projects
 from cbz_manga_translator.ocr.memory import build_ocr_memory, write_ocr_memory
 
 
@@ -19,9 +20,10 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
 
     statuses = {item.strip() for item in args.statuses.split(",") if item.strip()}
-    memory, metadata = build_ocr_memory(args.projects, statuses=statuses)
+    projects = discover_review_projects(args.projects)
+    memory, metadata = build_ocr_memory(projects, statuses=statuses)
     output = write_ocr_memory(memory, metadata, args.out)
-    print(f"Projets       : {len(args.projects)}")
+    print(f"Projets       : {len(projects)}")
     print(f"Blocs scannes : {metadata['scanned_blocks']}")
     print(f"Blocs appris  : {metadata['eligible_blocks']}")
     print(f"Entrees       : {metadata['entries']}")

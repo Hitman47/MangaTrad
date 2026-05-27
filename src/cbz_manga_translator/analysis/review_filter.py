@@ -11,7 +11,8 @@ _AUTO_WARNING = "auto-ignore: non-dialogue probable"
 
 _SCANLATION_RE = re.compile(
     r"\b("
-    r"mangafox|i?mangareader(?:net)?|hosted\s+at|we\s+take\s+no\s+credit|credit\s+goes|"
+    r"mangafox|i?mangareader(?:net)?|read\s*comic\s*online|free\s+comics|somethingorotherscans|"
+    r"hosted\s+at|we\s+take\s+no\s+credit|take\s+no\s+credit|credit\s*goes|"
     r"appropriate\s+parties|creation\s+editing|scanlation|raws?|translator|"
     r"reader|viewer|upload(?:ed|er)"
     r")\b",
@@ -22,7 +23,9 @@ _TECHNICAL_RE = re.compile(
     r"\b("
     r"phase\s*\d|monument|hive|maximum\s+depth|monument\s+height|"
     r"stab\s+radius|notable\s+hives?|main\s+hall|drift|hall|"
-    r"depth|radius|diameter|height|meters?|kilometers?|km|oom"
+    r"depth|radius|diameter|height|meters?|kilometers?|km|oom|"
+    r"specification|model\s+number|year\s+of\s+deployment|manufacturer|jump\s+unit|"
+    r"\btsfs?\b|operation\s+lucifer|reconnaissance|squadron|regency\s+council"
     r")\b",
     flags=re.IGNORECASE,
 )

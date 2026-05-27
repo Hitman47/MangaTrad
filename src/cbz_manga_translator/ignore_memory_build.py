@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
+from cbz_manga_translator.analysis.review_regression import discover_review_projects
 from cbz_manga_translator.analysis.ignore_memory import build_ignore_memory, write_ignore_memory
 
 
@@ -17,9 +18,10 @@ def main(argv: list[str] | None = None) -> int:
     )
     args = parser.parse_args(argv)
 
-    memory, metadata = build_ignore_memory(args.projects)
+    projects = discover_review_projects(args.projects)
+    memory, metadata = build_ignore_memory(projects)
     output = write_ignore_memory(memory, metadata, args.out)
-    print(f"Projets       : {len(args.projects)}")
+    print(f"Projets       : {len(projects)}")
     print(f"Blocs scannés : {metadata['scanned_blocks']}")
     print(f"Blocs appris  : {metadata['eligible_blocks']}")
     print(f"Entrées       : {metadata['entries']}")
