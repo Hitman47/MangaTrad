@@ -196,6 +196,9 @@ def test_finish_english_validation_ocr_repairs() -> None:
     assert normalize_ocr_text_for_translation('YOUR "Plblic TRANSIT"') == 'YOUR "public TRANSIT"'
     assert normalize_ocr_text_for_translation("MISUN- DER- STAND- INGU") == "misunderstanding"
     assert normalize_ocr_text_for_translation("You REALLY CAME Peek.") == "You REALLY came to peek...?"
+    assert normalize_ocr_text_for_translation("LNBEL!") == "unbelievable!"
+    assert normalize_ocr_text_for_translation("WHAT ON IS THIS PERSON?!") == "what on earth is this person?!"
+    assert normalize_ocr_text_for_translation("COMMERCIAL DRIVER'S License") == "COMMERCIAL driver's license."
 
 
 def test_candidate_quality_prefers_reviewed_font_digit_repairs() -> None:

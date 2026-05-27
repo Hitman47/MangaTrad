@@ -404,3 +404,7 @@ def test_busy_validation_dialogue_overrides() -> None:
     assert peek.override_translation_fr == "Tu es vraiment venue jeter un oeil... ?"
     misunderstanding = EnglishDialogueNormalizer.prepare("IT'S A MISUN- DER- STAND- INGU JUST Now... SOMEONE was")
     assert misunderstanding.override_translation_fr == "C'est un malentendu !! A l'instant... quelqu'un etait..."
+    assert EnglishDialogueNormalizer.prepare("LNBEL!").override_translation_fr == "Incroyable !"
+    person = EnglishDialogueNormalizer.prepare("WHAT ON IS THIS PERSON?!")
+    assert person.corrected_text == "what on earth is this person?!"
+    assert person.override_translation_fr == "C'est quoi, cette personne ?!"

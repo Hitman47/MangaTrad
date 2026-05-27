@@ -58,6 +58,7 @@ _SFX_WORDS = {
     "KACHA",
     "KA CHA",
     "KIDCK",
+    "LIGHTING UP",
     "LUNGE",
     "PINCH",
     "POKE",
