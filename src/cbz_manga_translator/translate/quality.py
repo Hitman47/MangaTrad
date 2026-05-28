@@ -183,6 +183,24 @@ _SAFE_SOURCE_RESIDUE = {
     "cool", "elizabeth", "hardcore", "rock", "service", "boss",
 }
 
+_SEVERE_WARNING_FRAGMENTS = (
+    "traduction vide",
+    "traduction identique",
+    "residu anglais",
+    "rÃ©sidu anglais",
+    "mots anglais restants",
+    "termes source recopi",
+    "peu d'indices de fran",
+    "japonais residuel",
+    "japonais rÃ©siduel",
+    "source probablement non japonaise",
+    "zone/bulle probablement incomplete",
+    "zone trop petite probable",
+    "bulle probablement separee",
+    "fusion probable",
+    "SFX probablement melange",
+)
+
 
 def _copied_source_residue(source: str, translation: str) -> list[str]:
     source_tokens = {token.lower().strip("'") for token in _ASCII_WORD_RE.findall(source) if len(token) >= 4}
@@ -234,6 +252,11 @@ class TranslationQualityChecker:
             return True
         latin_letters = sum(1 for char in text if ("A" <= char <= "Z") or ("a" <= char <= "z"))
         return latin_letters >= 18 and len(ascii_tokens) >= 5
+
+    @staticmethod
+    def is_severe_warning(warning: str) -> bool:
+        normalized = warning.lower()
+        return any(fragment.lower() in normalized for fragment in _SEVERE_WARNING_FRAGMENTS)
 
     def check_block(self, block: OcrBlock, source_lang: SourceLang | None = None) -> list[str]:
         lang = source_lang or block.source_lang
@@ -375,7 +398,15 @@ class TranslationQualityChecker:
             if block.manual_status in {"validated", "ignored"}:
                 block.quality_warnings = []
                 continue
-            block.quality_warnings = self.check_block(block, source_lang=source_lang)
+            preserved = [warning for warning in block.quality_warnings if warning.startswith("preflight:")]
+            block.quality_warnings = []
+            for warning in preserved + self.check_block(block, source_lang=source_lang):
+                if warning not in block.quality_warnings:
+                    block.quality_warnings.append(warning)
             if block.quality_warnings:
                 flagged += 1
+                if block.manual_status == "unchecked" and any(self.is_severe_warning(warning) for warning in block.quality_warnings):
+                    block.manual_status = "review"
+                    if not block.review_notes.strip():
+                        block.review_notes = "[postflight] traduction/source a verifier avant validation"
         return flagged

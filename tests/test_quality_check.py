@@ -39,6 +39,23 @@ def test_quality_checker_apply_persists_warnings() -> None:
     assert project.pages[0].blocks[0].quality_warnings
 
 
+def test_quality_checker_marks_severe_translation_failures_for_review() -> None:
+    block = OcrBlock(
+        id="p0000_b0001",
+        bbox=[1, 2, 3, 4],
+        source_lang="en",
+        ocr_text="I know I have to steal",
+        translation_fr="I know I have to steal",
+        confidence=0.91,
+    )
+
+    count = TranslationQualityChecker().apply([block], source_lang="en")
+
+    assert count == 1
+    assert block.manual_status == "review"
+    assert block.review_notes.startswith("[postflight]")
+
+
 def test_quality_checker_does_not_flag_good_high_confidence_slang_translation() -> None:
     block = OcrBlock(
         id="p0000_b0001",

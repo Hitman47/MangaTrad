@@ -96,34 +96,50 @@ class TranslationMemory:
     entries: dict[str, str]
 
     def lookup(self, source: str) -> str:
-        key = canonical_memory_key(source)
-        exact = self.entries.get(key, "")
-        if exact:
-            return exact
-        return self._lookup_fuzzy(key)
+        keys = {
+            canonical_memory_key(alias)
+            for alias in memory_source_aliases(source)
+        }
+        keys = {key for key in keys if key}
+        for key in sorted(keys, key=len, reverse=True):
+            exact = self.entries.get(key, "")
+            if exact:
+                return exact
+        return self._lookup_fuzzy(keys)
 
-    def _lookup_fuzzy(self, key: str) -> str:
-        if len(key) < 16 or len(self.entries) > 2000:
-            return ""
-        key_tokens = set(re.findall(r"[a-z0-9']+", key))
-        if len(key_tokens) < 3:
+    def _lookup_fuzzy(self, keys: set[str]) -> str:
+        query_keys = {key for key in keys if len(key) >= 12}
+        if not query_keys or len(self.entries) > 5000:
             return ""
         best_value = ""
         best_score = 0.0
+        second_score = 0.0
         for candidate, value in self.entries.items():
-            if abs(len(candidate) - len(key)) > max(12, int(len(key) * 0.25)):
-                continue
             candidate_tokens = set(re.findall(r"[a-z0-9']+", candidate))
             if not candidate_tokens:
                 continue
-            token_overlap = len(key_tokens & candidate_tokens) / max(len(key_tokens), len(candidate_tokens))
-            if token_overlap < 0.72:
-                continue
-            score = SequenceMatcher(None, key, candidate).ratio()
-            if score > best_score:
-                best_score = score
-                best_value = value
-        return best_value if best_score >= 0.94 else ""
+            for key in query_keys:
+                if abs(len(candidate) - len(key)) > max(14, int(len(key) * 0.30)):
+                    continue
+                key_tokens = set(re.findall(r"[a-z0-9']+", key))
+                if len(key_tokens) < 3:
+                    continue
+                token_overlap = len(key_tokens & candidate_tokens) / max(len(key_tokens), len(candidate_tokens))
+                if token_overlap < 0.68:
+                    continue
+                sequence_score = SequenceMatcher(None, key, candidate).ratio()
+                score = (sequence_score * 0.72) + (token_overlap * 0.28)
+                if score > best_score:
+                    second_score = best_score
+                    best_score = score
+                    best_value = value
+                elif score > second_score:
+                    second_score = score
+        if best_score >= 0.96:
+            return best_value
+        if best_score >= 0.90 and (best_score - second_score) >= 0.03:
+            return best_value
+        return ""
 
 
 def _default_memory_candidates() -> list[Path]:

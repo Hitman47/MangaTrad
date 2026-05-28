@@ -230,8 +230,8 @@
     "semantic_hash": ""
   },
   "C:\\temp\\MangaTrad_v0_2_0\\src\\cbz_manga_translator\\ocr\\candidates.py": {
-    "mtime": 1779501080.2074926,
-    "ast_hash": "a409b372e63e1f494afae0145a0ab0c3",
+    "mtime": 1779968462.2005565,
+    "ast_hash": "261ced23b91d28e3a2cba3179dd51b52",
     "semantic_hash": ""
   },
   "C:\\temp\\MangaTrad_v0_2_0\\src\\cbz_manga_translator\\ocr\\easyocr_engine.py": {
@@ -245,8 +245,8 @@
     "semantic_hash": ""
   },
   "C:\\temp\\MangaTrad_v0_2_0\\src\\cbz_manga_translator\\ocr\\fallback_engine.py": {
-    "mtime": 1779873947.7361927,
-    "ast_hash": "5e544f95f60d7997fe2e8c9d0e634048",
+    "mtime": 1779968667.308297,
+    "ast_hash": "733c3be3d22cb60adb34e096c0e7269b",
     "semantic_hash": ""
   },
   "C:\\temp\\MangaTrad_v0_2_0\\src\\cbz_manga_translator\\ocr\\incomplete.py": {
@@ -300,8 +300,8 @@
     "semantic_hash": ""
   },
   "C:\\temp\\MangaTrad_v0_2_0\\src\\cbz_manga_translator\\translate\\argos.py": {
-    "mtime": 1779967087.3656719,
-    "ast_hash": "a05bd8b0e344615b046ca3a8ec141318",
+    "mtime": 1779968169.774107,
+    "ast_hash": "bc32e50d59d774beaf12a6c87e63824c",
     "semantic_hash": ""
   },
   "C:\\temp\\MangaTrad_v0_2_0\\src\\cbz_manga_translator\\translate\\builtin_glossary.py": {
@@ -325,13 +325,13 @@
     "semantic_hash": ""
   },
   "C:\\temp\\MangaTrad_v0_2_0\\src\\cbz_manga_translator\\translate\\memory.py": {
-    "mtime": 1779951124.156141,
-    "ast_hash": "81853847763f2ca50eacbf258b1d32a1",
+    "mtime": 1779968298.8054595,
+    "ast_hash": "5596ac85cf508499022d2b9888e22d2e",
     "semantic_hash": ""
   },
   "C:\\temp\\MangaTrad_v0_2_0\\src\\cbz_manga_translator\\translate\\quality.py": {
-    "mtime": 1779923557.5737123,
-    "ast_hash": "4924d96337824baa087f1f8f80bed1fa",
+    "mtime": 1779968769.4129875,
+    "ast_hash": "6f2237f3b53a28859e81dc1617070a0e",
     "semantic_hash": ""
   },
   "C:\\temp\\MangaTrad_v0_2_0\\src\\cbz_manga_translator\\translate\\__init__.py": {
@@ -445,8 +445,8 @@
     "semantic_hash": ""
   },
   "C:\\temp\\MangaTrad_v0_2_0\\tests\\test_ocr_fallback.py": {
-    "mtime": 1779873983.3170376,
-    "ast_hash": "3e4311ff5e6cead70ec6ceffad0e03ec",
+    "mtime": 1779968695.078379,
+    "ast_hash": "0c35e40224f1610889d02086eedaeb8d",
     "semantic_hash": ""
   },
   "C:\\temp\\MangaTrad_v0_2_0\\tests\\test_ocr_memory.py": {
@@ -465,8 +465,8 @@
     "semantic_hash": ""
   },
   "C:\\temp\\MangaTrad_v0_2_0\\tests\\test_quality_check.py": {
-    "mtime": 1779923740.588631,
-    "ast_hash": "bbc1967a8594641004063bd3662cba98",
+    "mtime": 1779968769.4139936,
+    "ast_hash": "b3dd359e6cc34049a412705c9a5a807e",
     "semantic_hash": ""
   },
   "C:\\temp\\MangaTrad_v0_2_0\\tests\\test_review_app_labels.py": {
@@ -510,8 +510,8 @@
     "semantic_hash": ""
   },
   "C:\\temp\\MangaTrad_v0_2_0\\tests\\test_translation_memory.py": {
-    "mtime": 1779951033.5079243,
-    "ast_hash": "6b93a8935e06c58997f7a683deb1a734",
+    "mtime": 1779968298.8054595,
+    "ast_hash": "3c5d94cbb21a6425c996863232209457",
     "semantic_hash": ""
   },
   "C:\\temp\\MangaTrad_v0_2_0\\AGENTS.md": {
@@ -657,6 +657,31 @@
   "C:\\temp\\MangaTrad_v0_2_0\\tests\\test_review_regression.py": {
     "mtime": 1779925579.9952576,
     "ast_hash": "6c909d0f523ff64ed0d0be29c64d65bb",
+    "semantic_hash": ""
+  },
+  "C:\\temp\\MangaTrad_v0_2_0\\src\\cbz_manga_translator\\ocr\\punctuation.py": {
+    "mtime": 1779968643.4224093,
+    "ast_hash": "c0952cec5b5088f0871580a6d09a722b",
+    "semantic_hash": ""
+  },
+  "C:\\temp\\MangaTrad_v0_2_0\\src\\cbz_manga_translator\\translate\\source_quality_gate.py": {
+    "mtime": 1779968169.7731092,
+    "ast_hash": "85605e576ae6adf330409197174fc95c",
+    "semantic_hash": ""
+  },
+  "C:\\temp\\MangaTrad_v0_2_0\\tests\\test_hard_regression_set.py": {
+    "mtime": 1779968837.4724932,
+    "ast_hash": "d30caa72d4ed280c3947a17d600ea645",
+    "semantic_hash": ""
+  },
+  "C:\\temp\\MangaTrad_v0_2_0\\tests\\test_punctuation_detector.py": {
+    "mtime": 1779968684.296003,
+    "ast_hash": "4ed2d6405df822143401e590a04ae220",
+    "semantic_hash": ""
+  },
+  "C:\\temp\\MangaTrad_v0_2_0\\tests\\test_source_quality_gate.py": {
+    "mtime": 1779968203.7106414,
+    "ast_hash": "c563ed7817b6dd9d54e52b1c7e36b7e8",
     "semantic_hash": ""
   }
 }

@@ -11,6 +11,7 @@ from cbz_manga_translator.core.models import OcrBlock, SourceLang
 from cbz_manga_translator.ocr.text_cleanup import normalize_ocr_text_for_translation
 from cbz_manga_translator.translate.builtin_glossary import BUILTIN_MANGA_GLOSSARY
 from cbz_manga_translator.translate.english_dialogue_normalizer import EnglishDialogueNormalizer
+from cbz_manga_translator.translate.source_quality_gate import SourceQualityGate
 
 _SPACE_BEFORE_PUNCT_RE = re.compile(r"\s+([,.;:!?])")
 _WORD_CHARS_RE = re.compile(r"[A-Za-z0-9]")
@@ -59,6 +60,7 @@ class ArgosTranslator:
 
     def __init__(self) -> None:
         self._translation_cache: dict[tuple[str, str, bool], Any] = {}
+        self._source_quality_gate = SourceQualityGate()
 
     @staticmethod
     def cuda_available() -> bool:
@@ -436,6 +438,12 @@ class ArgosTranslator:
         return (block.normalized_source_text or block.ocr_corrected_text or block.ocr_text).strip()
 
     @staticmethod
+    def _append_quality_warnings(block: OcrBlock, warnings: list[str]) -> None:
+        for warning in warnings:
+            if warning not in block.quality_warnings:
+                block.quality_warnings.append(warning)
+
+    @staticmethod
     def _should_skip_ja_translation(block: OcrBlock, source_text: str) -> bool:
         compact = "".join(source_text.split())
         if not compact:
@@ -533,6 +541,23 @@ class ArgosTranslator:
         chain: list[Any] | None = None
         active_gpu = use_gpu
         for block, prepared in zip(targets, prepared_texts, strict=True):
+            gate = self._source_quality_gate.evaluate(
+                block,
+                source_lang,
+                raw_source_text=block.ocr_text,
+                normalized_source_text=prepared.normalized_source_text,
+            )
+            self._append_quality_warnings(block, gate.warnings)
+            if not gate.should_translate and not prepared.override_translation_fr:
+                block.ocr_corrected_text = prepared.corrected_text
+                block.normalized_source_text = prepared.normalized_source_text
+                block.raw_translation_fr = ""
+                block.translation_fr = ""
+                if block.manual_status == "unchecked":
+                    block.manual_status = "review"
+                if not block.review_notes.strip():
+                    block.review_notes = "[preflight] source incertaine: relire zone/ponctuation avant traduction"
+                continue
             if prepared.override_translation_fr:
                 restored_raw = prepared.override_translation_fr
             else:

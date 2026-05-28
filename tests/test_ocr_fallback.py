@@ -16,6 +16,20 @@ def test_candidate_quality_penalizes_known_bad_ocr_token() -> None:
     assert good > bad
 
 
+def test_candidate_quality_prefers_complete_punctuated_bubble() -> None:
+    incomplete = candidate_quality("ISN'T THAT WHAT A MAN'S ROMANCE IS", 0.92)
+    complete = candidate_quality("ISN'T THAT WHAT A MAN'S ROMANCE IS ABOUT!!!", 0.86)
+
+    assert complete > incomplete
+
+
+def test_candidate_quality_penalizes_raw_digit_letter_confusions() -> None:
+    bad = candidate_quality("Bi6 news!", 0.88)
+    good = candidate_quality("Big news!", 0.88)
+
+    assert good > bad
+
+
 def test_block_serializes_ocr_alternatives() -> None:
     block = OcrBlock(
         id="p0001_b0002",
@@ -118,3 +132,38 @@ def test_fallback_rerank_demotes_overwide_zone_candidates() -> None:
 
     assert ranked[0].text == "I've WAITED SN For Too"
     assert "crop trop large" in ranked[-1].note
+
+
+def test_collect_candidates_adds_visual_punctuation_candidate(tmp_path) -> None:
+    from PIL import Image, ImageDraw
+
+    image_path = tmp_path / "page.png"
+    image = Image.new("L", (80, 40), "white")
+    draw = ImageDraw.Draw(image)
+    for x in (46, 54, 62):
+        draw.ellipse((x, 28, x + 3, 31), fill="black")
+    image.save(image_path)
+    block = OcrBlock(
+        id="p0000_b0001",
+        bbox=[0, 0, 80, 40],
+        source_lang="en",
+        ocr_text="SO Why",
+        confidence=0.90,
+    )
+
+    class DummyEasyOcr:
+        def _reader(self, source_lang: str, use_gpu: bool):  # pragma: no cover - should not be reached successfully
+            raise RuntimeError("no EasyOCR in unit test")
+
+    engine = OcrFallbackEngine(easyocr_engine=DummyEasyOcr())  # type: ignore[arg-type]
+
+    candidates = engine.collect_candidates(
+        image_path,
+        block,
+        "en",
+        use_gpu=False,
+        min_confidence=0.20,
+        include_optional_engines=False,
+    )
+
+    assert any(candidate.engine == "punctuation-detector" and candidate.text == "SO Why..." for candidate in candidates)

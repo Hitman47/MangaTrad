@@ -157,6 +157,30 @@ def test_memory_fuzzy_lookup_tolerates_small_ocr_noise() -> None:
     assert memory.lookup("Jst who DO You Think I AM? I am Sonic Sodom, Yknow!") == "Mais pour qui me prends-tu ?"
 
 
+def test_memory_lookup_uses_current_ocr_aliases_before_fuzzy_match() -> None:
+    memory = TranslationMemory(
+        {
+            "who gives a damn about having a perfectly accurate setup!?": "Qui se soucie d'avoir une configuration parfaite ?",
+        }
+    )
+
+    assert (
+        memory.lookup("Who 6ives A RARN About HAVING A Perfectly Accurte Setupi?")
+        == "Qui se soucie d'avoir une configuration parfaite ?"
+    )
+
+
+def test_memory_fuzzy_lookup_rejects_ambiguous_near_tie() -> None:
+    memory = TranslationMemory(
+        {
+            "i will protect the saint as the earth knight": "Je protegerai la sainte comme chevalier de la terre.",
+            "i will protect the king as the earth knight": "Je protegerai le roi comme chevalier de la terre.",
+        }
+    )
+
+    assert memory.lookup("I will protect the thing as the earth knight") == ""
+
+
 def test_memory_source_aliases_follow_current_ocr_repairs() -> None:
     aliases = {canonical_memory_key(alias) for alias in memory_source_aliases("THINK About I, AN UNAPMED GIRL, IN A PLACE Like This. a.")}
 

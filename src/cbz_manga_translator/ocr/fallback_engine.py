@@ -9,6 +9,7 @@ from cbz_manga_translator.ocr.candidates import OcrCandidate, bad_ocr_tokens, ca
 from cbz_manga_translator.ocr.easyocr_engine import EasyOcrEngine
 from cbz_manga_translator.ocr.incomplete import is_probably_fused_source, is_probably_incomplete_source, zone_issue_categories
 from cbz_manga_translator.ocr.paddleocr_engine import PaddleOcrEngine
+from cbz_manga_translator.ocr.punctuation import apply_punctuation_hints, detect_visual_punctuation_hints
 from cbz_manga_translator.ocr.tesseract_engine import TesseractOcrEngine
 from cbz_manga_translator.ocr.text_cleanup import normalize_ocr_text_for_translation
 
@@ -250,6 +251,21 @@ class OcrFallbackEngine:
                     note="corrections locales d'erreurs OCR fréquentes",
                 )
             )
+
+        if source_lang == "en":
+            punctuation_hints = detect_visual_punctuation_hints(image_path, block)
+            punctuated = apply_punctuation_hints(corrected or block.ocr_text, punctuation_hints)
+            if punctuated and punctuated != (corrected or block.ocr_text):
+                hint_note = ", ".join(f"{hint.mark} {hint.confidence:.2f}" for hint in punctuation_hints)
+                candidates.append(
+                    OcrCandidate(
+                        engine="punctuation-detector",
+                        text=punctuated,
+                        confidence=block.confidence,
+                        score=self.candidate_quality(punctuated, block.confidence, bonus=0.80),
+                        note=f"ponctuation visuelle: {hint_note}",
+                    )
+                )
 
         candidates.extend(
             self._easyocr_crop_candidates(

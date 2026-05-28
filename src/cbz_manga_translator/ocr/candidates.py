@@ -4,6 +4,7 @@ import re
 from dataclasses import asdict, dataclass
 from typing import Any
 
+from cbz_manga_translator.ocr.incomplete import zone_issue_categories
 from cbz_manga_translator.ocr.text_cleanup import has_random_ocr_casing, normalize_ocr_text_for_translation
 
 _BAD_OCR_TOKENS = {
@@ -58,6 +59,11 @@ _COMMON_ENGLISH_WORDS = {
 }
 
 _RAW_BAD_OCR_RE = re.compile(r"\b(?:houps|b0dy|tholsand|entipe|etire|sevenn)\b", flags=re.IGNORECASE)
+_QUESTION_START_RE = re.compile(
+    r"^\s*(?:what|why|how|where|when|who|is|are|do|did|does|can|could|would|should|will)\b",
+    flags=re.IGNORECASE,
+)
+_TERMINAL_PUNCT_RE = re.compile(r"[.!?][\"')\]]?$")
 _WORD_RE = re.compile(r"[A-Za-zÀ-ÖØ-öø-ÿぁ-んァ-ン一-龯々ー']+")
 _LETTER_RE = re.compile(r"[A-Za-zÀ-ÖØ-öø-ÿぁ-んァ-ン一-龯々]")
 
@@ -98,11 +104,25 @@ def candidate_quality(text: str, confidence: float | None = None, *, bonus: floa
     semicolon_penalty = str(text).count(";") * 0.70
     random_case_penalty = 1.15 if has_random_ocr_casing(str(text)) else 0.0
     weird_symbol_penalty = sum(compact.count(char) for char in "|_{}[]<>") * 0.65
+    raw_digit_letter_penalty = len(re.findall(r"[A-Za-z]+[0-9]+|[0-9]+[A-Za-z]+|[$]", str(text))) * 0.85
     orphan_fragment_penalty = 1.25 if len(words) == 1 and compact.endswith(":") else 0.0
+    categories = set(zone_issue_categories(compact))
+    zone_penalty = 0.0
+    if "zone_too_small" in categories:
+        zone_penalty += 1.1
+    if "split_bubble" in categories:
+        zone_penalty += 1.1
+    if "sfx_mixed" in categories:
+        zone_penalty += 1.4
+    if "fused_bubble" in categories:
+        zone_penalty += 1.3
     dictionary_hits = sum(1 for token in lower_words if token in _COMMON_ENGLISH_WORDS)
     dictionary_bonus = min(2.2, dictionary_hits * 0.22)
     all_caps_bonus = 0.18 if compact.upper() == compact and len(words) >= 2 else 0.0
     sentence_bonus = 0.55 if len(words) >= 3 else 0.0
+    terminal_bonus = 0.45 if len(words) >= 3 and _TERMINAL_PUNCT_RE.search(compact) else 0.0
+    question_bonus = 0.55 if _QUESTION_START_RE.search(compact) and "?" in compact else 0.0
+    ellipsis_bonus = 0.35 if "..." in compact else 0.0
     conf = 0.0 if confidence is None else max(0.0, min(1.0, confidence))
     return (
         min(len(letters), 120) * 0.065
@@ -110,6 +130,9 @@ def candidate_quality(text: str, confidence: float | None = None, *, bonus: floa
         + conf * 2.0
         + all_caps_bonus
         + sentence_bonus
+        + terminal_bonus
+        + question_bonus
+        + ellipsis_bonus
         + dictionary_bonus
         + bonus
         - bad_token_penalty
@@ -117,7 +140,9 @@ def candidate_quality(text: str, confidence: float | None = None, *, bonus: floa
         - semicolon_penalty
         - random_case_penalty
         - weird_symbol_penalty
+        - raw_digit_letter_penalty
         - orphan_fragment_penalty
+        - zone_penalty
     )
 
 
