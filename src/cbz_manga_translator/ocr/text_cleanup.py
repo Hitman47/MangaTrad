@@ -215,6 +215,7 @@ _COMMON_OCR_WORD_FIXES: tuple[tuple[re.Pattern[str], str], ...] = (
     (re.compile(r"\bRlnaway\b", flags=re.IGNORECASE), "Runaway"),
     (re.compile(r"\bbandis\b", flags=re.IGNORECASE), "bandits"),
     (re.compile(r"\bThepe\b", flags=re.IGNORECASE), "There"),
+    (re.compile(r"\beviil\b", flags=re.IGNORECASE), "evil"),
     (re.compile(r"\bSecl\b", flags=re.IGNORECASE), "sec!"),
     (re.compile(r"\bPepson\b", flags=re.IGNORECASE), "Person"),
     (re.compile(r"\bLoks\b", flags=re.IGNORECASE), "Looks"),
@@ -326,6 +327,24 @@ _CONTEXTUAL_OCR_FIXES: tuple[tuple[re.Pattern[str], str], ...] = (
     (re.compile(r"^WO\s+shouldn't\b", flags=re.IGNORECASE), "We shouldn't"),
     (re.compile(r"\bremem\s+ber\b", flags=re.IGNORECASE), "remember"),
     (re.compile(r"\bIhave\b", flags=re.IGNORECASE), "I have"),
+    (re.compile(r"^It(?:'s|strynng)\s+(?:trying\s+)?To\s+eliminate\s+Elizabeth[.]$", flags=re.IGNORECASE), "It's trying To eliminate Elizabeth..."),
+    (re.compile(r"^Nopel\s+Bi6\s+Nopel$", flags=re.IGNORECASE), "Nope! Big Nope!"),
+    (re.compile(r"^Mylung\s+CAPACITY$", flags=re.IGNORECASE), "...My lung capacity"),
+    (re.compile(r"^Shes\s+NOT\s+HURT\s+AT\s+ALL$", flags=re.IGNORECASE), "shes not hurt at all!"),
+    (re.compile(r"^THAT\s+SHOULD\s+HURT$", flags=re.IGNORECASE), "that should hurt..."),
+    (
+        re.compile(r"^W-?WAIT[?]\s+NOT\s+EVEN\s+HER\s+CLOTHES\s+ARE\s+DAMAGED['`]?$", flags=re.IGNORECASE),
+        "w-wait! not even her clothes are damaged!",
+    ),
+    (re.compile(r"^Did\s+She\s+use\s+A\s+REFLECTION\s+SPELL[?]{2}$", flags=re.IGNORECASE), "Did She use A REFLECTION SPELL?!"),
+    (
+        re.compile(r"^there(?:'|\u2019)?s\s+And\s+of\s+bunch\s+tool\s+them,\s*$", flags=re.IGNORECASE),
+        "and there's a bunch of them, too!",
+    ),
+    (
+        re.compile(r"^TCH\s+OUR\s+Next\s+foes\s+Are\s+(?:eviil|evil)\s+SPIRITS[?]$", flags=re.IGNORECASE),
+        "TCH! OUR Next foes Are evil SPIRITS!",
+    ),
 )
 
 

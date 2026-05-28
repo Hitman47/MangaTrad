@@ -28,6 +28,11 @@ _SHORT_ZONE_RE = re.compile(
     r"but our solrces say that|but our sources say that|i'm counting on|i am counting on)\b",
     flags=re.IGNORECASE,
 )
+_SHORT_FRAGMENT_RE = re.compile(
+    r"^\s*(?:merely\s+used|that\s+should\s+hurt|my\s+lung\s+capacity|"
+    r"the\s+anomaly\s+who\s+has\s+derailed\s+the\s+plot)\.?\s*$",
+    flags=re.IGNORECASE,
+)
 _SFX_MIX_RE = re.compile(
     r"\b(?:whisper|sob|shock|jaka|sfx|bam|bang|boom|thud|clap|rustle|slam|tap|tch|"
     r"jolt|gasp|slap|wobble|yawn|fidget|twitch|fwooo|woosh|crash|nod|scribble|krehble|krembue|"
@@ -53,6 +58,8 @@ def is_probably_incomplete_source(text: str) -> bool:
         return False
     if _SHORT_ZONE_RE.search(source):
         return True
+    if _SHORT_FRAGMENT_RE.search(source):
+        return True
     if source.endswith((",", ":", ";")) and len(words) >= 3:
         return True
     if source.startswith("...") or source.startswith(". "):
@@ -75,6 +82,8 @@ def is_probably_too_small_zone(text: str) -> bool:
     if len(words) < 2:
         return False
     if _SHORT_ZONE_RE.search(source):
+        return True
+    if _SHORT_FRAGMENT_RE.search(source):
         return True
     if source.endswith((",", ":", ";")) and len(words) >= 2:
         return True

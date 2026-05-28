@@ -433,9 +433,9 @@ def test_new_busy_review_batch_overrides() -> None:
     assert funeral.override_translation_fr == "Le service funebre !"
 
     eliminate = EnglishDialogueNormalizer.prepare("It'strynng To eliminate Elizabeth.")
-    assert eliminate.corrected_text == "It's trying To eliminate Elizabeth."
-    assert eliminate.normalized_text == "it is trying to eliminate Elizabeth."
-    assert eliminate.override_translation_fr == "Il essaie d'eliminer Elizabeth."
+    assert eliminate.corrected_text == "It's trying To eliminate Elizabeth..."
+    assert eliminate.normalized_text == "it is trying to eliminate Elizabeth..."
+    assert eliminate.override_translation_fr == "Il essaie d'eliminer Elizabeth..."
 
     this_is = EnglishDialogueNormalizer.prepare("THIS IS.")
     assert this_is.normalized_text == "this is..."
@@ -469,7 +469,36 @@ def test_wish_villainess_common_ocr_repairs() -> None:
     assert favor.override_translation_fr == "Je suppose que je devrais te rendre la pareille."
 
     reflection = EnglishDialogueNormalizer.prepare("Did She use A REFLECTION SPELL??")
-    assert reflection.normalized_text == "did she use a reflection spell??"
-    assert reflection.override_translation_fr == "Est-ce qu'elle a utilise un sort de reflexion ?"
+    assert reflection.corrected_text == "Did She use A REFLECTION SPELL?!"
+    assert reflection.normalized_text == "did she use a reflection spell?!"
+    assert reflection.override_translation_fr == "Est-ce qu'elle a utilise un sort de reflexion ?!"
 
-    assert EnglishDialogueNormalizer.prepare("Mylung CAPACITY").override_translation_fr == "Ma capacite pulmonaire"
+    lung = EnglishDialogueNormalizer.prepare("Mylung CAPACITY")
+    assert lung.corrected_text == "...My lung capacity"
+    assert lung.override_translation_fr == "...Ma capacite pulmonaire"
+
+
+def test_wish_villainess_latest_punctuation_and_zone_repairs() -> None:
+    nope = EnglishDialogueNormalizer.prepare("Nopel Bi6 Nopel")
+    assert nope.corrected_text == "Nope! Big Nope!"
+    assert nope.override_translation_fr == "Non ! Absolument pas !"
+
+    hurt = EnglishDialogueNormalizer.prepare("Shes NOT HURT AT ALL")
+    assert hurt.corrected_text == "shes not hurt at all!"
+    assert hurt.override_translation_fr == "elle n'est pas blessee du tout!"
+
+    should_hurt = EnglishDialogueNormalizer.prepare("THAT SHOULD HURT")
+    assert should_hurt.corrected_text == "that should hurt..."
+    assert should_hurt.override_translation_fr == "ca doit faire mal..."
+
+    wait = EnglishDialogueNormalizer.prepare("W-WAIT? NOT EVEN HER CLOTHES ARE DAMAGED'")
+    assert wait.corrected_text == "w-wait! not even her clothes are damaged!"
+    assert wait.override_translation_fr == "Attendez! Meme ses vetements ne sont pas endommages!"
+
+    bunch = EnglishDialogueNormalizer.prepare("there's And of bunch tool them,")
+    assert bunch.corrected_text == "and there's a bunch of them, too!"
+    assert bunch.override_translation_fr == "et il y en a plein, en plus !"
+
+    spirits = EnglishDialogueNormalizer.prepare("TCH OUR Next foes Are eviil SPIRITS?")
+    assert spirits.corrected_text == "TCH! OUR Next foes Are evil SPIRITS!"
+    assert spirits.override_translation_fr == "TCH ! Nos prochains adversaires sont des esprits malefiques !"

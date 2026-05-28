@@ -42,6 +42,9 @@ def test_zone_issue_categories_are_specific() -> None:
     assert "zone_too_small" in zone_issue_categories("WAIT A SEC, You guys")
     assert "split_bubble" in zone_issue_categories("...after me?!")
     assert "zone_too_small" in zone_issue_categories("ISN'T THAT WHAT A MAN'S ROMANCE IS")
+    assert "zone_too_small" in zone_issue_categories("MERELY USED.")
+    assert "zone_too_small" in zone_issue_categories("that should hurt")
+    assert "zone_too_small" in zone_issue_categories("My lung capacity")
     assert "sfx_mixed" in zone_issue_categories("Krehble 4h, Seriously? You MEAN THAT? Krembue")
     warnings = zone_quality_warnings("...after me?!")
     assert SPLIT_BUBBLE_WARNING in warnings

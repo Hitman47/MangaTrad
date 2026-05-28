@@ -121,7 +121,7 @@ def test_fast_ten_batch_reviewed_ocr_examples() -> None:
     assert normalize_ocr_text_for_translation("MAID UNI- FORMG") == "maid uniform"
     assert normalize_ocr_text_for_translation("WO Sholldnt Even Be Here To Begin Withi") == "We shouldn't Even Be Here To Begin with!"
     assert normalize_ocr_text_for_translation("The ANOMALY Who has Derailed The plotl") == "The ANOMALY Who has Derailed The plot!"
-    assert normalize_ocr_text_for_translation("It'strynng To eliminate Elizabeth.") == "It's trying To eliminate Elizabeth."
+    assert normalize_ocr_text_for_translation("It'strynng To eliminate Elizabeth.") == "It's trying To eliminate Elizabeth..."
     assert normalize_ocr_text_for_translation("AND For THAT You SHALL Die AJTHOUSAND DEATHS!") == "AND For THAT You SHALL Die a thousand DEATHS!"
     assert normalize_ocr_text_for_translation("The FLNERAL SERVICEWW!") == "The FUNERAL SERVICE!!"
 
@@ -207,6 +207,17 @@ def test_finish_english_validation_ocr_repairs() -> None:
     assert normalize_ocr_text_for_translation("COMMERCIAL DRIVER'S License") == "COMMERCIAL driver's license."
     assert normalize_ocr_text_for_translation("(OOL!") == "SO COOL!"
     assert normalize_ocr_text_for_translation("Hlh?") == "huh?"
+
+
+def test_wish_villainess_latest_punctuation_repairs() -> None:
+    assert normalize_ocr_text_for_translation("Nopel Bi6 Nopel") == "Nope! Big Nope!"
+    assert normalize_ocr_text_for_translation("Shes NOT HURT AT ALL") == "shes not hurt at all!"
+    assert normalize_ocr_text_for_translation("THAT SHOULD HURT") == "that should hurt..."
+    assert normalize_ocr_text_for_translation("W-WAIT? NOT EVEN HER CLOTHES ARE DAMAGED'") == "w-wait! not even her clothes are damaged!"
+    assert normalize_ocr_text_for_translation("Did She use A REFLECTION SPELL??") == "Did She use A REFLECTION SPELL?!"
+    assert normalize_ocr_text_for_translation("Mylung CAPACITY") == "...My lung capacity"
+    assert normalize_ocr_text_for_translation("there's And of bunch tool them,") == "and there's a bunch of them, too!"
+    assert normalize_ocr_text_for_translation("TCH OUR Next foes Are eviil SPIRITS?") == "TCH! OUR Next foes Are evil SPIRITS!"
 
 
 def test_candidate_quality_prefers_reviewed_font_digit_repairs() -> None:
