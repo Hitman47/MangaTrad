@@ -60,7 +60,7 @@ hr { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
 <div class="container">
 
 <h1>MangaTrad_v0_2_0 — Complete Call Flow &amp; Architecture Documentation</h1>
-<p class="subtitle">Generated from graphify knowledge graph: 1670 nodes, 4003 edges, 111 communities. Commit: ee25f39</p>
+<p class="subtitle">Generated from graphify knowledge graph: 1676 nodes, 4009 edges, 113 communities. Commit: 26c9915</p>
 
 <div class="nav">
     <a href="#overview">Architecture Overview</a>
@@ -73,11 +73,11 @@ hr { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
     <a href="#security-global">Security &amp; Global Graph</a>
     <a href="#tests-fixtures">Tests &amp; Fixtures</a>
     <a href="#community-15">Community 15</a>
-    <a href="#community-108">Community 108</a>
     <a href="#community-40">Community 40</a>
     <a href="#community-45">Community 45</a>
     <a href="#community-46">Community 46</a>
     <a href="#community-47">Community 47</a>
+    <a href="#community-49">Community 49</a>
     <a href="#other">Other</a>
 </div>
 
@@ -92,13 +92,13 @@ flowchart LR
     class EXTRACT_PIPELINE_5F350230 module;
     BUILD_GRAPH_321CBB04("Graph Build<br/><small>43 nodes</small>")
     class BUILD_GRAPH_321CBB04 module;
-    ANALYSIS_CLUSTERING_C79796DA("Analysis &amp; Clustering<br/><small>122 nodes</small>")
+    ANALYSIS_CLUSTERING_C79796DA("Analysis &amp; Clustering<br/><small>103 nodes</small>")
     class ANALYSIS_CLUSTERING_C79796DA module;
-    OUTPUTS_DOCS_ED82387C("Outputs &amp; Docs<br/><small>68 nodes</small>")
+    OUTPUTS_DOCS_ED82387C("Outputs &amp; Docs<br/><small>70 nodes</small>")
     class OUTPUTS_DOCS_ED82387C module;
     CLI_SKILLS_9964CBB8("CLI &amp; Skill Installers<br/><small>144 nodes</small>")
     class CLI_SKILLS_9964CBB8 module;
-    INGEST_CACHE_UPDATE_FF457338("Ingestion &amp; Updates<br/><small>8 nodes</small>")
+    INGEST_CACHE_UPDATE_FF457338("Ingestion &amp; Updates<br/><small>51 nodes</small>")
     class INGEST_CACHE_UPDATE_FF457338 module;
     SECURITY_GLOBAL_5B9C6A04("Security &amp; Global Graph<br/><small>18 nodes</small>")
     class SECURITY_GLOBAL_5B9C6A04 module;
@@ -106,8 +106,6 @@ flowchart LR
     class TESTS_FIXTURES_B84B1DCC module;
     COMMUNITY_15_4BECAAD7("Community 15<br/><small>32 nodes</small>")
     class COMMUNITY_15_4BECAAD7 module;
-    COMMUNITY_108_E68F821E("Community 108<br/><small>30 nodes</small>")
-    class COMMUNITY_108_E68F821E module;
     COMMUNITY_40_94BC4235("Community 40<br/><small>13 nodes</small>")
     class COMMUNITY_40_94BC4235 module;
     COMMUNITY_45_E4978FE7("Community 45<br/><small>11 nodes</small>")
@@ -116,20 +114,22 @@ flowchart LR
     class COMMUNITY_46_B899AE41 module;
     COMMUNITY_47_59D66A55("Community 47<br/><small>10 nodes</small>")
     class COMMUNITY_47_59D66A55 module;
-    OTHER_D0941E68("Other<br/><small>89 nodes</small>")
+    COMMUNITY_49_2104F0AE("Community 49<br/><small>9 nodes</small>")
+    class COMMUNITY_49_2104F0AE module;
+    OTHER_D0941E68("Other<br/><small>90 nodes</small>")
     class OTHER_D0941E68 module;
-    COMMUNITY_108_E68F821E -->|references x20| TESTS_FIXTURES_B84B1DCC
-    TESTS_FIXTURES_B84B1DCC -->|references x12| COMMUNITY_108_E68F821E
     EXTRACT_PIPELINE_5F350230 -->|contains x10| OTHER_D0941E68
-    COMMUNITY_108_E68F821E -->|method x9| ANALYSIS_CLUSTERING_C79796DA
-    ANALYSIS_CLUSTERING_C79796DA -->|references x8| COMMUNITY_108_E68F821E
     OUTPUTS_DOCS_ED82387C -->|references x8| TESTS_FIXTURES_B84B1DCC
-    TESTS_FIXTURES_B84B1DCC -->|method x6| ANALYSIS_CLUSTERING_C79796DA
-    COMMUNITY_108_E68F821E -->|method x5| BUILD_GRAPH_321CBB04
-    ANALYSIS_CLUSTERING_C79796DA -->|contains x4| TESTS_FIXTURES_B84B1DCC
-    COMMUNITY_108_E68F821E -->|method x4| CLI_SKILLS_9964CBB8
-    TESTS_FIXTURES_B84B1DCC -->|references| OUTPUTS_DOCS_ED82387C
-    INGEST_CACHE_UPDATE_FF457338 -->|contains| TESTS_FIXTURES_B84B1DCC
+    INGEST_CACHE_UPDATE_FF457338 -->|contains x6| TESTS_FIXTURES_B84B1DCC
+    TESTS_FIXTURES_B84B1DCC -->|references x6| INGEST_CACHE_UPDATE_FF457338
+    TESTS_FIXTURES_B84B1DCC -->|method x5| BUILD_GRAPH_321CBB04
+    TESTS_FIXTURES_B84B1DCC -->|method x4| OTHER_D0941E68
+    ANALYSIS_CLUSTERING_C79796DA -->|method x4| TESTS_FIXTURES_B84B1DCC
+    ANALYSIS_CLUSTERING_C79796DA -->|method x4| CLI_SKILLS_9964CBB8
+    INGEST_CACHE_UPDATE_FF457338 -->|references x3| ANALYSIS_CLUSTERING_C79796DA
+    ANALYSIS_CLUSTERING_C79796DA -->|references x2| INGEST_CACHE_UPDATE_FF457338
+    TESTS_FIXTURES_B84B1DCC -->|contains x2| ANALYSIS_CLUSTERING_C79796DA
+    OTHER_D0941E68 -->|references| TESTS_FIXTURES_B84B1DCC
     classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
     classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
     classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
@@ -146,20 +146,20 @@ flowchart LR
     <h4>Architecture Layers</h4>
     <table style="width:100%;font-size:0.85rem;">
       <tr><th>Layer</th><th>Nodes</th><th>Communities</th></tr>
-      <tr><td>Extraction Pipeline</td><td>117</td><td><code>27, 28, 32, 33, 36, 42, 57, 64, 65, 71, 74</code></td></tr><tr><td>Graph Build</td><td>43</td><td><code>10, 67</code></td></tr><tr><td>Analysis &amp; Clustering</td><td>122</td><td><code>2, 14, 20, 55</code></td></tr><tr><td>Outputs &amp; Docs</td><td>68</td><td><code>8, 44, 48, 72</code></td></tr><tr><td>CLI &amp; Skill Installers</td><td>144</td><td><code>5, 24, 30, 34, 41, 56, 60, 61, 62, 68, 69</code></td></tr><tr><td>Ingestion &amp; Updates</td><td>8</td><td><code>52</code></td></tr><tr><td>Security &amp; Global Graph</td><td>18</td><td><code>31, 78, 91</code></td></tr><tr><td>Tests &amp; Fixtures</td><td>954</td><td><code>1, 0, 6, 3, 4, 29, 9, 11, 7, 12, 13, 18, 16, 17, 19, 21, 23, 22, 26, 66, 25, 109, 37, 38, 39, 43, 51, 54, 76, 89, 90</code></td></tr><tr><td>Community 15</td><td>32</td><td><code>15</code></td></tr><tr><td>Community 108</td><td>30</td><td><code>108</code></td></tr><tr><td>Community 40</td><td>13</td><td><code>40</code></td></tr><tr><td>Community 45</td><td>11</td><td><code>45</code></td></tr><tr><td>Community 46</td><td>11</td><td><code>46</code></td></tr><tr><td>Community 47</td><td>10</td><td><code>47</code></td></tr><tr><td>Other</td><td>89</td><td><code>49, 50, 53, 58, 59, 63, 70, 73, 75, 77, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 100, 101, 102, 103, 104, 105, 106, 107, 110, 35, 92, 93, 94, 95, 96, 97, 98, 99</code></td></tr>
+      <tr><td>Extraction Pipeline</td><td>117</td><td><code>27, 28, 32, 33, 36, 42, 57, 64, 65, 71, 74</code></td></tr><tr><td>Graph Build</td><td>43</td><td><code>10, 67</code></td></tr><tr><td>Analysis &amp; Clustering</td><td>103</td><td><code>2, 14</code></td></tr><tr><td>Outputs &amp; Docs</td><td>70</td><td><code>8, 44, 48, 72</code></td></tr><tr><td>CLI &amp; Skill Installers</td><td>144</td><td><code>5, 24, 30, 34, 41, 56, 60, 61, 62, 68, 69</code></td></tr><tr><td>Ingestion &amp; Updates</td><td>51</td><td><code>6, 52</code></td></tr><tr><td>Security &amp; Global Graph</td><td>18</td><td><code>31, 78, 91</code></td></tr><tr><td>Tests &amp; Fixtures</td><td>954</td><td><code>1, 3, 0, 4, 7, 29, 9, 11, 12, 13, 18, 16, 17, 19, 20, 21, 22, 23, 26, 108, 25, 66, 109, 37, 38, 39, 43, 51, 54, 76, 89, 90</code></td></tr><tr><td>Community 15</td><td>32</td><td><code>15</code></td></tr><tr><td>Community 40</td><td>13</td><td><code>40</code></td></tr><tr><td>Community 45</td><td>11</td><td><code>45</code></td></tr><tr><td>Community 46</td><td>11</td><td><code>46</code></td></tr><tr><td>Community 47</td><td>10</td><td><code>47</code></td></tr><tr><td>Community 49</td><td>9</td><td><code>49</code></td></tr><tr><td>Other</td><td>90</td><td><code>50, 53, 55, 58, 59, 63, 111, 70, 73, 75, 77, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 100, 101, 102, 103, 104, 105, 106, 107, 110, 112, 35, 92, 93, 94, 95, 96, 97, 98, 99</code></td></tr>
     </table>
   </div>
   <div class="card">
     <h4>Core Flow</h4>
-    <div class="arrow-chain">Extraction Pipeline -&gt; Other -&gt; Graph Build -&gt; Community 108 -&gt; Tests &amp; Fixtures -&gt; Analysis &amp; Clustering -&gt; Outputs &amp; Docs</div>
+    <div class="arrow-chain">Extraction Pipeline -&gt; Other -&gt; Tests &amp; Fixtures -&gt; Ingestion &amp; Updates -&gt; Analysis &amp; Clustering -&gt; CLI &amp; Skill Installers -&gt; Graph Build</div>
   </div>
 </div>
 <div class="grid">
   <div class="card">
     <h4>Graph Report Highlights</h4>
     <ul>
-      <li>1670 nodes · 4003 edges · 111 communities (86 shown, 25 thin omitted)</li>
-      <li>Extraction: 72% EXTRACTED · 28% INFERRED · 0% AMBIGUOUS · INFERRED: 1138 edges (avg confidence: 0.58)</li>
+      <li>1676 nodes · 4009 edges · 113 communities (86 shown, 27 thin omitted)</li>
+      <li>Extraction: 72% EXTRACTED · 28% INFERRED · 0% AMBIGUOUS · INFERRED: 1139 edges (avg confidence: 0.58)</li>
       <li>Token cost: 0 input · 0 output</li>
       <li>1. `OcrBlock` - 231 edges</li>
       <li>2. `ProjectCache` - 120 edges</li>
@@ -870,39 +870,35 @@ flowchart LR
 
 <!-- ====== 4. Analysis & Clustering ====== -->
 <h2 id="analysis-clustering">4. Analysis &amp; Clustering</h2>
-<p>Analysis &amp; Clustering groups implementation around manga, translator, cbz, ocr, mostly in cbz_manga_translator/ocr/fallback_engine.py, cbz_manga_translator/review/replay.py, cbz_manga_translator/ocr/paddleocr_engine.py. This section covers 122 nodes and 313 internal edges; the diagram shows only representative relationships to stay readable.</p>
+<p>Analysis &amp; Clustering groups implementation around manga, cbz, translator, ocr, mostly in cbz_manga_translator/ocr/fallback_engine.py, src/cbz_manga_translator/review_refresh.py, cbz_manga_translator/ocr/paddleocr_engine.py. This section covers 103 nodes and 294 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
 %%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
 flowchart LR
-    %% Section: Analysis &amp; Clustering (122 nodes, 313 edges)
+    %% Section: Analysis &amp; Clustering (103 nodes, 294 edges)
+    subgraph analysis_clustering_cbz_manga_translator_ocr_fal_e381385a["cbz_manga_translator/ocr/fallback_engine.py"]
+        ocr_fallback_engine_ocrfallbackengine_080d1d50("OcrFallbackEngine<br/><small>cbz_manga_translator/ocr/fallback_engine.py</small>")
+        ocr_fallback_engine_candidate_quality_6b71cb8b("candidate_quality()<br/><small>cbz_manga_translator/ocr/fallback_engine.py</small>")
+        ocr_fallback_engine_apply_common_ocr_corrections_b4ff08f3("common ocr corrections()<br/><small>cbz_manga_translator/ocr/fallback_engine.py</small>")
+        ocr_fallback_engine_ocrfallbackengine_collect_ca_c7507b82("collect_candidates()<br/><small>cbz_manga_translator/ocr/fallback_engine.py</small>")
+        ocr_fallback_engine_ocrfallbackengine_easyocr_cr_46e84cbf("_easyocr_crop_candidates()<br/><small>cbz_manga_translator/ocr/fallback_engine.py</small>")
+        ocr_fallback_engine_ocrfallbackengine_improve_bl_904def21("improve_blocks()<br/><small>cbz_manga_translator/ocr/fallback_engine.py</small>")
+        ocr_fallback_engine_ocrfallbackengine_init_d31b7587("__init__()<br/><small>cbz_manga_translator/ocr/fallback_engine.py</small>")
+        ocr_fallback_engine_is_suspect_3a112fe6("_is_suspect()<br/><small>cbz_manga_translator/ocr/fallback_engine.py</small>")
+    end
     subgraph analysis_clustering_src_cbz_manga_translator_rev_657b2713["src/cbz_manga_translator/review_refresh.py"]
         cbz_manga_translator_review_refresh_default_refr_23c9ab2a("default_refreshed_path()<br/><small>src/cbz_manga_translator/review_refresh.py</small>")
+        cbz_manga_translator_review_refresh_is_zone_fall_e36cb5d5("zone fallback candidate()<br/><small>src/cbz_manga_translator/review_refresh.py</small>")
         cbz_manga_translator_review_refresh_refresh_revi_6805c44a("refresh_review_project()<br/><small>src/cbz_manga_translator/review_refresh.py</small>")
         cbz_manga_translator_review_refresh_iter_refresh_88c7738a("_iter_refreshable_blocks()<br/><small>src/cbz_manga_translator/review_refresh.py</small>")
         cbz_manga_translator_review_refresh_refresh_bloc_606e4e8b("_refresh_blocks_with_rules()<br/><small>src/cbz_manga_translator/review_refresh.py</small>")
-        cbz_manga_translator_review_refresh_is_zone_fall_e36cb5d5("zone fallback candidate()<br/><small>src/cbz_manga_translator/review_refresh.py</small>")
         cbz_manga_translator_review_refresh_refresh_zone_a50f472f("zone ocr alternatives()<br/><small>src/cbz_manga_translator/review_refresh.py</small>")
         cbz_manga_translator_review_refresh_main_58881f6f("main()<br/><small>src/cbz_manga_translator/review_refresh.py</small>")
     end
-    subgraph analysis_clustering_src_cbz_manga_translator_rev_6c0c6920["src/cbz_manga_translator/review_replay.py"]
-        cbz_manga_translator_review_replay_parse_index_l_ab72d976("_parse_index_list()<br/><small>src/cbz_manga_translator/review_replay.py</small>")
-        cbz_manga_translator_review_replay_main_ec722a06("main()<br/><small>src/cbz_manga_translator/review_replay.py</small>")
-        cbz_manga_translator_review_replay_failure_page_02cbe26d("_failure_page_indices()<br/><small>src/cbz_manga_translator/review_replay.py</small>")
+    subgraph analysis_clustering_cbz_manga_translator_ocr_can_871c44cd["cbz_manga_translator/ocr/candidates.py"]
+        ocr_candidates_ocrcandidate_6d39c9ee("OcrCandidate<br/><small>cbz_manga_translator/ocr/candidates.py</small>")
+        ocr_candidates_ocrcandidate_to_dict_325f5a5b("to_dict()<br/><small>cbz_manga_translator/ocr/candidates.py</small>")
     end
-    subgraph analysis_clustering_cbz_manga_translator_core_mo_6c5e9a88["cbz_manga_translator/core/models.py"]
-        core_models_pagerecord_to_dict_ebb776d1("to_dict()<br/><small>cbz_manga_translator/core/models.py</small>")
-        core_models_projectdata_to_dict_638b6a17("to_dict()<br/><small>cbz_manga_translator/core/models.py</small>")
-    end
-    subgraph analysis_clustering_cbz_manga_translator_ocr_fal_e381385a["cbz_manga_translator/ocr/fallback_engine.py"]
-        ocr_fallback_engine_candidate_quality_6b71cb8b("candidate_quality()<br/><small>cbz_manga_translator/ocr/fallback_engine.py</small>")
-        ocr_fallback_engine_apply_common_ocr_corrections_b4ff08f3("common ocr corrections()<br/><small>cbz_manga_translator/ocr/fallback_engine.py</small>")
-    end
-    subgraph analysis_clustering_cbz_manga_translator_review_87cbd03a["cbz_manga_translator/review/replay.py"]
-        review_replay_canonical_text_dff2bcbe("canonical_text()<br/><small>cbz_manga_translator/review/replay.py</small>")
-        review_replay_text_similarity_1d77ffb9("text_similarity()<br/><small>cbz_manga_translator/review/replay.py</small>")
-    end
-    ocr_candidates_ocrcandidate_6d39c9ee("OcrCandidate<br/><small>cbz_manga_translator/ocr/candidates.py</small>")
     ocr_paddleocr_engine_paddleocrengine_f3375cd7("PaddleOcrEngine<br/><small>cbz_manga_translator/ocr/paddleocr_engine.py</small>")
     cbz_manga_translator_review_refresh_default_refr_23c9ab2a -->|calls| cbz_manga_translator_review_refresh_refresh_revi_6805c44a
     cbz_manga_translator_review_refresh_iter_refresh_88c7738a -->|calls| cbz_manga_translator_review_refresh_refresh_revi_6805c44a
@@ -910,28 +906,37 @@ flowchart LR
     cbz_manga_translator_review_refresh_is_zone_fall_e36cb5d5 -->|calls| cbz_manga_translator_review_refresh_refresh_zone_a50f472f
     cbz_manga_translator_review_refresh_refresh_zone_a50f472f -->|calls| cbz_manga_translator_review_refresh_refresh_revi_6805c44a
     cbz_manga_translator_review_refresh_refresh_revi_6805c44a -->|calls| cbz_manga_translator_review_refresh_main_58881f6f
-    cbz_manga_translator_review_replay_parse_index_l_ab72d976 -->|calls| cbz_manga_translator_review_replay_main_ec722a06
-    cbz_manga_translator_review_replay_failure_page_02cbe26d -->|calls| cbz_manga_translator_review_replay_main_ec722a06
-    core_models_pagerecord_to_dict_ebb776d1 -->|calls| core_models_projectdata_to_dict_638b6a17
-    review_replay_canonical_text_dff2bcbe -->|calls| review_replay_text_similarity_1d77ffb9
-    %% Omitted for readability: 104 nodes, 0 edges
+    ocr_candidates_ocrcandidate_6d39c9ee -->|method| ocr_candidates_ocrcandidate_to_dict_325f5a5b
+    ocr_fallback_engine_ocrfallbackengine_080d1d50 -->|method| ocr_fallback_engine_ocrfallbackengine_collect_ca_c7507b82
+    ocr_fallback_engine_ocrfallbackengine_080d1d50 -->|method| ocr_fallback_engine_ocrfallbackengine_easyocr_cr_46e84cbf
+    ocr_fallback_engine_ocrfallbackengine_080d1d50 -->|method| ocr_fallback_engine_ocrfallbackengine_improve_bl_904def21
+    ocr_fallback_engine_ocrfallbackengine_080d1d50 -->|method| ocr_fallback_engine_ocrfallbackengine_init_d31b7587
+    ocr_fallback_engine_apply_common_ocr_corrections_b4ff08f3 -->|calls| ocr_fallback_engine_ocrfallbackengine_collect_ca_c7507b82
+    ocr_fallback_engine_apply_common_ocr_corrections_b4ff08f3 -->|calls| ocr_fallback_engine_ocrfallbackengine_easyocr_cr_46e84cbf
+    ocr_fallback_engine_candidate_quality_6b71cb8b -->|calls| ocr_fallback_engine_ocrfallbackengine_collect_ca_c7507b82
+    ocr_fallback_engine_candidate_quality_6b71cb8b -->|calls| ocr_fallback_engine_ocrfallbackengine_easyocr_cr_46e84cbf
+    ocr_fallback_engine_candidate_quality_6b71cb8b -->|calls| ocr_fallback_engine_ocrfallbackengine_improve_bl_904def21
+    ocr_fallback_engine_is_suspect_3a112fe6 -->|calls| ocr_fallback_engine_ocrfallbackengine_improve_bl_904def21
+    ocr_fallback_engine_ocrfallbackengine_easyocr_cr_46e84cbf -->|calls| ocr_fallback_engine_ocrfallbackengine_collect_ca_c7507b82
+    ocr_fallback_engine_ocrfallbackengine_collect_ca_c7507b82 -->|calls| ocr_fallback_engine_ocrfallbackengine_improve_bl_904def21
+    %% Omitted for readability: 85 nodes, 0 edges
+    class ocr_fallback_engine_ocrfallbackengine_080d1d50 klass;
+    class ocr_fallback_engine_candidate_quality_6b71cb8b function;
+    class ocr_fallback_engine_apply_common_ocr_corrections_b4ff08f3 function;
+    class ocr_fallback_engine_ocrfallbackengine_collect_ca_c7507b82 function;
+    class ocr_fallback_engine_ocrfallbackengine_easyocr_cr_46e84cbf function;
+    class ocr_fallback_engine_ocrfallbackengine_improve_bl_904def21 function;
+    class ocr_fallback_engine_ocrfallbackengine_init_d31b7587 function;
+    class ocr_fallback_engine_is_suspect_3a112fe6 function;
     class cbz_manga_translator_review_refresh_default_refr_23c9ab2a function;
+    class cbz_manga_translator_review_refresh_is_zone_fall_e36cb5d5 function;
     class cbz_manga_translator_review_refresh_refresh_revi_6805c44a function;
     class cbz_manga_translator_review_refresh_iter_refresh_88c7738a function;
     class cbz_manga_translator_review_refresh_refresh_bloc_606e4e8b function;
-    class cbz_manga_translator_review_refresh_is_zone_fall_e36cb5d5 function;
     class cbz_manga_translator_review_refresh_refresh_zone_a50f472f function;
     class cbz_manga_translator_review_refresh_main_58881f6f function;
-    class cbz_manga_translator_review_replay_parse_index_l_ab72d976 function;
-    class cbz_manga_translator_review_replay_main_ec722a06 function;
-    class cbz_manga_translator_review_replay_failure_page_02cbe26d function;
-    class core_models_pagerecord_to_dict_ebb776d1 function;
-    class core_models_projectdata_to_dict_638b6a17 function;
-    class ocr_fallback_engine_candidate_quality_6b71cb8b function;
-    class ocr_fallback_engine_apply_common_ocr_corrections_b4ff08f3 function;
-    class review_replay_canonical_text_dff2bcbe function;
-    class review_replay_text_similarity_1d77ffb9 function;
     class ocr_candidates_ocrcandidate_6d39c9ee klass;
+    class ocr_candidates_ocrcandidate_to_dict_325f5a5b function;
     class ocr_paddleocr_engine_paddleocrengine_f3375cd7 klass;
     classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
     classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
@@ -967,7 +972,7 @@ flowchart LR
   <td><code>OcrCandidate</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/candidates.py</small></td>
   <td><span class="tag tag-class">Class</span></td>
   <td>External entry / no inbound edge</td>
-  <td><code>Any</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/paddleocr_engine.py</small><br><code>bool</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/tesseract_engine.py</small><br><code>bool</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/paddleocr_engine.py</small><br>+25 more</td>
+  <td><code>Any</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/paddleocr_engine.py</small><br><code>bool</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/tesseract_engine.py</small><br><code>bool</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/paddleocr_engine.py</small><br>+26 more</td>
   <td>OcrCandidate node in cbz_manga_translator/ocr/candidates.py.</td>
 </tr>
 <tr>
@@ -1004,22 +1009,6 @@ flowchart LR
 </tr>
 <tr>
   <td>7</td>
-  <td><code>candidate_quality()</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/candidates.py</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>candidate_quality() node in cbz_manga_translator/ocr/candidates.py.</td>
-</tr>
-<tr>
-  <td>8</td>
-  <td><code>float</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/candidates.py</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>float node in cbz_manga_translator/ocr/candidates.py.</td>
-</tr>
-<tr>
-  <td>9</td>
   <td><code>bad_ocr_tokens()</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/candidates.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -1027,7 +1016,7 @@ flowchart LR
   <td>bad_ocr_tokens() node in cbz_manga_translator/ocr/candidates.py.</td>
 </tr>
 <tr>
-  <td>10</td>
+  <td>8</td>
   <td><code>word_tokens()</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/candidates.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -1035,7 +1024,7 @@ flowchart LR
   <td>word_tokens() node in cbz_manga_translator/ocr/candidates.py.</td>
 </tr>
 <tr>
-  <td>11</td>
+  <td>9</td>
   <td><code>fallback_engine.py</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/fallback_engine.py</small></td>
   <td><span class="tag tag-class">Module</span></td>
   <td>External entry / no inbound edge</td>
@@ -1043,15 +1032,15 @@ flowchart LR
   <td>Module file in cbz_manga_translator/ocr/fallback_engine.py.</td>
 </tr>
 <tr>
-  <td>12</td>
+  <td>10</td>
   <td><code>.__init__()</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/fallback_engine.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
+  <td><code>OcrFallbackEngine</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/fallback_engine.py</small></td>
   <td>No direct outbound edge</td>
   <td>.__init__() node in cbz_manga_translator/ocr/fallback_engine.py.</td>
 </tr>
 <tr>
-  <td>13</td>
+  <td>11</td>
   <td><code>EasyOcrEngine</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/fallback_engine.py</small></td>
   <td><span class="tag tag-class">Class</span></td>
   <td><code>OcrCandidate</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/candidates.py</small></td>
@@ -1059,7 +1048,7 @@ flowchart LR
   <td>EasyOcrEngine node in cbz_manga_translator/ocr/fallback_engine.py.</td>
 </tr>
 <tr>
-  <td>14</td>
+  <td>12</td>
   <td><code>TesseractOcrEngine</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/fallback_engine.py</small></td>
   <td><span class="tag tag-async">Async</span></td>
   <td><code>OcrCandidate</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/candidates.py</small></td>
@@ -1067,7 +1056,7 @@ flowchart LR
   <td>TesseractOcrEngine node in cbz_manga_translator/ocr/fallback_engine.py.</td>
 </tr>
 <tr>
-  <td>15</td>
+  <td>13</td>
   <td><code>PaddleOcrEngine</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/fallback_engine.py</small></td>
   <td><span class="tag tag-class">Class</span></td>
   <td><code>OcrCandidate</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/candidates.py</small></td>
@@ -1075,7 +1064,7 @@ flowchart LR
   <td>PaddleOcrEngine node in cbz_manga_translator/ocr/fallback_engine.py.</td>
 </tr>
 <tr>
-  <td>16</td>
+  <td>14</td>
   <td><code>is_optional_backend_available()</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/fallback_engine.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -1083,7 +1072,7 @@ flowchart LR
   <td>is_optional_backend_available() node in cbz_manga_translator/ocr/fallback_engine.py.</td>
 </tr>
 <tr>
-  <td>17</td>
+  <td>15</td>
   <td><code>str</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/fallback_engine.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>OcrCandidate</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/candidates.py</small></td>
@@ -1091,7 +1080,7 @@ flowchart LR
   <td>str node in cbz_manga_translator/ocr/fallback_engine.py.</td>
 </tr>
 <tr>
-  <td>18</td>
+  <td>16</td>
   <td><code>bool</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/fallback_engine.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>OcrCandidate</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/candidates.py</small></td>
@@ -1099,7 +1088,7 @@ flowchart LR
   <td>bool node in cbz_manga_translator/ocr/fallback_engine.py.</td>
 </tr>
 <tr>
-  <td>19</td>
+  <td>17</td>
   <td><code>apply_common_ocr_corrections()</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/fallback_engine.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -1107,7 +1096,7 @@ flowchart LR
   <td>apply_common_ocr_corrections() node in cbz_manga_translator/ocr/fallback_engine.py.</td>
 </tr>
 <tr>
-  <td>20</td>
+  <td>18</td>
   <td><code>candidate_quality()</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/fallback_engine.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -1115,7 +1104,7 @@ flowchart LR
   <td>candidate_quality() node in cbz_manga_translator/ocr/fallback_engine.py.</td>
 </tr>
 <tr>
-  <td>21</td>
+  <td>19</td>
   <td><code>float</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/fallback_engine.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>OcrCandidate</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/candidates.py</small></td>
@@ -1123,7 +1112,7 @@ flowchart LR
   <td>float node in cbz_manga_translator/ocr/fallback_engine.py.</td>
 </tr>
 <tr>
-  <td>22</td>
+  <td>20</td>
   <td><code>_is_suspect()</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/fallback_engine.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>bad_ocr_tokens()</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/candidates.py</small><br><code>word_tokens()</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/candidates.py</small></td>
@@ -1131,7 +1120,7 @@ flowchart LR
   <td>_is_suspect() node in cbz_manga_translator/ocr/fallback_engine.py.</td>
 </tr>
 <tr>
-  <td>23</td>
+  <td>21</td>
   <td><code>OcrBlock</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/fallback_engine.py</small></td>
   <td><span class="tag tag-class">Class</span></td>
   <td><code>OcrCandidate</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/candidates.py</small></td>
@@ -1139,7 +1128,7 @@ flowchart LR
   <td>OcrBlock node in cbz_manga_translator/ocr/fallback_engine.py.</td>
 </tr>
 <tr>
-  <td>24</td>
+  <td>22</td>
   <td><code>_dedupe_candidates()</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/fallback_engine.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -1147,7 +1136,7 @@ flowchart LR
   <td>_dedupe_candidates() node in cbz_manga_translator/ocr/fallback_engine.py.</td>
 </tr>
 <tr>
-  <td>25</td>
+  <td>23</td>
   <td><code>OcrCandidate</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/fallback_engine.py</small></td>
   <td><span class="tag tag-class">Class</span></td>
   <td><code>OcrCandidate</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/candidates.py</small></td>
@@ -1155,7 +1144,7 @@ flowchart LR
   <td>OcrCandidate node in cbz_manga_translator/ocr/fallback_engine.py.</td>
 </tr>
 <tr>
-  <td>26</td>
+  <td>24</td>
   <td><code>_rerank_candidates_for_block()</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/fallback_engine.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>word_tokens()</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/candidates.py</small></td>
@@ -1163,7 +1152,7 @@ flowchart LR
   <td>_rerank_candidates_for_block() node in cbz_manga_translator/ocr/fallback_engine.py.</td>
 </tr>
 <tr>
-  <td>27</td>
+  <td>25</td>
   <td><code>_normalize_words()</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/fallback_engine.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>word_tokens()</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/candidates.py</small></td>
@@ -1171,7 +1160,7 @@ flowchart LR
   <td>_normalize_words() node in cbz_manga_translator/ocr/fallback_engine.py.</td>
 </tr>
 <tr>
-  <td>28</td>
+  <td>26</td>
   <td><code>_has_inserted_noise()</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/fallback_engine.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -1179,7 +1168,7 @@ flowchart LR
   <td>_has_inserted_noise() node in cbz_manga_translator/ocr/fallback_engine.py.</td>
 </tr>
 <tr>
-  <td>29</td>
+  <td>27</td>
   <td><code>_is_auto_replacement_safe()</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/fallback_engine.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>_has_inserted_noise()</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/fallback_engine.py</small><br><code>_normalize_words()</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/fallback_engine.py</small></td>
@@ -1187,12 +1176,28 @@ flowchart LR
   <td>_is_auto_replacement_safe() node in cbz_manga_translator/ocr/fallback_engine.py.</td>
 </tr>
 <tr>
-  <td>30</td>
+  <td>28</td>
   <td><code>._easyocr_crop_candidates()</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/fallback_engine.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
-  <td><code>candidate_quality()</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/fallback_engine.py</small><br><code>common ocr corrections()</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/fallback_engine.py</small></td>
+  <td><code>candidate_quality()</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/fallback_engine.py</small><br><code>common ocr corrections()</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/fallback_engine.py</small><br><code>OcrFallbackEngine</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/fallback_engine.py</small></td>
   <td><code>collect_candidates()</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/fallback_engine.py</small></td>
   <td>._easyocr_crop_candidates() node in cbz_manga_translator/ocr/fallback_engine.py.</td>
+</tr>
+<tr>
+  <td>29</td>
+  <td><code>Path</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/fallback_engine.py</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td><code>OcrCandidate</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/candidates.py</small></td>
+  <td><code>PaddleOcrEngine</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/paddleocr_engine.py</small><br><code>TesseractOcrEngine</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/tesseract_engine.py</small></td>
+  <td>Path node in cbz_manga_translator/ocr/fallback_engine.py.</td>
+</tr>
+<tr>
+  <td>30</td>
+  <td><code>SourceLang</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/fallback_engine.py</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td><code>OcrCandidate</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/candidates.py</small></td>
+  <td><code>PaddleOcrEngine</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/paddleocr_engine.py</small><br><code>TesseractOcrEngine</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/tesseract_engine.py</small></td>
+  <td>SourceLang node in cbz_manga_translator/ocr/fallback_engine.py.</td>
 </tr>
 </table>
 
@@ -1201,40 +1206,31 @@ flowchart LR
     <h4>Key Files</h4>
     <table style="width:100%;font-size:0.85rem;">
       <tr><th>File</th><th>Coverage</th></tr>
-      <tr><td><code>cbz_manga_translator/ocr/fallback_engine.py</code></td><td>25 nodes</td></tr>
-<tr><td><code>cbz_manga_translator/review/replay.py</code></td><td>19 nodes</td></tr>
+      <tr><td><code>cbz_manga_translator/ocr/fallback_engine.py</code></td><td>27 nodes</td></tr>
+<tr><td><code>src/cbz_manga_translator/review_refresh.py</code></td><td>19 nodes</td></tr>
 <tr><td><code>cbz_manga_translator/ocr/paddleocr_engine.py</code></td><td>18 nodes</td></tr>
-<tr><td><code>src/cbz_manga_translator/review_refresh.py</code></td><td>18 nodes</td></tr>
 <tr><td><code>cbz_manga_translator/ocr/tesseract_engine.py</code></td><td>14 nodes</td></tr>
-<tr><td><code>cbz_manga_translator/ocr/candidates.py</code></td><td>10 nodes</td></tr>
-<tr><td><code>cbz_manga_translator/core/models.py</code></td><td>9 nodes</td></tr>
-<tr><td><code>cbz_manga_translator/translate/english_dialogue_normalizer.py</code></td><td>5 nodes</td></tr>
+<tr><td><code>cbz_manga_translator/ocr/candidates.py</code></td><td>8 nodes</td></tr>
+<tr><td><code>cbz_manga_translator/translate/english_dialogue_normalizer.py</code></td><td>6 nodes</td></tr>
+<tr><td><code>cbz_manga_translator/translate/quality.py</code></td><td>5 nodes</td></tr>
+<tr><td><code>cbz_manga_translator/analysis/corpus_processor.py</code></td><td>3 nodes</td></tr>
     </table>
   </div>
   <div class="card">
     <h4>Design Notes</h4>
-    <p>This section comes from graphify community clustering. Relationship summary: references x146, contains x47, calls x40, method x7. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+    <p>This section comes from graphify community clustering. Relationship summary: references x103, contains x32, calls x27, method x11. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
   </div>
 </div>
 <hr>
 
 <!-- ====== 5. Outputs & Docs ====== -->
 <h2 id="outputs-docs">5. Outputs &amp; Docs</h2>
-<p>Outputs &amp; Docs groups implementation around analysis, cbz, manga, translator, mostly in cbz_manga_translator/analysis/light_quality.py, docs/analysis_export.md, cbz_manga_translator/analysis/export_review.py. This section covers 68 nodes and 102 internal edges; the diagram shows only representative relationships to stay readable.</p>
+<p>Outputs &amp; Docs groups implementation around analysis, cbz, manga, translator, mostly in cbz_manga_translator/analysis/light_quality.py, docs/analysis_export.md, cbz_manga_translator/analysis/export_review.py. This section covers 70 nodes and 105 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
 %%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
 flowchart LR
-    %% Section: Outputs &amp; Docs (68 nodes, 102 edges)
-    subgraph outputs_docs_cbz_manga_translator_analysis_light_02dc9d01["cbz_manga_translator/analysis/light_quality.py"]
-        analysis_light_quality_tokens_d3646437("_tokens()<br/><small>cbz_manga_translator/analysis/light_quality.py</small>")
-        analysis_light_quality_looks_like_safe_untransla_8c6a85cb("like safe untranslated()<br/><small>cbz_manga_translator/analysis/light_quality.py</small>")
-        analysis_light_quality_qualityfeatures_5fbcc7f4("QualityFeatures<br/><small>cbz_manga_translator/analysis/light_quality.py</small>")
-        analysis_light_quality_qualityfeatures_to_dict_7b4b94a0("to_dict()<br/><small>cbz_manga_translator/analysis/light_quality.py</small>")
-        analysis_light_quality_compute_quality_features_72fe707e("compute_quality_features()<br/><small>cbz_manga_translator/analysis/light_quality.py</small>")
-        analysis_light_quality_has_obvious_english_resid_57fa4d10("obvious english residue()<br/><small>cbz_manga_translator/analysis/light_quality.py</small>")
-        analysis_light_quality_source_residue_hits_ebb0423a("_source_residue_hits()<br/><small>cbz_manga_translator/analysis/light_quality.py</small>")
-    end
+    %% Section: Outputs &amp; Docs (70 nodes, 105 edges)
     subgraph outputs_docs_cbz_manga_translator_analysis_expor_336998fc["cbz_manga_translator/analysis/export_review.py"]
         analysis_export_review_corpus_path_labels_167f7f68("_corpus_path_labels()<br/><small>cbz_manga_translator/analysis/export_review.py</small>")
         analysis_export_review_block_row_293ea65e("_block_row()<br/><small>cbz_manga_translator/analysis/export_review.py</small>")
@@ -1244,8 +1240,17 @@ flowchart LR
     end
     subgraph outputs_docs_cbz_manga_translator_analysis_learn_9be35d98["cbz_manga_translator/analysis/learning.py"]
         analysis_learning_is_learnable_4e975dd0("_is_learnable()<br/><small>cbz_manga_translator/analysis/learning.py</small>")
+        analysis_learning_learningreport_abbf6791("LearningReport<br/><small>cbz_manga_translator/analysis/learning.py</small>")
         analysis_learning_source_for_memory_8efb8bbf("_source_for_memory()<br/><small>cbz_manga_translator/analysis/learning.py</small>")
+        analysis_learning_learningreport_to_dict_57edd333("to_dict()<br/><small>cbz_manga_translator/analysis/learning.py</small>")
         analysis_learning_build_learning_report_649bb5ed("build_learning_report()<br/><small>cbz_manga_translator/analysis/learning.py</small>")
+    end
+    subgraph outputs_docs_cbz_manga_translator_analysis_light_02dc9d01["cbz_manga_translator/analysis/light_quality.py"]
+        analysis_light_quality_tokens_d3646437("_tokens()<br/><small>cbz_manga_translator/analysis/light_quality.py</small>")
+        analysis_light_quality_qualityfeatures_5fbcc7f4("QualityFeatures<br/><small>cbz_manga_translator/analysis/light_quality.py</small>")
+        analysis_light_quality_qualityfeatures_to_dict_7b4b94a0("to_dict()<br/><small>cbz_manga_translator/analysis/light_quality.py</small>")
+        analysis_light_quality_compute_quality_features_72fe707e("compute_quality_features()<br/><small>cbz_manga_translator/analysis/light_quality.py</small>")
+        analysis_light_quality_has_obvious_english_resid_57fa4d10("obvious english residue()<br/><small>cbz_manga_translator/analysis/light_quality.py</small>")
     end
     subgraph outputs_docs_src_cbz_manga_translator_analysis_e_63ade5d8["src/cbz_manga_translator/analysis_export.py"]
         cbz_manga_translator_analysis_export_build_parse_508e7917("build_parser()<br/><small>src/cbz_manga_translator/analysis_export.py</small>")
@@ -1257,31 +1262,29 @@ flowchart LR
     analysis_export_review_corpus_path_labels_167f7f68 -->|calls| src_cbz_manga_translator_analysis_export_review_3f86855f
     analysis_export_review_block_row_293ea65e -->|calls| analysis_export_review_iter_review_rows_d5eef7ef
     analysis_export_review_iter_review_rows_d5eef7ef -->|calls| analysis_export_review_export_review_dataset_8f5c625f
+    analysis_learning_learningreport_abbf6791 -->|method| analysis_learning_learningreport_to_dict_57edd333
     analysis_learning_source_for_memory_8efb8bbf -->|calls| analysis_learning_build_learning_report_649bb5ed
     analysis_learning_is_learnable_4e975dd0 -->|calls| analysis_learning_build_learning_report_649bb5ed
     analysis_light_quality_qualityfeatures_5fbcc7f4 -->|method| analysis_light_quality_qualityfeatures_to_dict_7b4b94a0
     analysis_light_quality_tokens_d3646437 -->|calls| analysis_light_quality_compute_quality_features_72fe707e
     analysis_light_quality_tokens_d3646437 -->|calls| analysis_light_quality_has_obvious_english_resid_57fa4d10
-    analysis_light_quality_tokens_d3646437 -->|calls| analysis_light_quality_source_residue_hits_ebb0423a
-    analysis_light_quality_looks_like_safe_untransla_8c6a85cb -->|calls| analysis_light_quality_compute_quality_features_72fe707e
     analysis_light_quality_has_obvious_english_resid_57fa4d10 -->|calls| analysis_light_quality_compute_quality_features_72fe707e
-    analysis_light_quality_source_residue_hits_ebb0423a -->|calls| analysis_light_quality_compute_quality_features_72fe707e
-    %% Omitted for readability: 50 nodes, 0 edges
-    class analysis_light_quality_tokens_d3646437 function;
-    class analysis_light_quality_looks_like_safe_untransla_8c6a85cb function;
-    class analysis_light_quality_qualityfeatures_5fbcc7f4 klass;
-    class analysis_light_quality_qualityfeatures_to_dict_7b4b94a0 function;
-    class analysis_light_quality_compute_quality_features_72fe707e function;
-    class analysis_light_quality_has_obvious_english_resid_57fa4d10 function;
-    class analysis_light_quality_source_residue_hits_ebb0423a function;
+    %% Omitted for readability: 52 nodes, 0 edges
     class analysis_export_review_corpus_path_labels_167f7f68 function;
     class analysis_export_review_block_row_293ea65e function;
     class src_cbz_manga_translator_analysis_export_review_3f86855f klass;
     class analysis_export_review_iter_review_rows_d5eef7ef function;
     class analysis_export_review_export_review_dataset_8f5c625f function;
     class analysis_learning_is_learnable_4e975dd0 function;
+    class analysis_learning_learningreport_abbf6791 klass;
     class analysis_learning_source_for_memory_8efb8bbf function;
+    class analysis_learning_learningreport_to_dict_57edd333 function;
     class analysis_learning_build_learning_report_649bb5ed function;
+    class analysis_light_quality_tokens_d3646437 function;
+    class analysis_light_quality_qualityfeatures_5fbcc7f4 klass;
+    class analysis_light_quality_qualityfeatures_to_dict_7b4b94a0 function;
+    class analysis_light_quality_compute_quality_features_72fe707e function;
+    class analysis_light_quality_has_obvious_english_resid_57fa4d10 function;
     class cbz_manga_translator_analysis_export_build_parse_508e7917 function;
     class cbz_manga_translator_analysis_export_main_2daeb9b9 function;
     class tests_test_analysis_export_sample_project_b84fc58d test;
@@ -1447,11 +1450,27 @@ flowchart LR
   <td><code>LearningReport</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/learning.py</small></td>
   <td><span class="tag tag-class">Class</span></td>
   <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
+  <td><code>to_dict()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/learning.py</small></td>
   <td>LearningReport node in cbz_manga_translator/analysis/learning.py.</td>
 </tr>
 <tr>
   <td>19</td>
+  <td><code>.to_dict()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/learning.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>LearningReport</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/learning.py</small></td>
+  <td>No direct outbound edge</td>
+  <td>.to_dict() node in cbz_manga_translator/analysis/learning.py.</td>
+</tr>
+<tr>
+  <td>20</td>
+  <td><code>str</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/learning.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>str node in cbz_manga_translator/analysis/learning.py.</td>
+</tr>
+<tr>
+  <td>21</td>
   <td><code>_source_for_memory()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/learning.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -1459,7 +1478,7 @@ flowchart LR
   <td>_source_for_memory() node in cbz_manga_translator/analysis/learning.py.</td>
 </tr>
 <tr>
-  <td>20</td>
+  <td>22</td>
   <td><code>OcrBlock</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/learning.py</small></td>
   <td><span class="tag tag-class">Class</span></td>
   <td>External entry / no inbound edge</td>
@@ -1467,7 +1486,7 @@ flowchart LR
   <td>OcrBlock node in cbz_manga_translator/analysis/learning.py.</td>
 </tr>
 <tr>
-  <td>21</td>
+  <td>23</td>
   <td><code>_is_learnable()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/learning.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -1475,7 +1494,7 @@ flowchart LR
   <td>_is_learnable() node in cbz_manga_translator/analysis/learning.py.</td>
 </tr>
 <tr>
-  <td>22</td>
+  <td>24</td>
   <td><code>build_learning_report()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/learning.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>_is_learnable()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/learning.py</small><br><code>_source_for_memory()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/learning.py</small><br><code>export_review_dataset()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/export_review.py</small></td>
@@ -1483,7 +1502,7 @@ flowchart LR
   <td>build_learning_report() node in cbz_manga_translator/analysis/learning.py.</td>
 </tr>
 <tr>
-  <td>23</td>
+  <td>25</td>
   <td><code>light_quality.py</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/light_quality.py</small></td>
   <td><span class="tag tag-class">Module</span></td>
   <td>External entry / no inbound edge</td>
@@ -1491,7 +1510,7 @@ flowchart LR
   <td>Module file in cbz_manga_translator/analysis/light_quality.py.</td>
 </tr>
 <tr>
-  <td>24</td>
+  <td>26</td>
   <td><code>QualityFeatures</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/light_quality.py</small></td>
   <td><span class="tag tag-class">Class</span></td>
   <td>External entry / no inbound edge</td>
@@ -1499,7 +1518,7 @@ flowchart LR
   <td>QualityFeatures node in cbz_manga_translator/analysis/light_quality.py.</td>
 </tr>
 <tr>
-  <td>25</td>
+  <td>27</td>
   <td><code>.to_dict()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/light_quality.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>QualityFeatures</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/light_quality.py</small></td>
@@ -1507,7 +1526,7 @@ flowchart LR
   <td>.to_dict() node in cbz_manga_translator/analysis/light_quality.py.</td>
 </tr>
 <tr>
-  <td>26</td>
+  <td>28</td>
   <td><code>str</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/light_quality.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -1515,7 +1534,7 @@ flowchart LR
   <td>str node in cbz_manga_translator/analysis/light_quality.py.</td>
 </tr>
 <tr>
-  <td>27</td>
+  <td>29</td>
   <td><code>Any</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/light_quality.py</small></td>
   <td><span class="tag tag-class">Class</span></td>
   <td>External entry / no inbound edge</td>
@@ -1523,28 +1542,12 @@ flowchart LR
   <td>Any node in cbz_manga_translator/analysis/light_quality.py.</td>
 </tr>
 <tr>
-  <td>28</td>
+  <td>30</td>
   <td><code>_tokens()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/light_quality.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
   <td><code>_source_residue_hits()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/light_quality.py</small><br><code>compute_quality_features()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/light_quality.py</small><br><code>obvious english residue()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/light_quality.py</small></td>
   <td>_tokens() node in cbz_manga_translator/analysis/light_quality.py.</td>
-</tr>
-<tr>
-  <td>29</td>
-  <td><code>_looks_like_safe_untranslated()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/light_quality.py</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>compute_quality_features()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/light_quality.py</small></td>
-  <td>_looks_like_safe_untranslated() node in cbz_manga_translator/analysis/light_quality.py.</td>
-</tr>
-<tr>
-  <td>30</td>
-  <td><code>bool</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/light_quality.py</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>bool node in cbz_manga_translator/analysis/light_quality.py.</td>
 </tr>
 </table>
 
@@ -1558,14 +1561,14 @@ flowchart LR
 <tr><td><code>ROADMAP.md</code></td><td>10 nodes</td></tr>
 <tr><td><code>cbz_manga_translator/analysis/export_review.py</code></td><td>10 nodes</td></tr>
 <tr><td><code>tests/test_analysis_export.py</code></td><td>10 nodes</td></tr>
-<tr><td><code>cbz_manga_translator/analysis/learning.py</code></td><td>6 nodes</td></tr>
+<tr><td><code>cbz_manga_translator/analysis/learning.py</code></td><td>8 nodes</td></tr>
 <tr><td><code>src/cbz_manga_translator/analysis_export.py</code></td><td>6 nodes</td></tr>
 <tr><td><code>README.md</code></td><td>3 nodes</td></tr>
     </table>
   </div>
   <div class="card">
     <h4>Design Notes</h4>
-    <p>This section comes from graphify community clustering. Relationship summary: contains x46, references x25, calls x17, explains x1. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+    <p>This section comes from graphify community clustering. Relationship summary: contains x46, references x27, calls x17, method x2. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
   </div>
 </div>
 <hr>
@@ -1922,30 +1925,67 @@ flowchart LR
 
 <!-- ====== 7. Ingestion & Updates ====== -->
 <h2 id="ingest-cache-update">7. Ingestion &amp; Updates</h2>
-<p>Ingestion &amp; Updates groups implementation around cachepy, cbz, manga, translator, mostly in cbz_manga_translator/core/cache.py. This section covers 8 nodes and 17 internal edges; the diagram shows only representative relationships to stay readable.</p>
+<p>Ingestion &amp; Updates groups implementation around corpus, cbz, manga, translator, mostly in cbz_manga_translator/analysis/corpus_processor.py, cbz_manga_translator/core/cache.py, src/cbz_manga_translator/corpus_inspect.py. This section covers 51 nodes and 148 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
 %%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
 flowchart LR
-    %% Section: Ingestion &amp; Updates (8 nodes, 17 edges)
-    core_cache_default_path_f524c901("default_path()<br/><small>cbz_manga_translator/core/cache.py</small>")
-    core_cache_load_ef144ee9("load()<br/><small>cbz_manga_translator/core/cache.py</small>")
-    core_cache_load_or_create_217f47cc("load_or_create()<br/><small>cbz_manga_translator/core/cache.py</small>")
-    src_cbz_manga_translator_core_cache_py_path_ab215582("Path<br/><small>cbz_manga_translator/core/cache.py</small>")
-    src_cbz_manga_translator_core_cache_py_projectda_72ddbb44("ProjectData<br/><small>cbz_manga_translator/core/cache.py</small>")
-    src_cbz_manga_translator_core_cache_py_5cb9e7b9("cache.py")
-    core_cache_save_369fe035("save()<br/><small>cbz_manga_translator/core/cache.py</small>")
-    src_cbz_manga_translator_core_cache_py_str_822c962e("str<br/><small>cbz_manga_translator/core/cache.py</small>")
-    core_cache_default_path_f524c901 -->|calls| core_cache_load_or_create_217f47cc
-    core_cache_load_ef144ee9 -->|calls| core_cache_load_or_create_217f47cc
-    class core_cache_default_path_f524c901 function;
-    class core_cache_load_ef144ee9 function;
-    class core_cache_load_or_create_217f47cc function;
-    class src_cbz_manga_translator_core_cache_py_path_ab215582 klass;
-    class src_cbz_manga_translator_core_cache_py_projectda_72ddbb44 klass;
-    class src_cbz_manga_translator_core_cache_py_5cb9e7b9 module;
-    class core_cache_save_369fe035 function;
-    class src_cbz_manga_translator_core_cache_py_str_822c962e function;
+    %% Section: Ingestion &amp; Updates (51 nodes, 148 edges)
+    analysis_corpus_processor_count_images_under_7081e0d7("_count_images_under()<br/><small>cbz_manga_translator/analysis/corpus_processor.py</small>")
+    analysis_corpus_processor_has_manifest_47881b8f("_has_manifest()<br/><small>cbz_manga_translator/analysis/corpus_processor.py</small>")
+    analysis_corpus_processor_skip_page_4d4d8816("_skip_page()<br/><small>cbz_manga_translator/analysis/corpus_processor.py</small>")
+    analysis_corpus_processor_image_megapixels_03522a45("_image_megapixels()<br/><small>cbz_manga_translator/analysis/corpus_processor.py</small>")
+    analysis_corpus_processor_infer_series_label_fro_04ae820f("label from image()<br/><small>cbz_manga_translator/analysis/corpus_processor.py</small>")
+    analysis_corpus_processor_infer_volume_label_fro_268a2864("label from image()<br/><small>cbz_manga_translator/analysis/corpus_processor.py</small>")
+    analysis_corpus_processor_looks_like_expensive_c_a30ec3ab("color info page()<br/><small>cbz_manga_translator/analysis/corpus_processor.py</small>")
+    analysis_corpus_processor_process_corpus_95c9480a("process_corpus()<br/><small>cbz_manga_translator/analysis/corpus_processor.py</small>")
+    src_cbz_manga_translator_analysis_corpus_process_d0db4a57("Path<br/><small>cbz_manga_translator/analysis/corpus_processor.py</small>")
+    analysis_corpus_processor_entry_group_key_645524d5("_entry_group_key()<br/><small>cbz_manga_translator/analysis/corpus_processor.py</small>")
+    analysis_corpus_processor_write_progress_b9f8335e("_write_progress()<br/><small>cbz_manga_translator/analysis/corpus_processor.py</small>")
+    analysis_corpus_processor_describe_corpus_path_ed0a2fcf("describe_corpus_path()<br/><small>cbz_manga_translator/analysis/corpus_processor.py</small>")
+    analysis_corpus_processor_find_corpus_candidates_dfbc4ac9("find_corpus_candidates()<br/><small>cbz_manga_translator/analysis/corpus_processor.py</small>")
+    analysis_corpus_processor_looks_like_run_output_c2711aad("_looks_like_run_output()<br/><small>cbz_manga_translator/analysis/corpus_processor.py</small>")
+    analysis_corpus_processor_build_manifest_from_pa_ed3318ea("_build_manifest_from_pages()<br/><small>cbz_manga_translator/analysis/corpus_processor.py</small>")
+    analysis_corpus_processor_find_manifest_file_061d7599("_find_manifest_file()<br/><small>cbz_manga_translator/analysis/corpus_processor.py</small>")
+    analysis_corpus_processor_recognizer_recognize_4dd3a62a("recognize()<br/><small>cbz_manga_translator/analysis/corpus_processor.py</small>")
+    analysis_corpus_processor_translator_translate_b_8a0c907c("translate_blocks()<br/><small>cbz_manga_translator/analysis/corpus_processor.py</small>")
+    analysis_corpus_processor_looks_like_expensive_c_a30ec3ab -->|calls| analysis_corpus_processor_process_corpus_95c9480a
+    src_cbz_manga_translator_analysis_corpus_process_d0db4a57 -->|calls| analysis_corpus_processor_entry_group_key_645524d5
+    analysis_corpus_processor_image_megapixels_03522a45 -->|calls| analysis_corpus_processor_process_corpus_95c9480a
+    analysis_corpus_processor_skip_page_4d4d8816 -->|calls| analysis_corpus_processor_process_corpus_95c9480a
+    analysis_corpus_processor_skip_page_4d4d8816 -->|calls| analysis_corpus_processor_write_progress_b9f8335e
+    analysis_corpus_processor_count_images_under_7081e0d7 -->|calls| analysis_corpus_processor_describe_corpus_path_ed0a2fcf
+    analysis_corpus_processor_count_images_under_7081e0d7 -->|calls| analysis_corpus_processor_find_corpus_candidates_dfbc4ac9
+    analysis_corpus_processor_has_manifest_47881b8f -->|calls| analysis_corpus_processor_describe_corpus_path_ed0a2fcf
+    analysis_corpus_processor_has_manifest_47881b8f -->|calls| analysis_corpus_processor_find_corpus_candidates_dfbc4ac9
+    analysis_corpus_processor_looks_like_run_output_c2711aad -->|calls| analysis_corpus_processor_find_corpus_candidates_dfbc4ac9
+    analysis_corpus_processor_find_corpus_candidates_dfbc4ac9 -->|calls| analysis_corpus_processor_describe_corpus_path_ed0a2fcf
+    analysis_corpus_processor_describe_corpus_path_ed0a2fcf -->|calls| analysis_corpus_processor_build_manifest_from_pa_ed3318ea
+    analysis_corpus_processor_describe_corpus_path_ed0a2fcf -->|calls| analysis_corpus_processor_find_manifest_file_061d7599
+    analysis_corpus_processor_recognizer_recognize_4dd3a62a -->|calls| analysis_corpus_processor_process_corpus_95c9480a
+    analysis_corpus_processor_translator_translate_b_8a0c907c -->|calls| analysis_corpus_processor_process_corpus_95c9480a
+    analysis_corpus_processor_infer_series_label_fro_04ae820f -->|calls| analysis_corpus_processor_build_manifest_from_pa_ed3318ea
+    analysis_corpus_processor_infer_volume_label_fro_268a2864 -->|calls| analysis_corpus_processor_build_manifest_from_pa_ed3318ea
+    analysis_corpus_processor_write_progress_b9f8335e -->|calls| analysis_corpus_processor_process_corpus_95c9480a
+    %% Omitted for readability: 33 nodes, 0 edges
+    class analysis_corpus_processor_count_images_under_7081e0d7 function;
+    class analysis_corpus_processor_has_manifest_47881b8f function;
+    class analysis_corpus_processor_skip_page_4d4d8816 function;
+    class analysis_corpus_processor_image_megapixels_03522a45 api;
+    class analysis_corpus_processor_infer_series_label_fro_04ae820f function;
+    class analysis_corpus_processor_infer_volume_label_fro_268a2864 function;
+    class analysis_corpus_processor_looks_like_expensive_c_a30ec3ab function;
+    class analysis_corpus_processor_process_corpus_95c9480a function;
+    class src_cbz_manga_translator_analysis_corpus_process_d0db4a57 klass;
+    class analysis_corpus_processor_entry_group_key_645524d5 function;
+    class analysis_corpus_processor_write_progress_b9f8335e function;
+    class analysis_corpus_processor_describe_corpus_path_ed0a2fcf function;
+    class analysis_corpus_processor_find_corpus_candidates_dfbc4ac9 function;
+    class analysis_corpus_processor_looks_like_run_output_c2711aad function;
+    class analysis_corpus_processor_build_manifest_from_pa_ed3318ea function;
+    class analysis_corpus_processor_find_manifest_file_061d7599 function;
+    class analysis_corpus_processor_recognizer_recognize_4dd3a62a function;
+    class analysis_corpus_processor_translator_translate_b_8a0c907c function;
     classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
     classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
     classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
@@ -1969,67 +2009,243 @@ flowchart LR
 </tr>
 <tr>
   <td>1</td>
-  <td><code>cache.py</code><br><small style="color:var(--muted)">cbz_manga_translator/core/cache.py</small></td>
-  <td><span class="tag tag-class">Module</span></td>
+  <td><code>corpus_inspect.py</code><br><small style="color:var(--muted)">src/cbz_manga_translator/corpus_inspect.py</small></td>
+  <td><span class="tag tag-func">Test</span></td>
   <td>External entry / no inbound edge</td>
   <td>No direct outbound edge</td>
-  <td>Module file in cbz_manga_translator/core/cache.py.</td>
+  <td>Module file in src/cbz_manga_translator/corpus_inspect.py.</td>
 </tr>
 <tr>
   <td>2</td>
-  <td><code>default_path()</code><br><small style="color:var(--muted)">cbz_manga_translator/core/cache.py</small></td>
-  <td><span class="tag tag-func">Function</span></td>
+  <td><code>main()</code><br><small style="color:var(--muted)">src/cbz_manga_translator/corpus_inspect.py</small></td>
+  <td><span class="tag tag-func">Test</span></td>
   <td>External entry / no inbound edge</td>
-  <td><code>load_or_create()</code><br><small style="color:var(--muted)">cbz_manga_translator/core/cache.py</small></td>
-  <td>default_path() node in cbz_manga_translator/core/cache.py.</td>
+  <td><code>describe_corpus_path()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small><br><code>read_corpus_manifest()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
+  <td>main() node in src/cbz_manga_translator/corpus_inspect.py.</td>
 </tr>
 <tr>
   <td>3</td>
-  <td><code>str</code><br><small style="color:var(--muted)">cbz_manga_translator/core/cache.py</small></td>
-  <td><span class="tag tag-func">Function</span></td>
+  <td><code>int</code><br><small style="color:var(--muted)">src/cbz_manga_translator/corpus_inspect.py</small></td>
+  <td><span class="tag tag-func">Test</span></td>
   <td>External entry / no inbound edge</td>
   <td>No direct outbound edge</td>
-  <td>str node in cbz_manga_translator/core/cache.py.</td>
+  <td>int node in src/cbz_manga_translator/corpus_inspect.py.</td>
 </tr>
 <tr>
   <td>4</td>
-  <td><code>Path</code><br><small style="color:var(--muted)">cbz_manga_translator/core/cache.py</small></td>
-  <td><span class="tag tag-class">Class</span></td>
+  <td><code>corpus_processor.py</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
+  <td><span class="tag tag-class">Module</span></td>
   <td>External entry / no inbound edge</td>
   <td>No direct outbound edge</td>
-  <td>Path node in cbz_manga_translator/core/cache.py.</td>
+  <td>Module file in cbz_manga_translator/analysis/corpus_processor.py.</td>
 </tr>
 <tr>
   <td>5</td>
-  <td><code>load()</code><br><small style="color:var(--muted)">cbz_manga_translator/core/cache.py</small></td>
+  <td><code>_looks_like_expensive_color_info_page()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
-  <td><code>load_or_create()</code><br><small style="color:var(--muted)">cbz_manga_translator/core/cache.py</small></td>
-  <td>load() node in cbz_manga_translator/core/cache.py.</td>
+  <td><code>process_corpus()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
+  <td>Organizes documentation pages, navigation, or content lookup.</td>
 </tr>
 <tr>
   <td>6</td>
-  <td><code>ProjectData</code><br><small style="color:var(--muted)">cbz_manga_translator/core/cache.py</small></td>
-  <td><span class="tag tag-class">Class</span></td>
+  <td><code>str</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
   <td>No direct outbound edge</td>
-  <td>ProjectData node in cbz_manga_translator/core/cache.py.</td>
+  <td>str node in cbz_manga_translator/analysis/corpus_processor.py.</td>
 </tr>
 <tr>
   <td>7</td>
-  <td><code>save()</code><br><small style="color:var(--muted)">cbz_manga_translator/core/cache.py</small></td>
-  <td><span class="tag tag-func">Function</span></td>
+  <td><code>Path</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
+  <td><span class="tag tag-class">Class</span></td>
   <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>save() node in cbz_manga_translator/core/cache.py.</td>
+  <td><code>_entry_group_key()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
+  <td>Path node in cbz_manga_translator/analysis/corpus_processor.py.</td>
 </tr>
 <tr>
   <td>8</td>
-  <td><code>load_or_create()</code><br><small style="color:var(--muted)">cbz_manga_translator/core/cache.py</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>default_path()</code><br><small style="color:var(--muted)">cbz_manga_translator/core/cache.py</small><br><code>load()</code><br><small style="color:var(--muted)">cbz_manga_translator/core/cache.py</small></td>
+  <td><code>SourceLang</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
   <td>No direct outbound edge</td>
-  <td>load_or_create() node in cbz_manga_translator/core/cache.py.</td>
+  <td>SourceLang node in cbz_manga_translator/analysis/corpus_processor.py.</td>
+</tr>
+<tr>
+  <td>9</td>
+  <td><code>bool</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>bool node in cbz_manga_translator/analysis/corpus_processor.py.</td>
+</tr>
+<tr>
+  <td>10</td>
+  <td><code>_image_megapixels()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
+  <td><span class="tag tag-endpoint">API</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>process_corpus()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
+  <td>_image_megapixels() node in cbz_manga_translator/analysis/corpus_processor.py.</td>
+</tr>
+<tr>
+  <td>11</td>
+  <td><code>float</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>float node in cbz_manga_translator/analysis/corpus_processor.py.</td>
+</tr>
+<tr>
+  <td>12</td>
+  <td><code>_skip_page()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>_write_progress()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small><br><code>process_corpus()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
+  <td>Organizes documentation pages, navigation, or content lookup.</td>
+</tr>
+<tr>
+  <td>13</td>
+  <td><code>int</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>int node in cbz_manga_translator/analysis/corpus_processor.py.</td>
+</tr>
+<tr>
+  <td>14</td>
+  <td><code>_count_images_under()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>describe_corpus_path()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small><br><code>find_corpus_candidates()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
+  <td>_count_images_under() node in cbz_manga_translator/analysis/corpus_processor.py.</td>
+</tr>
+<tr>
+  <td>15</td>
+  <td><code>_has_manifest()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>describe_corpus_path()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small><br><code>find_corpus_candidates()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
+  <td>_has_manifest() node in cbz_manga_translator/analysis/corpus_processor.py.</td>
+</tr>
+<tr>
+  <td>16</td>
+  <td><code>_looks_like_run_output()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>find_corpus_candidates()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
+  <td>_looks_like_run_output() node in cbz_manga_translator/analysis/corpus_processor.py.</td>
+</tr>
+<tr>
+  <td>17</td>
+  <td><code>find_corpus_candidates()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>_count_images_under()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small><br><code>_has_manifest()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small><br><code>_looks_like_run_output()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
+  <td><code>describe_corpus_path()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
+  <td>find_corpus_candidates() node in cbz_manga_translator/analysis/corpus_processor.py.</td>
+</tr>
+<tr>
+  <td>18</td>
+  <td><code>describe_corpus_path()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>_count_images_under()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small><br><code>_has_manifest()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small><br><code>find_corpus_candidates()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small><br>+1 more</td>
+  <td><code>_build_manifest_from_pages()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small><br><code>_find_manifest_file()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
+  <td>describe_corpus_path() node in cbz_manga_translator/analysis/corpus_processor.py.</td>
+</tr>
+<tr>
+  <td>19</td>
+  <td><code>.recognize()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>process_corpus()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
+  <td>.recognize() node in cbz_manga_translator/analysis/corpus_processor.py.</td>
+</tr>
+<tr>
+  <td>20</td>
+  <td><code>.translate_blocks()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>process_corpus()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
+  <td>.translate_blocks() node in cbz_manga_translator/analysis/corpus_processor.py.</td>
+</tr>
+<tr>
+  <td>21</td>
+  <td><code>CorpusManifestEntry</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>CorpusManifestEntry node in cbz_manga_translator/analysis/corpus_processor.py.</td>
+</tr>
+<tr>
+  <td>22</td>
+  <td><code>_read_jsonl()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>_read_manifest_file()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
+  <td>_read_jsonl() node in cbz_manga_translator/analysis/corpus_processor.py.</td>
+</tr>
+<tr>
+  <td>23</td>
+  <td><code>Any</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Any node in cbz_manga_translator/analysis/corpus_processor.py.</td>
+</tr>
+<tr>
+  <td>24</td>
+  <td><code>_resolve_image_path()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>_entry_from_manifest_row()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
+  <td>_resolve_image_path() node in cbz_manga_translator/analysis/corpus_processor.py.</td>
+</tr>
+<tr>
+  <td>25</td>
+  <td><code>_entry_from_manifest_row()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>_resolve_image_path()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
+  <td><code>_read_manifest_file()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
+  <td>_entry_from_manifest_row() node in cbz_manga_translator/analysis/corpus_processor.py.</td>
+</tr>
+<tr>
+  <td>26</td>
+  <td><code>_read_manifest_file()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>_entry_from_manifest_row()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small><br><code>_read_jsonl()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
+  <td><code>read_corpus_manifest()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
+  <td>_read_manifest_file() node in cbz_manga_translator/analysis/corpus_processor.py.</td>
+</tr>
+<tr>
+  <td>27</td>
+  <td><code>_find_manifest_file()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>describe_corpus_path()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
+  <td><code>read_corpus_manifest()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
+  <td>_find_manifest_file() node in cbz_manga_translator/analysis/corpus_processor.py.</td>
+</tr>
+<tr>
+  <td>28</td>
+  <td><code>_infer_series_label_from_image()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>_build_manifest_from_pages()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
+  <td>_infer_series_label_from_image() node in cbz_manga_translator/analysis/corpus_processor.py.</td>
+</tr>
+<tr>
+  <td>29</td>
+  <td><code>_infer_volume_label_from_image()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>_build_manifest_from_pages()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
+  <td>_infer_volume_label_from_image() node in cbz_manga_translator/analysis/corpus_processor.py.</td>
+</tr>
+<tr>
+  <td>30</td>
+  <td><code>_build_manifest_from_pages()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>describe_corpus_path()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small><br><code>label from image()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small><br><code>label from image()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
+  <td><code>read_corpus_manifest()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
+  <td>Organizes documentation pages, navigation, or content lookup.</td>
 </tr>
 </table>
 
@@ -2038,12 +2254,14 @@ flowchart LR
     <h4>Key Files</h4>
     <table style="width:100%;font-size:0.85rem;">
       <tr><th>File</th><th>Coverage</th></tr>
-      <tr><td><code>cbz_manga_translator/core/cache.py</code></td><td>8 nodes</td></tr>
+      <tr><td><code>cbz_manga_translator/analysis/corpus_processor.py</code></td><td>40 nodes</td></tr>
+<tr><td><code>cbz_manga_translator/core/cache.py</code></td><td>8 nodes</td></tr>
+<tr><td><code>src/cbz_manga_translator/corpus_inspect.py</code></td><td>3 nodes</td></tr>
     </table>
   </div>
   <div class="card">
     <h4>Design Notes</h4>
-    <p>This section comes from graphify community clustering. Relationship summary: references x11, contains x4, calls x2. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+    <p>This section comes from graphify community clustering. Relationship summary: references x81, calls x30, contains x28, explains x7. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
   </div>
 </div>
 <hr>
@@ -2297,12 +2515,12 @@ flowchart LR
 
 <!-- ====== 9. Tests & Fixtures ====== -->
 <h2 id="tests-fixtures">9. Tests &amp; Fixtures</h2>
-<p>Tests &amp; Fixtures groups implementation around test, cbz, manga, translator, mostly in src/cbz_manga_translator/review_app.py, cbz_manga_translator/analysis/corpus_sampler.py, cbz_manga_translator/analysis/corpus_processor.py. This section covers 954 nodes and 2351 internal edges; the diagram shows only representative relationships to stay readable.</p>
+<p>Tests &amp; Fixtures groups implementation around test, cbz, manga, translator, mostly in src/cbz_manga_translator/review_app.py, cbz_manga_translator/analysis/corpus_sampler.py, tests/test_argos_backend.py. This section covers 954 nodes and 2433 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
 %%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
 flowchart LR
-    %% Section: Tests &amp; Fixtures (954 nodes, 2351 edges)
+    %% Section: Tests &amp; Fixtures (954 nodes, 2433 edges)
     subgraph tests_fixtures_src_cbz_manga_translator_review_a_f7cb9d22["src/cbz_manga_translator/review_app.py"]
         cbz_manga_translator_review_app_reviewwindow_64924811("ReviewWindow<br/><small>src/cbz_manga_translator/review_app.py</small>")
         cbz_manga_translator_review_app_qt_e685fbc6("_qt()<br/><small>src/cbz_manga_translator/review_app.py</small>")
@@ -2633,17 +2851,17 @@ flowchart LR
       <tr><th>File</th><th>Coverage</th></tr>
       <tr><td><code>src/cbz_manga_translator/review_app.py</code></td><td>54 nodes</td></tr>
 <tr><td><code>cbz_manga_translator/analysis/corpus_sampler.py</code></td><td>44 nodes</td></tr>
-<tr><td><code>cbz_manga_translator/analysis/corpus_processor.py</code></td><td>37 nodes</td></tr>
 <tr><td><code>tests/test_argos_backend.py</code></td><td>34 nodes</td></tr>
-<tr><td><code>tests/test_english_dialogue_normalizer.py</code></td><td>33 nodes</td></tr>
+<tr><td><code>tests/test_english_dialogue_normalizer.py</code></td><td>34 nodes</td></tr>
 <tr><td><code>cbz_manga_translator/review/model.py</code></td><td>31 nodes</td></tr>
 <tr><td><code>cbz_manga_translator/core/editing.py</code></td><td>29 nodes</td></tr>
 <tr><td><code>cbz_manga_translator/analysis/review_workflow.py</code></td><td>27 nodes</td></tr>
+<tr><td><code>tests/test_quality_check.py</code></td><td>26 nodes</td></tr>
     </table>
   </div>
   <div class="card">
     <h4>Design Notes</h4>
-    <p>This section comes from graphify community clustering. Relationship summary: references x674, contains x542, calls x416, method x90. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+    <p>This section comes from graphify community clustering. Relationship summary: references x658, contains x538, calls x402, method x93. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
   </div>
 </div>
 <hr>
@@ -2988,349 +3206,8 @@ flowchart LR
 </div>
 <hr>
 
-<!-- ====== 11. Community 108 ====== -->
-<h2 id="community-108">11. Community 108</h2>
-<p>Community 108 groups implementation around translator, cbz, manga, analysis, mostly in cbz_manga_translator/analysis/corpus_processor.py, cbz_manga_translator/translate/quality.py, cbz_manga_translator/review/replay.py. This section covers 30 nodes and 83 internal edges; the diagram shows only representative relationships to stay readable.</p>
-
-<div class="mermaid">
-%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
-flowchart LR
-    %% Section: Community 108 (30 nodes, 83 edges)
-    subgraph community_108_cbz_manga_translator_analysis_corp_50695530["cbz_manga_translator/analysis/corpus_processor.py"]
-        src_cbz_manga_translator_analysis_corpus_process_c42a5838("Any<br/><small>cbz_manga_translator/analysis/corpus_processor.py</small>")
-        analysis_corpus_processor_corpusprocessresult_952dbdf0("CorpusProcessResult<br/><small>cbz_manga_translator/analysis/corpus_processor.py</small>")
-        src_cbz_manga_translator_analysis_corpus_process_4b337d12("OcrBlock<br/><small>cbz_manga_translator/analysis/corpus_processor.py</small>")
-        src_cbz_manga_translator_analysis_corpus_process_32f3ce74("PageRecord<br/><small>cbz_manga_translator/analysis/corpus_processor.py</small>")
-        src_cbz_manga_translator_analysis_corpus_process_415ab4b2("ProjectData<br/><small>cbz_manga_translator/analysis/corpus_processor.py</small>")
-        analysis_corpus_processor_recognizer_2e5b3364("Recognizer<br/><small>cbz_manga_translator/analysis/corpus_processor.py</small>")
-        src_cbz_manga_translator_analysis_corpus_process_21176cf6("SourceLang<br/><small>cbz_manga_translator/analysis/corpus_processor.py</small>")
-        src_cbz_manga_translator_analysis_corpus_process_229926fb("TranslationQualityChecker<br/><small>cbz_manga_translator/analysis/corpus_processor.py</small>")
-        analysis_corpus_processor_translator_b86643c5("Translator<br/><small>cbz_manga_translator/analysis/corpus_processor.py</small>")
-        src_cbz_manga_translator_analysis_corpus_process_ca48098e("float<br/><small>cbz_manga_translator/analysis/corpus_processor.py</small>")
-    end
-    subgraph community_108_cbz_manga_translator_ocr_easyocr_e_6548038d["cbz_manga_translator/ocr/easyocr_engine.py"]
-        ocr_easyocr_engine_easyocrengine_02f7c1c5("EasyOcrEngine<br/><small>cbz_manga_translator/ocr/easyocr_engine.py</small>")
-        ocr_easyocr_engine_easyocrengine_init_c7c5f972("__init__()<br/><small>cbz_manga_translator/ocr/easyocr_engine.py</small>")
-    end
-    subgraph community_108_cbz_manga_translator_translate_arg_266df13f["cbz_manga_translator/translate/argos.py"]
-        translate_argos_argostranslator_134596b2("ArgosTranslator<br/><small>cbz_manga_translator/translate/argos.py</small>")
-        translate_argos_argostranslator_init_78512433("__init__()<br/><small>cbz_manga_translator/translate/argos.py</small>")
-    end
-    subgraph community_108_cbz_manga_translator_translate_qua_aafe538b["cbz_manga_translator/translate/quality.py"]
-        translate_quality_translationqualitychecker_8d096e59("TranslationQualityChecker<br/><small>cbz_manga_translator/translate/quality.py</small>")
-        translate_quality_translationqualitychecker_init_da99d30d("__init__()<br/><small>cbz_manga_translator/translate/quality.py</small>")
-    end
-    core_models_pagerecord_69c222ab("PageRecord<br/><small>cbz_manga_translator/core/models.py</small>")
-    ocr_fallback_engine_ocrfallbackengine_080d1d50("OcrFallbackEngine<br/><small>cbz_manga_translator/ocr/fallback_engine.py</small>")
-    ocr_easyocr_engine_easyocrengine_02f7c1c5 -->|method| ocr_easyocr_engine_easyocrengine_init_c7c5f972
-    translate_argos_argostranslator_134596b2 -->|method| translate_argos_argostranslator_init_78512433
-    translate_quality_translationqualitychecker_8d096e59 -->|method| translate_quality_translationqualitychecker_init_da99d30d
-    %% Omitted for readability: 12 nodes, 0 edges
-    class src_cbz_manga_translator_analysis_corpus_process_c42a5838 klass;
-    class analysis_corpus_processor_corpusprocessresult_952dbdf0 klass;
-    class src_cbz_manga_translator_analysis_corpus_process_4b337d12 klass;
-    class src_cbz_manga_translator_analysis_corpus_process_32f3ce74 klass;
-    class src_cbz_manga_translator_analysis_corpus_process_415ab4b2 klass;
-    class analysis_corpus_processor_recognizer_2e5b3364 klass;
-    class src_cbz_manga_translator_analysis_corpus_process_21176cf6 klass;
-    class src_cbz_manga_translator_analysis_corpus_process_229926fb klass;
-    class analysis_corpus_processor_translator_b86643c5 klass;
-    class src_cbz_manga_translator_analysis_corpus_process_ca48098e function;
-    class ocr_easyocr_engine_easyocrengine_02f7c1c5 klass;
-    class ocr_easyocr_engine_easyocrengine_init_c7c5f972 function;
-    class translate_argos_argostranslator_134596b2 klass;
-    class translate_argos_argostranslator_init_78512433 function;
-    class translate_quality_translationqualitychecker_8d096e59 klass;
-    class translate_quality_translationqualitychecker_init_da99d30d function;
-    class core_models_pagerecord_69c222ab klass;
-    class ocr_fallback_engine_ocrfallbackengine_080d1d50 klass;
-    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
-    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
-    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
-    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
-    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
-    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
-    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
-    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
-    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
-</div>
-
-<h3>Call Details</h3>
-<table class="call-table">
-<tr>
-  <th style="width:5%">#</th>
-  <th style="width:28%">Node</th>
-  <th style="width:10%">Type</th>
-  <th style="width:17%">Caller</th>
-  <th style="width:20%">Callees</th>
-  <th style="width:20%">Description</th>
-</tr>
-<tr>
-  <td>1</td>
-  <td><code>int</code><br><small style="color:var(--muted)">src/cbz_manga_translator/app.py</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>ArgosTranslator</code><br><small style="color:var(--muted)">cbz_manga_translator/translate/argos.py</small><br><code>EasyOcrEngine</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/easyocr_engine.py</small><br><code>OcrFallbackEngine</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/fallback_engine.py</small><br>+1 more</td>
-  <td>int node in src/cbz_manga_translator/app.py.</td>
-</tr>
-<tr>
-  <td>2</td>
-  <td><code>TranslationQualityChecker</code><br><small style="color:var(--muted)">src/cbz_manga_translator/review_refresh.py</small></td>
-  <td><span class="tag tag-class">Class</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>ArgosTranslator</code><br><small style="color:var(--muted)">cbz_manga_translator/translate/argos.py</small><br><code>OcrFallbackEngine</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/fallback_engine.py</small><br><code>TranslationQualityChecker</code><br><small style="color:var(--muted)">cbz_manga_translator/translate/quality.py</small></td>
-  <td>TranslationQualityChecker node in src/cbz_manga_translator/review_refresh.py.</td>
-</tr>
-<tr>
-  <td>3</td>
-  <td><code>SourceLang</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
-  <td><span class="tag tag-class">Class</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>ArgosTranslator</code><br><small style="color:var(--muted)">cbz_manga_translator/translate/argos.py</small><br><code>EasyOcrEngine</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/easyocr_engine.py</small><br><code>OcrFallbackEngine</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/fallback_engine.py</small><br>+2 more</td>
-  <td>SourceLang node in cbz_manga_translator/analysis/corpus_processor.py.</td>
-</tr>
-<tr>
-  <td>4</td>
-  <td><code>float</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>ArgosTranslator</code><br><small style="color:var(--muted)">cbz_manga_translator/translate/argos.py</small><br><code>EasyOcrEngine</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/easyocr_engine.py</small><br><code>OcrFallbackEngine</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/fallback_engine.py</small><br>+2 more</td>
-  <td>float node in cbz_manga_translator/analysis/corpus_processor.py.</td>
-</tr>
-<tr>
-  <td>5</td>
-  <td><code>PageRecord</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
-  <td><span class="tag tag-class">Class</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>ArgosTranslator</code><br><small style="color:var(--muted)">cbz_manga_translator/translate/argos.py</small><br><code>EasyOcrEngine</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/easyocr_engine.py</small><br><code>OcrFallbackEngine</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/fallback_engine.py</small><br>+2 more</td>
-  <td>Organizes documentation pages, navigation, or content lookup.</td>
-</tr>
-<tr>
-  <td>6</td>
-  <td><code>ProjectData</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
-  <td><span class="tag tag-class">Class</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>ArgosTranslator</code><br><small style="color:var(--muted)">cbz_manga_translator/translate/argos.py</small><br><code>EasyOcrEngine</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/easyocr_engine.py</small><br><code>OcrFallbackEngine</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/fallback_engine.py</small><br>+2 more</td>
-  <td>ProjectData node in cbz_manga_translator/analysis/corpus_processor.py.</td>
-</tr>
-<tr>
-  <td>7</td>
-  <td><code>Recognizer</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
-  <td><span class="tag tag-class">Class</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>ArgosTranslator</code><br><small style="color:var(--muted)">cbz_manga_translator/translate/argos.py</small><br><code>EasyOcrEngine</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/easyocr_engine.py</small><br><code>OcrFallbackEngine</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/fallback_engine.py</small><br>+2 more</td>
-  <td>Recognizer node in cbz_manga_translator/analysis/corpus_processor.py.</td>
-</tr>
-<tr>
-  <td>8</td>
-  <td><code>OcrBlock</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
-  <td><span class="tag tag-class">Class</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>ArgosTranslator</code><br><small style="color:var(--muted)">cbz_manga_translator/translate/argos.py</small><br><code>EasyOcrEngine</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/easyocr_engine.py</small><br><code>OcrFallbackEngine</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/fallback_engine.py</small><br>+2 more</td>
-  <td>OcrBlock node in cbz_manga_translator/analysis/corpus_processor.py.</td>
-</tr>
-<tr>
-  <td>9</td>
-  <td><code>Translator</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
-  <td><span class="tag tag-class">Class</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>ArgosTranslator</code><br><small style="color:var(--muted)">cbz_manga_translator/translate/argos.py</small><br><code>EasyOcrEngine</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/easyocr_engine.py</small><br><code>OcrFallbackEngine</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/fallback_engine.py</small><br>+2 more</td>
-  <td>Translator node in cbz_manga_translator/analysis/corpus_processor.py.</td>
-</tr>
-<tr>
-  <td>10</td>
-  <td><code>CorpusProcessResult</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
-  <td><span class="tag tag-class">Class</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>ArgosTranslator</code><br><small style="color:var(--muted)">cbz_manga_translator/translate/argos.py</small><br><code>EasyOcrEngine</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/easyocr_engine.py</small><br><code>OcrFallbackEngine</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/fallback_engine.py</small><br>+2 more</td>
-  <td>CorpusProcessResult node in cbz_manga_translator/analysis/corpus_processor.py.</td>
-</tr>
-<tr>
-  <td>11</td>
-  <td><code>Any</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
-  <td><span class="tag tag-class">Class</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>ArgosTranslator</code><br><small style="color:var(--muted)">cbz_manga_translator/translate/argos.py</small><br><code>EasyOcrEngine</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/easyocr_engine.py</small><br><code>OcrFallbackEngine</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/fallback_engine.py</small><br>+2 more</td>
-  <td>Any node in cbz_manga_translator/analysis/corpus_processor.py.</td>
-</tr>
-<tr>
-  <td>12</td>
-  <td><code>TranslationQualityChecker</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
-  <td><span class="tag tag-class">Class</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>ArgosTranslator</code><br><small style="color:var(--muted)">cbz_manga_translator/translate/argos.py</small><br><code>EasyOcrEngine</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/easyocr_engine.py</small><br><code>OcrFallbackEngine</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/fallback_engine.py</small><br>+2 more</td>
-  <td>TranslationQualityChecker node in cbz_manga_translator/analysis/corpus_processor.py.</td>
-</tr>
-<tr>
-  <td>13</td>
-  <td><code>PageRecord</code><br><small style="color:var(--muted)">cbz_manga_translator/core/models.py</small></td>
-  <td><span class="tag tag-class">Class</span></td>
-  <td><code>Any</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small><br><code>CorpusProcessResult</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small><br><code>float</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small><br>+7 more</td>
-  <td><code>bool</code><br><small style="color:var(--muted)">cbz_manga_translator/review/replay.py</small><br><code>object</code><br><small style="color:var(--muted)">cbz_manga_translator/review/replay.py</small><br><code>PageRecord</code><br><small style="color:var(--muted)">cbz_manga_translator/review/replay.py</small><br>+1 more</td>
-  <td>Organizes documentation pages, navigation, or content lookup.</td>
-</tr>
-<tr>
-  <td>14</td>
-  <td><code>EasyOcrEngine</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/easyocr_engine.py</small></td>
-  <td><span class="tag tag-class">Class</span></td>
-  <td><code>Any</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small><br><code>CorpusProcessResult</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small><br><code>float</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small><br>+8 more</td>
-  <td><code>__init__()</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/easyocr_engine.py</small><br><code>bool</code><br><small style="color:var(--muted)">cbz_manga_translator/review/replay.py</small><br><code>object</code><br><small style="color:var(--muted)">cbz_manga_translator/review/replay.py</small><br>+3 more</td>
-  <td>EasyOcrEngine node in cbz_manga_translator/ocr/easyocr_engine.py.</td>
-</tr>
-<tr>
-  <td>15</td>
-  <td><code>.__init__()</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/easyocr_engine.py</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>EasyOcrEngine</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/easyocr_engine.py</small></td>
-  <td>No direct outbound edge</td>
-  <td>.__init__() node in cbz_manga_translator/ocr/easyocr_engine.py.</td>
-</tr>
-<tr>
-  <td>16</td>
-  <td><code>Free OCR backend using EasyOCR.      EasyOCR returns polygons, text and confiden</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/easyocr_engine.py</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Design note for Free OCR backend using EasyOCR.      EasyOCR returns polygons, text and confiden.</td>
-</tr>
-<tr>
-  <td>17</td>
-  <td><code>OcrFallbackEngine</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/fallback_engine.py</small></td>
-  <td><span class="tag tag-class">Class</span></td>
-  <td><code>Any</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small><br><code>CorpusProcessResult</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small><br><code>EasyOcrEngine</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/easyocr_engine.py</small><br>+10 more</td>
-  <td>No direct outbound edge</td>
-  <td>OcrFallbackEngine node in cbz_manga_translator/ocr/fallback_engine.py.</td>
-</tr>
-<tr>
-  <td>18</td>
-  <td><code>Local OCR fallback coordinator.      EasyOCR remains the primary detector becaus</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/fallback_engine.py</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Design note for Local OCR fallback coordinator.      EasyOCR remains the primary detector becaus.</td>
-</tr>
-<tr>
-  <td>19</td>
-  <td><code>object</code><br><small style="color:var(--muted)">cbz_manga_translator/review/replay.py</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>EasyOcrEngine</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/easyocr_engine.py</small><br><code>PageRecord</code><br><small style="color:var(--muted)">cbz_manga_translator/core/models.py</small></td>
-  <td><code>ArgosTranslator</code><br><small style="color:var(--muted)">cbz_manga_translator/translate/argos.py</small><br><code>TranslationQualityChecker</code><br><small style="color:var(--muted)">cbz_manga_translator/translate/quality.py</small></td>
-  <td>object node in cbz_manga_translator/review/replay.py.</td>
-</tr>
-<tr>
-  <td>20</td>
-  <td><code>bool</code><br><small style="color:var(--muted)">cbz_manga_translator/review/replay.py</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>EasyOcrEngine</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/easyocr_engine.py</small><br><code>PageRecord</code><br><small style="color:var(--muted)">cbz_manga_translator/core/models.py</small></td>
-  <td><code>ArgosTranslator</code><br><small style="color:var(--muted)">cbz_manga_translator/translate/argos.py</small><br><code>TranslationQualityChecker</code><br><small style="color:var(--muted)">cbz_manga_translator/translate/quality.py</small></td>
-  <td>bool node in cbz_manga_translator/review/replay.py.</td>
-</tr>
-<tr>
-  <td>21</td>
-  <td><code>PageRecord</code><br><small style="color:var(--muted)">cbz_manga_translator/review/replay.py</small></td>
-  <td><span class="tag tag-class">Class</span></td>
-  <td><code>EasyOcrEngine</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/easyocr_engine.py</small><br><code>PageRecord</code><br><small style="color:var(--muted)">cbz_manga_translator/core/models.py</small></td>
-  <td><code>ArgosTranslator</code><br><small style="color:var(--muted)">cbz_manga_translator/translate/argos.py</small><br><code>TranslationQualityChecker</code><br><small style="color:var(--muted)">cbz_manga_translator/translate/quality.py</small></td>
-  <td>Organizes documentation pages, navigation, or content lookup.</td>
-</tr>
-<tr>
-  <td>22</td>
-  <td><code>TranslationQualityChecker</code><br><small style="color:var(--muted)">cbz_manga_translator/review/replay.py</small></td>
-  <td><span class="tag tag-class">Class</span></td>
-  <td><code>EasyOcrEngine</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/easyocr_engine.py</small><br><code>PageRecord</code><br><small style="color:var(--muted)">cbz_manga_translator/core/models.py</small></td>
-  <td><code>ArgosTranslator</code><br><small style="color:var(--muted)">cbz_manga_translator/translate/argos.py</small><br><code>TranslationQualityChecker</code><br><small style="color:var(--muted)">cbz_manga_translator/translate/quality.py</small></td>
-  <td>TranslationQualityChecker node in cbz_manga_translator/review/replay.py.</td>
-</tr>
-<tr>
-  <td>23</td>
-  <td><code>ArgosTranslator</code><br><small style="color:var(--muted)">cbz_manga_translator/translate/argos.py</small></td>
-  <td><span class="tag tag-class">Class</span></td>
-  <td><code>Any</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small><br><code>bool</code><br><small style="color:var(--muted)">cbz_manga_translator/review/replay.py</small><br><code>CorpusProcessResult</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small><br>+13 more</td>
-  <td><code>__init__()</code><br><small style="color:var(--muted)">cbz_manga_translator/translate/argos.py</small></td>
-  <td>ArgosTranslator node in cbz_manga_translator/translate/argos.py.</td>
-</tr>
-<tr>
-  <td>24</td>
-  <td><code>.__init__()</code><br><small style="color:var(--muted)">cbz_manga_translator/translate/argos.py</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>ArgosTranslator</code><br><small style="color:var(--muted)">cbz_manga_translator/translate/argos.py</small></td>
-  <td>No direct outbound edge</td>
-  <td>.__init__() node in cbz_manga_translator/translate/argos.py.</td>
-</tr>
-<tr>
-  <td>25</td>
-  <td><code>Offline Argos Translate backend.      No Hugging Face/Transformers model is load</code><br><small style="color:var(--muted)">cbz_manga_translator/translate/argos.py</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Design note for Offline Argos Translate backend.      No Hugging Face/Transformers model is load.</td>
-</tr>
-<tr>
-  <td>26</td>
-  <td><code>TranslationQualityChecker</code><br><small style="color:var(--muted)">cbz_manga_translator/translate/quality.py</small></td>
-  <td><span class="tag tag-class">Class</span></td>
-  <td><code>Any</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small><br><code>bool</code><br><small style="color:var(--muted)">cbz_manga_translator/review/replay.py</small><br><code>CorpusProcessResult</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small><br>+13 more</td>
-  <td><code>__init__()</code><br><small style="color:var(--muted)">cbz_manga_translator/translate/quality.py</small></td>
-  <td>TranslationQualityChecker node in cbz_manga_translator/translate/quality.py.</td>
-</tr>
-<tr>
-  <td>27</td>
-  <td><code>.__init__()</code><br><small style="color:var(--muted)">cbz_manga_translator/translate/quality.py</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>TranslationQualityChecker</code><br><small style="color:var(--muted)">cbz_manga_translator/translate/quality.py</small></td>
-  <td>No direct outbound edge</td>
-  <td>.__init__() node in cbz_manga_translator/translate/quality.py.</td>
-</tr>
-<tr>
-  <td>28</td>
-  <td><code>float</code><br><small style="color:var(--muted)">cbz_manga_translator/translate/quality.py</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>float node in cbz_manga_translator/translate/quality.py.</td>
-</tr>
-<tr>
-  <td>29</td>
-  <td><code>Cheap local heuristics to flag blocks that require manual review.      This is d</code><br><small style="color:var(--muted)">cbz_manga_translator/translate/quality.py</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Design note for Cheap local heuristics to flag blocks that require manual review.      This is d.</td>
-</tr>
-<tr>
-  <td>30</td>
-  <td><code>Cheap local heuristics to flag blocks that require manual review.      This is d</code><br><small style="color:var(--muted)">cbz_manga_translator/translate/quality.py</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Design note for Cheap local heuristics to flag blocks that require manual review.      This is d.</td>
-</tr>
-</table>
-
-<div class="grid">
-  <div class="card">
-    <h4>Key Files</h4>
-    <table style="width:100%;font-size:0.85rem;">
-      <tr><th>File</th><th>Coverage</th></tr>
-      <tr><td><code>cbz_manga_translator/analysis/corpus_processor.py</code></td><td>10 nodes</td></tr>
-<tr><td><code>cbz_manga_translator/translate/quality.py</code></td><td>5 nodes</td></tr>
-<tr><td><code>cbz_manga_translator/review/replay.py</code></td><td>4 nodes</td></tr>
-<tr><td><code>cbz_manga_translator/ocr/easyocr_engine.py</code></td><td>3 nodes</td></tr>
-<tr><td><code>cbz_manga_translator/translate/argos.py</code></td><td>3 nodes</td></tr>
-<tr><td><code>cbz_manga_translator/ocr/fallback_engine.py</code></td><td>2 nodes</td></tr>
-<tr><td><code>src/cbz_manga_translator/app.py</code></td><td>1 nodes</td></tr>
-<tr><td><code>cbz_manga_translator/core/models.py</code></td><td>1 nodes</td></tr>
-    </table>
-  </div>
-  <div class="card">
-    <h4>Design Notes</h4>
-    <p>This section comes from graphify community clustering. Relationship summary: explains x5, method x3, references x1. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
-  </div>
-</div>
-<hr>
-
-<!-- ====== 12. Community 40 ====== -->
-<h2 id="community-40">12. Community 40</h2>
+<!-- ====== 11. Community 40 ====== -->
+<h2 id="community-40">11. Community 40</h2>
 <p>Community 40 groups implementation around pipelinemd, docs, ocr, pipeline, mostly in docs/pipeline.md. This section covers 13 nodes and 12 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
@@ -3517,8 +3394,8 @@ flowchart LR
 </div>
 <hr>
 
-<!-- ====== 13. Community 45 ====== -->
-<h2 id="community-45">13. Community 45</h2>
+<!-- ====== 12. Community 45 ====== -->
+<h2 id="community-45">12. Community 45</h2>
 <p>Community 45 groups implementation around glossary, strategymd, docs, glossaire, mostly in docs/glossary_strategy.md. This section covers 11 nodes and 10 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
@@ -3683,8 +3560,8 @@ flowchart LR
 </div>
 <hr>
 
-<!-- ====== 14. Community 46 ====== -->
-<h2 id="community-46">14. Community 46</h2>
+<!-- ====== 13. Community 46 ====== -->
+<h2 id="community-46">13. Community 46</h2>
 <p>Community 46 groups implementation around ocr, strategymd, docs, stratégie, mostly in docs/ocr_strategy.md. This section covers 11 nodes and 10 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
@@ -3849,8 +3726,8 @@ flowchart LR
 </div>
 <hr>
 
-<!-- ====== 15. Community 47 ====== -->
-<h2 id="community-47">15. Community 47</h2>
+<!-- ====== 14. Community 47 ====== -->
+<h2 id="community-47">14. Community 47</h2>
 <p>Community 47 groups implementation around interface, strategymd, docs, décision, mostly in docs/interface_strategy.md. This section covers 10 nodes and 9 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
@@ -4004,55 +3881,40 @@ flowchart LR
 </div>
 <hr>
 
-<!-- ====== 16. Other ====== -->
-<h2 id="other">16. Other</h2>
-<p>Other groups implementation around manga, cbz, translator, docs, mostly in README.md, docs/docker_policy.md, docs/translation_strategy.md. This section covers 89 nodes and 54 internal edges; the diagram shows only representative relationships to stay readable.</p>
+<!-- ====== 15. Community 49 ====== -->
+<h2 id="community-49">15. Community 49</h2>
+<p>Community 49 groups implementation around docker, policymd, docs, politique, mostly in docs/docker_policy.md. This section covers 9 nodes and 8 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
 %%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
 flowchart LR
-    %% Section: Other (89 nodes, 54 edges)
-    subgraph other_src_cbz_manga_translator_ocr_setup_py_7ca5e526["src/cbz_manga_translator/ocr_setup.py"]
-        cbz_manga_translator_ocr_setup_check_c67cb99a("_check()<br/><small>src/cbz_manga_translator/ocr_setup.py</small>")
-        cbz_manga_translator_ocr_setup_print_commands_382190d7("_print_commands()<br/><small>src/cbz_manga_translator/ocr_setup.py</small>")
-        cbz_manga_translator_ocr_setup_main_3d8b33f0("main()<br/><small>src/cbz_manga_translator/ocr_setup.py</small>")
-        src_cbz_manga_translator_ocr_setup_py_int_05dffc4c("int<br/><small>src/cbz_manga_translator/ocr_setup.py</small>")
-        src_cbz_manga_translator_ocr_setup_py_6b70c8c1("ocr_setup.py")
-        src_cbz_manga_translator_ocr_setup_py_str_cc9b3b3a("str<br/><small>src/cbz_manga_translator/ocr_setup.py</small>")
-    end
-    agents_md_1f169a2a("AGENTS.md")
-    src_cbz_manga_translator_analysis_init_py_4f9b9e55("__init__.py")
-    src_cbz_manga_translator_core_init_py_79313980("__init__.py")
-    src_cbz_manga_translator_export_init_py_cfd607b7("__init__.py")
-    src_cbz_manga_translator_gui_init_py_db4ee692("__init__.py")
-    src_cbz_manga_translator_gui_theme_py_36f812c4("theme.py")
-    src_cbz_manga_translator_ocr_init_py_0608cae0("__init__.py")
-    src_cbz_manga_translator_review_init_py_14bd054a("__init__.py")
-    src_cbz_manga_translator_translate_init_py_d1653314("__init__.py")
-    src_cbz_manga_translator_translate_builtin_gloss_b89a9b62("builtin_glossary.py")
-    src_cbz_manga_translator_translate_helsinki_py_de622633("helsinki.py")
-    src_cbz_manga_translator_init_py_45d5b27f("__init__.py")
-    cbz_manga_translator_ocr_setup_print_commands_382190d7 -->|calls| cbz_manga_translator_ocr_setup_main_3d8b33f0
-    cbz_manga_translator_ocr_setup_check_c67cb99a -->|calls| cbz_manga_translator_ocr_setup_main_3d8b33f0
-    %% Omitted for readability: 71 nodes, 0 edges
-    class cbz_manga_translator_ocr_setup_check_c67cb99a function;
-    class cbz_manga_translator_ocr_setup_print_commands_382190d7 entry;
-    class cbz_manga_translator_ocr_setup_main_3d8b33f0 function;
-    class src_cbz_manga_translator_ocr_setup_py_int_05dffc4c function;
-    class src_cbz_manga_translator_ocr_setup_py_6b70c8c1 module;
-    class src_cbz_manga_translator_ocr_setup_py_str_cc9b3b3a function;
-    class agents_md_1f169a2a concept;
-    class src_cbz_manga_translator_analysis_init_py_4f9b9e55 module;
-    class src_cbz_manga_translator_core_init_py_79313980 module;
-    class src_cbz_manga_translator_export_init_py_cfd607b7 module;
-    class src_cbz_manga_translator_gui_init_py_db4ee692 module;
-    class src_cbz_manga_translator_gui_theme_py_36f812c4 module;
-    class src_cbz_manga_translator_ocr_init_py_0608cae0 module;
-    class src_cbz_manga_translator_review_init_py_14bd054a module;
-    class src_cbz_manga_translator_translate_init_py_d1653314 module;
-    class src_cbz_manga_translator_translate_builtin_gloss_b89a9b62 module;
-    class src_cbz_manga_translator_translate_helsinki_py_de622633 module;
-    class src_cbz_manga_translator_init_py_45d5b27f module;
+    %% Section: Community 49 (9 nodes, 8 edges)
+    docs_docker_policy_politique_docker_defa4fb1("Politique Docker<br/><small>docs/docker_policy.md</small>")
+    docs_docker_policy_md_0c90edd2("docker_policy.md")
+    docs_docker_policy_commandes_actuelles_088c1036("Commandes actuelles<br/><small>docs/docker_policy.md</small>")
+    docs_docker_policy_futur_possible_c842b17b("Futur possible<br/><small>docs/docker_policy.md</small>")
+    docs_docker_policy_d_cision_30227141("Décision<br/><small>docs/docker_policy.md</small>")
+    docs_docker_policy_pourquoi_8537d1d4("Pourquoi<br/><small>docs/docker_policy.md</small>")
+    docs_docker_policy_usages_accept_s_de_docker_20839dd7("Usages acceptés de Docker<br/><small>docs/docker_policy.md</small>")
+    docs_docker_policy_codeblock_1_9cbb4f13("code:bash (docker build -t cbz-manga-tr...<br/><small>docs/docker_policy.md</small>")
+    docs_docker_policy_codeblock_2_568aa7cf("code:text (GUI Python Windows native)<br/><small>docs/docker_policy.md</small>")
+    docs_docker_policy_md_0c90edd2 -->|contains| docs_docker_policy_politique_docker_defa4fb1
+    docs_docker_policy_politique_docker_defa4fb1 -->|contains| docs_docker_policy_commandes_actuelles_088c1036
+    docs_docker_policy_politique_docker_defa4fb1 -->|contains| docs_docker_policy_d_cision_30227141
+    docs_docker_policy_politique_docker_defa4fb1 -->|contains| docs_docker_policy_futur_possible_c842b17b
+    docs_docker_policy_politique_docker_defa4fb1 -->|contains| docs_docker_policy_pourquoi_8537d1d4
+    docs_docker_policy_politique_docker_defa4fb1 -->|contains| docs_docker_policy_usages_accept_s_de_docker_20839dd7
+    docs_docker_policy_commandes_actuelles_088c1036 -->|contains| docs_docker_policy_codeblock_1_9cbb4f13
+    docs_docker_policy_futur_possible_c842b17b -->|contains| docs_docker_policy_codeblock_2_568aa7cf
+    class docs_docker_policy_politique_docker_defa4fb1 concept;
+    class docs_docker_policy_md_0c90edd2 concept;
+    class docs_docker_policy_commandes_actuelles_088c1036 concept;
+    class docs_docker_policy_futur_possible_c842b17b concept;
+    class docs_docker_policy_d_cision_30227141 concept;
+    class docs_docker_policy_pourquoi_8537d1d4 concept;
+    class docs_docker_policy_usages_accept_s_de_docker_20839dd7 concept;
+    class docs_docker_policy_codeblock_1_9cbb4f13 concept;
+    class docs_docker_policy_codeblock_2_568aa7cf concept;
     classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
     classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
     classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
@@ -4146,8 +4008,98 @@ flowchart LR
   <td>No direct outbound edge</td>
   <td>Documentation node describing code:text (GUI Python Windows native).</td>
 </tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>docs/docker_policy.md</code></td><td>9 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: contains x8. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 16. Other ====== -->
+<h2 id="other">16. Other</h2>
+<p>Other groups implementation around manga, cbz, translator, readmemd, mostly in README.md, docs/translation_strategy.md, docs/architecture.md. This section covers 90 nodes and 57 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: Other (90 nodes, 57 edges)
+    subgraph other_cbz_manga_translator_core_models_py_51a942f6["cbz_manga_translator/core/models.py"]
+        core_models_pagerecord_to_dict_ebb776d1("to_dict()<br/><small>cbz_manga_translator/core/models.py</small>")
+        core_models_projectdata_to_dict_638b6a17("to_dict()<br/><small>cbz_manga_translator/core/models.py</small>")
+        src_cbz_manga_translator_core_models_py_any_601ff691("Any<br/><small>cbz_manga_translator/core/models.py</small>")
+        core_models_from_dict_99509df0("from_dict()<br/><small>cbz_manga_translator/core/models.py</small>")
+        src_cbz_manga_translator_core_models_py_str_ebccffc4("str<br/><small>cbz_manga_translator/core/models.py</small>")
+        core_models_ocrblock_to_dict_fe31592a("to_dict()<br/><small>cbz_manga_translator/core/models.py</small>")
+    end
+    subgraph other_src_cbz_manga_translator_ocr_setup_py_7ca5e526["src/cbz_manga_translator/ocr_setup.py"]
+        cbz_manga_translator_ocr_setup_check_c67cb99a("_check()<br/><small>src/cbz_manga_translator/ocr_setup.py</small>")
+        cbz_manga_translator_ocr_setup_print_commands_382190d7("_print_commands()<br/><small>src/cbz_manga_translator/ocr_setup.py</small>")
+        cbz_manga_translator_ocr_setup_main_3d8b33f0("main()<br/><small>src/cbz_manga_translator/ocr_setup.py</small>")
+    end
+    src_cbz_manga_translator_analysis_init_py_4f9b9e55("__init__.py")
+    src_cbz_manga_translator_core_init_py_79313980("__init__.py")
+    src_cbz_manga_translator_export_init_py_cfd607b7("__init__.py")
+    src_cbz_manga_translator_gui_init_py_db4ee692("__init__.py")
+    src_cbz_manga_translator_gui_theme_py_36f812c4("theme.py")
+    src_cbz_manga_translator_ocr_init_py_0608cae0("__init__.py")
+    src_cbz_manga_translator_review_init_py_14bd054a("__init__.py")
+    src_cbz_manga_translator_translate_init_py_d1653314("__init__.py")
+    src_cbz_manga_translator_translate_builtin_gloss_b89a9b62("builtin_glossary.py")
+    cbz_manga_translator_ocr_setup_print_commands_382190d7 -->|calls| cbz_manga_translator_ocr_setup_main_3d8b33f0
+    cbz_manga_translator_ocr_setup_check_c67cb99a -->|calls| cbz_manga_translator_ocr_setup_main_3d8b33f0
+    core_models_pagerecord_to_dict_ebb776d1 -->|calls| core_models_projectdata_to_dict_638b6a17
+    %% Omitted for readability: 72 nodes, 0 edges
+    class core_models_pagerecord_to_dict_ebb776d1 function;
+    class core_models_projectdata_to_dict_638b6a17 function;
+    class src_cbz_manga_translator_core_models_py_any_601ff691 klass;
+    class core_models_from_dict_99509df0 function;
+    class src_cbz_manga_translator_core_models_py_str_ebccffc4 function;
+    class core_models_ocrblock_to_dict_fe31592a function;
+    class cbz_manga_translator_ocr_setup_check_c67cb99a function;
+    class cbz_manga_translator_ocr_setup_print_commands_382190d7 entry;
+    class cbz_manga_translator_ocr_setup_main_3d8b33f0 function;
+    class src_cbz_manga_translator_analysis_init_py_4f9b9e55 module;
+    class src_cbz_manga_translator_core_init_py_79313980 module;
+    class src_cbz_manga_translator_export_init_py_cfd607b7 module;
+    class src_cbz_manga_translator_gui_init_py_db4ee692 module;
+    class src_cbz_manga_translator_gui_theme_py_36f812c4 module;
+    class src_cbz_manga_translator_ocr_init_py_0608cae0 module;
+    class src_cbz_manga_translator_review_init_py_14bd054a module;
+    class src_cbz_manga_translator_translate_init_py_d1653314 module;
+    class src_cbz_manga_translator_translate_builtin_gloss_b89a9b62 module;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
 <tr>
-  <td>10</td>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
   <td><code>translation_strategy.md</code><br><small style="color:var(--muted)">docs/translation_strategy.md</small></td>
   <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
@@ -4155,7 +4107,7 @@ flowchart LR
   <td>Documentation node describing translation_strategy.md.</td>
 </tr>
 <tr>
-  <td>11</td>
+  <td>2</td>
   <td><code>Stratégie de traduction</code><br><small style="color:var(--muted)">docs/translation_strategy.md</small></td>
   <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
@@ -4163,7 +4115,7 @@ flowchart LR
   <td>Documentation node describing Stratégie de traduction.</td>
 </tr>
 <tr>
-  <td>12</td>
+  <td>3</td>
   <td><code>Contraintes</code><br><small style="color:var(--muted)">docs/translation_strategy.md</small></td>
   <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
@@ -4171,7 +4123,7 @@ flowchart LR
   <td>Documentation node describing Contraintes.</td>
 </tr>
 <tr>
-  <td>13</td>
+  <td>4</td>
   <td><code>Backend actuel</code><br><small style="color:var(--muted)">docs/translation_strategy.md</small></td>
   <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
@@ -4179,7 +4131,7 @@ flowchart LR
   <td>Documentation node describing Backend actuel.</td>
 </tr>
 <tr>
-  <td>14</td>
+  <td>5</td>
   <td><code>code:text (en -&gt; fr)</code><br><small style="color:var(--muted)">docs/translation_strategy.md</small></td>
   <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
@@ -4187,7 +4139,7 @@ flowchart LR
   <td>Documentation node describing code:text (en -&gt; fr).</td>
 </tr>
 <tr>
-  <td>15</td>
+  <td>6</td>
   <td><code>Pré-traitement indispensable</code><br><small style="color:var(--muted)">docs/translation_strategy.md</small></td>
   <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
@@ -4195,7 +4147,7 @@ flowchart LR
   <td>Documentation node describing Pré-traitement indispensable.</td>
 </tr>
 <tr>
-  <td>16</td>
+  <td>7</td>
   <td><code>code:text (ya → you)</code><br><small style="color:var(--muted)">docs/translation_strategy.md</small></td>
   <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
@@ -4203,7 +4155,7 @@ flowchart LR
   <td>Documentation node describing code:text (ya → you).</td>
 </tr>
 <tr>
-  <td>17</td>
+  <td>8</td>
   <td><code>code:text (Aww → Aww...)</code><br><small style="color:var(--muted)">docs/translation_strategy.md</small></td>
   <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
@@ -4211,7 +4163,7 @@ flowchart LR
   <td>Documentation node describing code:text (Aww → Aww...).</td>
 </tr>
 <tr>
-  <td>18</td>
+  <td>9</td>
   <td><code>Limite assumée</code><br><small style="color:var(--muted)">docs/translation_strategy.md</small></td>
   <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
@@ -4219,7 +4171,7 @@ flowchart LR
   <td>Documentation node describing Limite assumée.</td>
 </tr>
 <tr>
-  <td>19</td>
+  <td>10</td>
   <td><code>architecture.md</code><br><small style="color:var(--muted)">docs/architecture.md</small></td>
   <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
@@ -4227,7 +4179,7 @@ flowchart LR
   <td>Documentation node describing architecture.md.</td>
 </tr>
 <tr>
-  <td>20</td>
+  <td>11</td>
   <td><code>Architecture</code><br><small style="color:var(--muted)">docs/architecture.md</small></td>
   <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
@@ -4235,7 +4187,7 @@ flowchart LR
   <td>Documentation node describing Architecture.</td>
 </tr>
 <tr>
-  <td>21</td>
+  <td>12</td>
   <td><code>Objectif</code><br><small style="color:var(--muted)">docs/architecture.md</small></td>
   <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
@@ -4243,7 +4195,7 @@ flowchart LR
   <td>Documentation node describing Objectif.</td>
 </tr>
 <tr>
-  <td>22</td>
+  <td>13</td>
   <td><code>Organisation actuelle</code><br><small style="color:var(--muted)">docs/architecture.md</small></td>
   <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
@@ -4251,7 +4203,7 @@ flowchart LR
   <td>Documentation node describing Organisation actuelle.</td>
 </tr>
 <tr>
-  <td>23</td>
+  <td>14</td>
   <td><code>code:text (src/cbz_manga_translator/)</code><br><small style="color:var(--muted)">docs/architecture.md</small></td>
   <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
@@ -4259,7 +4211,7 @@ flowchart LR
   <td>Documentation node describing code:text (src/cbz_manga_translator/).</td>
 </tr>
 <tr>
-  <td>24</td>
+  <td>15</td>
   <td><code>Principes</code><br><small style="color:var(--muted)">docs/architecture.md</small></td>
   <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
@@ -4267,7 +4219,7 @@ flowchart LR
   <td>Documentation node describing Principes.</td>
 </tr>
 <tr>
-  <td>25</td>
+  <td>16</td>
   <td><code>Modèle de bloc</code><br><small style="color:var(--muted)">docs/architecture.md</small></td>
   <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
@@ -4275,7 +4227,7 @@ flowchart LR
   <td>Documentation node describing Modèle de bloc.</td>
 </tr>
 <tr>
-  <td>26</td>
+  <td>17</td>
   <td><code>code:text (bbox)</code><br><small style="color:var(--muted)">docs/architecture.md</small></td>
   <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
@@ -4283,7 +4235,55 @@ flowchart LR
   <td>Documentation node describing code:text (bbox).</td>
 </tr>
 <tr>
-  <td>27</td>
+  <td>18</td>
+  <td><code>from_dict()</code><br><small style="color:var(--muted)">cbz_manga_translator/core/models.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>from_dict() node in cbz_manga_translator/core/models.py.</td>
+</tr>
+<tr>
+  <td>19</td>
+  <td><code>str</code><br><small style="color:var(--muted)">cbz_manga_translator/core/models.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>str node in cbz_manga_translator/core/models.py.</td>
+</tr>
+<tr>
+  <td>20</td>
+  <td><code>Any</code><br><small style="color:var(--muted)">cbz_manga_translator/core/models.py</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Any node in cbz_manga_translator/core/models.py.</td>
+</tr>
+<tr>
+  <td>21</td>
+  <td><code>.to_dict()</code><br><small style="color:var(--muted)">cbz_manga_translator/core/models.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>.to_dict() node in cbz_manga_translator/core/models.py.</td>
+</tr>
+<tr>
+  <td>22</td>
+  <td><code>.to_dict()</code><br><small style="color:var(--muted)">cbz_manga_translator/core/models.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>to_dict()</code><br><small style="color:var(--muted)">cbz_manga_translator/core/models.py</small></td>
+  <td>.to_dict() node in cbz_manga_translator/core/models.py.</td>
+</tr>
+<tr>
+  <td>23</td>
+  <td><code>.to_dict()</code><br><small style="color:var(--muted)">cbz_manga_translator/core/models.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>to_dict()</code><br><small style="color:var(--muted)">cbz_manga_translator/core/models.py</small></td>
+  <td>No direct outbound edge</td>
+  <td>.to_dict() node in cbz_manga_translator/core/models.py.</td>
+</tr>
+<tr>
+  <td>24</td>
   <td><code>ocr_setup.py</code><br><small style="color:var(--muted)">src/cbz_manga_translator/ocr_setup.py</small></td>
   <td><span class="tag tag-class">Module</span></td>
   <td>External entry / no inbound edge</td>
@@ -4291,7 +4291,7 @@ flowchart LR
   <td>Module file in src/cbz_manga_translator/ocr_setup.py.</td>
 </tr>
 <tr>
-  <td>28</td>
+  <td>25</td>
   <td><code>_print_commands()</code><br><small style="color:var(--muted)">src/cbz_manga_translator/ocr_setup.py</small></td>
   <td><span class="tag tag-cmd">Entry</span></td>
   <td>External entry / no inbound edge</td>
@@ -4299,7 +4299,7 @@ flowchart LR
   <td>_print_commands() node in src/cbz_manga_translator/ocr_setup.py.</td>
 </tr>
 <tr>
-  <td>29</td>
+  <td>26</td>
   <td><code>_check()</code><br><small style="color:var(--muted)">src/cbz_manga_translator/ocr_setup.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -4307,12 +4307,36 @@ flowchart LR
   <td>_check() node in src/cbz_manga_translator/ocr_setup.py.</td>
 </tr>
 <tr>
-  <td>30</td>
+  <td>27</td>
   <td><code>int</code><br><small style="color:var(--muted)">src/cbz_manga_translator/ocr_setup.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
   <td>No direct outbound edge</td>
   <td>int node in src/cbz_manga_translator/ocr_setup.py.</td>
+</tr>
+<tr>
+  <td>28</td>
+  <td><code>main()</code><br><small style="color:var(--muted)">src/cbz_manga_translator/ocr_setup.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>_check()</code><br><small style="color:var(--muted)">src/cbz_manga_translator/ocr_setup.py</small><br><code>_print_commands()</code><br><small style="color:var(--muted)">src/cbz_manga_translator/ocr_setup.py</small></td>
+  <td>No direct outbound edge</td>
+  <td>main() node in src/cbz_manga_translator/ocr_setup.py.</td>
+</tr>
+<tr>
+  <td>29</td>
+  <td><code>str</code><br><small style="color:var(--muted)">src/cbz_manga_translator/ocr_setup.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>str node in src/cbz_manga_translator/ocr_setup.py.</td>
+</tr>
+<tr>
+  <td>30</td>
+  <td><code>corpus_learning.md</code><br><small style="color:var(--muted)">docs/corpus_learning.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing corpus_learning.md.</td>
 </tr>
 </table>
 
@@ -4322,18 +4346,18 @@ flowchart LR
     <table style="width:100%;font-size:0.85rem;">
       <tr><th>File</th><th>Coverage</th></tr>
       <tr><td><code>README.md</code></td><td>25 nodes</td></tr>
-<tr><td><code>docs/docker_policy.md</code></td><td>9 nodes</td></tr>
 <tr><td><code>docs/translation_strategy.md</code></td><td>9 nodes</td></tr>
 <tr><td><code>docs/architecture.md</code></td><td>8 nodes</td></tr>
 <tr><td><code>cbz_manga_translator/translate/argos.py</code></td><td>7 nodes</td></tr>
+<tr><td><code>cbz_manga_translator/core/models.py</code></td><td>6 nodes</td></tr>
 <tr><td><code>src/cbz_manga_translator/ocr_setup.py</code></td><td>6 nodes</td></tr>
+<tr><td><code>cbz_manga_translator/translate/english_dialogue_normalizer.py</code></td><td>5 nodes</td></tr>
 <tr><td><code>docs/corpus_learning.md</code></td><td>4 nodes</td></tr>
-<tr><td><code>cbz_manga_translator/translate/english_dialogue_normalizer.py</code></td><td>4 nodes</td></tr>
     </table>
   </div>
   <div class="card">
     <h4>Design Notes</h4>
-    <p>This section comes from graphify community clustering. Relationship summary: contains x45, explains x4, references x3, calls x2. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+    <p>This section comes from graphify community clustering. Relationship summary: contains x38, references x12, explains x4, calls x3. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
   </div>
 </div>
 <hr>
@@ -4344,18 +4368,18 @@ flowchart LR
   <div class="card">
     <h4>Graph</h4>
     <table style="width:100%;font-size:0.85rem;">
-      <tr><td>Nodes</td><td>1670</td></tr>
-      <tr><td>Edges</td><td>4003</td></tr>
+      <tr><td>Nodes</td><td>1676</td></tr>
+      <tr><td>Edges</td><td>4009</td></tr>
       <tr><td>Hyperedges</td><td>0</td></tr>
-      <tr><td>Communities</td><td>111</td></tr>
+      <tr><td>Communities</td><td>113</td></tr>
       <tr><td>Documented Sections</td><td>15</td></tr>
     </table>
   </div>
   <div class="card">
     <h4>Edge Confidence</h4>
     <table style="width:100%;font-size:0.85rem;">
-      <tr><td>EXTRACTED</td><td>2865</td></tr>
-      <tr><td>INFERRED</td><td>1138</td></tr>
+      <tr><td>EXTRACTED</td><td>2870</td></tr>
+      <tr><td>INFERRED</td><td>1139</td></tr>
       <tr><td>AMBIGUOUS</td><td>0</td></tr>
     </table>
   </div>
@@ -4363,7 +4387,7 @@ flowchart LR
 
 <div style="text-align:center; padding:40px 0; color: var(--muted); font-size:0.9rem;">
   <p>MangaTrad_v0_2_0 — Architecture Documentation</p>
-  <p>Generated: 2026-05-28 05:52 UTC · graphify callflow-html</p>
+  <p>Generated: 2026-05-28 06:16 UTC · graphify callflow-html</p>
 </div>
 
 </div><!-- .container -->
