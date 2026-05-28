@@ -75,6 +75,7 @@ def test_translator_respects_manual_normalized_text() -> None:
     block = make_block()
     block.ocr_corrected_text = "A rough OCR line"
     block.normalized_source_text = "grandma, look at that."
+    block.manual_status = "edited"
 
     prepared = ArgosTranslator._prepare_block_text(
         block,
@@ -87,6 +88,44 @@ def test_translator_respects_manual_normalized_text() -> None:
     assert prepared.text == "grandma, look at that."
     assert prepared.corrected_text == "A rough OCR line"
     assert prepared.normalized_source_text == "grandma, look at that."
+
+
+def test_translator_recomputes_stale_generated_source_for_unchecked_blocks() -> None:
+    block = make_block()
+    block.ocr_text = "WAIT? THERE' $ SOME KIND OF FRUITY SMELL!"
+    block.ocr_corrected_text = "wait? there' $ some kind of fruity smell!"
+    block.normalized_source_text = "wait? there' $ some kind of fruity smell!"
+    block.manual_status = "unchecked"
+
+    prepared = ArgosTranslator._prepare_block_text(
+        block,
+        "en",
+        raw_terms=None,
+        normalize_english=True,
+        use_builtin_glossary=False,
+    )
+
+    assert prepared.normalized_source_text == "wait! there is some kind of fruity smell...!"
+    assert prepared.override_translation_fr == "Attendez ! Il y a une odeur fruitee... !"
+
+
+def test_translator_preserves_human_edited_normalized_text() -> None:
+    block = make_block()
+    block.ocr_text = "WAIT? THERE' $ SOME KIND OF FRUITY SMELL!"
+    block.ocr_corrected_text = "human OCR"
+    block.normalized_source_text = "human normalized source"
+    block.manual_status = "edited"
+
+    prepared = ArgosTranslator._prepare_block_text(
+        block,
+        "en",
+        raw_terms=None,
+        normalize_english=True,
+        use_builtin_glossary=False,
+    )
+
+    assert prepared.corrected_text == "human OCR"
+    assert prepared.normalized_source_text == "human normalized source"
 
 
 def test_apply_ocr_alternative_invalidates_generated_fields() -> None:

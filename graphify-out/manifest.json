@@ -300,8 +300,8 @@
     "semantic_hash": ""
   },
   "C:\\temp\\MangaTrad_v0_2_0\\src\\cbz_manga_translator\\translate\\argos.py": {
-    "mtime": 1779889008.4269187,
-    "ast_hash": "308dd0c97e55c2b084544ed03479733b",
+    "mtime": 1779966654.069044,
+    "ast_hash": "99dcf0cf9ad58caf7610c1578fcb4592",
     "semantic_hash": ""
   },
   "C:\\temp\\MangaTrad_v0_2_0\\src\\cbz_manga_translator\\translate\\builtin_glossary.py": {
@@ -395,8 +395,8 @@
     "semantic_hash": ""
   },
   "C:\\temp\\MangaTrad_v0_2_0\\tests\\test_editing_workflow.py": {
-    "mtime": 1779369814.0,
-    "ast_hash": "05b949bb87f0b581b427627207322ce8",
+    "mtime": 1779966675.3792527,
+    "ast_hash": "3352d29136040c2d29ad4b3f4ca88dc8",
     "semantic_hash": ""
   },
   "C:\\temp\\MangaTrad_v0_2_0\\tests\\test_ellipsis_repairs.py": {

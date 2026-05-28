@@ -465,7 +465,12 @@ class ArgosTranslator:
         use_builtin_glossary: bool = True,
     ) -> _PreparedText:
         source_text = cls._block_source_text(block)
-        if block.normalized_source_text.strip():
+        should_recompute_generated_source = (
+            source_lang == "en"
+            and block.manual_status in {"unchecked", "review"}
+            and bool(block.normalized_source_text.strip())
+        )
+        if block.normalized_source_text.strip() and not should_recompute_generated_source:
             prepared = cls._apply_term_placeholders(
                 block.normalized_source_text,
                 raw_terms,
@@ -476,6 +481,8 @@ class ArgosTranslator:
             if source_lang == "en":
                 prepared.override_translation_fr = EnglishDialogueNormalizer.translation_override(block.normalized_source_text)
             return prepared
+        if should_recompute_generated_source:
+            source_text = block.ocr_text.strip() or block.ocr_corrected_text.strip()
         return cls._prepare_source_text(
             source_text,
             source_lang,
