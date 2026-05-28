@@ -260,8 +260,8 @@
     "semantic_hash": ""
   },
   "C:\\temp\\MangaTrad_v0_2_0\\src\\cbz_manga_translator\\ocr\\memory.py": {
-    "mtime": 1779874934.5198116,
-    "ast_hash": "aa2ae9282bf540e929a0d89f68344bae",
+    "mtime": 1779950855.2228968,
+    "ast_hash": "5d8e3397d7b563b9de2d0f58a7a33444",
     "semantic_hash": ""
   },
   "C:\\temp\\MangaTrad_v0_2_0\\src\\cbz_manga_translator\\ocr\\paddleocr_engine.py": {
@@ -325,7 +325,7 @@
     "semantic_hash": ""
   },
   "C:\\temp\\MangaTrad_v0_2_0\\src\\cbz_manga_translator\\translate\\memory.py": {
-    "mtime": 1779530360.78592,
+    "mtime": 1779951124.156141,
     "ast_hash": "81853847763f2ca50eacbf258b1d32a1",
     "semantic_hash": ""
   },
@@ -450,8 +450,8 @@
     "semantic_hash": ""
   },
   "C:\\temp\\MangaTrad_v0_2_0\\tests\\test_ocr_memory.py": {
-    "mtime": 1779874968.7628527,
-    "ast_hash": "412708bbff1b12d599216b79d1fd1bb9",
+    "mtime": 1779949846.4072652,
+    "ast_hash": "a793dea360daa0b0e8a21138c9dd5bcb",
     "semantic_hash": ""
   },
   "C:\\temp\\MangaTrad_v0_2_0\\tests\\test_ocr_setup_cli.py": {
@@ -510,7 +510,7 @@
     "semantic_hash": ""
   },
   "C:\\temp\\MangaTrad_v0_2_0\\tests\\test_translation_memory.py": {
-    "mtime": 1779530382.2816744,
+    "mtime": 1779951033.5079243,
     "ast_hash": "6b93a8935e06c58997f7a683deb1a734",
     "semantic_hash": ""
   },

@@ -1,16 +1,16 @@
 # Graph Report - MangaTrad_v0_2_0  (2026-05-28)
 
 ## Corpus Check
-- 127 files · ~79,046 words
+- 127 files · ~79,551 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1676 nodes · 4009 edges · 113 communities (86 shown, 27 thin omitted)
-- Extraction: 72% EXTRACTED · 28% INFERRED · 0% AMBIGUOUS · INFERRED: 1139 edges (avg confidence: 0.58)
+- 1688 nodes · 4052 edges · 113 communities (86 shown, 27 thin omitted)
+- Extraction: 72% EXTRACTED · 28% INFERRED · 0% AMBIGUOUS · INFERRED: 1143 edges (avg confidence: 0.58)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `26c99159`
+- Built from commit: `e2ccf78b`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -117,7 +117,7 @@
 
 ## God Nodes (most connected - your core abstractions)
 1. `OcrBlock` - 231 edges
-2. `ProjectCache` - 120 edges
+2. `ProjectCache` - 121 edges
 3. `ProjectData` - 113 edges
 4. `PageRecord` - 76 edges
 5. `ArgosTranslator` - 75 edges
@@ -142,8 +142,8 @@
 ## Communities (113 total, 27 thin omitted)
 
 ### Community 0 - "Community 0"
-Cohesion: 0.08
-Nodes (22): item_matches_filter(), _LazyQt, main(), PageImageView, _qt(), ReviewWindow, _QT_MAINWINDOW_BASE, _QT_WIDGET_BASE (+14 more)
+Cohesion: 0.05
+Nodes (62): item_matches_filter(), _LazyQt, main(), PageImageView, _qt(), ReviewWindow, _QT_MAINWINDOW_BASE, _QT_WIDGET_BASE (+54 more)
 
 ### Community 1 - "Community 1"
 Cohesion: 0.05
@@ -159,23 +159,23 @@ Nodes (62): Match, candidate_quality(), Repair ellipses when reviewed manga dial
 
 ### Community 4 - "Community 4"
 Cohesion: 0.09
-Nodes (49): _block_sources(), build_ignore_memory(), canonical_ignore_key(), clear_ignore_memory_cache(), default_ignore_memory(), _default_memory_candidates(), IgnoreMemory, load_ignore_memory() (+41 more)
+Nodes (50): _block_sources(), build_ignore_memory(), canonical_ignore_key(), clear_ignore_memory_cache(), default_ignore_memory(), _default_memory_candidates(), IgnoreMemory, load_ignore_memory() (+42 more)
 
 ### Community 5 - "Community 5"
 Cohesion: 0.11
 Nodes (44): _bootstrap_basic(), _install_index_pairs(), main(), _print_pairs(), _test_translation(), Pattern, int, str (+36 more)
 
 ### Community 6 - "Community 6"
-Cohesion: 0.15
-Nodes (39): _build_manifest_from_pages(), CorpusManifestEntry, _count_images_under(), describe_corpus_path(), _entry_from_manifest_row(), _entry_group_key(), find_corpus_candidates(), _find_manifest_file() (+31 more)
+Cohesion: 0.17
+Nodes (30): _build_manifest_from_pages(), CorpusManifestEntry, _count_images_under(), describe_corpus_path(), _entry_from_manifest_row(), _entry_group_key(), find_corpus_candidates(), _find_manifest_file() (+22 more)
 
 ### Community 7 - "Community 7"
 Cohesion: 0.10
-Nodes (48): Recognizer, Translator, _changed_or_reviewed(), BlockFilter, ProjectCache, from_images(), OcrBlock, PageRecord (+40 more)
+Nodes (45): BlockFilter, BlockStats, page_block_stats(), ProjectCache, from_images(), OcrBlock, PageRecord, ProjectData (+37 more)
 
 ### Community 8 - "Community 8"
-Cohesion: 0.08
-Nodes (39): _block_row(), _corpus_path_labels(), export_review_dataset(), iter_review_rows(), Best-effort series/volume labels for exported corpus paths., build_learning_report(), _is_learnable(), LearningReport (+31 more)
+Cohesion: 0.09
+Nodes (38): _block_row(), _corpus_path_labels(), export_review_dataset(), iter_review_rows(), Best-effort series/volume labels for exported corpus paths., build_learning_report(), _is_learnable(), LearningReport (+30 more)
 
 ### Community 9 - "Community 9"
 Cohesion: 0.10
@@ -198,8 +198,8 @@ Cohesion: 0.14
 Nodes (29): main(), object, OcrBlock, Path, str, int, str, Path (+21 more)
 
 ### Community 14 - "Community 14"
-Cohesion: 0.15
-Nodes (35): CorpusProcessResult, default_refreshed_path(), _is_zone_fallback_candidate(), _iter_refreshable_blocks(), main(), _refresh_blocks_with_rules(), refresh_review_project(), _refresh_zone_ocr_alternatives() (+27 more)
+Cohesion: 0.18
+Nodes (26): default_refreshed_path(), _is_zone_fallback_candidate(), _iter_refreshable_blocks(), main(), _refresh_blocks_with_rules(), refresh_review_project(), _refresh_zone_ocr_alternatives(), RefreshResult (+18 more)
 
 ### Community 15 - "Community 15"
 Cohesion: 0.06
@@ -218,20 +218,20 @@ Cohesion: 0.15
 Nodes (24): build_learned_profile(), _find_analysis_file(), _is_high_risk(), LearnedCorpusProfile, read_review_rows(), _risk(), _source_text(), _tokens() (+16 more)
 
 ### Community 20 - "Community 20"
-Cohesion: 0.21
-Nodes (24): _failure_page_indices(), main(), _parse_index_list(), EasyOcrEngine, Free OCR backend using EasyOCR.      EasyOCR returns polygons, text and confiden, bbox_iou(), _best_match(), canonical_text() (+16 more)
+Cohesion: 0.23
+Nodes (22): _failure_page_indices(), main(), _parse_index_list(), Protocol, bbox_iou(), _best_match(), canonical_text(), expected_source_is_translation_like() (+14 more)
 
 ### Community 21 - "Community 21"
 Cohesion: 0.17
 Nodes (25): classify_block(), _compact(), diagnose_review_project(), DiagnosticItem, DiagnosticReport, _human_source(), _is_changed(), _letters_digits() (+17 more)
 
 ### Community 22 - "Community 22"
-Cohesion: 0.17
-Nodes (23): main(), build_ocr_memory(), canonical_ocr_key(), clear_ocr_memory_cache(), _default_memory_candidates(), default_ocr_memory(), _drops_strong_punctuation(), load_ocr_memory() (+15 more)
+Cohesion: 0.14
+Nodes (33): main(), _best_token_score(), build_ocr_memory(), canonical_ocr_key(), clear_ocr_memory_cache(), _default_memory_candidates(), default_ocr_memory(), _drops_strong_punctuation() (+25 more)
 
 ### Community 23 - "Community 23"
 Cohesion: 0.17
-Nodes (24): discover_review_projects(), evaluate_block(), _predict_source(), _predict_translation(), RegressionItem, RegressionReport, run_review_regression(), _source_similarity() (+16 more)
+Nodes (25): _changed_or_reviewed(), discover_review_projects(), evaluate_block(), _predict_source(), _predict_translation(), RegressionItem, RegressionReport, run_review_regression() (+17 more)
 
 ### Community 24 - "Community 24"
 Cohesion: 0.08
@@ -250,8 +250,8 @@ Cohesion: 0.11
 Nodes (18): Après extraction, code:text (\\192.168.1.30\sda1\lectures\mangas\romance\Serie A), code:text (D:\Mangas\SerieA\Tome 01.cbz), code:powershell (cd C:\temp\MangaTrad_v0_2_0), code:powershell (python -m cbz_manga_translator.corpus_sample `), code:text (mangatrad_corpus/), code:powershell (python -m cbz_manga_translator.corpus_process `), code:powershell (python -m cbz_manga_translator.corpus_process `) (+10 more)
 
 ### Community 29 - "Community 29"
-Cohesion: 0.13
-Nodes (40): apply_review_to_block(), block_source_text(), _clean_fusion_prefix(), _clean_sfx_prefix(), _clean_zone_prefix(), default_reviewed_path(), find_block(), find_page() (+32 more)
+Cohesion: 0.21
+Nodes (23): CorpusProcessResult, _looks_like_expensive_color_info_page(), process_corpus(), Cheaply skip color-heavy appendix/infographic pages in English corpus runs., Batch OCR/translate a sampled corpus and export review datasets.      Defaults a, Recognizer, _skip_page(), Translator (+15 more)
 
 ### Community 30 - "Community 30"
 Cohesion: 0.12
@@ -386,8 +386,8 @@ Cohesion: 0.50
 Nodes (4): code:powershell (py -3.12 -m venv .venv), code:powershell (python -m cbz_manga_translator.main), code:powershell (python -m cbz_manga_translator.main --version), Installation Windows
 
 ### Community 66 - "Community 66"
-Cohesion: 0.21
-Nodes (16): block_display_source(), block_matches_filter(), block_matches_search(), BlockStats, page_block_stats(), project_stats(), ProjectStats, visible_blocks() (+8 more)
+Cohesion: 0.22
+Nodes (14): block_display_source(), block_matches_filter(), block_matches_search(), project_stats(), ProjectStats, visible_blocks(), bool, OcrBlock (+6 more)
 
 ### Community 68 - "Community 68"
 Cohesion: 0.67
@@ -426,8 +426,8 @@ Cohesion: 0.17
 Nodes (17): FailingRecognizer, FakeRecognizer, FakeTranslator, Path, RecordingRecognizer, RecordingTranslator, test_limit_mode_stratified_spreads_pages_across_series(), test_process_corpus_accepts_pages_only_corpus() (+9 more)
 
 ### Community 109 - "Community 109"
-Cohesion: 0.28
-Nodes (12): ReplayBlockResult, ReplayReport, FakeRecognizer, FakeTranslator, Path, test_failure_page_indices_reads_previous_replay_report(), test_parse_index_list_accepts_ranges_and_page_prefix(), test_replay_review_project_can_target_specific_page_indices() (+4 more)
+Cohesion: 0.25
+Nodes (13): ReplayBlockResult, ReplayReport, FakeRecognizer, FakeTranslator, Path, test_bbox_iou(), test_failure_page_indices_reads_previous_replay_report(), test_parse_index_list_accepts_ranges_and_page_prefix() (+5 more)
 
 ## Knowledge Gaps
 - **283 isolated node(s):** `PreToolUse`, `clean_repo.sh script`, `str`, `int`, `int` (+278 more)
@@ -438,15 +438,15 @@ Nodes (12): ReplayBlockResult, ReplayReport, FakeRecognizer, FakeTranslator, Pat
 _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `OcrBlock` connect `Community 7` to `Community 0`, `Community 1`, `Community 2`, `Community 4`, `Community 5`, `Community 6`, `Community 8`, `Community 9`, `Community 10`, `Community 11`, `Community 12`, `Community 13`, `Community 14`, `Community 16`, `Community 17`, `Community 20`, `Community 21`, `Community 22`, `Community 23`, `Community 25`, `Community 29`, `Community 37`, `Community 55`, `Community 66`, `Community 108`, `Community 109`?**
-  _High betweenness centrality (0.265) - this node is a cross-community bridge._
+  _High betweenness centrality (0.267) - this node is a cross-community bridge._
 - **Why does `ProjectCache` connect `Community 7` to `Community 0`, `Community 1`, `Community 4`, `Community 37`, `Community 6`, `Community 8`, `Community 11`, `Community 109`, `Community 14`, `Community 13`, `Community 20`, `Community 21`, `Community 22`, `Community 23`, `Community 52`, `Community 29`?**
-  _High betweenness centrality (0.054) - this node is a cross-community bridge._
+  _High betweenness centrality (0.056) - this node is a cross-community bridge._
 - **Why does `normalize_ocr_text_for_translation()` connect `Community 3` to `Community 2`, `Community 10`, `Community 13`, `Community 22`, `Community 23`?**
-  _High betweenness centrality (0.051) - this node is a cross-community bridge._
+  _High betweenness centrality (0.044) - this node is a cross-community bridge._
 - **Are the 228 inferred relationships involving `OcrBlock` (e.g. with `CorpusManifestEntry` and `CorpusProcessResult`) actually correct?**
   _`OcrBlock` has 228 INFERRED edges - model-reasoned connections that need verification._
-- **Are the 119 inferred relationships involving `ProjectCache` (e.g. with `CorpusManifestEntry` and `CorpusProcessResult`) actually correct?**
-  _`ProjectCache` has 119 INFERRED edges - model-reasoned connections that need verification._
+- **Are the 120 inferred relationships involving `ProjectCache` (e.g. with `CorpusManifestEntry` and `CorpusProcessResult`) actually correct?**
+  _`ProjectCache` has 120 INFERRED edges - model-reasoned connections that need verification._
 - **Are the 110 inferred relationships involving `ProjectData` (e.g. with `CorpusManifestEntry` and `CorpusProcessResult`) actually correct?**
   _`ProjectData` has 110 INFERRED edges - model-reasoned connections that need verification._
 - **Are the 72 inferred relationships involving `PageRecord` (e.g. with `CorpusManifestEntry` and `CorpusProcessResult`) actually correct?**

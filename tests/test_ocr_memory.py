@@ -4,7 +4,7 @@ from pathlib import Path
 
 from cbz_manga_translator.core.cache import ProjectCache
 from cbz_manga_translator.core.models import OcrBlock, PageRecord, ProjectData
-from cbz_manga_translator.ocr.memory import build_ocr_memory, clear_ocr_memory_cache, write_ocr_memory
+from cbz_manga_translator.ocr.memory import OcrCorrectionMemory, build_ocr_memory, clear_ocr_memory_cache, write_ocr_memory
 from cbz_manga_translator.ocr.text_cleanup import normalize_ocr_text_for_translation
 from cbz_manga_translator.translate.english_dialogue_normalizer import EnglishDialogueNormalizer
 
@@ -125,3 +125,21 @@ def test_ocr_cleanup_uses_external_ocr_memory(tmp_path: Path, monkeypatch) -> No
         assert EnglishDialogueNormalizer.prepare("BLOPR ME N0W").corrected_text == "help me now!"
     finally:
         clear_ocr_memory_cache()
+
+
+def test_ocr_memory_fuzzy_lookup_handles_visual_font_noise() -> None:
+    memory = OcrCorrectionMemory(
+        {
+            "nopel bi6 nopel": "Nope! Big Nope!",
+            "someone help mel": "Someone, help me!",
+        }
+    )
+
+    assert memory.lookup("Nopel Big Nopel") == "Nope! Big Nope!"
+    assert memory.lookup("Some one Help MeI") == "Someone, help me!"
+
+
+def test_ocr_memory_fuzzy_lookup_rejects_semantic_changes() -> None:
+    memory = OcrCorrectionMemory({"i love you": "I love you!"})
+
+    assert memory.lookup("I hate you") == ""

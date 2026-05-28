@@ -143,7 +143,7 @@
       "source_file": "src/cbz_manga_translator/app.py",
       "source_location": "L42",
       "id": "src_cbz_manga_translator_app_py_int",
-      "community": 7,
+      "community": 29,
       "norm_label": "int"
     },
     {
@@ -1268,7 +1268,7 @@
       "source_file": "src/cbz_manga_translator/review_refresh.py",
       "source_location": "L128",
       "id": "src_cbz_manga_translator_review_refresh_py_argostranslator",
-      "community": 14,
+      "community": 7,
       "norm_label": "argostranslator"
     },
     {
@@ -1277,7 +1277,7 @@
       "source_file": "src/cbz_manga_translator/review_refresh.py",
       "source_location": "L128",
       "id": "src_cbz_manga_translator_review_refresh_py_translationqualitychecker",
-      "community": 14,
+      "community": 7,
       "norm_label": "translationqualitychecker"
     },
     {
@@ -1709,7 +1709,7 @@
       "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
       "source_location": "L24",
       "id": "analysis_corpus_processor_looks_like_expensive_color_info_page",
-      "community": 6,
+      "community": 29,
       "norm_label": "_looks_like_expensive_color_info_page()"
     },
     {
@@ -1736,7 +1736,7 @@
       "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
       "source_location": "L24",
       "id": "src_cbz_manga_translator_analysis_corpus_processor_py_sourcelang",
-      "community": 6,
+      "community": 29,
       "norm_label": "sourcelang"
     },
     {
@@ -1745,7 +1745,7 @@
       "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
       "source_location": "L24",
       "id": "src_cbz_manga_translator_analysis_corpus_processor_py_bool",
-      "community": 6,
+      "community": 29,
       "norm_label": "bool"
     },
     {
@@ -1763,7 +1763,7 @@
       "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
       "source_location": "L59",
       "id": "src_cbz_manga_translator_analysis_corpus_processor_py_float",
-      "community": 6,
+      "community": 29,
       "norm_label": "float"
     },
     {
@@ -1772,7 +1772,7 @@
       "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
       "source_location": "L69",
       "id": "analysis_corpus_processor_skip_page",
-      "community": 6,
+      "community": 29,
       "norm_label": "_skip_page()"
     },
     {
@@ -1781,7 +1781,7 @@
       "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
       "source_location": "L69",
       "id": "src_cbz_manga_translator_analysis_corpus_processor_py_pagerecord",
-      "community": 7,
+      "community": 29,
       "norm_label": "pagerecord"
     },
     {
@@ -1790,7 +1790,7 @@
       "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
       "source_location": "L69",
       "id": "src_cbz_manga_translator_analysis_corpus_processor_py_projectdata",
-      "community": 14,
+      "community": 29,
       "norm_label": "projectdata"
     },
     {
@@ -1799,7 +1799,7 @@
       "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
       "source_location": "L69",
       "id": "src_cbz_manga_translator_analysis_corpus_processor_py_int",
-      "community": 6,
+      "community": 29,
       "norm_label": "int"
     },
     {
@@ -1853,7 +1853,7 @@
       "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
       "source_location": "L198",
       "id": "analysis_corpus_processor_recognizer",
-      "community": 7,
+      "community": 29,
       "norm_label": "recognizer"
     },
     {
@@ -1862,7 +1862,7 @@
       "source_file": "",
       "source_location": "",
       "id": "protocol",
-      "community": 7,
+      "community": 20,
       "norm_label": "protocol"
     },
     {
@@ -1871,7 +1871,7 @@
       "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
       "source_location": "L199",
       "id": "analysis_corpus_processor_recognizer_recognize",
-      "community": 6,
+      "community": 29,
       "norm_label": ".recognize()"
     },
     {
@@ -1880,7 +1880,7 @@
       "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
       "source_location": "L199",
       "id": "src_cbz_manga_translator_analysis_corpus_processor_py_ocrblock",
-      "community": 7,
+      "community": 29,
       "norm_label": "ocrblock"
     },
     {
@@ -1889,7 +1889,7 @@
       "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
       "source_location": "L214",
       "id": "analysis_corpus_processor_translator",
-      "community": 7,
+      "community": 29,
       "norm_label": "translator"
     },
     {
@@ -1898,7 +1898,7 @@
       "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
       "source_location": "L215",
       "id": "analysis_corpus_processor_translator_translate_blocks",
-      "community": 6,
+      "community": 29,
       "norm_label": ".translate_blocks()"
     },
     {
@@ -1916,7 +1916,7 @@
       "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
       "source_location": "L240",
       "id": "analysis_corpus_processor_corpusprocessresult",
-      "community": 14,
+      "community": 29,
       "norm_label": "corpusprocessresult"
     },
     {
@@ -2051,7 +2051,7 @@
       "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
       "source_location": "L531",
       "id": "analysis_corpus_processor_process_corpus",
-      "community": 6,
+      "community": 29,
       "norm_label": "process_corpus()"
     },
     {
@@ -2060,7 +2060,7 @@
       "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
       "source_location": "L531",
       "id": "src_cbz_manga_translator_analysis_corpus_processor_py_translationqualitychecker",
-      "community": 14,
+      "community": 29,
       "norm_label": "translationqualitychecker"
     },
     {
@@ -2069,7 +2069,7 @@
       "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
       "source_location": "L25",
       "id": "analysis_corpus_processor_rationale_25",
-      "community": 6,
+      "community": 29,
       "norm_label": "cheaply skip color-heavy appendix/infographic pages in english corpus runs."
     },
     {
@@ -2123,7 +2123,7 @@
       "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
       "source_location": "L561",
       "id": "analysis_corpus_processor_rationale_561",
-      "community": 6,
+      "community": 29,
       "norm_label": "batch ocr/translate a sampled corpus and export review datasets.      defaults a"
     },
     {
@@ -2933,7 +2933,7 @@
       "source_file": "src/cbz_manga_translator/analysis/learning.py",
       "source_location": "L23",
       "id": "analysis_learning_learningreport_to_dict",
-      "community": 8,
+      "community": 7,
       "norm_label": ".to_dict()"
     },
     {
@@ -2942,7 +2942,7 @@
       "source_file": "src/cbz_manga_translator/analysis/learning.py",
       "source_location": "L23",
       "id": "src_cbz_manga_translator_analysis_learning_py_str",
-      "community": 8,
+      "community": 7,
       "norm_label": "str"
     },
     {
@@ -3509,7 +3509,7 @@
       "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
       "source_location": "L75",
       "id": "analysis_review_regression_changed_or_reviewed",
-      "community": 7,
+      "community": 23,
       "norm_label": "_changed_or_reviewed()"
     },
     {
@@ -3518,7 +3518,7 @@
       "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
       "source_location": "L75",
       "id": "src_cbz_manga_translator_analysis_review_regression_py_ocrblock",
-      "community": 7,
+      "community": 23,
       "norm_label": "ocrblock"
     },
     {
@@ -3581,7 +3581,7 @@
       "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
       "source_location": "L108",
       "id": "src_cbz_manga_translator_analysis_review_regression_py_int",
-      "community": 23,
+      "community": 7,
       "norm_label": "int"
     },
     {
@@ -3941,7 +3941,7 @@
       "source_file": "src/cbz_manga_translator/core/block_view.py",
       "source_location": "L12",
       "id": "core_block_view_blockstats",
-      "community": 66,
+      "community": 7,
       "norm_label": "blockstats"
     },
     {
@@ -4049,7 +4049,7 @@
       "source_file": "src/cbz_manga_translator/core/block_view.py",
       "source_location": "L101",
       "id": "core_block_view_page_block_stats",
-      "community": 66,
+      "community": 7,
       "norm_label": "page_block_stats()"
     },
     {
@@ -4976,7 +4976,7 @@
       "source_file": "src/cbz_manga_translator/ocr/easyocr_engine.py",
       "source_location": "L21",
       "id": "ocr_easyocr_engine_easyocrengine",
-      "community": 20,
+      "community": 29,
       "norm_label": "easyocrengine"
     },
     {
@@ -4985,7 +4985,7 @@
       "source_file": "src/cbz_manga_translator/ocr/easyocr_engine.py",
       "source_location": "L33",
       "id": "ocr_easyocr_engine_easyocrengine_init",
-      "community": 20,
+      "community": 29,
       "norm_label": ".__init__()"
     },
     {
@@ -5345,7 +5345,7 @@
       "source_file": "src/cbz_manga_translator/ocr/easyocr_engine.py",
       "source_location": "L22",
       "id": "ocr_easyocr_engine_rationale_22",
-      "community": 20,
+      "community": 29,
       "norm_label": "free ocr backend using easyocr.      easyocr returns polygons, text and confiden"
     },
     {
@@ -5399,7 +5399,7 @@
       "source_file": "src/cbz_manga_translator/ocr/fallback_engine.py",
       "source_location": "L32",
       "id": "ocr_fallback_engine_ocrfallbackengine",
-      "community": 14,
+      "community": 29,
       "norm_label": "ocrfallbackengine"
     },
     {
@@ -5624,7 +5624,7 @@
       "source_file": "src/cbz_manga_translator/ocr/fallback_engine.py",
       "source_location": "L33",
       "id": "ocr_fallback_engine_rationale_33",
-      "community": 14,
+      "community": 29,
       "norm_label": "local ocr fallback coordinator.      easyocr remains the primary detector becaus"
     },
     {
@@ -5784,7 +5784,7 @@
       "label": "canonical_ocr_key()",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/ocr/memory.py",
-      "source_location": "L15",
+      "source_location": "L16",
       "id": "ocr_memory_canonical_ocr_key",
       "community": 22,
       "norm_label": "canonical_ocr_key()"
@@ -5793,34 +5793,106 @@
       "label": "str",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/ocr/memory.py",
-      "source_location": "L15",
+      "source_location": "L16",
       "id": "src_cbz_manga_translator_ocr_memory_py_str",
       "community": 22,
       "norm_label": "str"
     },
     {
-      "label": "_looks_like_translation()",
+      "label": "_tokens()",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/ocr/memory.py",
-      "source_location": "L38",
-      "id": "ocr_memory_looks_like_translation",
+      "source_location": "L65",
+      "id": "ocr_memory_tokens",
       "community": 22,
-      "norm_label": "_looks_like_translation()"
+      "norm_label": "_tokens()"
+    },
+    {
+      "label": "_visual_token()",
+      "file_type": "code",
+      "source_file": "src/cbz_manga_translator/ocr/memory.py",
+      "source_location": "L69",
+      "id": "ocr_memory_visual_token",
+      "community": 22,
+      "norm_label": "_visual_token()"
+    },
+    {
+      "label": "_token_similarity()",
+      "file_type": "code",
+      "source_file": "src/cbz_manga_translator/ocr/memory.py",
+      "source_location": "L73",
+      "id": "ocr_memory_token_similarity",
+      "community": 22,
+      "norm_label": "_token_similarity()"
+    },
+    {
+      "label": "float",
+      "file_type": "code",
+      "source_file": "src/cbz_manga_translator/ocr/memory.py",
+      "source_location": "L73",
+      "id": "src_cbz_manga_translator_ocr_memory_py_float",
+      "community": 22,
+      "norm_label": "float"
+    },
+    {
+      "label": "_is_important_token()",
+      "file_type": "code",
+      "source_file": "src/cbz_manga_translator/ocr/memory.py",
+      "source_location": "L86",
+      "id": "ocr_memory_is_important_token",
+      "community": 22,
+      "norm_label": "_is_important_token()"
     },
     {
       "label": "bool",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/ocr/memory.py",
-      "source_location": "L38",
+      "source_location": "L86",
       "id": "src_cbz_manga_translator_ocr_memory_py_bool",
       "community": 22,
       "norm_label": "bool"
     },
     {
+      "label": "_best_token_score()",
+      "file_type": "code",
+      "source_file": "src/cbz_manga_translator/ocr/memory.py",
+      "source_location": "L90",
+      "id": "ocr_memory_best_token_score",
+      "community": 22,
+      "norm_label": "_best_token_score()"
+    },
+    {
+      "label": "_semantic_ocr_match()",
+      "file_type": "code",
+      "source_file": "src/cbz_manga_translator/ocr/memory.py",
+      "source_location": "L105",
+      "id": "ocr_memory_semantic_ocr_match",
+      "community": 22,
+      "norm_label": "_semantic_ocr_match()"
+    },
+    {
+      "label": "_visual_key()",
+      "file_type": "code",
+      "source_file": "src/cbz_manga_translator/ocr/memory.py",
+      "source_location": "L130",
+      "id": "ocr_memory_visual_key",
+      "community": 22,
+      "norm_label": "_visual_key()"
+    },
+    {
+      "label": "_looks_like_translation()",
+      "file_type": "code",
+      "source_file": "src/cbz_manga_translator/ocr/memory.py",
+      "source_location": "L149",
+      "id": "ocr_memory_looks_like_translation",
+      "community": 22,
+      "norm_label": "_looks_like_translation()"
+    },
+    {
       "label": "_drops_strong_punctuation()",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/ocr/memory.py",
-      "source_location": "L49",
+      "source_location": "L160",
       "id": "ocr_memory_drops_strong_punctuation",
       "community": 22,
       "norm_label": "_drops_strong_punctuation()"
@@ -5829,25 +5901,43 @@
       "label": "OcrCorrectionMemory",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/ocr/memory.py",
-      "source_location": "L61",
+      "source_location": "L172",
       "id": "ocr_memory_ocrcorrectionmemory",
       "community": 22,
       "norm_label": "ocrcorrectionmemory"
     },
     {
+      "label": ".__post_init__()",
+      "file_type": "code",
+      "source_file": "src/cbz_manga_translator/ocr/memory.py",
+      "source_location": "L176",
+      "id": "ocr_memory_ocrcorrectionmemory_post_init",
+      "community": 22,
+      "norm_label": ".__post_init__()"
+    },
+    {
       "label": ".lookup()",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/ocr/memory.py",
-      "source_location": "L64",
+      "source_location": "L183",
       "id": "ocr_memory_ocrcorrectionmemory_lookup",
       "community": 22,
       "norm_label": ".lookup()"
     },
     {
+      "label": "._lookup_fuzzy()",
+      "file_type": "code",
+      "source_file": "src/cbz_manga_translator/ocr/memory.py",
+      "source_location": "L190",
+      "id": "ocr_memory_ocrcorrectionmemory_lookup_fuzzy",
+      "community": 22,
+      "norm_label": "._lookup_fuzzy()"
+    },
+    {
       "label": "_default_memory_candidates()",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/ocr/memory.py",
-      "source_location": "L68",
+      "source_location": "L217",
       "id": "ocr_memory_default_memory_candidates",
       "community": 22,
       "norm_label": "_default_memory_candidates()"
@@ -5856,7 +5946,7 @@
       "label": "Path",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/ocr/memory.py",
-      "source_location": "L68",
+      "source_location": "L217",
       "id": "src_cbz_manga_translator_ocr_memory_py_path",
       "community": 22,
       "norm_label": "path"
@@ -5865,7 +5955,7 @@
       "label": "load_ocr_memory()",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/ocr/memory.py",
-      "source_location": "L81",
+      "source_location": "L230",
       "id": "ocr_memory_load_ocr_memory",
       "community": 22,
       "norm_label": "load_ocr_memory()"
@@ -5874,7 +5964,7 @@
       "label": "clear_ocr_memory_cache()",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/ocr/memory.py",
-      "source_location": "L97",
+      "source_location": "L246",
       "id": "ocr_memory_clear_ocr_memory_cache",
       "community": 22,
       "norm_label": "clear_ocr_memory_cache()"
@@ -5883,7 +5973,7 @@
       "label": "default_ocr_memory()",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/ocr/memory.py",
-      "source_location": "L103",
+      "source_location": "L252",
       "id": "ocr_memory_default_ocr_memory",
       "community": 22,
       "norm_label": "default_ocr_memory()"
@@ -5892,7 +5982,7 @@
       "label": "build_ocr_memory()",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/ocr/memory.py",
-      "source_location": "L110",
+      "source_location": "L259",
       "id": "ocr_memory_build_ocr_memory",
       "community": 22,
       "norm_label": "build_ocr_memory()"
@@ -5901,7 +5991,7 @@
       "label": "int",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/ocr/memory.py",
-      "source_location": "L110",
+      "source_location": "L259",
       "id": "src_cbz_manga_translator_ocr_memory_py_int",
       "community": 22,
       "norm_label": "int"
@@ -5910,7 +6000,7 @@
       "label": "object",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/ocr/memory.py",
-      "source_location": "L110",
+      "source_location": "L259",
       "id": "src_cbz_manga_translator_ocr_memory_py_object",
       "community": 22,
       "norm_label": "object"
@@ -5919,7 +6009,7 @@
       "label": "write_ocr_memory()",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/ocr/memory.py",
-      "source_location": "L164",
+      "source_location": "L313",
       "id": "ocr_memory_write_ocr_memory",
       "community": 22,
       "norm_label": "write_ocr_memory()"
@@ -6326,7 +6416,7 @@
       "source_file": "src/cbz_manga_translator/review/model.py",
       "source_location": "L1",
       "id": "src_cbz_manga_translator_review_model_py",
-      "community": 29,
+      "community": 0,
       "norm_label": "model.py"
     },
     {
@@ -6353,7 +6443,7 @@
       "source_file": "src/cbz_manga_translator/review/model.py",
       "source_location": "L36",
       "id": "review_model_default_reviewed_path",
-      "community": 29,
+      "community": 0,
       "norm_label": "default_reviewed_path()"
     },
     {
@@ -6362,7 +6452,7 @@
       "source_file": "src/cbz_manga_translator/review/model.py",
       "source_location": "L36",
       "id": "src_cbz_manga_translator_review_model_py_str",
-      "community": 29,
+      "community": 0,
       "norm_label": "str"
     },
     {
@@ -6371,7 +6461,7 @@
       "source_file": "src/cbz_manga_translator/review/model.py",
       "source_location": "L36",
       "id": "src_cbz_manga_translator_review_model_py_path",
-      "community": 29,
+      "community": 0,
       "norm_label": "path"
     },
     {
@@ -6380,7 +6470,7 @@
       "source_file": "src/cbz_manga_translator/review/model.py",
       "source_location": "L45",
       "id": "review_model_resolve_review_project_input",
-      "community": 29,
+      "community": 0,
       "norm_label": "resolve_review_project_input()"
     },
     {
@@ -6389,7 +6479,7 @@
       "source_file": "src/cbz_manga_translator/review/model.py",
       "source_location": "L79",
       "id": "review_model_load_review_project",
-      "community": 29,
+      "community": 0,
       "norm_label": "load_review_project()"
     },
     {
@@ -6407,7 +6497,7 @@
       "source_file": "src/cbz_manga_translator/review/model.py",
       "source_location": "L93",
       "id": "review_model_block_source_text",
-      "community": 29,
+      "community": 0,
       "norm_label": "block_source_text()"
     },
     {
@@ -6416,7 +6506,7 @@
       "source_file": "src/cbz_manga_translator/review/model.py",
       "source_location": "L93",
       "id": "src_cbz_manga_translator_review_model_py_ocrblock",
-      "community": 29,
+      "community": 0,
       "norm_label": "ocrblock"
     },
     {
@@ -6425,7 +6515,7 @@
       "source_file": "src/cbz_manga_translator/review/model.py",
       "source_location": "L97",
       "id": "review_model_is_sfx_block",
-      "community": 29,
+      "community": 0,
       "norm_label": "is_sfx_block()"
     },
     {
@@ -6434,7 +6524,7 @@
       "source_file": "src/cbz_manga_translator/review/model.py",
       "source_location": "L97",
       "id": "src_cbz_manga_translator_review_model_py_bool",
-      "community": 29,
+      "community": 0,
       "norm_label": "bool"
     },
     {
@@ -6443,7 +6533,7 @@
       "source_file": "src/cbz_manga_translator/review/model.py",
       "source_location": "L101",
       "id": "review_model_is_fused_block",
-      "community": 29,
+      "community": 0,
       "norm_label": "is_fused_block()"
     },
     {
@@ -6452,7 +6542,7 @@
       "source_file": "src/cbz_manga_translator/review/model.py",
       "source_location": "L105",
       "id": "review_model_is_bad_zone_block",
-      "community": 29,
+      "community": 0,
       "norm_label": "is_bad_zone_block()"
     },
     {
@@ -6461,7 +6551,7 @@
       "source_file": "src/cbz_manga_translator/review/model.py",
       "source_location": "L109",
       "id": "review_model_review_decision_for_block",
-      "community": 29,
+      "community": 0,
       "norm_label": "review_decision_for_block()"
     },
     {
@@ -6470,7 +6560,7 @@
       "source_file": "src/cbz_manga_translator/review/model.py",
       "source_location": "L127",
       "id": "review_model_review_status_label",
-      "community": 29,
+      "community": 0,
       "norm_label": "review_status_label()"
     },
     {
@@ -6479,7 +6569,7 @@
       "source_file": "src/cbz_manga_translator/review/model.py",
       "source_location": "L141",
       "id": "review_model_risk_score",
-      "community": 29,
+      "community": 0,
       "norm_label": "risk_score()"
     },
     {
@@ -6488,7 +6578,7 @@
       "source_file": "src/cbz_manga_translator/review/model.py",
       "source_location": "L141",
       "id": "src_cbz_manga_translator_review_model_py_int",
-      "community": 29,
+      "community": 0,
       "norm_label": "int"
     },
     {
@@ -6497,7 +6587,7 @@
       "source_file": "src/cbz_manga_translator/review/model.py",
       "source_location": "L160",
       "id": "review_model_risk_band",
-      "community": 29,
+      "community": 0,
       "norm_label": "risk_band()"
     },
     {
@@ -6506,7 +6596,7 @@
       "source_file": "src/cbz_manga_translator/review/model.py",
       "source_location": "L168",
       "id": "review_model_iter_review_items",
-      "community": 29,
+      "community": 0,
       "norm_label": "iter_review_items()"
     },
     {
@@ -6515,7 +6605,7 @@
       "source_file": "src/cbz_manga_translator/review/model.py",
       "source_location": "L168",
       "id": "src_cbz_manga_translator_review_model_py_projectdata",
-      "community": 29,
+      "community": 0,
       "norm_label": "projectdata"
     },
     {
@@ -6524,7 +6614,7 @@
       "source_file": "src/cbz_manga_translator/review/model.py",
       "source_location": "L192",
       "id": "review_model_find_page",
-      "community": 29,
+      "community": 0,
       "norm_label": "find_page()"
     },
     {
@@ -6542,7 +6632,7 @@
       "source_file": "src/cbz_manga_translator/review/model.py",
       "source_location": "L199",
       "id": "review_model_find_block",
-      "community": 29,
+      "community": 0,
       "norm_label": "find_block()"
     },
     {
@@ -6551,7 +6641,7 @@
       "source_file": "src/cbz_manga_translator/review/model.py",
       "source_location": "L207",
       "id": "review_model_resolve_image_path",
-      "community": 29,
+      "community": 0,
       "norm_label": "resolve_image_path()"
     },
     {
@@ -6560,7 +6650,7 @@
       "source_file": "src/cbz_manga_translator/review/model.py",
       "source_location": "L229",
       "id": "review_model_clean_sfx_prefix",
-      "community": 29,
+      "community": 0,
       "norm_label": "_clean_sfx_prefix()"
     },
     {
@@ -6569,7 +6659,7 @@
       "source_file": "src/cbz_manga_translator/review/model.py",
       "source_location": "L236",
       "id": "review_model_clean_fusion_prefix",
-      "community": 29,
+      "community": 0,
       "norm_label": "_clean_fusion_prefix()"
     },
     {
@@ -6578,7 +6668,7 @@
       "source_file": "src/cbz_manga_translator/review/model.py",
       "source_location": "L243",
       "id": "review_model_clean_zone_prefix",
-      "community": 29,
+      "community": 0,
       "norm_label": "_clean_zone_prefix()"
     },
     {
@@ -6587,7 +6677,7 @@
       "source_file": "src/cbz_manga_translator/review/model.py",
       "source_location": "L250",
       "id": "review_model_apply_review_to_block",
-      "community": 29,
+      "community": 0,
       "norm_label": "apply_review_to_block()"
     },
     {
@@ -6596,7 +6686,7 @@
       "source_file": "src/cbz_manga_translator/review/model.py",
       "source_location": "L46",
       "id": "review_model_rationale_46",
-      "community": 29,
+      "community": 0,
       "norm_label": "resolve a gui review input from a project json, cbz, or series folder."
     },
     {
@@ -6875,7 +6965,7 @@
       "source_file": "src/cbz_manga_translator/translate/argos.py",
       "source_location": "L48",
       "id": "translate_argos_argostranslator",
-      "community": 14,
+      "community": 29,
       "norm_label": "argostranslator"
     },
     {
@@ -6884,7 +6974,7 @@
       "source_file": "src/cbz_manga_translator/translate/argos.py",
       "source_location": "L59",
       "id": "translate_argos_argostranslator_init",
-      "community": 14,
+      "community": 29,
       "norm_label": ".__init__()"
     },
     {
@@ -7226,7 +7316,7 @@
       "source_file": "src/cbz_manga_translator/translate/argos.py",
       "source_location": "L49",
       "id": "translate_argos_rationale_49",
-      "community": 14,
+      "community": 29,
       "norm_label": "offline argos translate backend.      no hugging face/transformers model is load"
     },
     {
@@ -9737,7 +9827,7 @@
       "source_file": "tests/test_ignore_memory.py",
       "source_location": "L22",
       "id": "tests_test_ignore_memory_py_path",
-      "community": 7,
+      "community": 4,
       "norm_label": "path"
     },
     {
@@ -10045,6 +10135,24 @@
       "id": "tests_test_ocr_memory_test_ocr_cleanup_uses_external_ocr_memory",
       "community": 22,
       "norm_label": "test_ocr_cleanup_uses_external_ocr_memory()"
+    },
+    {
+      "label": "test_ocr_memory_fuzzy_lookup_handles_visual_font_noise()",
+      "file_type": "code",
+      "source_file": "tests/test_ocr_memory.py",
+      "source_location": "L130",
+      "id": "tests_test_ocr_memory_test_ocr_memory_fuzzy_lookup_handles_visual_font_noise",
+      "community": 22,
+      "norm_label": "test_ocr_memory_fuzzy_lookup_handles_visual_font_noise()"
+    },
+    {
+      "label": "test_ocr_memory_fuzzy_lookup_rejects_semantic_changes()",
+      "file_type": "code",
+      "source_file": "tests/test_ocr_memory.py",
+      "source_location": "L142",
+      "id": "tests_test_ocr_memory_test_ocr_memory_fuzzy_lookup_rejects_semantic_changes",
+      "community": 22,
+      "norm_label": "test_ocr_memory_fuzzy_lookup_rejects_semantic_changes()"
     },
     {
       "label": "test_ocr_setup_cli.py",
@@ -10790,7 +10898,7 @@
       "source_file": "tests/test_review_model.py",
       "source_location": "L1",
       "id": "tests_test_review_model_py",
-      "community": 29,
+      "community": 0,
       "norm_label": "test_review_model.py"
     },
     {
@@ -10799,7 +10907,7 @@
       "source_file": "tests/test_review_model.py",
       "source_location": "L19",
       "id": "tests_test_review_model_test_default_reviewed_path",
-      "community": 29,
+      "community": 0,
       "norm_label": "test_default_reviewed_path()"
     },
     {
@@ -10808,7 +10916,7 @@
       "source_file": "tests/test_review_model.py",
       "source_location": "L24",
       "id": "tests_test_review_model_test_resolve_review_project_input_accepts_direct_project_json",
-      "community": 29,
+      "community": 0,
       "norm_label": "test_resolve_review_project_input_accepts_direct_project_json()"
     },
     {
@@ -10817,7 +10925,7 @@
       "source_file": "tests/test_review_model.py",
       "source_location": "L24",
       "id": "tests_test_review_model_py_path",
-      "community": 29,
+      "community": 0,
       "norm_label": "path"
     },
     {
@@ -10826,7 +10934,7 @@
       "source_file": "tests/test_review_model.py",
       "source_location": "L31",
       "id": "tests_test_review_model_test_resolve_review_project_input_accepts_series_folder_with_project",
-      "community": 29,
+      "community": 0,
       "norm_label": "test_resolve_review_project_input_accepts_series_folder_with_project()"
     },
     {
@@ -10835,7 +10943,7 @@
       "source_file": "tests/test_review_model.py",
       "source_location": "L40",
       "id": "tests_test_review_model_test_resolve_review_project_input_accepts_cbz_with_existing_project",
-      "community": 29,
+      "community": 0,
       "norm_label": "test_resolve_review_project_input_accepts_cbz_with_existing_project()"
     },
     {
@@ -10844,7 +10952,7 @@
       "source_file": "tests/test_review_model.py",
       "source_location": "L49",
       "id": "tests_test_review_model_test_apply_review_to_block_sets_fields_and_status",
-      "community": 29,
+      "community": 0,
       "norm_label": "test_apply_review_to_block_sets_fields_and_status()"
     },
     {
@@ -10853,7 +10961,7 @@
       "source_file": "tests/test_review_model.py",
       "source_location": "L66",
       "id": "tests_test_review_model_test_review_items_and_image_resolution",
-      "community": 29,
+      "community": 0,
       "norm_label": "test_review_items_and_image_resolution()"
     },
     {
@@ -10862,7 +10970,7 @@
       "source_file": "tests/test_review_model.py",
       "source_location": "L97",
       "id": "tests_test_review_model_test_sfx_decision_is_preserved_in_notes",
-      "community": 29,
+      "community": 0,
       "norm_label": "test_sfx_decision_is_preserved_in_notes()"
     },
     {
@@ -10871,7 +10979,7 @@
       "source_file": "tests/test_review_model.py",
       "source_location": "L107",
       "id": "tests_test_review_model_test_fused_decision_marks_review_with_searchable_note",
-      "community": 29,
+      "community": 0,
       "norm_label": "test_fused_decision_marks_review_with_searchable_note()"
     },
     {
@@ -10880,7 +10988,7 @@
       "source_file": "tests/test_review_model.py",
       "source_location": "L119",
       "id": "tests_test_review_model_test_zone_decision_marks_review_with_searchable_note",
-      "community": 29,
+      "community": 0,
       "norm_label": "test_zone_decision_marks_review_with_searchable_note()"
     },
     {
@@ -10889,7 +10997,7 @@
       "source_file": "tests/test_review_model.py",
       "source_location": "L131",
       "id": "tests_test_review_model_test_apply_review_to_block_does_not_store_unchanged_mirror_fields",
-      "community": 29,
+      "community": 0,
       "norm_label": "test_apply_review_to_block_does_not_store_unchanged_mirror_fields()"
     },
     {
@@ -10898,7 +11006,7 @@
       "source_file": "tests/test_review_model.py",
       "source_location": "L153",
       "id": "tests_test_review_model_test_iter_review_items_exposes_sfx_and_searchable_diagnostics",
-      "community": 29,
+      "community": 0,
       "norm_label": "test_iter_review_items_exposes_sfx_and_searchable_diagnostics()"
     },
     {
@@ -10907,7 +11015,7 @@
       "source_file": "tests/test_review_model.py",
       "source_location": "L183",
       "id": "tests_test_review_model_test_iter_review_items_exposes_fused_decision",
-      "community": 29,
+      "community": 0,
       "norm_label": "test_iter_review_items_exposes_fused_decision()"
     },
     {
@@ -10916,7 +11024,7 @@
       "source_file": "tests/test_review_model.py",
       "source_location": "L211",
       "id": "tests_test_review_model_test_iter_review_items_exposes_zone_decision",
-      "community": 29,
+      "community": 0,
       "norm_label": "test_iter_review_items_exposes_zone_decision()"
     },
     {
@@ -11186,7 +11294,7 @@
       "source_file": "tests/test_review_replay.py",
       "source_location": "L47",
       "id": "tests_test_review_replay_test_bbox_iou",
-      "community": 20,
+      "community": 109,
       "norm_label": "test_bbox_iou()"
     },
     {
@@ -32481,6 +32589,16 @@
       "relation": "uses",
       "confidence": "INFERRED",
       "source_file": "src/cbz_manga_translator/ocr/memory.py",
+      "source_location": "L13",
+      "weight": 0.8,
+      "source": "src_cbz_manga_translator_ocr_memory_py_float",
+      "target": "core_cache_projectcache",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/cbz_manga_translator/ocr/memory.py",
       "source_location": "L12",
       "weight": 0.8,
       "confidence_score": 0.5,
@@ -40917,6 +41035,16 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/cbz_manga_translator/ocr/memory.py",
+      "source_location": "L90",
+      "weight": 1.0,
+      "source": "src_cbz_manga_translator_ocr_memory_py",
+      "target": "ocr_memory_best_token_score",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/ocr/memory.py",
       "source_location": "L110",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -40977,6 +41105,16 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/cbz_manga_translator/ocr/memory.py",
+      "source_location": "L86",
+      "weight": 1.0,
+      "source": "src_cbz_manga_translator_ocr_memory_py",
+      "target": "ocr_memory_is_important_token",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/ocr/memory.py",
       "source_location": "L81",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -41002,6 +41140,56 @@
       "confidence_score": 1.0,
       "source": "src_cbz_manga_translator_ocr_memory_py",
       "target": "ocr_memory_ocrcorrectionmemory"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/ocr/memory.py",
+      "source_location": "L105",
+      "weight": 1.0,
+      "source": "src_cbz_manga_translator_ocr_memory_py",
+      "target": "ocr_memory_semantic_ocr_match",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/ocr/memory.py",
+      "source_location": "L73",
+      "weight": 1.0,
+      "source": "src_cbz_manga_translator_ocr_memory_py",
+      "target": "ocr_memory_token_similarity",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/ocr/memory.py",
+      "source_location": "L65",
+      "weight": 1.0,
+      "source": "src_cbz_manga_translator_ocr_memory_py",
+      "target": "ocr_memory_tokens",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/ocr/memory.py",
+      "source_location": "L130",
+      "weight": 1.0,
+      "source": "src_cbz_manga_translator_ocr_memory_py",
+      "target": "ocr_memory_visual_key",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/ocr/memory.py",
+      "source_location": "L69",
+      "weight": 1.0,
+      "source": "src_cbz_manga_translator_ocr_memory_py",
+      "target": "ocr_memory_visual_token",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -41080,6 +41268,28 @@
       "target": "ocr_memory_canonical_ocr_key"
     },
     {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/ocr/memory.py",
+      "source_location": "L66",
+      "weight": 1.0,
+      "source": "ocr_memory_tokens",
+      "target": "ocr_memory_canonical_ocr_key",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "generic_arg",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/ocr/memory.py",
+      "source_location": "L90",
+      "weight": 1.0,
+      "source": "ocr_memory_best_token_score",
+      "target": "src_cbz_manga_translator_ocr_memory_py_str",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "references",
       "context": "generic_arg",
       "confidence": "EXTRACTED",
@@ -41100,6 +41310,17 @@
       "confidence_score": 1.0,
       "source": "ocr_memory_drops_strong_punctuation",
       "target": "src_cbz_manga_translator_ocr_memory_py_str"
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/ocr/memory.py",
+      "source_location": "L86",
+      "weight": 1.0,
+      "source": "ocr_memory_is_important_token",
+      "target": "src_cbz_manga_translator_ocr_memory_py_str",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -41136,6 +41357,72 @@
     },
     {
       "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/ocr/memory.py",
+      "source_location": "L190",
+      "weight": 1.0,
+      "source": "ocr_memory_ocrcorrectionmemory_lookup_fuzzy",
+      "target": "src_cbz_manga_translator_ocr_memory_py_str",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "generic_arg",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/ocr/memory.py",
+      "source_location": "L105",
+      "weight": 1.0,
+      "source": "ocr_memory_semantic_ocr_match",
+      "target": "src_cbz_manga_translator_ocr_memory_py_str",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/ocr/memory.py",
+      "source_location": "L73",
+      "weight": 1.0,
+      "source": "ocr_memory_token_similarity",
+      "target": "src_cbz_manga_translator_ocr_memory_py_str",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "generic_arg",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/ocr/memory.py",
+      "source_location": "L65",
+      "weight": 1.0,
+      "source": "ocr_memory_tokens",
+      "target": "src_cbz_manga_translator_ocr_memory_py_str",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/ocr/memory.py",
+      "source_location": "L130",
+      "weight": 1.0,
+      "source": "ocr_memory_visual_key",
+      "target": "src_cbz_manga_translator_ocr_memory_py_str",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/ocr/memory.py",
+      "source_location": "L69",
+      "weight": 1.0,
+      "source": "ocr_memory_visual_token",
+      "target": "src_cbz_manga_translator_ocr_memory_py_str",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "src/cbz_manga_translator/ocr/memory.py",
@@ -41150,11 +41437,143 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/cbz_manga_translator/ocr/memory.py",
-      "source_location": "L134",
+      "source_location": "L193",
+      "weight": 1.0,
+      "source": "ocr_memory_ocrcorrectionmemory_lookup_fuzzy",
+      "target": "ocr_memory_tokens",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/ocr/memory.py",
+      "source_location": "L178",
+      "weight": 1.0,
+      "source": "ocr_memory_ocrcorrectionmemory_post_init",
+      "target": "ocr_memory_tokens",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/ocr/memory.py",
+      "source_location": "L131",
+      "weight": 1.0,
+      "source": "ocr_memory_visual_key",
+      "target": "ocr_memory_tokens",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/ocr/memory.py",
+      "source_location": "L91",
+      "weight": 1.0,
+      "source": "ocr_memory_best_token_score",
+      "target": "ocr_memory_visual_token",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/ocr/memory.py",
+      "source_location": "L108",
+      "weight": 1.0,
+      "source": "ocr_memory_semantic_ocr_match",
+      "target": "ocr_memory_visual_token",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/ocr/memory.py",
+      "source_location": "L76",
+      "weight": 1.0,
+      "source": "ocr_memory_token_similarity",
+      "target": "ocr_memory_visual_token",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/ocr/memory.py",
+      "source_location": "L131",
+      "weight": 1.0,
+      "source": "ocr_memory_visual_key",
+      "target": "ocr_memory_visual_token",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/ocr/memory.py",
+      "source_location": "L101",
+      "weight": 1.0,
+      "source": "ocr_memory_best_token_score",
+      "target": "ocr_memory_token_similarity",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/ocr/memory.py",
+      "source_location": "L73",
+      "weight": 1.0,
+      "source": "ocr_memory_token_similarity",
+      "target": "src_cbz_manga_translator_ocr_memory_py_float",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/ocr/memory.py",
+      "source_location": "L90",
+      "weight": 1.0,
+      "source": "ocr_memory_best_token_score",
+      "target": "src_cbz_manga_translator_ocr_memory_py_float",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/ocr/memory.py",
+      "source_location": "L86",
+      "weight": 1.0,
+      "source": "ocr_memory_is_important_token",
+      "target": "src_cbz_manga_translator_ocr_memory_py_bool",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/ocr/memory.py",
+      "source_location": "L121",
+      "weight": 1.0,
+      "source": "ocr_memory_semantic_ocr_match",
+      "target": "ocr_memory_is_important_token",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/ocr/memory.py",
+      "source_location": "L49",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "ocr_memory_build_ocr_memory",
-      "target": "ocr_memory_looks_like_translation"
+      "source": "ocr_memory_drops_strong_punctuation",
+      "target": "src_cbz_manga_translator_ocr_memory_py_bool"
     },
     {
       "relation": "references",
@@ -41172,11 +41591,77 @@
       "context": "return_type",
       "confidence": "EXTRACTED",
       "source_file": "src/cbz_manga_translator/ocr/memory.py",
-      "source_location": "L49",
+      "source_location": "L105",
+      "weight": 1.0,
+      "source": "ocr_memory_semantic_ocr_match",
+      "target": "src_cbz_manga_translator_ocr_memory_py_bool",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/ocr/memory.py",
+      "source_location": "L209",
+      "weight": 1.0,
+      "source": "ocr_memory_ocrcorrectionmemory_lookup_fuzzy",
+      "target": "ocr_memory_best_token_score",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/ocr/memory.py",
+      "source_location": "L116",
+      "weight": 1.0,
+      "source": "ocr_memory_semantic_ocr_match",
+      "target": "ocr_memory_best_token_score",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/ocr/memory.py",
+      "source_location": "L203",
+      "weight": 1.0,
+      "source": "ocr_memory_ocrcorrectionmemory_lookup_fuzzy",
+      "target": "ocr_memory_semantic_ocr_match",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/ocr/memory.py",
+      "source_location": "L197",
+      "weight": 1.0,
+      "source": "ocr_memory_ocrcorrectionmemory_lookup_fuzzy",
+      "target": "ocr_memory_visual_key",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/ocr/memory.py",
+      "source_location": "L178",
+      "weight": 1.0,
+      "source": "ocr_memory_ocrcorrectionmemory_post_init",
+      "target": "ocr_memory_visual_key",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/ocr/memory.py",
+      "source_location": "L134",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "ocr_memory_drops_strong_punctuation",
-      "target": "src_cbz_manga_translator_ocr_memory_py_bool"
+      "source": "ocr_memory_build_ocr_memory",
+      "target": "ocr_memory_looks_like_translation"
     },
     {
       "relation": "calls",
@@ -41233,6 +41718,26 @@
       "target": "ocr_memory_ocrcorrectionmemory_lookup"
     },
     {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/ocr/memory.py",
+      "source_location": "L190",
+      "weight": 1.0,
+      "source": "ocr_memory_ocrcorrectionmemory",
+      "target": "ocr_memory_ocrcorrectionmemory_lookup_fuzzy",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/ocr/memory.py",
+      "source_location": "L176",
+      "weight": 1.0,
+      "source": "ocr_memory_ocrcorrectionmemory",
+      "target": "ocr_memory_ocrcorrectionmemory_post_init",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "references",
       "context": "parameter_type",
       "confidence": "EXTRACTED",
@@ -41242,6 +41747,49 @@
       "confidence_score": 1.0,
       "source": "ocr_memory_write_ocr_memory",
       "target": "ocr_memory_ocrcorrectionmemory"
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "tests/test_ocr_memory.py",
+      "source_location": "L7",
+      "weight": 0.8,
+      "source": "tests_test_ocr_memory_py_path",
+      "target": "ocr_memory_ocrcorrectionmemory",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "tests/test_ocr_memory.py",
+      "source_location": "L131",
+      "weight": 1.0,
+      "source": "tests_test_ocr_memory_test_ocr_memory_fuzzy_lookup_handles_visual_font_noise",
+      "target": "ocr_memory_ocrcorrectionmemory"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "tests/test_ocr_memory.py",
+      "source_location": "L143",
+      "weight": 1.0,
+      "source": "tests_test_ocr_memory_test_ocr_memory_fuzzy_lookup_rejects_semantic_changes",
+      "target": "ocr_memory_ocrcorrectionmemory"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/ocr/memory.py",
+      "source_location": "L188",
+      "weight": 1.0,
+      "source": "ocr_memory_ocrcorrectionmemory_lookup",
+      "target": "ocr_memory_ocrcorrectionmemory_lookup_fuzzy",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -42192,9 +42740,9 @@
       "source_file": "src/cbz_manga_translator/ocr/text_cleanup.py",
       "source_location": "L352",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ocr_text_cleanup_rationale_352",
-      "target": "ocr_text_cleanup_normalize_spacing_and_punctuation",
-      "confidence_score": 1.0
+      "target": "ocr_text_cleanup_normalize_spacing_and_punctuation"
     },
     {
       "relation": "calls",
@@ -42298,9 +42846,9 @@
       "source_file": "src/cbz_manga_translator/ocr/text_cleanup.py",
       "source_location": "L414",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ocr_text_cleanup_rationale_414",
-      "target": "ocr_text_cleanup_normalize_english_ocr_casing",
-      "confidence_score": 1.0
+      "target": "ocr_text_cleanup_normalize_english_ocr_casing"
     },
     {
       "relation": "calls",
@@ -46385,9 +46933,9 @@
       "source_file": "src/cbz_manga_translator/translate/english_dialogue_normalizer.py",
       "source_location": "L790",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "translate_english_dialogue_normalizer_rationale_790",
-      "target": "translate_english_dialogue_normalizer_englishdialoguenormalizer",
-      "confidence_score": 1.0
+      "target": "translate_english_dialogue_normalizer_englishdialoguenormalizer"
     },
     {
       "relation": "calls",
@@ -50774,9 +51322,9 @@
       "source_file": "tests/test_english_dialogue_normalizer.py",
       "source_location": "L481",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_english_dialogue_normalizer_py",
-      "target": "tests_test_english_dialogue_normalizer_test_wish_villainess_latest_punctuation_and_zone_repairs",
-      "confidence_score": 1.0
+      "target": "tests_test_english_dialogue_normalizer_test_wish_villainess_latest_punctuation_and_zone_repairs"
     },
     {
       "relation": "contains",
@@ -51260,6 +51808,26 @@
       "target": "tests_test_ocr_memory_test_ocr_cleanup_uses_external_ocr_memory"
     },
     {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_ocr_memory.py",
+      "source_location": "L130",
+      "weight": 1.0,
+      "source": "tests_test_ocr_memory_py",
+      "target": "tests_test_ocr_memory_test_ocr_memory_fuzzy_lookup_handles_visual_font_noise",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_ocr_memory.py",
+      "source_location": "L142",
+      "weight": 1.0,
+      "source": "tests_test_ocr_memory_py",
+      "target": "tests_test_ocr_memory_test_ocr_memory_fuzzy_lookup_rejects_semantic_changes",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "references",
       "context": "parameter_type",
       "confidence": "EXTRACTED",
@@ -51519,9 +52087,9 @@
       "source_file": "tests/test_ocr_text_cleanup.py",
       "source_location": "L212",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_ocr_text_cleanup_py",
-      "target": "tests_test_ocr_text_cleanup_test_wish_villainess_latest_punctuation_repairs",
-      "confidence_score": 1.0
+      "target": "tests_test_ocr_text_cleanup_test_wish_villainess_latest_punctuation_repairs"
     },
     {
       "relation": "contains",
@@ -57092,5 +57660,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "26c99159931e414ca67631092ebdca97196f7efa"
+  "built_at_commit": "e2ccf78b37498b3b2b874acfcef44d70f7f939f2"
 }
