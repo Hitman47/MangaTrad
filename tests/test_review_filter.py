@@ -70,12 +70,21 @@ def test_sfx_caption_blocks_are_auto_ignored() -> None:
         _block("Mnghl", 31),
         _block("SHING", 32),
         _block("ZSH", 33),
+        _block("KA Pow", 34),
+        _block("THUMP", 35),
+        _block("...BA-DMP", 36),
+        _block("Phewl", 37),
+        _block("Blodo", 38),
+        _block("Flomp", 39),
+        _block("GAY HAK KOFF Kofry", 40),
+        _block("Shakc", 41),
+        _block("Grlp", 42),
         _block("What on earth is this person?", 3),
     ]
 
     changed = apply_review_filters(blocks)
 
-    assert changed == 32
+    assert changed == 41
     assert all(block.manual_status == "ignored" for block in blocks[:-1])
     assert blocks[-1].manual_status == "unchecked"
 

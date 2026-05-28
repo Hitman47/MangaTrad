@@ -158,6 +158,17 @@ def test_manga_font_ul_i_bang_confusion_profile() -> None:
     assert normalize_ocr_text_for_translation("She was TRYING TO PROTECT Everyone Becalse the STAFF Went O4t OF CONTROL!") == "She was TRYING TO PROTECT Everyone Because the STAFF Went Out OF CONTROL!"
     assert normalize_ocr_text_for_translation("WHAT 9i") == "WHAT?!"
     assert normalize_ocr_text_for_translation("You Seriolsly Me Tellin' TO TURN BLIND A Eye? i") == "You Seriously Me Tellin' TO TURN BLIND A Eye? i"
+
+
+def test_mixed_review_batch_core_ocr_repairs() -> None:
+    assert normalize_ocr_text_for_translation("Theyte Judged that Ms, elizabeth Is MOSTLY Innocent!") == "They've Judged that Ms, elizabeth Is MOSTLY Innocent!"
+    assert normalize_ocr_text_for_translation("LADY Eliza- Beth,. .?") == "LADY Elizabeth...?"
+    assert normalize_ocr_text_for_translation("LADY Elizabeth,. .!") == "LADY Elizabeth...!"
+    assert normalize_ocr_text_for_translation("Did peter CALL FORA Girl to fool AROUND With AGAIN?") == "Did peter CALL FOR A Girl to fool AROUND With AGAIN?"
+    assert normalize_ocr_text_for_translation("This UNI... VERSE Is VAST.") == "this universe is vast."
+    assert normalize_ocr_text_for_translation("You will ENTRUST THE WAY OF THE FLASH To Thpee Pupils Thpee REMAPKABLE STUDENTS.") == "You will ENTRUST THE WAY OF THE FLASH To Three Pupils Three REMARKABLE STUDENTS."
+    assert normalize_ocr_text_for_translation("Will I REALLY BE TEACH A Pupil OF MY OWN?") == "will I really be able... to teach a pupil of my own?"
+    assert normalize_ocr_text_for_translation("IT'S Been your THOLGHTFUL CONSIDER- ATION THAT Has let ls Survive.") == "IT'S Been your THOUGHTFUL CONSIDERATION THAT Has let us Survive."
     assert normalize_ocr_text_for_translation("SHE'S NOT GONNA Supve MUCH LONGER ON HER OWN.") == "SHE'S NOT GONNA survive MUCH LONGER ON HER OWN."
     assert normalize_ocr_text_for_translation("what kind of Shifty Tkinbs are You Doing In tke stl... DENT COLN...") == "what kind of Shifty THINGS are You Doing In the student COUNCIL"
     assert normalize_ocr_text_for_translation("just kidding say anything was danserols here the previous president's ex... istence") == "just kidding say anything was dangerous here the previous president's existence"

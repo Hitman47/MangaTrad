@@ -258,6 +258,32 @@ def test_seventh_review_batch_ellipsis_zone_and_expression_patterns() -> None:
     assert withdraw.override_translation_fr == "Devrions-nous battre en retraite pour l'instant ?"
 
 
+def test_mixed_review_batch_translation_overrides_and_ocr_repairs() -> None:
+    let_go = EnglishDialogueNormalizer.prepare("H-hey! Let Go OF Me!")
+    assert let_go.normalized_text == "hey! let go of me!"
+    assert let_go.override_translation_fr == "Hey ! Lachez-moi !"
+
+    judged = EnglishDialogueNormalizer.prepare("Theyte Judged that Ms, elizabeth Is MOSTLY Innocent!")
+    assert judged.normalized_text == "they've judged that Ms. Elizabeth is mostly innocent!"
+    assert judged.override_translation_fr == "Le tribunal a estime que Mme Elizabeth etait en grande partie innocente !"
+
+    please = EnglishDialogueNormalizer.prepare("So, Be Sure To Exercise Caution and RESTRAINT, PLEASEL")
+    assert please.normalized_text == "So, be sure to exercise caution and restraint, Elizabeth! Please!"
+    assert please.override_translation_fr == "Alors, fais bien attention et fais preuve de moderation, Elizabeth ! S'il te plait !"
+
+    universe = EnglishDialogueNormalizer.prepare("This UNI... VERSE Is VAST.")
+    assert universe.normalized_text == "this universe is vast."
+    assert universe.override_translation_fr == "Cet univers est vaste."
+
+    pupil = EnglishDialogueNormalizer.prepare("Will I REALLY BE TEACH A Pupil OF MY OWN?")
+    assert pupil.normalized_text == "will I really be able... to teach a pupil of my own?"
+    assert pupil.override_translation_fr == "Est-ce que je serai vraiment capable... d'enseigner a mon propre eleve ?"
+
+    reputation = EnglishDialogueNormalizer.prepare("THEN [ COULD'VE INTRODUCED YOU TO A NOBLE WHO DOESN'T have SUCH AN AWFUL REPUTATION.")
+    assert reputation.normalized_text == "then I could have introduced you to a noble who doesn't have such an awful reputation."
+    assert reputation.override_translation_fr == "Alors j'aurais pu te presenter un noble qui n'a pas une si mauvaise reputation."
+
+
 def test_fast_ten_batch_reviewed_ocr_and_expression_patterns() -> None:
     old_man = EnglishDialogueNormalizer.prepare("SHE'S G0T An IDIOT Like that FOR AM OLD MAN.")
     assert old_man.normalized_text == "she has got an idiot like that for an old man."
