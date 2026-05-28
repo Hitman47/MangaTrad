@@ -245,3 +245,13 @@ def test_latest_clean_batch_ocr_repairs() -> None:
     assert normalize_ocr_text_for_translation("MAYU, I MUST E NODDED OFF.") == "MAYU, I must've nodded off."
     assert normalize_ocr_text_for_translation("CAPTAIN HIPO.") == "captain hiro."
     assert normalize_ocr_text_for_translation("V WAIT A Second, GIANT!") == "WAIT A Second, GIANT!"
+
+
+def test_busy_hard_review_batch_ocr_repairs() -> None:
+    assert normalize_ocr_text_for_translation("WAIT? THERE' $ SOME KIND OF FRUITY SMELL!") == "wait! there's some kind of fruity smell...!"
+    assert normalize_ocr_text_for_translation("Will potect The saint Asthe EARTH KNIGHT.") == "I Will protect The saint As the EARTH KNIGHT..."
+    assert normalize_ocr_text_for_translation("ONE The -Fourhoy Knghts Sacred CROSS!") == "...one of the four holy knights of the sacred cross!"
+    assert normalize_ocr_text_for_translation("HOW- Ever.") == "However..."
+    assert normalize_ocr_text_for_translation("AFTER ALL, It's MY Policy TO ALWAYS Ppovide Follow- THROUGH too!") == "After all, it's my policy to always provide followthrough services, too!"
+    assert normalize_ocr_text_for_translation("Why, I'll Ppovide You with a WONDERFLLLY TALENTED MAN!") == "Why, I will Provide You with a WONDERFULLY TALENTED MAN!"
+    assert normalize_ocr_text_for_translation("How were You able to MASTER It IN Just 4 few YEARS?") == "How were You able to MASTER It IN Just a few YEARS?"

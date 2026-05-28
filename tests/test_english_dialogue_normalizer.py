@@ -528,3 +528,25 @@ def test_wish_villainess_latest_punctuation_and_zone_repairs() -> None:
     spirits = EnglishDialogueNormalizer.prepare("TCH OUR Next foes Are eviil SPIRITS?")
     assert spirits.corrected_text == "TCH! OUR Next foes Are evil SPIRITS!"
     assert spirits.override_translation_fr == "TCH ! Nos prochains adversaires sont des esprits malefiques !"
+
+
+def test_busy_hard_review_batch_translation_repairs() -> None:
+    smell = EnglishDialogueNormalizer.prepare("WAIT? THERE' $ SOME KIND OF FRUITY SMELL!")
+    assert smell.normalized_text == "wait! there is some kind of fruity smell...!"
+    assert smell.override_translation_fr == "Attendez ! Il y a une odeur fruitee... !"
+
+    knight = EnglishDialogueNormalizer.prepare("Will potect The saint Asthe EARTH KNIGHT.")
+    assert knight.normalized_text == "I will protect the saint as the earth knight..."
+    assert knight.override_translation_fr == "Je protegerai la sainte en tant que chevalier de la Terre..."
+
+    cross = EnglishDialogueNormalizer.prepare("ONE The -Fourhoy Knghts Sacred CROSS!")
+    assert cross.normalized_text == "...one of the four holy knights of the sacred cross!"
+    assert cross.override_translation_fr == "...l'un des quatre chevaliers sacres de la Sainte Croix !"
+
+    follow = EnglishDialogueNormalizer.prepare("AFTER ALL, It's MY Policy TO ALWAYS Ppovide Follow- THROUGH too!")
+    assert follow.normalized_text == "after all, it is my policy to always provide followthrough services, too!"
+    assert follow.override_translation_fr == "Apres tout, ma politique, c'est aussi de toujours assurer un suivi !"
+
+    talented = EnglishDialogueNormalizer.prepare("Why, I'll Ppovide You with a WONDERFLLLY TALENTED MAN!")
+    assert talented.normalized_text == "why, I will provide you with a wonderfully talented man!"
+    assert talented.override_translation_fr == "Mais bien sur, je vais vous presenter un homme au talent incroyable !"
