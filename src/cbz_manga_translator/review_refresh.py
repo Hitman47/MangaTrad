@@ -8,6 +8,7 @@ from cbz_manga_translator.core.cache import ProjectCache
 from cbz_manga_translator.core.models import OcrBlock, ProjectData, SourceLang
 from cbz_manga_translator.ocr.fallback_engine import OcrFallbackEngine
 from cbz_manga_translator.ocr.incomplete import zone_issue_categories
+from cbz_manga_translator.ocr.text_cleanup import normalize_ocr_text_for_translation
 from cbz_manga_translator.review.model import block_source_text, resolve_image_path
 from cbz_manga_translator.translate.argos import ArgosTranslator
 from cbz_manga_translator.translate.english_dialogue_normalizer import EnglishDialogueNormalizer
@@ -58,7 +59,10 @@ def _refresh_blocks_with_rules(blocks: list[OcrBlock], source_lang: SourceLang, 
         source = block.ocr_text.strip()
         if not source:
             continue
-        prepared = EnglishDialogueNormalizer.prepare(source, normalize_english=normalize_english)
+        prepared = EnglishDialogueNormalizer.prepare(
+            normalize_ocr_text_for_translation(source),
+            normalize_english=normalize_english,
+        )
         block.ocr_corrected_text = prepared.corrected_text
         block.normalized_source_text = prepared.normalized_text
         if prepared.override_translation_fr:

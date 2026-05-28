@@ -39,6 +39,30 @@ def test_prepare_source_text_normalizes_gramma_looky_that() -> None:
     assert prepared.text == "grandma, look at that."
 
 
+def test_prepare_source_text_uses_shared_ocr_cleanup_before_dialogue_rules() -> None:
+    prepared = ArgosTranslator._prepare_source_text(
+        "The Tiger TCO WAS sighted FOLR DAYS Ago.",
+        "en",
+        raw_terms=None,
+        normalize_english=True,
+        use_builtin_glossary=False,
+    )
+
+    assert prepared.normalized_source_text == "The Tiger TCO was sighted four days ago."
+
+
+def test_prepare_source_text_repairs_manga_font_big_confusion() -> None:
+    prepared = ArgosTranslator._prepare_source_text(
+        "Bi6 news!",
+        "en",
+        raw_terms=None,
+        normalize_english=True,
+        use_builtin_glossary=False,
+    )
+
+    assert prepared.normalized_source_text == "Big news!"
+
+
 def test_prepare_source_text_protects_names_and_glossary_terms() -> None:
     prepared = ArgosTranslator._prepare_source_text(
         "HERE NOW! NARU! WHAT? THE CONTRAIL?",

@@ -197,6 +197,36 @@ def test_refresh_review_project_recomputes_stale_english_diagnostics_from_raw_oc
     assert block.normalized_source_text == "For stronger opponents..."
 
 
+def test_refresh_review_project_uses_shared_ocr_cleanup(tmp_path: Path) -> None:
+    project_path = tmp_path / "project.reviewed.json"
+    ProjectCache.save(
+        project_path,
+        ProjectData(
+            cbz_path="corpus",
+            pages=[
+                PageRecord(
+                    page_index=0,
+                    image_name="page.jpg",
+                    blocks=[
+                        OcrBlock(
+                            id="todo",
+                            bbox=[0, 0, 1, 1],
+                            source_lang="en",
+                            ocr_text="The Tiger TCO WAS sighted FOLR DAYS Ago.",
+                        )
+                    ],
+                )
+            ],
+        ),
+    )
+    out = tmp_path / "out.json"
+
+    refresh_review_project(project_path, out, quality_checker=DummyQualityChecker())  # type: ignore[arg-type]
+
+    block = ProjectCache.load(out).pages[0].blocks[0]
+    assert block.normalized_source_text == "The Tiger TCO was sighted four days ago."
+
+
 def test_refresh_review_project_collects_zone_ocr_alternatives_without_replacing(tmp_path: Path) -> None:
     image = tmp_path / "page.jpg"
     image.write_bytes(b"fake image path is enough for dummy fallback")

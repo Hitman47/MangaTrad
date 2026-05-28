@@ -8,6 +8,7 @@ from typing import Any
 
 from cbz_manga_translator.core.editing import is_translation_protected
 from cbz_manga_translator.core.models import OcrBlock, SourceLang
+from cbz_manga_translator.ocr.text_cleanup import normalize_ocr_text_for_translation
 from cbz_manga_translator.translate.builtin_glossary import BUILTIN_MANGA_GLOSSARY
 from cbz_manga_translator.translate.english_dialogue_normalizer import EnglishDialogueNormalizer
 
@@ -352,7 +353,8 @@ class ArgosTranslator:
         use_builtin_glossary: bool = True,
     ) -> _PreparedText:
         if source_lang == "en":
-            dialogue = EnglishDialogueNormalizer.prepare(text, normalize_english=normalize_english)
+            cleaned_text = normalize_ocr_text_for_translation(text)
+            dialogue = EnglishDialogueNormalizer.prepare(cleaned_text, normalize_english=normalize_english)
             prepared = cls._apply_term_placeholders(dialogue.normalized_text, raw_terms, use_builtin_glossary=use_builtin_glossary)
             prepared.corrected_text = dialogue.corrected_text
             prepared.normalized_source_text = dialogue.normalized_text
