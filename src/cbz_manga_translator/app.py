@@ -30,6 +30,7 @@ from cbz_manga_translator.core.local_runtime import collect_local_runtime_checks
 from cbz_manga_translator.core.app_logging import setup_app_logging
 from cbz_manga_translator.export.html_export import export_html_project
 from cbz_manga_translator.analysis.export_review import export_review_dataset
+from cbz_manga_translator.analysis.review_filter import apply_review_filters
 from cbz_manga_translator.gui.theme import APP_STYLESHEET
 from cbz_manga_translator.ocr.easyocr_engine import EasyOcrEngine
 from cbz_manga_translator.ocr.fallback_engine import OcrFallbackEngine
@@ -1246,6 +1247,7 @@ def run_gui() -> int:
             def done(result: object) -> None:
                 blocks, changed = result  # type: ignore[misc]
                 page.blocks = list(blocks)
+                ignored = apply_review_filters(page.blocks, source_lang=lang)
                 flagged = self.quality_checker.apply(page.blocks, source_lang=lang)
                 page.status = "ocr_fallback_checked" if only_suspect else "ocr_deep_checked"
                 scope = "suspects" if only_suspect else "tous"
@@ -1272,10 +1274,12 @@ def run_gui() -> int:
                 return
 
             def work() -> list[OcrBlock]:
+                apply_review_filters(page.blocks, source_lang=lang)
                 return self._translate_blocks_backend(page.blocks, lang)
 
             def done(blocks: object) -> None:
                 page.blocks = list(blocks)  # type: ignore[arg-type]
+                ignored = apply_review_filters(page.blocks, source_lang=lang)
                 flagged = self.quality_checker.apply(page.blocks, source_lang=lang)
                 page.status = "translated"
                 self._autosave(f"Traduction terminée — QC: {flagged} bloc(s) à vérifier")
@@ -1314,10 +1318,12 @@ def run_gui() -> int:
                             min_confidence=self.min_confidence(),
                             only_suspect=True,
                         )
+                    apply_review_filters(blocks, source_lang=lang)
                 return self._translate_blocks_backend(blocks, lang)
 
             def done(blocks: object) -> None:
                 page.blocks = list(blocks)  # type: ignore[arg-type]
+                ignored = apply_review_filters(page.blocks, source_lang=lang)
                 flagged = self.quality_checker.apply(page.blocks, source_lang=lang)
                 page.status = "translated"
                 self._autosave(f"OCR + traduction terminés — QC: {flagged} bloc(s) à vérifier")
@@ -1332,6 +1338,7 @@ def run_gui() -> int:
             if not page.blocks:
                 QtWidgets.QMessageBox.information(self, "Info", "Aucun bloc OCR à contrôler sur cette page.")
                 return
+            ignored = apply_review_filters(page.blocks, source_lang=self.selected_lang())
             flagged = self.quality_checker.apply(page.blocks, source_lang=self.selected_lang())
             page.status = "quality_checked"
             self._autosave(f"Quality check terminé: {flagged} bloc(s) à vérifier")
