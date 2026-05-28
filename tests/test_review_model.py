@@ -10,6 +10,7 @@ from cbz_manga_translator.review.model import (
     is_fused_block,
     is_sfx_block,
     load_review_project,
+    resolve_review_project_input,
     review_decision_for_block,
     resolve_image_path,
 )
@@ -18,6 +19,31 @@ from cbz_manga_translator.review.model import (
 def test_default_reviewed_path():
     assert default_reviewed_path("project.json").name == "project.reviewed.json"
     assert default_reviewed_path("project.reviewed.json").name == "project.reviewed.json"
+
+
+def test_resolve_review_project_input_accepts_direct_project_json(tmp_path: Path) -> None:
+    project = tmp_path / "project.json"
+    project.write_text("{}", encoding="utf-8")
+
+    assert resolve_review_project_input(project) == project
+
+
+def test_resolve_review_project_input_accepts_series_folder_with_project(tmp_path: Path) -> None:
+    folder = tmp_path / "Serie"
+    folder.mkdir()
+    project = folder / "volume.cbz.manga_translate_project.json"
+    project.write_text("{}", encoding="utf-8")
+
+    assert resolve_review_project_input(folder) == project
+
+
+def test_resolve_review_project_input_accepts_cbz_with_existing_project(tmp_path: Path) -> None:
+    cbz = tmp_path / "volume.cbz"
+    cbz.write_bytes(b"fake")
+    project = tmp_path / "volume.cbz.manga_translate_project.json"
+    project.write_text("{}", encoding="utf-8")
+
+    assert resolve_review_project_input(cbz) == project
 
 
 def test_apply_review_to_block_sets_fields_and_status():

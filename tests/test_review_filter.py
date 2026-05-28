@@ -63,14 +63,30 @@ def test_sfx_caption_blocks_are_auto_ignored() -> None:
         _block("(6eee74", 24),
         _block("orag-| hhhl", 25),
         _block("Squeeze", 26),
+        _block("BEEP", 27),
+        _block("Fwosh", 28),
+        _block("Voom)", 29),
+        _block("Whnm", 30),
+        _block("Mnghl", 31),
+        _block("SHING", 32),
+        _block("ZSH", 33),
         _block("What on earth is this person?", 3),
     ]
 
     changed = apply_review_filters(blocks)
 
-    assert changed == 25
+    assert changed == 32
     assert all(block.manual_status == "ignored" for block in blocks[:-1])
     assert blocks[-1].manual_status == "unchecked"
+
+
+def test_auto_ignore_can_convert_machine_edited_blocks() -> None:
+    block = _block("SWOOSH", 1)
+    block.manual_status = "edited"
+    block.review_notes = "[auto-ignore] sfx/bruit"
+
+    assert apply_review_filters([block]) == 1
+    assert block.manual_status == "ignored"
 
 
 def test_sfx_heavy_page_keeps_short_dialogue() -> None:

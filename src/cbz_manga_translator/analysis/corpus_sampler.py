@@ -78,6 +78,8 @@ class CorpusSamplingResult:
 def read_volume_list(list_path: str | Path) -> list[Path]:
     """Read one archive or folder path per line. Empty lines and # comments are ignored."""
     source = Path(list_path)
+    if source.exists() and (source.is_dir() or source.suffix.lower() in SUPPORTED_VOLUME_EXTENSIONS):
+        return [source]
     base_dir = source.parent
     paths: list[Path] = []
     for raw_line in source.read_text(encoding="utf-8-sig").splitlines():

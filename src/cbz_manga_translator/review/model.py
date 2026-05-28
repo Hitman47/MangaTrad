@@ -42,8 +42,42 @@ def default_reviewed_path(project_path: str | Path) -> Path:
     return path.with_suffix(path.suffix + ".reviewed.json")
 
 
+def resolve_review_project_input(input_path: str | Path) -> Path:
+    """Resolve a GUI review input from a project JSON, CBZ, or series folder."""
+    path = Path(input_path)
+    if path.is_file() and path.suffix.lower() == ".json":
+        return path
+    if path.is_file() and path.suffix.lower() in {".cbz", ".zip"}:
+        project_path = ProjectCache.default_path(path)
+        if project_path.exists():
+            return project_path
+        raise FileNotFoundError(
+            f"Projet OCR introuvable pour {path}. Lance d'abord OCR + traduction dans le GUI principal, "
+            f"ou cree {project_path}."
+        )
+    if path.is_dir():
+        json_candidates = [
+            *sorted(path.glob("*.reviewed.json")),
+            *sorted(path.glob("*.manga_translate_project.json")),
+            *sorted(path.glob("mangatrad_corpus_project*.json")),
+        ]
+        json_candidates = [candidate for candidate in json_candidates if candidate.is_file()]
+        if json_candidates:
+            return json_candidates[0]
+        cbz_candidates = sorted([candidate for candidate in path.glob("*.cbz") if candidate.is_file()])
+        for cbz_path in cbz_candidates:
+            project_path = ProjectCache.default_path(cbz_path)
+            if project_path.exists():
+                return project_path
+        raise FileNotFoundError(
+            f"Aucun projet MangaTrad trouve dans {path}. Le dossier contient peut-etre des CBZ, "
+            "mais aucun .manga_translate_project.json n'existe encore."
+        )
+    return path
+
+
 def load_review_project(project_path: str | Path, output_path: str | Path | None = None) -> ReviewProject:
-    path = Path(project_path)
+    path = resolve_review_project_input(project_path)
     project = ProjectCache.load(path)
     return ReviewProject(
         project_path=path,

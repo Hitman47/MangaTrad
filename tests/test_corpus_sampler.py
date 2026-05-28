@@ -84,6 +84,20 @@ def test_read_volume_list_supports_comments_and_relative_paths(tmp_path: Path) -
     assert paths == [tmp_path / "A.cbz", tmp_path / "B.cbz"]
 
 
+def test_read_volume_list_accepts_direct_series_folder(tmp_path: Path) -> None:
+    serie = tmp_path / "Serie"
+    serie.mkdir()
+
+    assert read_volume_list(serie) == [serie]
+
+
+def test_read_volume_list_accepts_direct_cbz_path(tmp_path: Path) -> None:
+    cbz = tmp_path / "volume.cbz"
+    cbz.write_bytes(b"fake")
+
+    assert read_volume_list(cbz) == [cbz]
+
+
 def test_discover_series_groups_accepts_series_directories(tmp_path: Path) -> None:
     serie_a = tmp_path / "Serie A"
     serie_b = tmp_path / "Serie B"

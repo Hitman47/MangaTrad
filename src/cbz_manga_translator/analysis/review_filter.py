@@ -47,6 +47,7 @@ _SFX_WORDS = {
     "AHHH-",
     "@ORGL OOO",
     "6EEE74",
+    "BEEP",
     "BIPV",
     "BLAM",
     "BOOOMI",
@@ -68,10 +69,12 @@ _SFX_WORDS = {
     "DWOOM",
     "FLASH",
     "FUMP",
+    "FWOSH",
     "FWOOO",
     "FWP",
     "FBY",
     "GEEEL",
+    "GUHL",
     "KACHA",
     "KA CHA",
     "KGH",
@@ -83,6 +86,7 @@ _SFX_WORDS = {
     "KLINK",
     "LIGHTING UP",
     "LUNGE",
+    "MNGHL",
     "NGHH",
     "NGHHH",
     "NGHHH!",
@@ -95,14 +99,19 @@ _SFX_WORDS = {
     "RUMBLE",
     "RIP",
     "SILENCE",
+    "SHING",
     "SLAM",
     "SWOOSH",
     "SQUEEZE",
     "THUD",
     "TWITCH",
+    "VOOM",
+    "VOOM)",
+    "WHNM",
     "WHISPER",
     "WOOSH",
     "WOOSH WOOSH",
+    "ZSH",
 }
 
 _SIGNAGE_TERMS = {"atm", "card", "fee", "phone", "transfer", "store", "convenience"}
@@ -245,7 +254,9 @@ def apply_review_filters(blocks: list[OcrBlock], *, source_lang: SourceLang = "e
             block.quality_warnings.append(warning)
         if block.review_notes.strip() == "":
             block.review_notes = f"[auto-ignore] {reason}"
-        if block.manual_status in {"unchecked", "review"}:
+        if block.manual_status in {"unchecked", "review"} or (
+            block.manual_status == "edited" and block.review_notes.strip().lower().startswith("[auto-ignore]")
+        ):
             block.manual_status = "ignored"
             changed += 1
     return changed

@@ -449,3 +449,27 @@ def test_new_busy_review_batch_overrides() -> None:
     assert anomaly.corrected_text == "The ANOMALY Who has Derailed The plot!"
     assert anomaly.normalized_text == "...the anomaly who has derailed the plot!"
     assert anomaly.override_translation_fr == "...L'anomalie qui a fait derailler l'intrigue !"
+
+
+def test_wish_villainess_common_ocr_repairs() -> None:
+    help_me = EnglishDialogueNormalizer.prepare("Some- One, Help Mel")
+    assert help_me.corrected_text == "Someone, help me!"
+    assert help_me.override_translation_fr == "Quelqu'un, aidez-moi !"
+
+    target = EnglishDialogueNormalizer.prepare("kee HEE hee Hee Youll Make for Perfect TARGET PRACTICE!")
+    assert target.normalized_text == "hee hee hee... you'll make for perfect target practice!"
+    assert target.override_translation_fr == "Hi hi hi... tu feras une cible parfaite !"
+
+    death = EnglishDialogueNormalizer.prepare("The Only thig a WEAK, Lowly CAT Lke You DESERVES IS DEATH!")
+    assert death.normalized_text == "the only thing a weak, lowly cat like you deserves is death!"
+    assert death.override_translation_fr == "La seule chose qu'un chat faible et miserable comme toi merite, c'est la mort !"
+
+    favor = EnglishDialogueNormalizer.prepare("I slppose I Should Retupn The FAVOR.")
+    assert favor.normalized_text == "I suppose I should return the favor."
+    assert favor.override_translation_fr == "Je suppose que je devrais te rendre la pareille."
+
+    reflection = EnglishDialogueNormalizer.prepare("Did She use A REFLECTION SPELL??")
+    assert reflection.normalized_text == "did she use a reflection spell??"
+    assert reflection.override_translation_fr == "Est-ce qu'elle a utilise un sort de reflexion ?"
+
+    assert EnglishDialogueNormalizer.prepare("Mylung CAPACITY").override_translation_fr == "Ma capacite pulmonaire"
