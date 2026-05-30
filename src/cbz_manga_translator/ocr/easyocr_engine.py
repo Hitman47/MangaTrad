@@ -6,7 +6,9 @@ from pathlib import Path
 from typing import Any
 
 from cbz_manga_translator.core.models import OcrBlock, SourceLang
-from cbz_manga_translator.ocr.candidates import candidate_quality
+from cbz_manga_translator.ocr.candidates import candidate_quality, word_tokens
+from cbz_manga_translator.ocr.incomplete import zone_issue_categories
+from cbz_manga_translator.ocr.punctuation import apply_visual_punctuation_to_blocks
 from cbz_manga_translator.ocr.text_cleanup import normalize_ocr_text_for_translation
 
 _TEXT_CHAR_RE = re.compile(r"[A-Za-zÀ-ÖØ-öø-ÿ0-9ぁ-んァ-ン一-龯々ー]")
@@ -334,6 +336,55 @@ class EasyOcrEngine:
         return candidate_quality(text, confidence)
 
     @staticmethod
+    def _normalized_words(text: str) -> list[str]:
+        return [word.lower().strip("'") for word in word_tokens(normalize_ocr_text_for_translation(text))]
+
+    @classmethod
+    def _safe_crop_replacement(cls, current_text: str, candidate_text: str) -> bool:
+        current = normalize_ocr_text_for_translation(current_text)
+        candidate = normalize_ocr_text_for_translation(candidate_text)
+        if not current or not candidate or current == candidate:
+            return False
+        current_words = cls._normalized_words(current)
+        candidate_words = cls._normalized_words(candidate)
+        if not current_words or not candidate_words:
+            return False
+        extra_words = max(0, len(candidate_words) - len(current_words))
+        if extra_words > max(3, int(len(current_words) * 0.45)):
+            return False
+        if len(candidate_words) / max(1, len(current_words)) > 1.75:
+            return False
+        single_letter_noise = [
+            word for word in candidate_words
+            if len(word) == 1 and word not in {"a", "i"} and word not in current_words
+        ]
+        if single_letter_noise:
+            return False
+        current_categories = set(zone_issue_categories(current))
+        candidate_categories = set(zone_issue_categories(candidate))
+        if "sfx_mixed" in candidate_categories and "sfx_mixed" not in current_categories:
+            return False
+        if "fused_bubble" in candidate_categories and "fused_bubble" not in current_categories:
+            return False
+
+        cursor = 0
+        extras_before_match = 0
+        extras_between_matches = 0
+        matched = 0
+        for word in candidate_words:
+            if cursor < len(current_words) and word == current_words[cursor]:
+                cursor += 1
+                matched += 1
+                continue
+            if matched == 0:
+                extras_before_match += 1
+            elif cursor < len(current_words):
+                extras_between_matches += 1
+        if cursor < max(1, int(len(current_words) * 0.75)):
+            return False
+        return extras_before_match == 0 and extras_between_matches == 0
+
+    @staticmethod
     def _join_crop_results(results: list[Any], source_lang: SourceLang) -> tuple[str, float | None]:
         temp_blocks: list[OcrBlock] = []
         for index, item in enumerate(results):
@@ -464,7 +515,7 @@ class EasyOcrEngine:
                     if filter_noise and self._looks_like_noise(candidate_text, candidate_confidence, min_confidence):
                         continue
                     candidate_score = self._candidate_quality(candidate_text, candidate_confidence)
-                    if candidate_score > best_score + 0.65:
+                    if candidate_score > best_score + 0.65 and self._safe_crop_replacement(best_text, candidate_text):
                         best_text = candidate_text
                         best_confidence = candidate_confidence
                         best_score = candidate_score
@@ -553,4 +604,6 @@ class EasyOcrEngine:
                 merge_lines,
                 filter_noise,
             )
+        if source_lang == "en":
+            apply_visual_punctuation_to_blocks(image_path, blocks)
         return blocks

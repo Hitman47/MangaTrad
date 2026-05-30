@@ -161,6 +161,21 @@ def test_candidate_quality_prefers_more_complete_dialogue() -> None:
     assert EasyOcrEngine._candidate_quality("GRAMMA LOOKY THAT", 0.51) > EasyOcrEngine._candidate_quality("GRAMMA; THAT;", 0.51)
 
 
+def test_safe_crop_replacement_allows_suffix_completion_only() -> None:
+    assert EasyOcrEngine._safe_crop_replacement(
+        "ISN'T THAT WHAT A MAN'S ROMANCE IS",
+        "ISN'T THAT WHAT A MAN'S ROMANCE IS ABOUT!!!",
+    )
+    assert not EasyOcrEngine._safe_crop_replacement(
+        "I've WAITED",
+        "Whi CAR! KVE ABO( WAITED Those SMALL Details",
+    )
+    assert not EasyOcrEngine._safe_crop_replacement(
+        "WE ALWAYS TAKE YOU OUT ON OUR QUESTS, RIGHT?",
+        "WHISPER WE ALWAYS TAKE YOU OUT ON OUR QUESTS, RIGHT? WHISPER",
+    )
+
+
 def test_append_supplemental_blocks_does_not_modify_existing_block() -> None:
     engine = EasyOcrEngine()
     blocks = engine._postprocess_results(

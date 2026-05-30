@@ -42,19 +42,7 @@ class _Component:
         return (self.y1 + self.y2) / 2
 
 
-def _dark_components(image_path: str | Path, bbox: list[int]) -> list[_Component]:
-    try:
-        from PIL import Image, ImageOps
-    except Exception:
-        return []
-    try:
-        image = Image.open(image_path).convert("L")
-        x1, y1, x2, y2 = [int(value) for value in bbox]
-        crop = image.crop((max(0, x1), max(0, y1), max(x1 + 1, x2), max(y1 + 1, y2)))
-        crop = ImageOps.autocontrast(crop)
-    except Exception:
-        return []
-
+def _dark_components_from_crop(crop: object) -> list[_Component]:
     width, height = crop.size
     if width < 8 or height < 8:
         return []
@@ -87,14 +75,30 @@ def _dark_components(image_path: str | Path, bbox: list[int]) -> list[_Component
     return components
 
 
-def detect_visual_punctuation_hints(image_path: str | Path, block: OcrBlock) -> list[PunctuationHint]:
-    components = _dark_components(image_path, block.bbox)
+def _crop_grayscale(image: object, bbox: list[int]) -> object:
+    from PIL import ImageOps
+
+    x1, y1, x2, y2 = [int(value) for value in bbox]
+    crop = image.crop((max(0, x1), max(0, y1), max(x1 + 1, x2), max(y1 + 1, y2)))
+    return ImageOps.autocontrast(crop)
+
+
+def _dark_components(image_path: str | Path, bbox: list[int]) -> list[_Component]:
+    try:
+        from PIL import Image
+    except Exception:
+        return []
+    try:
+        image = Image.open(image_path).convert("L")
+        crop = _crop_grayscale(image, bbox)
+    except Exception:
+        return []
+    return _dark_components_from_crop(crop)
+
+
+def _detect_hints_from_components(components: list[_Component], width: int, height: int) -> list[PunctuationHint]:
     if not components:
         return []
-
-    x1, y1, x2, y2 = block.bbox
-    width = max(1, int(x2) - int(x1))
-    height = max(1, int(y2) - int(y1))
     dot_max = max(5, int(min(width, height) * 0.12))
     dot_components = [
         comp for comp in components
@@ -139,6 +143,14 @@ def detect_visual_punctuation_hints(image_path: str | Path, block: OcrBlock) -> 
     return sorted(deduped.values(), key=lambda item: item.confidence, reverse=True)
 
 
+def detect_visual_punctuation_hints(image_path: str | Path, block: OcrBlock) -> list[PunctuationHint]:
+    components = _dark_components(image_path, block.bbox)
+    x1, y1, x2, y2 = block.bbox
+    width = max(1, int(x2) - int(x1))
+    height = max(1, int(y2) - int(y1))
+    return _detect_hints_from_components(components, width, height)
+
+
 def apply_punctuation_hints(text: str, hints: list[PunctuationHint]) -> str:
     value = " ".join(str(text).strip().split())
     if not value:
@@ -157,3 +169,32 @@ def apply_punctuation_hints(text: str, hints: list[PunctuationHint]) -> str:
         elif not _TERMINAL_RE.search(value):
             value = f"{value}!"
     return value
+
+
+def apply_visual_punctuation_to_blocks(image_path: str | Path, blocks: list[OcrBlock]) -> int:
+    try:
+        from PIL import Image
+    except Exception:
+        return 0
+    try:
+        image = Image.open(image_path).convert("L")
+    except Exception:
+        return 0
+
+    changed = 0
+    for block in blocks:
+        try:
+            crop = _crop_grayscale(image, block.bbox)
+        except Exception:
+            continue
+        components = _dark_components_from_crop(crop)
+        width, height = crop.size
+        hints = _detect_hints_from_components(components, width, height)
+        updated = apply_punctuation_hints(block.ocr_text, hints)
+        if updated and updated != block.ocr_text:
+            block.ocr_text = updated
+            note = "OCR ponctuation visuelle ajoutee: " + ", ".join(hint.mark for hint in hints)
+            if note not in block.quality_warnings:
+                block.quality_warnings.append(note)
+            changed += 1
+    return changed

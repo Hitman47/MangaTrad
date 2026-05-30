@@ -235,8 +235,8 @@
     "semantic_hash": ""
   },
   "C:\\temp\\MangaTrad_v0_2_0\\src\\cbz_manga_translator\\ocr\\easyocr_engine.py": {
-    "mtime": 1779891978.0808496,
-    "ast_hash": "28231b1629c64f3e36f533011be258bb",
+    "mtime": 1780139325.1344874,
+    "ast_hash": "06fbd76fe1866d75b6822868bac0adec",
     "semantic_hash": ""
   },
   "C:\\temp\\MangaTrad_v0_2_0\\src\\cbz_manga_translator\\ocr\\ellipsis.py": {
@@ -390,8 +390,8 @@
     "semantic_hash": ""
   },
   "C:\\temp\\MangaTrad_v0_2_0\\tests\\test_easyocr_postprocess.py": {
-    "mtime": 1779873260.557658,
-    "ast_hash": "59310bfee4be120c25688ce83fe15439",
+    "mtime": 1780139336.1222453,
+    "ast_hash": "98b5714726812843f8b9d3945d6065da",
     "semantic_hash": ""
   },
   "C:\\temp\\MangaTrad_v0_2_0\\tests\\test_editing_workflow.py": {
@@ -660,8 +660,8 @@
     "semantic_hash": ""
   },
   "C:\\temp\\MangaTrad_v0_2_0\\src\\cbz_manga_translator\\ocr\\punctuation.py": {
-    "mtime": 1779968643.4224093,
-    "ast_hash": "c0952cec5b5088f0871580a6d09a722b",
+    "mtime": 1780139263.5417106,
+    "ast_hash": "e120b6d4a182c9e2b48fb92384a5f914",
     "semantic_hash": ""
   },
   "C:\\temp\\MangaTrad_v0_2_0\\src\\cbz_manga_translator\\translate\\source_quality_gate.py": {
@@ -675,8 +675,8 @@
     "semantic_hash": ""
   },
   "C:\\temp\\MangaTrad_v0_2_0\\tests\\test_punctuation_detector.py": {
-    "mtime": 1779968684.296003,
-    "ast_hash": "4ed2d6405df822143401e590a04ae220",
+    "mtime": 1780139281.6441739,
+    "ast_hash": "96a876cedfc0703a4ad76199e9cceb65",
     "semantic_hash": ""
   },
   "C:\\temp\\MangaTrad_v0_2_0\\tests\\test_source_quality_gate.py": {
