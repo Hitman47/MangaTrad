@@ -56,6 +56,22 @@ def test_quality_checker_marks_severe_translation_failures_for_review() -> None:
     assert block.review_notes.startswith("[postflight]")
 
 
+def test_quality_checker_preserves_ocr_visual_diagnostics() -> None:
+    block = OcrBlock(
+        id="p0000_b0001",
+        bbox=[1, 2, 3, 4],
+        source_lang="en",
+        ocr_text="Hello.",
+        translation_fr="Bonjour.",
+        confidence=0.91,
+        quality_warnings=["OCR zone visuelle: texte touche le bord du crop, bbox probablement trop petite"],
+    )
+
+    TranslationQualityChecker().apply([block], source_lang="en")
+
+    assert any("bord du crop" in warning for warning in block.quality_warnings)
+
+
 def test_quality_checker_does_not_flag_good_high_confidence_slang_translation() -> None:
     block = OcrBlock(
         id="p0000_b0001",

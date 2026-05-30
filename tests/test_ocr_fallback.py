@@ -167,3 +167,34 @@ def test_collect_candidates_adds_visual_punctuation_candidate(tmp_path) -> None:
     )
 
     assert any(candidate.engine == "punctuation-detector" and candidate.text == "SO Why..." for candidate in candidates)
+
+
+def test_collect_candidates_adds_textual_question_candidate(tmp_path) -> None:
+    from PIL import Image
+
+    image_path = tmp_path / "page.png"
+    Image.new("L", (80, 40), "white").save(image_path)
+    block = OcrBlock(
+        id="p0000_b0001",
+        bbox=[0, 0, 80, 40],
+        source_lang="en",
+        ocr_text="WHAT NOW",
+        confidence=0.90,
+    )
+
+    class DummyEasyOcr:
+        def _reader(self, source_lang: str, use_gpu: bool):  # pragma: no cover - should not be reached successfully
+            raise RuntimeError("no EasyOCR in unit test")
+
+    engine = OcrFallbackEngine(easyocr_engine=DummyEasyOcr())  # type: ignore[arg-type]
+
+    candidates = engine.collect_candidates(
+        image_path,
+        block,
+        "en",
+        use_gpu=False,
+        min_confidence=0.20,
+        include_optional_engines=False,
+    )
+
+    assert any(candidate.engine == "punctuation-detector" and candidate.text == "WHAT NOW?" for candidate in candidates)

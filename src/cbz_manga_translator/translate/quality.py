@@ -398,7 +398,10 @@ class TranslationQualityChecker:
             if block.manual_status in {"validated", "ignored"}:
                 block.quality_warnings = []
                 continue
-            preserved = [warning for warning in block.quality_warnings if warning.startswith("preflight:")]
+            preserved = [
+                warning for warning in block.quality_warnings
+                if warning.startswith("preflight:") or warning.startswith("OCR ")
+            ]
             block.quality_warnings = []
             for warning in preserved + self.check_block(block, source_lang=source_lang):
                 if warning not in block.quality_warnings:
