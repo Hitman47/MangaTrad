@@ -69,6 +69,14 @@ def canonical_text(value: str) -> str:
     compact = re.sub(r"\s+([,.;:!?])", r"\1", compact)
     compact = re.sub(r"[“”\"`´]", "", compact)
     compact = re.sub(r"\.{2,}", "...", compact)
+    compact = re.sub(r"\bit's\b", "it is", compact)
+    compact = re.sub(r"\bi'm\b", "i am", compact)
+    compact = re.sub(r"\bi'd\b", "i would", compact)
+    compact = re.sub(r"\bi'll\b", "i will", compact)
+    compact = re.sub(r"\bi've\b", "i have", compact)
+    compact = re.sub(r"\bwould've\b", "would have", compact)
+    compact = re.sub(r"\bcould've\b", "could have", compact)
+    compact = re.sub(r"\bshould've\b", "should have", compact)
     return compact
 
 

@@ -187,6 +187,12 @@ def test_memory_source_aliases_follow_current_ocr_repairs() -> None:
     assert "think about it. an unarmed girl, in a place like this. a" in aliases
 
 
+def test_memory_lookup_matches_expanded_contraction_aliases() -> None:
+    memory = TranslationMemory({"it's me! i'm coming in!": "C'est moi ! J'entre!"})
+
+    assert memory.lookup("it is Me! I am Coming in!") == "C'est moi ! J'entre!"
+
+
 def test_argos_uses_memory_for_pre_normalized_blocks(tmp_path: Path, monkeypatch) -> None:
     memory_path = tmp_path / "memory.json"
     memory = TranslationMemory({"local residents are advised": "Les residents locaux sont conseilles."})

@@ -110,6 +110,8 @@ _SFX_WORDS = {
     "RUMBLE",
     "RIP",
     "SHAKC",
+    "SLPAAAAAN",
+    "SLPAAAAAN SRASSSH",
     "SILENCE",
     "SHING",
     "SLAM",
@@ -123,12 +125,22 @@ _SFX_WORDS = {
     "WHNM",
     "WHISPER",
     "WOOSH",
+    "WHOOOOSH",
     "WOOSH WOOSH",
     "ZSH",
+    "PIRA",
 }
 
 _SIGNAGE_TERMS = {"atm", "card", "fee", "phone", "transfer", "store", "convenience"}
 _SHORT_DIALOGUE_WORDS = {"NO", "OK"}
+_DIALOGUE_HINT_RE = re.compile(
+    r"\b("
+    r"i|me|you|we|he|she|they|it|am|are|is|was|were|be|been|being|"
+    r"do|does|did|have|has|had|can|could|would|should|will|shall|"
+    r"what|why|how|when|where|who|which|because|then|there|here"
+    r")\b",
+    flags=re.IGNORECASE,
+)
 
 
 def _block_source(block: OcrBlock) -> str:
@@ -154,6 +166,12 @@ def is_sfx_or_noise(text: str) -> bool:
     normalized_sound = re.sub(r"[^A-Z0-9]+", " ", upper).strip()
     if upper in _SFX_WORDS or stripped in _SFX_WORDS or normalized_sound in _SFX_WORDS:
         return True
+    if len(words := re.findall(r"[A-Za-z]+", value)) <= 3 and not _DIALOGUE_HINT_RE.search(value):
+        if any(_looks_like_sound_token(word) for word in words):
+            return True
+        parenthesized = re.findall(r"\(([A-Za-z]{3,})\)", value)
+        if parenthesized and any(_looks_like_sound_token(word) for word in parenthesized):
+            return True
     if re.search(r"\bsfx\s*:", value, flags=re.IGNORECASE) and len(re.findall(r"[A-Za-z0-9]+", value)) <= 6:
         return True
     if re.search(r"\bsparkle\b", value, flags=re.IGNORECASE) and len(re.findall(r"[A-Za-z]+", value)) <= 3:
@@ -161,7 +179,6 @@ def is_sfx_or_noise(text: str) -> bool:
     letters = [char for char in value if char.isalpha()]
     if len(letters) <= 2:
         return True
-    words = re.findall(r"[A-Za-z]+", value)
     if len(words) == 1:
         compact = "".join(words).lower()
         if len(compact) >= 5 and re.fullmatch(r"[bcdfghjklmnpqrstvwxyz]*[aeiou]{2,}[bcdfghjklmnpqrstvwxyz]*", compact):
@@ -174,6 +191,19 @@ def is_sfx_or_noise(text: str) -> bool:
     if re.fullmatch(r"(?i)[a-z]{2,}a{3,}(?:\s*\([^)]{2,}\))?", value):
         return True
     return False
+
+
+def _looks_like_sound_token(word: str) -> bool:
+    compact = re.sub(r"[^a-z]", "", word.lower())
+    if len(compact) < 4:
+        return False
+    if compact.upper() in _SFX_WORDS:
+        return True
+    if re.search(r"([a-z])\1{2,}", compact):
+        return True
+    if re.fullmatch(r"[bcdfghjklmnpqrstvwxyz]{2,}[aeiou]{2,}[bcdfghjklmnpqrstvwxyz]*", compact):
+        return True
+    return bool(re.search(r"(?:wo+sh|who+sh|bee+p|sra+sh|gwa+|gya+|gyu+|doka+|zsh)", compact))
 
 
 def is_signage_or_ui_text(text: str) -> bool:

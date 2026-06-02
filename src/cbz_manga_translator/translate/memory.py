@@ -88,6 +88,19 @@ def memory_source_aliases(source: str) -> set[str]:
         value = re.sub(r"\bi['’]?ve\b", "I have", value, flags=re.IGNORECASE)
         expanded.add(value)
     aliases.update(expanded)
+    contracted: set[str] = set()
+    for item in aliases:
+        value = item
+        value = re.sub(r"\bit\s+is\b", "it's", value, flags=re.IGNORECASE)
+        value = re.sub(r"\bi\s+am\b", "I'm", value, flags=re.IGNORECASE)
+        value = re.sub(r"\bi\s+would\b", "I'd", value, flags=re.IGNORECASE)
+        value = re.sub(r"\bi\s+will\b", "I'll", value, flags=re.IGNORECASE)
+        value = re.sub(r"\bi\s+have\b", "I've", value, flags=re.IGNORECASE)
+        value = re.sub(r"\bwould\s+have\b", "would've", value, flags=re.IGNORECASE)
+        value = re.sub(r"\bcould\s+have\b", "could've", value, flags=re.IGNORECASE)
+        value = re.sub(r"\bshould\s+have\b", "should've", value, flags=re.IGNORECASE)
+        contracted.add(value)
+    aliases.update(contracted)
     return {alias.strip() for alias in aliases if alias and alias.strip()}
 
 

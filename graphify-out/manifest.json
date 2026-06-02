@@ -155,8 +155,8 @@
     "semantic_hash": ""
   },
   "C:\\temp\\MangaTrad_v0_2_0\\src\\cbz_manga_translator\\analysis\\review_filter.py": {
-    "mtime": 1780389697.9030533,
-    "ast_hash": "44be1d219a3b04beb94e278746ef4e90",
+    "mtime": 1780395121.0601327,
+    "ast_hash": "f1d7d254b2b2ace2ba9d8cd4d1ef5805",
     "semantic_hash": ""
   },
   "C:\\temp\\MangaTrad_v0_2_0\\src\\cbz_manga_translator\\analysis\\review_workflow.py": {
@@ -260,8 +260,8 @@
     "semantic_hash": ""
   },
   "C:\\temp\\MangaTrad_v0_2_0\\src\\cbz_manga_translator\\ocr\\memory.py": {
-    "mtime": 1780388799.790186,
-    "ast_hash": "7ef37a44d6b743c665c652169e841944",
+    "mtime": 1780395328.367986,
+    "ast_hash": "abd4511162fe4c55556d8c26a3c11e84",
     "semantic_hash": ""
   },
   "C:\\temp\\MangaTrad_v0_2_0\\src\\cbz_manga_translator\\ocr\\paddleocr_engine.py": {
@@ -290,8 +290,8 @@
     "semantic_hash": ""
   },
   "C:\\temp\\MangaTrad_v0_2_0\\src\\cbz_manga_translator\\review\\replay.py": {
-    "mtime": 1779869711.9351096,
-    "ast_hash": "027d053bc220012ba6ce8966a3389e19",
+    "mtime": 1780395740.6314158,
+    "ast_hash": "ed0e1d041fee4c51620a05d520d9d3a3",
     "semantic_hash": ""
   },
   "C:\\temp\\MangaTrad_v0_2_0\\src\\cbz_manga_translator\\review\\__init__.py": {
@@ -325,8 +325,8 @@
     "semantic_hash": ""
   },
   "C:\\temp\\MangaTrad_v0_2_0\\src\\cbz_manga_translator\\translate\\memory.py": {
-    "mtime": 1779968298.8054595,
-    "ast_hash": "5596ac85cf508499022d2b9888e22d2e",
+    "mtime": 1780395652.9310095,
+    "ast_hash": "2494cd81d503d92886a3cbab7e070865",
     "semantic_hash": ""
   },
   "C:\\temp\\MangaTrad_v0_2_0\\src\\cbz_manga_translator\\translate\\quality.py": {
@@ -420,8 +420,8 @@
     "semantic_hash": ""
   },
   "C:\\temp\\MangaTrad_v0_2_0\\tests\\test_ignore_memory.py": {
-    "mtime": 1780389728.7555225,
-    "ast_hash": "b4d3d3972a27cb250720c9854849789b",
+    "mtime": 1780395131.1021917,
+    "ast_hash": "f5d7437ab85e16a97890d706654ef1c8",
     "semantic_hash": ""
   },
   "C:\\temp\\MangaTrad_v0_2_0\\tests\\test_incomplete_bubble.py": {
@@ -450,8 +450,8 @@
     "semantic_hash": ""
   },
   "C:\\temp\\MangaTrad_v0_2_0\\tests\\test_ocr_memory.py": {
-    "mtime": 1780388957.6354694,
-    "ast_hash": "2fc6a6123111371d31fdbbe1f8377f40",
+    "mtime": 1780395363.5564165,
+    "ast_hash": "c2763f52145c42d9605a198c25ba8d05",
     "semantic_hash": ""
   },
   "C:\\temp\\MangaTrad_v0_2_0\\tests\\test_ocr_setup_cli.py": {
@@ -495,8 +495,8 @@
     "semantic_hash": ""
   },
   "C:\\temp\\MangaTrad_v0_2_0\\tests\\test_review_replay.py": {
-    "mtime": 1779869869.6074533,
-    "ast_hash": "a3e4005d1a36e6437bb91efd02944265",
+    "mtime": 1780395747.290827,
+    "ast_hash": "085705a20d421177ea517c9a76e4f156",
     "semantic_hash": ""
   },
   "C:\\temp\\MangaTrad_v0_2_0\\tests\\test_review_workflow.py": {
@@ -510,8 +510,8 @@
     "semantic_hash": ""
   },
   "C:\\temp\\MangaTrad_v0_2_0\\tests\\test_translation_memory.py": {
-    "mtime": 1779968298.8054595,
-    "ast_hash": "3c5d94cbb21a6425c996863232209457",
+    "mtime": 1780395659.9889162,
+    "ast_hash": "7da9482a254767a33cb0b88682e91222",
     "semantic_hash": ""
   },
   "C:\\temp\\MangaTrad_v0_2_0\\AGENTS.md": {

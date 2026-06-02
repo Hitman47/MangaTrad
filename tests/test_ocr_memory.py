@@ -112,6 +112,38 @@ def test_build_ocr_memory_does_not_learn_corrections_that_drop_strong_punctuatio
     assert memory.lookup("then? THERE ARE EASIER TAR- GETS.") == ""
 
 
+def test_build_ocr_memory_learns_strong_punctuation_replacements(tmp_path: Path) -> None:
+    project_path = tmp_path / "project.reviewed.json"
+    ProjectCache.save(
+        project_path,
+        ProjectData(
+            cbz_path="corpus",
+            pages=[
+                PageRecord(
+                    page_index=0,
+                    image_name="page.jpg",
+                    blocks=[
+                        OcrBlock(
+                            id="b1",
+                            bbox=[0, 0, 1, 1],
+                            source_lang="en",
+                            ocr_text="It's Mel I'M Coming INI?",
+                            ocr_corrected_text="It's Me! I'M Coming in!",
+                            translation_fr="C'est moi ! J'entre!",
+                            manual_status="edited",
+                        )
+                    ],
+                )
+            ],
+        ),
+    )
+
+    memory, metadata = build_ocr_memory([project_path])
+
+    assert metadata["eligible_blocks"] == 1
+    assert memory.lookup("It's Mel I'M Coming INI?") == "It's Me! I'M Coming in!"
+
+
 def test_ocr_cleanup_uses_external_ocr_memory(tmp_path: Path, monkeypatch) -> None:
     memory_path = tmp_path / "ocr_memory.json"
     memory, metadata = build_ocr_memory([])

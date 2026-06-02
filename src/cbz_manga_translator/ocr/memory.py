@@ -160,10 +160,11 @@ def _looks_like_translation(value: str, translation: str) -> bool:
 def _drops_strong_punctuation(original: str, corrected: str) -> bool:
     original_key = canonical_ocr_key(original)
     corrected_key = canonical_ocr_key(corrected)
+    corrected_has_strong = bool(re.search(r"[!?]|\.{3}", corrected_key))
     for char in ("?", "!"):
-        if char in original_key and char not in corrected_key:
+        if char in original_key and char not in corrected_key and not corrected_has_strong:
             return True
-    if "..." in original_key and "..." not in corrected_key:
+    if "..." in original_key and "..." not in corrected_key and not corrected_has_strong:
         return True
     return False
 

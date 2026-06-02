@@ -44,6 +44,10 @@ def test_text_similarity_normalizes_case_and_spacing() -> None:
     assert text_similarity("Hello  !", "hello!") == 1.0
 
 
+def test_text_similarity_treats_common_contractions_as_aliases() -> None:
+    assert text_similarity("It's Me! I'M Coming in!", "it is Me! I am Coming in!") == 1.0
+
+
 def test_bbox_iou() -> None:
     assert bbox_iou([0, 0, 10, 10], [5, 5, 15, 15]) == 25 / 175
 
