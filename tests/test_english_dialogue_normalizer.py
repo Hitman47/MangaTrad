@@ -358,6 +358,31 @@ def test_hard_english_batch_repairs_i_bang_hyphen_and_missing_ellipsis() -> None
     assert EnglishDialogueNormalizer.prepare("He 'return- ed the dam age?!").corrected_text == "He returned the damage?!"
     assert EnglishDialogueNormalizer.prepare("He 'returned the damage?!").corrected_text == "He returned the damage?!"
     assert EnglishDialogueNormalizer.prepare("Bal ancell").corrected_text == "Balance!!"
+
+
+def test_recent_replay_short_sfx_and_truncated_zone_repairs() -> None:
+    assert EnglishDialogueNormalizer.prepare("Bzz =").override_translation_fr == "Bzz"
+    assert EnglishDialogueNormalizer.prepare("Knock Knock?").override_translation_fr == "Knock Knock"
+    assert EnglishDialogueNormalizer.prepare("Shake |?").corrected_text == "Shake"
+    assert EnglishDialogueNormalizer.prepare("Shake |?").override_translation_fr == "Agiter"
+    assert EnglishDialogueNormalizer.prepare("1/1 phew").override_translation_fr == "1/1 ouf"
+    assert EnglishDialogueNormalizer.prepare("Rejoicel?").override_translation_fr == "Rejoicel"
+    assert EnglishDialogueNormalizer.prepare("yeah!").override_translation_fr == "yeah"
+    assert EnglishDialogueNormalizer.prepare("Hey!").override_translation_fr == "Hé !"
+    assert EnglishDialogueNormalizer.prepare("WHA??").corrected_text == "WHA?"
+    assert EnglishDialogueNormalizer.prepare("chapter 396thus fought the stuffed toy!").corrected_text == "chapter 39:, thus fought the stuffed toy!"
+
+    assert EnglishDialogueNormalizer.prepare("Just TRUST").normalized_text == "Just Trust Me"
+    friend = EnglishDialogueNormalizer.prepare("I Expect NO LESS FROM MY")
+    assert friend.normalized_text == "I Expect NO LESS FROM My Friend."
+    assert friend.override_translation_fr == "Je ne m'attends pas à moins de mon ami."
+
+    fiefdom = EnglishDialogueNormalizer.prepare("Forget THAT Though AND Fill Me In ON THE")
+    assert fiefdom.normalized_text == "forget that, though, and fill me in on the fiefdom."
+    assert fiefdom.override_translation_fr == "Oublions ca, fais-moi plutot le point sur le fief."
+
+    boring = EnglishDialogueNormalizer.prepare("it is BORING to Be With... Such AN idiot, Even IF it is FOR MY FAMILY'S SAKE?")
+    assert boring.override_translation_fr == "C'est ENNUYEUX d'etre avec un tel idiot, meme SI C'EST POUR LE BIEN DE MA FAMILLE."
     assert EnglishDialogueNormalizer.prepare("Obviously, sensed the danger, and so returned the damagel").corrected_text == "Obviously, I sensed the danger, and so returned the damage!"
     assert EnglishDialogueNormalizer.prepare("C'mere AND Enter- TAIN Me Somel").corrected_text == "C'mere AND EnterTAIN Me some!"
 
@@ -439,7 +464,7 @@ def test_busy_validation_dialogue_overrides() -> None:
     assert energy.override_translation_fr == "Je ne m'y connais pas trop, mais ce sont surtout des groupes qui jouent avec beaucoup d'energie !"
     band = EnglishDialogueNormalizer.prepare("I Guess They're a Melodic HARDCORE OR MAYBE Loud ROCK BAND, Hlh?")
     assert band.override_translation_fr == "Je dirais que c'est du hardcore melodique, ou peut-etre un groupe de rock bruyant, hein ?"
-    assert EnglishDialogueNormalizer.prepare("Hey!").override_translation_fr == "He !"
+    assert EnglishDialogueNormalizer.prepare("Hey!").override_translation_fr == "Hé !"
 
 
 def test_new_busy_review_batch_overrides() -> None:

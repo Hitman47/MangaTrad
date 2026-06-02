@@ -213,8 +213,9 @@ def non_reviewable_reason(block: OcrBlock) -> str:
     learned = default_ignore_memory().lookup(source)
     if learned:
         if _is_dialogue_like(source):
-            return ""
-        return learned
+            learned = ""
+        else:
+            return learned
     if is_scanlation_credit(source):
         return "credit scantrad"
     if is_signage_or_ui_text(source):

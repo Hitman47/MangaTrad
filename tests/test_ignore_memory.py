@@ -65,16 +65,33 @@ def test_review_filter_uses_external_ignore_memory(tmp_path: Path, monkeypatch) 
 def test_review_filter_does_not_apply_learned_ignore_to_dialogue_like_text(tmp_path: Path, monkeypatch) -> None:
     memory_path = tmp_path / "ignore_memory.json"
     memory, metadata = build_ignore_memory([])
-    memory.entries["on your mark, take aim at the 100 meter target! selector on full, fire in short bursts!"] = "ignore appris"
+    memory.entries["what are you doing here?"] = "ignore appris"
     write_ignore_memory(memory, metadata, memory_path)
     monkeypatch.setenv("MANGATRAD_IGNORE_MEMORY", str(memory_path))
     clear_ignore_memory_cache()
 
     try:
-        block = _block("ON YOUR MARK, TAKE AIM At THE 100 meter TARGET! SELECTOR ON Full, FIRE IN SHORT BURSTS!")
+        block = _block("What are you doing here?")
         assert non_reviewable_reason(block) == ""
         assert apply_review_filters([block]) == 0
         assert block.manual_status == "unchecked"
+    finally:
+        clear_ignore_memory_cache()
+
+
+def test_review_filter_falls_back_to_builtin_rules_when_learned_ignore_is_dialogue_like(tmp_path: Path, monkeypatch) -> None:
+    memory_path = tmp_path / "ignore_memory.json"
+    memory, metadata = build_ignore_memory([])
+    memory.entries["read more free comics on readcomiconline. to"] = "ignore appris"
+    write_ignore_memory(memory, metadata, memory_path)
+    monkeypatch.setenv("MANGATRAD_IGNORE_MEMORY", str(memory_path))
+    clear_ignore_memory_cache()
+
+    try:
+        block = _block("Read more FREE comics on ReadComicOnline. to")
+        assert non_reviewable_reason(block) == "credit scantrad"
+        assert apply_review_filters([block]) == 1
+        assert block.manual_status == "ignored"
     finally:
         clear_ignore_memory_cache()
 
