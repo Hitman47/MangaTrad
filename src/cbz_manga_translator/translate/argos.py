@@ -464,6 +464,15 @@ class ArgosTranslator:
             return True
         return False
 
+    @staticmethod
+    def _preflight_review_note(categories: list[str]) -> str:
+        category_set = set(categories)
+        if category_set & {"fused_bubble", "sfx_mixed"}:
+            return "[fusion] source incertaine: bulle/SFX probablement fusionne, verifier la zone"
+        if category_set & {"zone_too_small", "split_bubble", "visual_edge"}:
+            return "[zone] source incertaine: bbox/crop probablement a corriger avant traduction"
+        return "[preflight] source incertaine: relire zone/ponctuation avant traduction"
+
     @classmethod
     def _prepare_block_text(
         cls,
@@ -556,7 +565,7 @@ class ArgosTranslator:
                 if block.manual_status == "unchecked":
                     block.manual_status = "review"
                 if not block.review_notes.strip():
-                    block.review_notes = "[preflight] source incertaine: relire zone/ponctuation avant traduction"
+                    block.review_notes = self._preflight_review_note(gate.categories)
                 continue
             if prepared.override_translation_fr:
                 restored_raw = prepared.override_translation_fr

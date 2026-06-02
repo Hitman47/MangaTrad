@@ -98,7 +98,7 @@ def test_argos_preflight_gate_blocks_bad_source_before_model(monkeypatch) -> Non
 
     assert block.translation_fr == ""
     assert block.manual_status == "review"
-    assert block.review_notes.startswith("[preflight]")
+    assert block.review_notes.startswith("[zone]")
     assert any("traduction suspendue" in warning for warning in block.quality_warnings)
 
 
@@ -122,7 +122,29 @@ def test_argos_preflight_gate_blocks_visual_edge_before_model(monkeypatch) -> No
 
     assert block.translation_fr == ""
     assert block.manual_status == "review"
+    assert block.review_notes.startswith("[zone]")
     assert any("bord du crop" in warning for warning in block.quality_warnings)
+
+
+def test_argos_preflight_gate_marks_fused_zone_for_gui(monkeypatch) -> None:
+    translator = ArgosTranslator()
+
+    def fail_chain(*args, **kwargs):  # type: ignore[no-untyped-def]
+        raise AssertionError("Fused source must not be sent to Argos")
+
+    monkeypatch.setattr(translator, "_translation_chain", fail_chain)
+    block = OcrBlock(
+        id="b",
+        bbox=[0, 0, 1, 1],
+        source_lang="en",
+        ocr_text="Krehble 4h, Seriously? You MEAN THAT? Krembue",
+    )
+
+    translator.translate_blocks([block], "en")
+
+    assert block.translation_fr == ""
+    assert block.manual_status == "review"
+    assert block.review_notes.startswith("[fusion]")
 
 
 def test_quality_checker_preserves_preflight_warnings() -> None:

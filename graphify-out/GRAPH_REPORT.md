@@ -1,16 +1,16 @@
 # Graph Report - MangaTrad_v0_2_0  (2026-06-02)
 
 ## Corpus Check
-- 134 files · ~88,376 words
+- 134 files · ~88,474 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1846 nodes · 4404 edges · 137 communities (91 shown, 46 thin omitted)
+- 1848 nodes · 4408 edges · 137 communities (91 shown, 46 thin omitted)
 - Extraction: 72% EXTRACTED · 28% INFERRED · 0% AMBIGUOUS · INFERRED: 1254 edges (avg confidence: 0.58)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `23a495cc`
+- Built from commit: `d60e1826`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -187,15 +187,15 @@ Nodes (52): _block_sources(), build_ignore_memory(), canonical_ignore_key(), cle
 
 ### Community 5 - "Community 5"
 Cohesion: 0.06
-Nodes (67): _bootstrap_basic(), _install_index_pairs(), main(), _print_pairs(), _test_translation(), Pattern, int, str (+59 more)
+Nodes (68): _bootstrap_basic(), _install_index_pairs(), main(), _print_pairs(), _test_translation(), Pattern, int, str (+60 more)
 
 ### Community 6 - "Community 6"
 Cohesion: 0.11
-Nodes (48): _build_manifest_from_pages(), CorpusManifestEntry, _count_images_under(), describe_corpus_path(), _entry_from_manifest_row(), _entry_group_key(), find_corpus_candidates(), _find_manifest_file() (+40 more)
+Nodes (49): _build_manifest_from_pages(), CorpusManifestEntry, _count_images_under(), describe_corpus_path(), _entry_from_manifest_row(), _entry_group_key(), find_corpus_candidates(), _find_manifest_file() (+41 more)
 
 ### Community 7 - "Community 7"
-Cohesion: 0.15
-Nodes (34): default_refreshed_path(), _is_zone_fallback_candidate(), _iter_refreshable_blocks(), main(), _refresh_blocks_with_rules(), refresh_review_project(), _refresh_zone_ocr_alternatives(), RefreshResult (+26 more)
+Cohesion: 0.19
+Nodes (28): default_refreshed_path(), _is_zone_fallback_candidate(), _iter_refreshable_blocks(), main(), _refresh_blocks_with_rules(), refresh_review_project(), _refresh_zone_ocr_alternatives(), RefreshResult (+20 more)
 
 ### Community 8 - "Community 8"
 Cohesion: 0.10
@@ -223,7 +223,7 @@ Nodes (32): main(), object, OcrBlock, Path, str, int, str, Path (+24 more)
 
 ### Community 14 - "Community 14"
 Cohesion: 0.09
-Nodes (51): CorpusProcessResult, build_learning_report(), _is_learnable(), LearningReport, _source_for_memory(), ProjectCache, OcrBlock, PageRecord (+43 more)
+Nodes (52): CorpusProcessResult, build_learning_report(), _is_learnable(), LearningReport, _source_for_memory(), ProjectCache, OcrBlock, PageRecord (+44 more)
 
 ### Community 15 - "Community 15"
 Cohesion: 0.06
@@ -242,8 +242,8 @@ Cohesion: 0.15
 Nodes (24): build_learned_profile(), _find_analysis_file(), _is_high_risk(), LearnedCorpusProfile, read_review_rows(), _risk(), _source_text(), _tokens() (+16 more)
 
 ### Community 20 - "Community 20"
-Cohesion: 0.12
-Nodes (39): _failure_page_indices(), main(), _parse_index_list(), EasyOcrEngine, Free OCR backend using EasyOCR.      EasyOCR returns polygons, text and confiden, Free OCR backend using EasyOCR.      EasyOCR returns polygons, text and confiden, Protocol, bbox_iou() (+31 more)
+Cohesion: 0.11
+Nodes (45): _failure_page_indices(), main(), _parse_index_list(), EasyOcrEngine, Free OCR backend using EasyOCR.      EasyOCR returns polygons, text and confiden, Free OCR backend using EasyOCR.      EasyOCR returns polygons, text and confiden, bbox_iou(), _best_match() (+37 more)
 
 ### Community 21 - "Community 21"
 Cohesion: 0.17
@@ -254,8 +254,8 @@ Cohesion: 0.13
 Nodes (36): main(), _best_token_score(), build_ocr_memory(), canonical_ocr_key(), clear_ocr_memory_cache(), _default_memory_candidates(), default_ocr_memory(), _drops_strong_punctuation() (+28 more)
 
 ### Community 23 - "Community 23"
-Cohesion: 0.15
-Nodes (27): _changed_or_reviewed(), discover_review_projects(), evaluate_block(), _predict_source(), _predict_translation(), RegressionItem, RegressionReport, run_review_regression() (+19 more)
+Cohesion: 0.17
+Nodes (25): _changed_or_reviewed(), discover_review_projects(), evaluate_block(), _predict_source(), _predict_translation(), RegressionItem, RegressionReport, run_review_regression() (+17 more)
 
 ### Community 24 - "Community 24"
 Cohesion: 0.08
@@ -483,10 +483,10 @@ _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `OcrBlock` connect `Community 14` to `Community 0`, `Community 1`, `Community 2`, `Community 4`, `Community 5`, `Community 6`, `Community 7`, `Community 8`, `Community 9`, `Community 135`, `Community 11`, `Community 10`, `Community 13`, `Community 12`, `Community 16`, `Community 17`, `Community 20`, `Community 21`, `Community 22`, `Community 23`, `Community 25`, `Community 29`, `Community 37`, `Community 66`, `Community 113`, `Community 125`, `Community 126`?**
   _High betweenness centrality (0.246) - this node is a cross-community bridge._
-- **Why does `normalize_ocr_text_for_translation()` connect `Community 3` to `Community 2`, `Community 5`, `Community 7`, `Community 10`, `Community 108`, `Community 13`, `Community 114`, `Community 55`, `Community 22`, `Community 23`?**
-  _High betweenness centrality (0.055) - this node is a cross-community bridge._
 - **Why does `ProjectCache` connect `Community 14` to `Community 0`, `Community 1`, `Community 4`, `Community 37`, `Community 6`, `Community 7`, `Community 8`, `Community 11`, `Community 13`, `Community 20`, `Community 21`, `Community 22`, `Community 23`, `Community 52`?**
   _High betweenness centrality (0.049) - this node is a cross-community bridge._
+- **Why does `ProjectData` connect `Community 14` to `Community 0`, `Community 1`, `Community 66`, `Community 4`, `Community 37`, `Community 6`, `Community 7`, `Community 8`, `Community 11`, `Community 13`, `Community 113`, `Community 20`, `Community 52`, `Community 22`, `Community 21`, `Community 23`?**
+  _High betweenness centrality (0.041) - this node is a cross-community bridge._
 - **Are the 252 inferred relationships involving `OcrBlock` (e.g. with `CorpusManifestEntry` and `CorpusProcessResult`) actually correct?**
   _`OcrBlock` has 252 INFERRED edges - model-reasoned connections that need verification._
 - **Are the 120 inferred relationships involving `ProjectCache` (e.g. with `CorpusManifestEntry` and `CorpusProcessResult`) actually correct?**

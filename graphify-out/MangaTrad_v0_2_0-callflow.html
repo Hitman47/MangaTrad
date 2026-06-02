@@ -60,7 +60,7 @@ hr { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
 <div class="container">
 
 <h1>MangaTrad_v0_2_0 — Complete Call Flow &amp; Architecture Documentation</h1>
-<p class="subtitle">Generated from graphify knowledge graph: 1846 nodes, 4404 edges, 137 communities. Commit: 23a495c</p>
+<p class="subtitle">Generated from graphify knowledge graph: 1848 nodes, 4408 edges, 137 communities. Commit: d60e182</p>
 
 <div class="nav">
     <a href="#overview">Architecture Overview</a>
@@ -92,17 +92,17 @@ flowchart LR
     class EXTRACT_PIPELINE_5F350230 module;
     BUILD_GRAPH_321CBB04("Graph Build<br/><small>180 nodes</small>")
     class BUILD_GRAPH_321CBB04 module;
-    ANALYSIS_CLUSTERING_C79796DA("Analysis &amp; Clustering<br/><small>109 nodes</small>")
+    ANALYSIS_CLUSTERING_C79796DA("Analysis &amp; Clustering<br/><small>102 nodes</small>")
     class ANALYSIS_CLUSTERING_C79796DA module;
     OUTPUTS_DOCS_ED82387C("Outputs &amp; Docs<br/><small>62 nodes</small>")
     class OUTPUTS_DOCS_ED82387C module;
     CLI_SKILLS_9964CBB8("CLI &amp; Skill Installers<br/><small>93 nodes</small>")
     class CLI_SKILLS_9964CBB8 module;
-    INGEST_CACHE_UPDATE_FF457338("Ingestion &amp; Updates<br/><small>60 nodes</small>")
+    INGEST_CACHE_UPDATE_FF457338("Ingestion &amp; Updates<br/><small>61 nodes</small>")
     class INGEST_CACHE_UPDATE_FF457338 module;
     SECURITY_GLOBAL_5B9C6A04("Security &amp; Global Graph<br/><small>18 nodes</small>")
     class SECURITY_GLOBAL_5B9C6A04 module;
-    TESTS_FIXTURES_B84B1DCC("Tests &amp; Fixtures<br/><small>975 nodes</small>")
+    TESTS_FIXTURES_B84B1DCC("Tests &amp; Fixtures<br/><small>983 nodes</small>")
     class TESTS_FIXTURES_B84B1DCC module;
     COMMUNITY_15_4BECAAD7("Community 15<br/><small>32 nodes</small>")
     class COMMUNITY_15_4BECAAD7 module;
@@ -119,17 +119,17 @@ flowchart LR
     OTHER_D0941E68("Other<br/><small>132 nodes</small>")
     class OTHER_D0941E68 module;
     EXTRACT_PIPELINE_5F350230 -->|contains x10| OTHER_D0941E68
+    INGEST_CACHE_UPDATE_FF457338 -->|references x9| TESTS_FIXTURES_B84B1DCC
     TESTS_FIXTURES_B84B1DCC -->|contains x8| ANALYSIS_CLUSTERING_C79796DA
-    INGEST_CACHE_UPDATE_FF457338 -->|references x8| TESTS_FIXTURES_B84B1DCC
     TESTS_FIXTURES_B84B1DCC -->|method x7| BUILD_GRAPH_321CBB04
     BUILD_GRAPH_321CBB04 -->|contains x6| TESTS_FIXTURES_B84B1DCC
-    TESTS_FIXTURES_B84B1DCC -->|references x5| INGEST_CACHE_UPDATE_FF457338
     ANALYSIS_CLUSTERING_C79796DA -->|method x5| TESTS_FIXTURES_B84B1DCC
+    TESTS_FIXTURES_B84B1DCC -->|references x4| INGEST_CACHE_UPDATE_FF457338
     OUTPUTS_DOCS_ED82387C -->|references x4| TESTS_FIXTURES_B84B1DCC
     ANALYSIS_CLUSTERING_C79796DA -->|contains x2| BUILD_GRAPH_321CBB04
-    ANALYSIS_CLUSTERING_C79796DA -->|method x2| COMMUNITY_126_EE733C6A
+    TESTS_FIXTURES_B84B1DCC -->|method x2| COMMUNITY_126_EE733C6A
     COMMUNITY_111_503C1D2B -->|contains| TESTS_FIXTURES_B84B1DCC
-    COMMUNITY_126_EE733C6A -->|contains| ANALYSIS_CLUSTERING_C79796DA
+    COMMUNITY_126_EE733C6A -->|contains| TESTS_FIXTURES_B84B1DCC
     classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
     classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
     classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
@@ -146,19 +146,19 @@ flowchart LR
     <h4>Architecture Layers</h4>
     <table style="width:100%;font-size:0.85rem;">
       <tr><th>Layer</th><th>Nodes</th><th>Communities</th></tr>
-      <tr><td>Extraction Pipeline</td><td>117</td><td><code>27, 28, 32, 33, 36, 42, 57, 64, 65, 71, 74</code></td></tr><tr><td>Graph Build</td><td>180</td><td><code>0, 10, 108, 67</code></td></tr><tr><td>Analysis &amp; Clustering</td><td>109</td><td><code>2, 7, 113</code></td></tr><tr><td>Outputs &amp; Docs</td><td>62</td><td><code>8, 44, 48, 72</code></td></tr><tr><td>CLI &amp; Skill Installers</td><td>93</td><td><code>24, 30, 34, 41, 56, 60, 61, 62, 68, 69</code></td></tr><tr><td>Ingestion &amp; Updates</td><td>60</td><td><code>6, 52</code></td></tr><tr><td>Security &amp; Global Graph</td><td>18</td><td><code>31, 78, 91</code></td></tr><tr><td>Tests &amp; Fixtures</td><td>975</td><td><code>1, 5, 4, 14, 20, 9, 22, 11, 13, 18, 12, 125, 17, 23, 26, 21, 19, 16, 29, 3, 66, 25, 37, 135, 38, 39, 43, 51, 54, 55, 76, 89, 90</code></td></tr><tr><td>Community 15</td><td>32</td><td><code>15</code></td></tr><tr><td>Community 126</td><td>17</td><td><code>126</code></td></tr><tr><td>Community 111</td><td>16</td><td><code>111</code></td></tr><tr><td>Community 40</td><td>13</td><td><code>40</code></td></tr><tr><td>Community 45</td><td>11</td><td><code>45</code></td></tr><tr><td>Community 46</td><td>11</td><td><code>46</code></td></tr><tr><td>Other</td><td>132</td><td><code>47, 49, 50, 53, 114, 58, 115, 59, 63, 109, 70, 73, 75, 77, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 100, 101, 102, 103, 104, 105, 106, 107, 110, 112, 116, 117, 118, 119, 120, 121, 122, 123, 124, 127, 128, 129, 130, 131, 132, 133, 136, 138, 35, 92, 93, 94, 95, 96, 97, 98, 99</code></td></tr>
+      <tr><td>Extraction Pipeline</td><td>117</td><td><code>27, 28, 32, 33, 36, 42, 57, 64, 65, 71, 74</code></td></tr><tr><td>Graph Build</td><td>180</td><td><code>0, 10, 108, 67</code></td></tr><tr><td>Analysis &amp; Clustering</td><td>102</td><td><code>2, 7, 113</code></td></tr><tr><td>Outputs &amp; Docs</td><td>62</td><td><code>8, 44, 48, 72</code></td></tr><tr><td>CLI &amp; Skill Installers</td><td>93</td><td><code>24, 30, 34, 41, 56, 60, 61, 62, 68, 69</code></td></tr><tr><td>Ingestion &amp; Updates</td><td>61</td><td><code>6, 52</code></td></tr><tr><td>Security &amp; Global Graph</td><td>18</td><td><code>31, 78, 91</code></td></tr><tr><td>Tests &amp; Fixtures</td><td>983</td><td><code>1, 5, 4, 14, 20, 9, 22, 11, 13, 18, 12, 125, 17, 26, 21, 19, 23, 16, 29, 3, 66, 25, 37, 135, 38, 39, 43, 51, 54, 55, 76, 89, 90</code></td></tr><tr><td>Community 15</td><td>32</td><td><code>15</code></td></tr><tr><td>Community 126</td><td>17</td><td><code>126</code></td></tr><tr><td>Community 111</td><td>16</td><td><code>111</code></td></tr><tr><td>Community 40</td><td>13</td><td><code>40</code></td></tr><tr><td>Community 45</td><td>11</td><td><code>45</code></td></tr><tr><td>Community 46</td><td>11</td><td><code>46</code></td></tr><tr><td>Other</td><td>132</td><td><code>47, 49, 50, 53, 114, 58, 115, 59, 63, 109, 70, 73, 75, 77, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 100, 101, 102, 103, 104, 105, 106, 107, 110, 112, 116, 117, 118, 119, 120, 121, 122, 123, 124, 127, 128, 129, 130, 131, 132, 133, 136, 138, 35, 92, 93, 94, 95, 96, 97, 98, 99</code></td></tr>
     </table>
   </div>
   <div class="card">
     <h4>Core Flow</h4>
-    <div class="arrow-chain">Extraction Pipeline -&gt; Other -&gt; Graph Build -&gt; Tests &amp; Fixtures -&gt; Analysis &amp; Clustering -&gt; Community 126 -&gt; Outputs &amp; Docs</div>
+    <div class="arrow-chain">Extraction Pipeline -&gt; Other -&gt; Graph Build -&gt; Tests &amp; Fixtures -&gt; Analysis &amp; Clustering -&gt; Outputs &amp; Docs -&gt; CLI &amp; Skill Installers</div>
   </div>
 </div>
 <div class="grid">
   <div class="card">
     <h4>Graph Report Highlights</h4>
     <ul>
-      <li>1846 nodes · 4404 edges · 137 communities (91 shown, 46 thin omitted)</li>
+      <li>1848 nodes · 4408 edges · 137 communities (91 shown, 46 thin omitted)</li>
       <li>Extraction: 72% EXTRACTED · 28% INFERRED · 0% AMBIGUOUS · INFERRED: 1254 edges (avg confidence: 0.58)</li>
       <li>Token cost: 0 input · 0 output</li>
       <li>1. `OcrBlock` - 255 edges</li>
@@ -880,12 +880,12 @@ flowchart LR
 
 <!-- ====== 4. Analysis & Clustering ====== -->
 <h2 id="analysis-clustering">4. Analysis &amp; Clustering</h2>
-<p>Analysis &amp; Clustering groups implementation around cbz, manga, translator, ocr, mostly in cbz_manga_translator/ocr/fallback_engine.py, src/cbz_manga_translator/review_refresh.py, cbz_manga_translator/ocr/paddleocr_engine.py. This section covers 109 nodes and 290 internal edges; the diagram shows only representative relationships to stay readable.</p>
+<p>Analysis &amp; Clustering groups implementation around cbz, manga, translator, ocr, mostly in cbz_manga_translator/ocr/fallback_engine.py, src/cbz_manga_translator/review_refresh.py, cbz_manga_translator/ocr/paddleocr_engine.py. This section covers 102 nodes and 273 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
 %%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
 flowchart LR
-    %% Section: Analysis &amp; Clustering (109 nodes, 290 edges)
+    %% Section: Analysis &amp; Clustering (102 nodes, 273 edges)
     subgraph analysis_clustering_src_cbz_manga_translator_rev_657b2713["src/cbz_manga_translator/review_refresh.py"]
         cbz_manga_translator_review_refresh_default_refr_23c9ab2a("default_refreshed_path()<br/><small>src/cbz_manga_translator/review_refresh.py</small>")
         cbz_manga_translator_review_refresh_is_zone_fall_e36cb5d5("zone fallback candidate()<br/><small>src/cbz_manga_translator/review_refresh.py</small>")
@@ -928,7 +928,7 @@ flowchart LR
     ocr_fallback_engine_candidate_quality_6b71cb8b -->|calls| ocr_fallback_engine_ocrfallbackengine_collect_ca_c7507b82
     ocr_fallback_engine_candidate_quality_6b71cb8b -->|calls| ocr_fallback_engine_ocrfallbackengine_easyocr_cr_46e84cbf
     ocr_fallback_engine_ocrfallbackengine_easyocr_cr_46e84cbf -->|calls| ocr_fallback_engine_ocrfallbackengine_collect_ca_c7507b82
-    %% Omitted for readability: 91 nodes, 0 edges
+    %% Omitted for readability: 84 nodes, 0 edges
     class cbz_manga_translator_review_refresh_default_refr_23c9ab2a function;
     class cbz_manga_translator_review_refresh_is_zone_fall_e36cb5d5 function;
     class cbz_manga_translator_review_refresh_refresh_revi_6805c44a function;
@@ -981,7 +981,7 @@ flowchart LR
   <td><code>OcrCandidate</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/candidates.py</small></td>
   <td><span class="tag tag-class">Class</span></td>
   <td>External entry / no inbound edge</td>
-  <td><code>Any</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/paddleocr_engine.py</small><br><code>bool</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/tesseract_engine.py</small><br><code>bool</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/fallback_engine.py</small><br>+26 more</td>
+  <td><code>Any</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/paddleocr_engine.py</small><br><code>bool</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/paddleocr_engine.py</small><br><code>bool</code><br><small style="color:var(--muted)">cbz_manga_translator/ocr/tesseract_engine.py</small><br>+26 more</td>
   <td>OcrCandidate node in cbz_manga_translator/ocr/candidates.py.</td>
 </tr>
 <tr>
@@ -1221,13 +1221,13 @@ flowchart LR
 <tr><td><code>cbz_manga_translator/ocr/tesseract_engine.py</code></td><td>14 nodes</td></tr>
 <tr><td><code>cbz_manga_translator/core/models.py</code></td><td>8 nodes</td></tr>
 <tr><td><code>cbz_manga_translator/ocr/candidates.py</code></td><td>8 nodes</td></tr>
-<tr><td><code>cbz_manga_translator/translate/quality.py</code></td><td>7 nodes</td></tr>
 <tr><td><code>cbz_manga_translator/translate/argos.py</code></td><td>4 nodes</td></tr>
+<tr><td><code>src/cbz_manga_translator/server.py</code></td><td>1 nodes</td></tr>
     </table>
   </div>
   <div class="card">
     <h4>Design Notes</h4>
-    <p>This section comes from graphify community clustering. Relationship summary: references x116, contains x33, calls x29, explains x12. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+    <p>This section comes from graphify community clustering. Relationship summary: references x115, contains x33, calls x29, method x9. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
   </div>
 </div>
 <hr>
@@ -1930,12 +1930,12 @@ flowchart LR
 
 <!-- ====== 7. Ingestion & Updates ====== -->
 <h2 id="ingest-cache-update">7. Ingestion &amp; Updates</h2>
-<p>Ingestion &amp; Updates groups implementation around corpus, translator, cbz, manga, mostly in cbz_manga_translator/analysis/corpus_processor.py, cbz_manga_translator/core/cache.py, src/cbz_manga_translator/corpus_inspect.py. This section covers 60 nodes and 161 internal edges; the diagram shows only representative relationships to stay readable.</p>
+<p>Ingestion &amp; Updates groups implementation around corpus, translator, cbz, manga, mostly in cbz_manga_translator/analysis/corpus_processor.py, cbz_manga_translator/core/cache.py, src/cbz_manga_translator/corpus_inspect.py. This section covers 61 nodes and 163 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
 %%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
 flowchart LR
-    %% Section: Ingestion &amp; Updates (60 nodes, 161 edges)
+    %% Section: Ingestion &amp; Updates (61 nodes, 163 edges)
     analysis_corpus_processor_count_images_under_7081e0d7("_count_images_under()<br/><small>cbz_manga_translator/analysis/corpus_processor.py</small>")
     analysis_corpus_processor_has_manifest_47881b8f("_has_manifest()<br/><small>cbz_manga_translator/analysis/corpus_processor.py</small>")
     analysis_corpus_processor_skip_page_4d4d8816("_skip_page()<br/><small>cbz_manga_translator/analysis/corpus_processor.py</small>")
@@ -1972,7 +1972,7 @@ flowchart LR
     analysis_corpus_processor_infer_series_label_fro_04ae820f -->|calls| analysis_corpus_processor_build_manifest_from_pa_ed3318ea
     analysis_corpus_processor_infer_volume_label_fro_268a2864 -->|calls| analysis_corpus_processor_build_manifest_from_pa_ed3318ea
     analysis_corpus_processor_write_progress_b9f8335e -->|calls| analysis_corpus_processor_process_corpus_95c9480a
-    %% Omitted for readability: 42 nodes, 0 edges
+    %% Omitted for readability: 43 nodes, 0 edges
     class analysis_corpus_processor_count_images_under_7081e0d7 function;
     class analysis_corpus_processor_has_manifest_47881b8f function;
     class analysis_corpus_processor_skip_page_4d4d8816 function;
@@ -2166,6 +2166,14 @@ flowchart LR
 </tr>
 <tr>
   <td>20</td>
+  <td><code>Protocol</code><br><small style="color:var(--muted)"></small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Protocol node in project.</td>
+</tr>
+<tr>
+  <td>21</td>
   <td><code>.recognize()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>Recognizer</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
@@ -2173,7 +2181,7 @@ flowchart LR
   <td>.recognize() node in cbz_manga_translator/analysis/corpus_processor.py.</td>
 </tr>
 <tr>
-  <td>21</td>
+  <td>22</td>
   <td><code>Translator</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
   <td><span class="tag tag-class">Class</span></td>
   <td>External entry / no inbound edge</td>
@@ -2181,7 +2189,7 @@ flowchart LR
   <td>Translator node in cbz_manga_translator/analysis/corpus_processor.py.</td>
 </tr>
 <tr>
-  <td>22</td>
+  <td>23</td>
   <td><code>.translate_blocks()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>Translator</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
@@ -2189,7 +2197,7 @@ flowchart LR
   <td>.translate_blocks() node in cbz_manga_translator/analysis/corpus_processor.py.</td>
 </tr>
 <tr>
-  <td>23</td>
+  <td>24</td>
   <td><code>CorpusManifestEntry</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
   <td><span class="tag tag-class">Class</span></td>
   <td>External entry / no inbound edge</td>
@@ -2197,7 +2205,7 @@ flowchart LR
   <td>CorpusManifestEntry node in cbz_manga_translator/analysis/corpus_processor.py.</td>
 </tr>
 <tr>
-  <td>24</td>
+  <td>25</td>
   <td><code>_read_jsonl()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -2205,7 +2213,7 @@ flowchart LR
   <td>_read_jsonl() node in cbz_manga_translator/analysis/corpus_processor.py.</td>
 </tr>
 <tr>
-  <td>25</td>
+  <td>26</td>
   <td><code>Any</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
   <td><span class="tag tag-class">Class</span></td>
   <td>External entry / no inbound edge</td>
@@ -2213,7 +2221,7 @@ flowchart LR
   <td>Any node in cbz_manga_translator/analysis/corpus_processor.py.</td>
 </tr>
 <tr>
-  <td>26</td>
+  <td>27</td>
   <td><code>_resolve_image_path()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -2221,7 +2229,7 @@ flowchart LR
   <td>_resolve_image_path() node in cbz_manga_translator/analysis/corpus_processor.py.</td>
 </tr>
 <tr>
-  <td>27</td>
+  <td>28</td>
   <td><code>_entry_from_manifest_row()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>_resolve_image_path()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
@@ -2229,7 +2237,7 @@ flowchart LR
   <td>_entry_from_manifest_row() node in cbz_manga_translator/analysis/corpus_processor.py.</td>
 </tr>
 <tr>
-  <td>28</td>
+  <td>29</td>
   <td><code>_read_manifest_file()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>_entry_from_manifest_row()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small><br><code>_read_jsonl()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
@@ -2237,20 +2245,12 @@ flowchart LR
   <td>_read_manifest_file() node in cbz_manga_translator/analysis/corpus_processor.py.</td>
 </tr>
 <tr>
-  <td>29</td>
+  <td>30</td>
   <td><code>_find_manifest_file()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>describe_corpus_path()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
   <td><code>read_corpus_manifest()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
   <td>_find_manifest_file() node in cbz_manga_translator/analysis/corpus_processor.py.</td>
-</tr>
-<tr>
-  <td>30</td>
-  <td><code>_infer_series_label_from_image()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>_build_manifest_from_pages()</code><br><small style="color:var(--muted)">cbz_manga_translator/analysis/corpus_processor.py</small></td>
-  <td>_infer_series_label_from_image() node in cbz_manga_translator/analysis/corpus_processor.py.</td>
 </tr>
 </table>
 
@@ -2520,12 +2520,12 @@ flowchart LR
 
 <!-- ====== 9. Tests & Fixtures ====== -->
 <h2 id="tests-fixtures">9. Tests &amp; Fixtures</h2>
-<p>Tests &amp; Fixtures groups implementation around test, cbz, manga, translator, mostly in cbz_manga_translator/translate/argos.py, cbz_manga_translator/analysis/corpus_sampler.py, tests/test_english_dialogue_normalizer.py. This section covers 975 nodes and 2476 internal edges; the diagram shows only representative relationships to stay readable.</p>
+<p>Tests &amp; Fixtures groups implementation around test, cbz, manga, translator, mostly in cbz_manga_translator/translate/argos.py, cbz_manga_translator/analysis/corpus_sampler.py, tests/test_english_dialogue_normalizer.py. This section covers 983 nodes and 2507 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
 %%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
 flowchart LR
-    %% Section: Tests &amp; Fixtures (975 nodes, 2476 edges)
+    %% Section: Tests &amp; Fixtures (983 nodes, 2507 edges)
     subgraph tests_fixtures_src_cbz_manga_translator_argos_mo_9a464042["src/cbz_manga_translator/argos_models.py"]
         cbz_manga_translator_argos_models_print_pairs_2f194064("_print_pairs()<br/><small>src/cbz_manga_translator/argos_models.py</small>")
         cbz_manga_translator_argos_models_main_916b033c("main()<br/><small>src/cbz_manga_translator/argos_models.py</small>")
@@ -2562,7 +2562,7 @@ flowchart LR
     cbz_manga_translator_server_translationrequester_bd29099a -->|calls| cbz_manga_translator_server_as_source_lang_c6328455
     cbz_manga_translator_server_translationrequester_bd29099a -->|calls| cbz_manga_translator_server_preload_request_efb188c2
     cbz_manga_translator_server_as_source_lang_c6328455 -->|calls| cbz_manga_translator_server_preload_request_efb188c2
-    %% Omitted for readability: 957 nodes, 0 edges
+    %% Omitted for readability: 965 nodes, 0 edges
     class cbz_manga_translator_argos_models_print_pairs_2f194064 function;
     class cbz_manga_translator_argos_models_main_916b033c function;
     class cbz_manga_translator_argos_models_install_index_1a8655f4 function;
@@ -2849,7 +2849,7 @@ flowchart LR
     <h4>Key Files</h4>
     <table style="width:100%;font-size:0.85rem;">
       <tr><th>File</th><th>Coverage</th></tr>
-      <tr><td><code>cbz_manga_translator/translate/argos.py</code></td><td>47 nodes</td></tr>
+      <tr><td><code>cbz_manga_translator/translate/argos.py</code></td><td>48 nodes</td></tr>
 <tr><td><code>cbz_manga_translator/analysis/corpus_sampler.py</code></td><td>44 nodes</td></tr>
 <tr><td><code>tests/test_english_dialogue_normalizer.py</code></td><td>37 nodes</td></tr>
 <tr><td><code>tests/test_argos_backend.py</code></td><td>34 nodes</td></tr>
@@ -2861,7 +2861,7 @@ flowchart LR
   </div>
   <div class="card">
     <h4>Design Notes</h4>
-    <p>This section comes from graphify community clustering. Relationship summary: references x694, contains x584, calls x380, method x57. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+    <p>This section comes from graphify community clustering. Relationship summary: references x696, contains x586, calls x381, method x58. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
   </div>
 </div>
 <hr>
@@ -4516,8 +4516,8 @@ flowchart LR
   <div class="card">
     <h4>Graph</h4>
     <table style="width:100%;font-size:0.85rem;">
-      <tr><td>Nodes</td><td>1846</td></tr>
-      <tr><td>Edges</td><td>4404</td></tr>
+      <tr><td>Nodes</td><td>1848</td></tr>
+      <tr><td>Edges</td><td>4408</td></tr>
       <tr><td>Hyperedges</td><td>0</td></tr>
       <tr><td>Communities</td><td>137</td></tr>
       <tr><td>Documented Sections</td><td>15</td></tr>
@@ -4526,7 +4526,7 @@ flowchart LR
   <div class="card">
     <h4>Edge Confidence</h4>
     <table style="width:100%;font-size:0.85rem;">
-      <tr><td>EXTRACTED</td><td>3150</td></tr>
+      <tr><td>EXTRACTED</td><td>3154</td></tr>
       <tr><td>INFERRED</td><td>1254</td></tr>
       <tr><td>AMBIGUOUS</td><td>0</td></tr>
     </table>
@@ -4535,7 +4535,7 @@ flowchart LR
 
 <div style="text-align:center; padding:40px 0; color: var(--muted); font-size:0.9rem;">
   <p>MangaTrad_v0_2_0 — Architecture Documentation</p>
-  <p>Generated: 2026-06-02 18:19 UTC · graphify callflow-html</p>
+  <p>Generated: 2026-06-02 18:26 UTC · graphify callflow-html</p>
 </div>
 
 </div><!-- .container -->
