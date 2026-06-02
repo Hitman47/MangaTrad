@@ -8,6 +8,7 @@ from cbz_manga_translator.ocr.incomplete import zone_quality_warnings
 
 _WORD_RE = re.compile(r"[A-Za-zÀ-ÖØ-öø-ÿ']+")
 _ASCII_WORD_RE = re.compile(r"[A-Za-z']+")
+_ASCII_OR_DIGIT_WORD_RE = re.compile(r"[A-Za-z0-9']+")
 _JAPANESE_RE = re.compile(r"[ぁ-んァ-ン一-龯々ー]")
 _FRENCH_SIGNAL_RE = re.compile(
     r"\b(?:je|tu|il|elle|nous|vous|ils|elles|le|la|les|un|une|des|de|du|ce|cet|cette|ça|cela|"
@@ -118,6 +119,57 @@ _OCR_CONFUSION_PATTERNS: tuple[tuple[re.Pattern[str], str], ...] = (
     ),
 )
 
+_VISUAL_WORD_TRANSLATION = str.maketrans(
+    {
+        "0": "o",
+        "1": "i",
+        "3": "e",
+        "4": "a",
+        "5": "s",
+        "6": "g",
+        "7": "t",
+        "8": "b",
+        "|": "i",
+    }
+)
+_COMMON_ENGLISH_WORDS = {
+    "about",
+    "after",
+    "always",
+    "are",
+    "because",
+    "big",
+    "care",
+    "could",
+    "details",
+    "easier",
+    "for",
+    "full",
+    "goal",
+    "have",
+    "long",
+    "man",
+    "my",
+    "report",
+    "right",
+    "romance",
+    "should",
+    "small",
+    "strange",
+    "target",
+    "that",
+    "their",
+    "then",
+    "there",
+    "tomorrow",
+    "too",
+    "want",
+    "waited",
+    "what",
+    "would",
+}
+_I_CONTRACTION_CONFUSION_RE = re.compile(r"\b[l1!]\s*[' ]?(?:m|ve|d|ll)\b", flags=re.IGNORECASE)
+
 _BAD_FRAGMENTS_RE = re.compile(r"\b(?:TOLD\s+YA|I\s+TOLD|WHAT\s+YA|NO\s+CLIMB|LOOKY|GRAMMA|TOID)\b", flags=re.IGNORECASE)
 _FRAGMENT_ONLY_WORDS = {
     "did",
@@ -208,6 +260,47 @@ def _copied_source_residue(source: str, translation: str) -> list[str]:
     return sorted((source_tokens & translation_tokens) - _SAFE_SOURCE_RESIDUE)
 
 
+def _visual_word(token: str) -> str:
+    return token.lower().translate(_VISUAL_WORD_TRANSLATION).strip("'")
+
+
+def _english_plausibility_warnings(text: str) -> list[str]:
+    warnings: list[str] = []
+    tokens = _ASCII_OR_DIGIT_WORD_RE.findall(text)
+    if not tokens:
+        return warnings
+
+    visual_matches: list[str] = []
+    digit_mixed: list[str] = []
+    for token in tokens:
+        lowered = token.lower().strip("'")
+        if re.search(r"[A-Za-z]", token) and re.search(r"\d", token):
+            digit_mixed.append(token)
+            visual = _visual_word(token)
+            if visual in _COMMON_ENGLISH_WORDS and visual != lowered:
+                visual_matches.append(f"{token}->{visual}")
+
+    if visual_matches:
+        warnings.append("OCR semantique: token visuellement proche d'un mot anglais (" + ", ".join(visual_matches[:3]) + ")")
+    elif digit_mixed:
+        warnings.append("confusion OCR chiffre/lettre probable: " + ", ".join(digit_mixed[:3]))
+
+    if _I_CONTRACTION_CONFUSION_RE.search(text):
+        warnings.append("contraction avec I mal lue probable: verifier I'm/I've/I'd/I'll")
+
+    long_weird = [
+        token
+        for token in tokens
+        if len(token) >= 7
+        and not re.search(r"[aeiouy]", _visual_word(token))
+        and token.upper() not in _SAFE_UPPERCASE_TOKENS
+    ]
+    if len(long_weird) >= 2:
+        warnings.append("anglais source peu plausible: tokens OCR suspects (" + ", ".join(long_weird[:3]) + ")")
+
+    return warnings
+
+
 class TranslationQualityChecker:
     """Cheap local heuristics to flag blocks that require manual review.
 
@@ -291,6 +384,7 @@ class TranslationQualityChecker:
 
             structure_source = normalized or corrected or source
             warnings.extend(zone_quality_warnings(structure_source))
+            warnings.extend(_english_plausibility_warnings(structure_source))
             source_word_list = self._ascii_tokens(structure_source)
             if len(source_word_list) == 1 and source_word_list[0] in _FRAGMENT_ONLY_WORDS:
                 warnings.append("fragment OCR isolé probable: vérifier/fusionner avec une bulle voisine")

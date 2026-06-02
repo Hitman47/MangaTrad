@@ -172,6 +172,7 @@ def _drops_strong_punctuation(original: str, corrected: str) -> bool:
 class OcrCorrectionMemory:
     entries: dict[str, str]
     _fuzzy_items: list[tuple[str, str, list[str], str]] = field(init=False, repr=False)
+    _fuzzy_buckets: dict[str, list[tuple[str, str, list[str], str]]] = field(init=False, repr=False)
 
     def __post_init__(self) -> None:
         self._fuzzy_items = [
@@ -179,6 +180,12 @@ class OcrCorrectionMemory:
             for key, value in self.entries.items()
             if key and value
         ]
+        self._fuzzy_buckets = defaultdict(list)
+        for item in self._fuzzy_items:
+            _candidate, _value, tokens, _visual = item
+            bucket_key = _fuzzy_bucket_key(tokens)
+            if bucket_key:
+                self._fuzzy_buckets[bucket_key].append(item)
 
     def lookup(self, text: str) -> str:
         key = canonical_ocr_key(text)
@@ -188,16 +195,20 @@ class OcrCorrectionMemory:
         return self._lookup_fuzzy(key)
 
     def _lookup_fuzzy(self, key: str) -> str:
-        if len(key) < 8 or len(self.entries) > 2500:
+        if len(key) < 8:
             return ""
         key_tokens = _tokens(key)
         if len(key_tokens) < 2:
             return ""
 
         visual_key = _visual_key(key)
+        bucket_key = _fuzzy_bucket_key(key_tokens)
+        candidates = self._fuzzy_buckets.get(bucket_key, []) if bucket_key else []
+        if not candidates and len(self.entries) <= 2500:
+            candidates = self._fuzzy_items
         best_value = ""
         best_score = 0.0
-        for candidate, value, candidate_tokens, candidate_visual_key in self._fuzzy_items:
+        for candidate, value, candidate_tokens, candidate_visual_key in candidates:
             if abs(len(candidate) - len(key)) > max(10, int(len(key) * 0.30)):
                 continue
             if not _semantic_ocr_match(key_tokens, candidate_tokens):
@@ -212,6 +223,13 @@ class OcrCorrectionMemory:
                 best_score = score
                 best_value = value
         return best_value if best_score >= 0.88 else ""
+
+
+def _fuzzy_bucket_key(tokens: list[str]) -> str:
+    for token in tokens:
+        if _is_important_token(token):
+            return _visual_token(token)[:1]
+    return _visual_token(tokens[0])[:1] if tokens else ""
 
 
 def _default_memory_candidates() -> list[Path]:

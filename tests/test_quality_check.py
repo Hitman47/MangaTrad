@@ -410,6 +410,36 @@ def test_quality_prioritizes_ellipsis_zone_and_sfx_fusion_problems() -> None:
     assert any("fusion probable" in warning for warning in warnings)
 
 
+def test_quality_flags_semantic_digit_confusion_in_english_source() -> None:
+    block = OcrBlock(
+        id="digit",
+        bbox=[0, 0, 1, 1],
+        source_lang="en",
+        ocr_text="This is a Bi6 problem!",
+        translation_fr="C'est un probleme.",
+        confidence=0.92,
+    )
+
+    warnings = TranslationQualityChecker().check_block(block)
+
+    assert any("Bi6->big" in warning for warning in warnings)
+
+
+def test_quality_flags_i_contraction_font_confusion() -> None:
+    block = OcrBlock(
+        id="icontraction",
+        bbox=[0, 0, 1, 1],
+        source_lang="en",
+        ocr_text="l'm sure about this.",
+        translation_fr="Je suis sur de ca.",
+        confidence=0.92,
+    )
+
+    warnings = TranslationQualityChecker().check_block(block)
+
+    assert any("I'm/I've/I'd/I'll" in warning for warning in warnings)
+
+
 def test_quality_flags_reviewed_incomplete_bubble_for_wide_crop() -> None:
     block = OcrBlock(
         id="incomplete",

@@ -71,7 +71,7 @@
       "source_file": "src/cbz_manga_translator/analysis_export.py",
       "source_location": "L1",
       "id": "src_cbz_manga_translator_analysis_export_py",
-      "community": 8,
+      "community": 136,
       "norm_label": "analysis_export.py"
     },
     {
@@ -80,7 +80,7 @@
       "source_file": "src/cbz_manga_translator/analysis_export.py",
       "source_location": "L10",
       "id": "cbz_manga_translator_analysis_export_build_parser",
-      "community": 8,
+      "community": 136,
       "norm_label": "build_parser()"
     },
     {
@@ -89,7 +89,7 @@
       "source_file": "src/cbz_manga_translator/analysis_export.py",
       "source_location": "L10",
       "id": "src_cbz_manga_translator_analysis_export_py_argumentparser",
-      "community": 8,
+      "community": 136,
       "norm_label": "argumentparser"
     },
     {
@@ -98,7 +98,7 @@
       "source_file": "src/cbz_manga_translator/analysis_export.py",
       "source_location": "L17",
       "id": "cbz_manga_translator_analysis_export_main",
-      "community": 8,
+      "community": 136,
       "norm_label": "main()"
     },
     {
@@ -107,7 +107,7 @@
       "source_file": "src/cbz_manga_translator/analysis_export.py",
       "source_location": "L17",
       "id": "src_cbz_manga_translator_analysis_export_py_str",
-      "community": 8,
+      "community": 136,
       "norm_label": "str"
     },
     {
@@ -116,7 +116,7 @@
       "source_file": "src/cbz_manga_translator/analysis_export.py",
       "source_location": "L17",
       "id": "src_cbz_manga_translator_analysis_export_py_int",
-      "community": 8,
+      "community": 136,
       "norm_label": "int"
     },
     {
@@ -341,7 +341,7 @@
       "source_file": "src/cbz_manga_translator/corpus_process.py",
       "source_location": "L1",
       "id": "src_cbz_manga_translator_corpus_process_py",
-      "community": 134,
+      "community": 6,
       "norm_label": "corpus_process.py"
     },
     {
@@ -350,7 +350,7 @@
       "source_file": "src/cbz_manga_translator/corpus_process.py",
       "source_location": "L9",
       "id": "cbz_manga_translator_corpus_process_main",
-      "community": 134,
+      "community": 6,
       "norm_label": "main()"
     },
     {
@@ -359,7 +359,7 @@
       "source_file": "src/cbz_manga_translator/corpus_process.py",
       "source_location": "L9",
       "id": "src_cbz_manga_translator_corpus_process_py_int",
-      "community": 134,
+      "community": 6,
       "norm_label": "int"
     },
     {
@@ -1268,7 +1268,7 @@
       "source_file": "src/cbz_manga_translator/review_refresh.py",
       "source_location": "L132",
       "id": "src_cbz_manga_translator_review_refresh_py_argostranslator",
-      "community": 7,
+      "community": 14,
       "norm_label": "argostranslator"
     },
     {
@@ -1277,7 +1277,7 @@
       "source_file": "src/cbz_manga_translator/review_refresh.py",
       "source_location": "L132",
       "id": "src_cbz_manga_translator_review_refresh_py_translationqualitychecker",
-      "community": 7,
+      "community": 14,
       "norm_label": "translationqualitychecker"
     },
     {
@@ -1538,7 +1538,7 @@
       "source_file": "src/cbz_manga_translator/server.py",
       "source_location": "L98",
       "id": "src_cbz_manga_translator_server_py_object",
-      "community": 7,
+      "community": 29,
       "norm_label": "object"
     },
     {
@@ -1707,7 +1707,7 @@
       "label": "_looks_like_expensive_color_info_page()",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
-      "source_location": "L24",
+      "source_location": "L25",
       "id": "analysis_corpus_processor_looks_like_expensive_color_info_page",
       "community": 6,
       "norm_label": "_looks_like_expensive_color_info_page()"
@@ -1716,7 +1716,7 @@
       "label": "str",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
-      "source_location": "L24",
+      "source_location": "L25",
       "id": "src_cbz_manga_translator_analysis_corpus_processor_py_str",
       "community": 6,
       "norm_label": "str"
@@ -1725,7 +1725,7 @@
       "label": "Path",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
-      "source_location": "L24",
+      "source_location": "L25",
       "id": "src_cbz_manga_translator_analysis_corpus_processor_py_path",
       "community": 6,
       "norm_label": "path"
@@ -1734,25 +1734,25 @@
       "label": "SourceLang",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
-      "source_location": "L24",
+      "source_location": "L25",
       "id": "src_cbz_manga_translator_analysis_corpus_processor_py_sourcelang",
-      "community": 14,
+      "community": 29,
       "norm_label": "sourcelang"
     },
     {
       "label": "bool",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
-      "source_location": "L24",
+      "source_location": "L25",
       "id": "src_cbz_manga_translator_analysis_corpus_processor_py_bool",
-      "community": 6,
+      "community": 29,
       "norm_label": "bool"
     },
     {
       "label": "_image_megapixels()",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
-      "source_location": "L59",
+      "source_location": "L60",
       "id": "analysis_corpus_processor_image_megapixels",
       "community": 6,
       "norm_label": "_image_megapixels()"
@@ -1761,16 +1761,16 @@
       "label": "float",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
-      "source_location": "L59",
+      "source_location": "L60",
       "id": "src_cbz_manga_translator_analysis_corpus_processor_py_float",
-      "community": 6,
+      "community": 29,
       "norm_label": "float"
     },
     {
       "label": "_skip_page()",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
-      "source_location": "L69",
+      "source_location": "L70",
       "id": "analysis_corpus_processor_skip_page",
       "community": 6,
       "norm_label": "_skip_page()"
@@ -1779,34 +1779,34 @@
       "label": "PageRecord",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
-      "source_location": "L69",
+      "source_location": "L70",
       "id": "src_cbz_manga_translator_analysis_corpus_processor_py_pagerecord",
-      "community": 14,
+      "community": 29,
       "norm_label": "pagerecord"
     },
     {
       "label": "ProjectData",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
-      "source_location": "L69",
+      "source_location": "L70",
       "id": "src_cbz_manga_translator_analysis_corpus_processor_py_projectdata",
-      "community": 20,
+      "community": 29,
       "norm_label": "projectdata"
     },
     {
       "label": "int",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
-      "source_location": "L69",
+      "source_location": "L70",
       "id": "src_cbz_manga_translator_analysis_corpus_processor_py_int",
-      "community": 6,
+      "community": 29,
       "norm_label": "int"
     },
     {
       "label": "_count_images_under()",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
-      "source_location": "L103",
+      "source_location": "L104",
       "id": "analysis_corpus_processor_count_images_under",
       "community": 6,
       "norm_label": "_count_images_under()"
@@ -1815,7 +1815,7 @@
       "label": "_has_manifest()",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
-      "source_location": "L115",
+      "source_location": "L116",
       "id": "analysis_corpus_processor_has_manifest",
       "community": 6,
       "norm_label": "_has_manifest()"
@@ -1824,7 +1824,7 @@
       "label": "_looks_like_run_output()",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
-      "source_location": "L119",
+      "source_location": "L120",
       "id": "analysis_corpus_processor_looks_like_run_output",
       "community": 6,
       "norm_label": "_looks_like_run_output()"
@@ -1833,7 +1833,7 @@
       "label": "find_corpus_candidates()",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
-      "source_location": "L129",
+      "source_location": "L130",
       "id": "analysis_corpus_processor_find_corpus_candidates",
       "community": 6,
       "norm_label": "find_corpus_candidates()"
@@ -1842,7 +1842,7 @@
       "label": "describe_corpus_path()",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
-      "source_location": "L166",
+      "source_location": "L167",
       "id": "analysis_corpus_processor_describe_corpus_path",
       "community": 6,
       "norm_label": "describe_corpus_path()"
@@ -1851,9 +1851,9 @@
       "label": "Recognizer",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
-      "source_location": "L198",
+      "source_location": "L199",
       "id": "analysis_corpus_processor_recognizer",
-      "community": 6,
+      "community": 29,
       "norm_label": "recognizer"
     },
     {
@@ -1862,50 +1862,50 @@
       "source_file": "",
       "source_location": "",
       "id": "protocol",
-      "community": 20,
+      "community": 29,
       "norm_label": "protocol"
     },
     {
       "label": ".recognize()",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
-      "source_location": "L199",
+      "source_location": "L200",
       "id": "analysis_corpus_processor_recognizer_recognize",
-      "community": 6,
+      "community": 29,
       "norm_label": ".recognize()"
     },
     {
       "label": "OcrBlock",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
-      "source_location": "L199",
+      "source_location": "L200",
       "id": "src_cbz_manga_translator_analysis_corpus_processor_py_ocrblock",
-      "community": 14,
+      "community": 29,
       "norm_label": "ocrblock"
     },
     {
       "label": "Translator",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
-      "source_location": "L214",
+      "source_location": "L215",
       "id": "analysis_corpus_processor_translator",
-      "community": 14,
+      "community": 29,
       "norm_label": "translator"
     },
     {
       "label": ".translate_blocks()",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
-      "source_location": "L215",
+      "source_location": "L216",
       "id": "analysis_corpus_processor_translator_translate_blocks",
-      "community": 14,
+      "community": 29,
       "norm_label": ".translate_blocks()"
     },
     {
       "label": "CorpusManifestEntry",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
-      "source_location": "L229",
+      "source_location": "L230",
       "id": "analysis_corpus_processor_corpusmanifestentry",
       "community": 6,
       "norm_label": "corpusmanifestentry"
@@ -1914,16 +1914,16 @@
       "label": "CorpusProcessResult",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
-      "source_location": "L240",
+      "source_location": "L241",
       "id": "analysis_corpus_processor_corpusprocessresult",
-      "community": 14,
+      "community": 29,
       "norm_label": "corpusprocessresult"
     },
     {
       "label": "_read_jsonl()",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
-      "source_location": "L254",
+      "source_location": "L255",
       "id": "analysis_corpus_processor_read_jsonl",
       "community": 6,
       "norm_label": "_read_jsonl()"
@@ -1932,16 +1932,16 @@
       "label": "Any",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
-      "source_location": "L254",
+      "source_location": "L255",
       "id": "src_cbz_manga_translator_analysis_corpus_processor_py_any",
-      "community": 6,
+      "community": 14,
       "norm_label": "any"
     },
     {
       "label": "_resolve_image_path()",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
-      "source_location": "L268",
+      "source_location": "L269",
       "id": "analysis_corpus_processor_resolve_image_path",
       "community": 6,
       "norm_label": "_resolve_image_path()"
@@ -1950,7 +1950,7 @@
       "label": "_entry_from_manifest_row()",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
-      "source_location": "L305",
+      "source_location": "L306",
       "id": "analysis_corpus_processor_entry_from_manifest_row",
       "community": 6,
       "norm_label": "_entry_from_manifest_row()"
@@ -1959,7 +1959,7 @@
       "label": "_read_manifest_file()",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
-      "source_location": "L326",
+      "source_location": "L327",
       "id": "analysis_corpus_processor_read_manifest_file",
       "community": 6,
       "norm_label": "_read_manifest_file()"
@@ -1968,7 +1968,7 @@
       "label": "_find_manifest_file()",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
-      "source_location": "L337",
+      "source_location": "L338",
       "id": "analysis_corpus_processor_find_manifest_file",
       "community": 6,
       "norm_label": "_find_manifest_file()"
@@ -1977,7 +1977,7 @@
       "label": "_infer_series_label_from_image()",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
-      "source_location": "L359",
+      "source_location": "L360",
       "id": "analysis_corpus_processor_infer_series_label_from_image",
       "community": 6,
       "norm_label": "_infer_series_label_from_image()"
@@ -1986,7 +1986,7 @@
       "label": "_infer_volume_label_from_image()",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
-      "source_location": "L371",
+      "source_location": "L372",
       "id": "analysis_corpus_processor_infer_volume_label_from_image",
       "community": 6,
       "norm_label": "_infer_volume_label_from_image()"
@@ -1995,7 +1995,7 @@
       "label": "_build_manifest_from_pages()",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
-      "source_location": "L381",
+      "source_location": "L382",
       "id": "analysis_corpus_processor_build_manifest_from_pages",
       "community": 6,
       "norm_label": "_build_manifest_from_pages()"
@@ -2004,7 +2004,7 @@
       "label": "read_corpus_manifest()",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
-      "source_location": "L425",
+      "source_location": "L426",
       "id": "analysis_corpus_processor_read_corpus_manifest",
       "community": 6,
       "norm_label": "read_corpus_manifest()"
@@ -2013,7 +2013,7 @@
       "label": "_load_or_create_project()",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
-      "source_location": "L437",
+      "source_location": "L438",
       "id": "analysis_corpus_processor_load_or_create_project",
       "community": 6,
       "norm_label": "_load_or_create_project()"
@@ -2022,7 +2022,7 @@
       "label": "_write_progress()",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
-      "source_location": "L447",
+      "source_location": "L448",
       "id": "analysis_corpus_processor_write_progress",
       "community": 6,
       "norm_label": "_write_progress()"
@@ -2031,7 +2031,7 @@
       "label": "_entry_group_key()",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
-      "source_location": "L453",
+      "source_location": "L454",
       "id": "analysis_corpus_processor_entry_group_key",
       "community": 6,
       "norm_label": "_entry_group_key()"
@@ -2040,7 +2040,7 @@
       "label": "_select_manifest_entries()",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
-      "source_location": "L474",
+      "source_location": "L475",
       "id": "analysis_corpus_processor_select_manifest_entries",
       "community": 6,
       "norm_label": "_select_manifest_entries()"
@@ -2049,7 +2049,7 @@
       "label": "process_corpus()",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
-      "source_location": "L531",
+      "source_location": "L532",
       "id": "analysis_corpus_processor_process_corpus",
       "community": 6,
       "norm_label": "process_corpus()"
@@ -2058,17 +2058,17 @@
       "label": "TranslationQualityChecker",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
-      "source_location": "L531",
+      "source_location": "L532",
       "id": "src_cbz_manga_translator_analysis_corpus_processor_py_translationqualitychecker",
-      "community": 14,
+      "community": 29,
       "norm_label": "translationqualitychecker"
     },
     {
       "label": "Cheaply skip color-heavy appendix/infographic pages in English corpus runs.",
       "file_type": "rationale",
       "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
-      "source_location": "L25",
-      "id": "analysis_corpus_processor_rationale_25",
+      "source_location": "L26",
+      "id": "analysis_corpus_processor_rationale_26",
       "community": 6,
       "norm_label": "cheaply skip color-heavy appendix/infographic pages in english corpus runs."
     },
@@ -2076,8 +2076,8 @@
       "label": "Find likely corpus input folders near *root*.      The function is intentionally",
       "file_type": "rationale",
       "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
-      "source_location": "L130",
-      "id": "analysis_corpus_processor_rationale_130",
+      "source_location": "L131",
+      "id": "analysis_corpus_processor_rationale_131",
       "community": 6,
       "norm_label": "find likely corpus input folders near *root*.      the function is intentionally"
     },
@@ -2085,8 +2085,8 @@
       "label": "Return a human-readable diagnostic for a corpus path.",
       "file_type": "rationale",
       "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
-      "source_location": "L167",
-      "id": "analysis_corpus_processor_rationale_167",
+      "source_location": "L168",
+      "id": "analysis_corpus_processor_rationale_168",
       "community": 6,
       "norm_label": "return a human-readable diagnostic for a corpus path."
     },
@@ -2094,8 +2094,8 @@
       "label": "Recover a corpus when only extracted page images are present.      This is inten",
       "file_type": "rationale",
       "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
-      "source_location": "L382",
-      "id": "analysis_corpus_processor_rationale_382",
+      "source_location": "L383",
+      "id": "analysis_corpus_processor_rationale_383",
       "community": 6,
       "norm_label": "recover a corpus when only extracted page images are present.      this is inten"
     },
@@ -2103,8 +2103,8 @@
       "label": "Return a stable group key used for stratified corpus limits.      corpus_sample",
       "file_type": "rationale",
       "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
-      "source_location": "L454",
-      "id": "analysis_corpus_processor_rationale_454",
+      "source_location": "L455",
+      "id": "analysis_corpus_processor_rationale_455",
       "community": 6,
       "norm_label": "return a stable group key used for stratified corpus limits.      corpus_sample"
     },
@@ -2112,8 +2112,8 @@
       "label": "Select corpus entries while preserving original manifest indices.      The first",
       "file_type": "rationale",
       "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
-      "source_location": "L482",
-      "id": "analysis_corpus_processor_rationale_482",
+      "source_location": "L483",
+      "id": "analysis_corpus_processor_rationale_483",
       "community": 6,
       "norm_label": "select corpus entries while preserving original manifest indices.      the first"
     },
@@ -2121,8 +2121,8 @@
       "label": "Batch OCR/translate a sampled corpus and export review datasets.      Defaults a",
       "file_type": "rationale",
       "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
-      "source_location": "L561",
-      "id": "analysis_corpus_processor_rationale_561",
+      "source_location": "L562",
+      "id": "analysis_corpus_processor_rationale_562",
       "community": 6,
       "norm_label": "batch ocr/translate a sampled corpus and export review datasets.      defaults a"
     },
@@ -2654,7 +2654,7 @@
       "source_file": "src/cbz_manga_translator/analysis/export_review.py",
       "source_location": "L1",
       "id": "src_cbz_manga_translator_analysis_export_review_py",
-      "community": 8,
+      "community": 134,
       "norm_label": "export_review.py"
     },
     {
@@ -2663,7 +2663,7 @@
       "source_file": "src/cbz_manga_translator/analysis/export_review.py",
       "source_location": "L13",
       "id": "analysis_export_review_corpus_path_labels",
-      "community": 8,
+      "community": 134,
       "norm_label": "_corpus_path_labels()"
     },
     {
@@ -2672,7 +2672,7 @@
       "source_file": "src/cbz_manga_translator/analysis/export_review.py",
       "source_location": "L13",
       "id": "src_cbz_manga_translator_analysis_export_review_py_str",
-      "community": 8,
+      "community": 134,
       "norm_label": "str"
     },
     {
@@ -2681,7 +2681,7 @@
       "source_file": "src/cbz_manga_translator/analysis/export_review.py",
       "source_location": "L25",
       "id": "analysis_export_review_block_row",
-      "community": 8,
+      "community": 134,
       "norm_label": "_block_row()"
     },
     {
@@ -2690,7 +2690,7 @@
       "source_file": "src/cbz_manga_translator/analysis/export_review.py",
       "source_location": "L25",
       "id": "src_cbz_manga_translator_analysis_export_review_py_pagerecord",
-      "community": 14,
+      "community": 134,
       "norm_label": "pagerecord"
     },
     {
@@ -2699,7 +2699,7 @@
       "source_file": "src/cbz_manga_translator/analysis/export_review.py",
       "source_location": "L25",
       "id": "src_cbz_manga_translator_analysis_export_review_py_ocrblock",
-      "community": 14,
+      "community": 134,
       "norm_label": "ocrblock"
     },
     {
@@ -2708,7 +2708,7 @@
       "source_file": "src/cbz_manga_translator/analysis/export_review.py",
       "source_location": "L25",
       "id": "src_cbz_manga_translator_analysis_export_review_py_any",
-      "community": 8,
+      "community": 134,
       "norm_label": "any"
     },
     {
@@ -2717,7 +2717,7 @@
       "source_file": "src/cbz_manga_translator/analysis/export_review.py",
       "source_location": "L56",
       "id": "analysis_export_review_iter_review_rows",
-      "community": 8,
+      "community": 134,
       "norm_label": "iter_review_rows()"
     },
     {
@@ -2726,7 +2726,7 @@
       "source_file": "src/cbz_manga_translator/analysis/export_review.py",
       "source_location": "L56",
       "id": "src_cbz_manga_translator_analysis_export_review_py_projectdata",
-      "community": 14,
+      "community": 134,
       "norm_label": "projectdata"
     },
     {
@@ -2735,7 +2735,7 @@
       "source_file": "src/cbz_manga_translator/analysis/export_review.py",
       "source_location": "L62",
       "id": "analysis_export_review_export_review_dataset",
-      "community": 8,
+      "community": 134,
       "norm_label": "export_review_dataset()"
     },
     {
@@ -2744,7 +2744,7 @@
       "source_file": "src/cbz_manga_translator/analysis/export_review.py",
       "source_location": "L62",
       "id": "src_cbz_manga_translator_analysis_export_review_py_path",
-      "community": 8,
+      "community": 134,
       "norm_label": "path"
     },
     {
@@ -2753,7 +2753,7 @@
       "source_file": "src/cbz_manga_translator/analysis/export_review.py",
       "source_location": "L14",
       "id": "analysis_export_review_rationale_14",
-      "community": 8,
+      "community": 134,
       "norm_label": "best-effort series/volume labels for exported corpus paths."
     },
     {
@@ -2897,7 +2897,7 @@
       "source_file": "src/cbz_manga_translator/analysis/ignore_memory.py",
       "source_location": "L91",
       "id": "src_cbz_manga_translator_analysis_ignore_memory_py_object",
-      "community": 4,
+      "community": 14,
       "norm_label": "object"
     },
     {
@@ -2915,7 +2915,7 @@
       "source_file": "src/cbz_manga_translator/analysis/learning.py",
       "source_location": "L1",
       "id": "src_cbz_manga_translator_analysis_learning_py",
-      "community": 8,
+      "community": 134,
       "norm_label": "learning.py"
     },
     {
@@ -2924,7 +2924,7 @@
       "source_file": "src/cbz_manga_translator/analysis/learning.py",
       "source_location": "L16",
       "id": "analysis_learning_learningreport",
-      "community": 8,
+      "community": 134,
       "norm_label": "learningreport"
     },
     {
@@ -2933,7 +2933,7 @@
       "source_file": "src/cbz_manga_translator/analysis/learning.py",
       "source_location": "L23",
       "id": "analysis_learning_learningreport_to_dict",
-      "community": 8,
+      "community": 134,
       "norm_label": ".to_dict()"
     },
     {
@@ -2942,7 +2942,7 @@
       "source_file": "src/cbz_manga_translator/analysis/learning.py",
       "source_location": "L23",
       "id": "src_cbz_manga_translator_analysis_learning_py_str",
-      "community": 8,
+      "community": 134,
       "norm_label": "str"
     },
     {
@@ -2951,7 +2951,7 @@
       "source_file": "src/cbz_manga_translator/analysis/learning.py",
       "source_location": "L23",
       "id": "src_cbz_manga_translator_analysis_learning_py_any",
-      "community": 14,
+      "community": 134,
       "norm_label": "any"
     },
     {
@@ -2960,7 +2960,7 @@
       "source_file": "src/cbz_manga_translator/analysis/learning.py",
       "source_location": "L27",
       "id": "analysis_learning_source_for_memory",
-      "community": 8,
+      "community": 134,
       "norm_label": "_source_for_memory()"
     },
     {
@@ -2969,7 +2969,7 @@
       "source_file": "src/cbz_manga_translator/analysis/learning.py",
       "source_location": "L27",
       "id": "src_cbz_manga_translator_analysis_learning_py_ocrblock",
-      "community": 8,
+      "community": 134,
       "norm_label": "ocrblock"
     },
     {
@@ -2978,7 +2978,7 @@
       "source_file": "src/cbz_manga_translator/analysis/learning.py",
       "source_location": "L31",
       "id": "analysis_learning_is_learnable",
-      "community": 8,
+      "community": 134,
       "norm_label": "_is_learnable()"
     },
     {
@@ -2987,7 +2987,7 @@
       "source_file": "src/cbz_manga_translator/analysis/learning.py",
       "source_location": "L31",
       "id": "src_cbz_manga_translator_analysis_learning_py_bool",
-      "community": 14,
+      "community": 134,
       "norm_label": "bool"
     },
     {
@@ -2996,7 +2996,7 @@
       "source_file": "src/cbz_manga_translator/analysis/learning.py",
       "source_location": "L35",
       "id": "analysis_learning_build_learning_report",
-      "community": 8,
+      "community": 134,
       "norm_label": "build_learning_report()"
     },
     {
@@ -3005,7 +3005,7 @@
       "source_file": "src/cbz_manga_translator/analysis/learning.py",
       "source_location": "L35",
       "id": "src_cbz_manga_translator_analysis_learning_py_projectdata",
-      "community": 14,
+      "community": 134,
       "norm_label": "projectdata"
     },
     {
@@ -3014,7 +3014,7 @@
       "source_file": "src/cbz_manga_translator/analysis/learning.py",
       "source_location": "L35",
       "id": "src_cbz_manga_translator_analysis_learning_py_int",
-      "community": 14,
+      "community": 134,
       "norm_label": "int"
     },
     {
@@ -3124,6 +3124,132 @@
       "id": "src_cbz_manga_translator_analysis_light_quality_py_ocrblock",
       "community": 8,
       "norm_label": "ocrblock"
+    },
+    {
+      "label": "page_quality.py",
+      "file_type": "code",
+      "source_file": "src/cbz_manga_translator/analysis/page_quality.py",
+      "source_location": "L1",
+      "id": "src_cbz_manga_translator_analysis_page_quality_py",
+      "community": 135,
+      "norm_label": "page_quality.py"
+    },
+    {
+      "label": "_is_actionable()",
+      "file_type": "code",
+      "source_file": "src/cbz_manga_translator/analysis/page_quality.py",
+      "source_location": "L17",
+      "id": "analysis_page_quality_is_actionable",
+      "community": 135,
+      "norm_label": "_is_actionable()"
+    },
+    {
+      "label": "OcrBlock",
+      "file_type": "code",
+      "source_file": "src/cbz_manga_translator/analysis/page_quality.py",
+      "source_location": "L17",
+      "id": "src_cbz_manga_translator_analysis_page_quality_py_ocrblock",
+      "community": 135,
+      "norm_label": "ocrblock"
+    },
+    {
+      "label": "bool",
+      "file_type": "code",
+      "source_file": "src/cbz_manga_translator/analysis/page_quality.py",
+      "source_location": "L17",
+      "id": "src_cbz_manga_translator_analysis_page_quality_py_bool",
+      "community": 135,
+      "norm_label": "bool"
+    },
+    {
+      "label": "_append_warning()",
+      "file_type": "code",
+      "source_file": "src/cbz_manga_translator/analysis/page_quality.py",
+      "source_location": "L21",
+      "id": "analysis_page_quality_append_warning",
+      "community": 135,
+      "norm_label": "_append_warning()"
+    },
+    {
+      "label": "str",
+      "file_type": "code",
+      "source_file": "src/cbz_manga_translator/analysis/page_quality.py",
+      "source_location": "L21",
+      "id": "src_cbz_manga_translator_analysis_page_quality_py_str",
+      "community": 135,
+      "norm_label": "str"
+    },
+    {
+      "label": "_block_text()",
+      "file_type": "code",
+      "source_file": "src/cbz_manga_translator/analysis/page_quality.py",
+      "source_location": "L32",
+      "id": "analysis_page_quality_block_text",
+      "community": 135,
+      "norm_label": "_block_text()"
+    },
+    {
+      "label": "_has_zone_warning()",
+      "file_type": "code",
+      "source_file": "src/cbz_manga_translator/analysis/page_quality.py",
+      "source_location": "L36",
+      "id": "analysis_page_quality_has_zone_warning",
+      "community": 135,
+      "norm_label": "_has_zone_warning()"
+    },
+    {
+      "label": "_needs_context()",
+      "file_type": "code",
+      "source_file": "src/cbz_manga_translator/analysis/page_quality.py",
+      "source_location": "L40",
+      "id": "analysis_page_quality_needs_context",
+      "community": 135,
+      "norm_label": "_needs_context()"
+    },
+    {
+      "label": "apply_page_quality_warnings()",
+      "file_type": "code",
+      "source_file": "src/cbz_manga_translator/analysis/page_quality.py",
+      "source_location": "L49",
+      "id": "analysis_page_quality_apply_page_quality_warnings",
+      "community": 135,
+      "norm_label": "apply_page_quality_warnings()"
+    },
+    {
+      "label": "PageRecord",
+      "file_type": "code",
+      "source_file": "src/cbz_manga_translator/analysis/page_quality.py",
+      "source_location": "L49",
+      "id": "src_cbz_manga_translator_analysis_page_quality_py_pagerecord",
+      "community": 14,
+      "norm_label": "pagerecord"
+    },
+    {
+      "label": "SourceLang",
+      "file_type": "code",
+      "source_file": "src/cbz_manga_translator/analysis/page_quality.py",
+      "source_location": "L49",
+      "id": "src_cbz_manga_translator_analysis_page_quality_py_sourcelang",
+      "community": 14,
+      "norm_label": "sourcelang"
+    },
+    {
+      "label": "int",
+      "file_type": "code",
+      "source_file": "src/cbz_manga_translator/analysis/page_quality.py",
+      "source_location": "L49",
+      "id": "src_cbz_manga_translator_analysis_page_quality_py_int",
+      "community": 14,
+      "norm_label": "int"
+    },
+    {
+      "label": "Add page-level diagnostics after block OCR/translation QC.      This deliberatel",
+      "file_type": "rationale",
+      "source_file": "src/cbz_manga_translator/analysis/page_quality.py",
+      "source_location": "L50",
+      "id": "analysis_page_quality_rationale_50",
+      "community": 135,
+      "norm_label": "add page-level diagnostics after block ocr/translation qc.      this deliberatel"
     },
     {
       "label": "review_diagnose.py",
@@ -3527,7 +3653,7 @@
       "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
       "source_location": "L75",
       "id": "src_cbz_manga_translator_analysis_review_regression_py_bool",
-      "community": 23,
+      "community": 14,
       "norm_label": "bool"
     },
     {
@@ -3581,7 +3707,7 @@
       "source_file": "src/cbz_manga_translator/analysis/review_regression.py",
       "source_location": "L108",
       "id": "src_cbz_manga_translator_analysis_review_regression_py_int",
-      "community": 23,
+      "community": 14,
       "norm_label": "int"
     },
     {
@@ -4634,7 +4760,7 @@
       "source_file": "src/cbz_manga_translator/core/models.py",
       "source_location": "L1",
       "id": "src_cbz_manga_translator_core_models_py",
-      "community": 14,
+      "community": 113,
       "norm_label": "models.py"
     },
     {
@@ -4706,7 +4832,7 @@
       "source_file": "src/cbz_manga_translator/core/models.py",
       "source_location": "L79",
       "id": "core_models_projectdata",
-      "community": 14,
+      "community": 134,
       "norm_label": "projectdata"
     },
     {
@@ -4715,7 +4841,7 @@
       "source_file": "src/cbz_manga_translator/core/models.py",
       "source_location": "L86",
       "id": "core_models_from_images",
-      "community": 14,
+      "community": 113,
       "norm_label": "from_images()"
     },
     {
@@ -4724,7 +4850,7 @@
       "source_file": "src/cbz_manga_translator/core/models.py",
       "source_location": "L86",
       "id": "src_cbz_manga_translator_core_models_py_path",
-      "community": 14,
+      "community": 113,
       "norm_label": "path"
     },
     {
@@ -4742,7 +4868,7 @@
       "source_file": "src/cbz_manga_translator/core/models.py",
       "source_location": "L110",
       "id": "core_models_projectdata_page_by_index",
-      "community": 14,
+      "community": 134,
       "norm_label": ".page_by_index()"
     },
     {
@@ -4751,7 +4877,7 @@
       "source_file": "src/cbz_manga_translator/core/models.py",
       "source_location": "L110",
       "id": "src_cbz_manga_translator_core_models_py_int",
-      "community": 14,
+      "community": 134,
       "norm_label": "int"
     },
     {
@@ -4976,7 +5102,7 @@
       "source_file": "src/cbz_manga_translator/ocr/easyocr_engine.py",
       "source_location": "L23",
       "id": "ocr_easyocr_engine_easyocrengine",
-      "community": 20,
+      "community": 29,
       "norm_label": "easyocrengine"
     },
     {
@@ -4985,7 +5111,7 @@
       "source_file": "src/cbz_manga_translator/ocr/easyocr_engine.py",
       "source_location": "L35",
       "id": "ocr_easyocr_engine_easyocrengine_init",
-      "community": 20,
+      "community": 29,
       "norm_label": ".__init__()"
     },
     {
@@ -5363,7 +5489,7 @@
       "source_file": "src/cbz_manga_translator/ocr/easyocr_engine.py",
       "source_location": "L24",
       "id": "ocr_easyocr_engine_rationale_24",
-      "community": 20,
+      "community": 29,
       "norm_label": "free ocr backend using easyocr.      easyocr returns polygons, text and confiden"
     },
     {
@@ -5417,7 +5543,7 @@
       "source_file": "src/cbz_manga_translator/ocr/fallback_engine.py",
       "source_location": "L37",
       "id": "ocr_fallback_engine_ocrfallbackengine",
-      "community": 7,
+      "community": 29,
       "norm_label": "ocrfallbackengine"
     },
     {
@@ -5642,7 +5768,7 @@
       "source_file": "src/cbz_manga_translator/ocr/fallback_engine.py",
       "source_location": "L38",
       "id": "ocr_fallback_engine_rationale_38",
-      "community": 7,
+      "community": 29,
       "norm_label": "local ocr fallback coordinator.      easyocr remains the primary detector becaus"
     },
     {
@@ -5928,7 +6054,7 @@
       "label": ".__post_init__()",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/ocr/memory.py",
-      "source_location": "L176",
+      "source_location": "L177",
       "id": "ocr_memory_ocrcorrectionmemory_post_init",
       "community": 22,
       "norm_label": ".__post_init__()"
@@ -5937,7 +6063,7 @@
       "label": ".lookup()",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/ocr/memory.py",
-      "source_location": "L183",
+      "source_location": "L190",
       "id": "ocr_memory_ocrcorrectionmemory_lookup",
       "community": 22,
       "norm_label": ".lookup()"
@@ -5946,16 +6072,25 @@
       "label": "._lookup_fuzzy()",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/ocr/memory.py",
-      "source_location": "L190",
+      "source_location": "L197",
       "id": "ocr_memory_ocrcorrectionmemory_lookup_fuzzy",
       "community": 22,
       "norm_label": "._lookup_fuzzy()"
     },
     {
+      "label": "_fuzzy_bucket_key()",
+      "file_type": "code",
+      "source_file": "src/cbz_manga_translator/ocr/memory.py",
+      "source_location": "L228",
+      "id": "ocr_memory_fuzzy_bucket_key",
+      "community": 22,
+      "norm_label": "_fuzzy_bucket_key()"
+    },
+    {
       "label": "_default_memory_candidates()",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/ocr/memory.py",
-      "source_location": "L217",
+      "source_location": "L235",
       "id": "ocr_memory_default_memory_candidates",
       "community": 22,
       "norm_label": "_default_memory_candidates()"
@@ -5964,7 +6099,7 @@
       "label": "Path",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/ocr/memory.py",
-      "source_location": "L217",
+      "source_location": "L235",
       "id": "src_cbz_manga_translator_ocr_memory_py_path",
       "community": 22,
       "norm_label": "path"
@@ -5973,7 +6108,7 @@
       "label": "load_ocr_memory()",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/ocr/memory.py",
-      "source_location": "L230",
+      "source_location": "L248",
       "id": "ocr_memory_load_ocr_memory",
       "community": 22,
       "norm_label": "load_ocr_memory()"
@@ -5982,7 +6117,7 @@
       "label": "clear_ocr_memory_cache()",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/ocr/memory.py",
-      "source_location": "L246",
+      "source_location": "L264",
       "id": "ocr_memory_clear_ocr_memory_cache",
       "community": 22,
       "norm_label": "clear_ocr_memory_cache()"
@@ -5991,7 +6126,7 @@
       "label": "default_ocr_memory()",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/ocr/memory.py",
-      "source_location": "L252",
+      "source_location": "L270",
       "id": "ocr_memory_default_ocr_memory",
       "community": 22,
       "norm_label": "default_ocr_memory()"
@@ -6000,7 +6135,7 @@
       "label": "build_ocr_memory()",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/ocr/memory.py",
-      "source_location": "L259",
+      "source_location": "L277",
       "id": "ocr_memory_build_ocr_memory",
       "community": 22,
       "norm_label": "build_ocr_memory()"
@@ -6009,7 +6144,7 @@
       "label": "int",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/ocr/memory.py",
-      "source_location": "L259",
+      "source_location": "L277",
       "id": "src_cbz_manga_translator_ocr_memory_py_int",
       "community": 22,
       "norm_label": "int"
@@ -6018,7 +6153,7 @@
       "label": "object",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/ocr/memory.py",
-      "source_location": "L259",
+      "source_location": "L277",
       "id": "src_cbz_manga_translator_ocr_memory_py_object",
       "community": 22,
       "norm_label": "object"
@@ -6027,7 +6162,7 @@
       "label": "write_ocr_memory()",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/ocr/memory.py",
-      "source_location": "L313",
+      "source_location": "L331",
       "id": "ocr_memory_write_ocr_memory",
       "community": 22,
       "norm_label": "write_ocr_memory()"
@@ -7064,7 +7199,7 @@
       "source_file": "src/cbz_manga_translator/review/replay.py",
       "source_location": "L129",
       "id": "src_cbz_manga_translator_review_replay_py_pagerecord",
-      "community": 14,
+      "community": 29,
       "norm_label": "pagerecord"
     },
     {
@@ -7091,7 +7226,7 @@
       "source_file": "src/cbz_manga_translator/review/replay.py",
       "source_location": "L144",
       "id": "src_cbz_manga_translator_review_replay_py_translationqualitychecker",
-      "community": 14,
+      "community": 29,
       "norm_label": "translationqualitychecker"
     },
     {
@@ -7190,7 +7325,7 @@
       "source_file": "src/cbz_manga_translator/translate/argos.py",
       "source_location": "L50",
       "id": "translate_argos_argostranslator",
-      "community": 7,
+      "community": 29,
       "norm_label": "argostranslator"
     },
     {
@@ -7550,7 +7685,7 @@
       "source_file": "src/cbz_manga_translator/translate/argos.py",
       "source_location": "L51",
       "id": "translate_argos_rationale_51",
-      "community": 7,
+      "community": 29,
       "norm_label": "offline argos translate backend.      no hugging face/transformers model is load"
     },
     {
@@ -8144,7 +8279,7 @@
       "source_file": "src/cbz_manga_translator/translate/memory.py",
       "source_location": "L193",
       "id": "src_cbz_manga_translator_translate_memory_py_object",
-      "community": 13,
+      "community": 14,
       "norm_label": "object"
     },
     {
@@ -8178,7 +8313,7 @@
       "label": "_copied_source_residue()",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/translate/quality.py",
-      "source_location": "L205",
+      "source_location": "L257",
       "id": "translate_quality_copied_source_residue",
       "community": 126,
       "norm_label": "_copied_source_residue()"
@@ -8187,43 +8322,61 @@
       "label": "str",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/translate/quality.py",
-      "source_location": "L205",
+      "source_location": "L257",
       "id": "src_cbz_manga_translator_translate_quality_py_str",
       "community": 126,
       "norm_label": "str"
     },
     {
+      "label": "_visual_word()",
+      "file_type": "code",
+      "source_file": "src/cbz_manga_translator/translate/quality.py",
+      "source_location": "L263",
+      "id": "translate_quality_visual_word",
+      "community": 126,
+      "norm_label": "_visual_word()"
+    },
+    {
+      "label": "_english_plausibility_warnings()",
+      "file_type": "code",
+      "source_file": "src/cbz_manga_translator/translate/quality.py",
+      "source_location": "L267",
+      "id": "translate_quality_english_plausibility_warnings",
+      "community": 126,
+      "norm_label": "_english_plausibility_warnings()"
+    },
+    {
       "label": "TranslationQualityChecker",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/translate/quality.py",
-      "source_location": "L211",
+      "source_location": "L304",
       "id": "translate_quality_translationqualitychecker",
-      "community": 7,
+      "community": 29,
       "norm_label": "translationqualitychecker"
     },
     {
       "label": ".__init__()",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/translate/quality.py",
-      "source_location": "L219",
+      "source_location": "L312",
       "id": "translate_quality_translationqualitychecker_init",
-      "community": 7,
+      "community": 29,
       "norm_label": ".__init__()"
     },
     {
       "label": "float",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/translate/quality.py",
-      "source_location": "L219",
+      "source_location": "L312",
       "id": "src_cbz_manga_translator_translate_quality_py_float",
-      "community": 7,
+      "community": 29,
       "norm_label": "float"
     },
     {
       "label": "_tokens()",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/translate/quality.py",
-      "source_location": "L223",
+      "source_location": "L316",
       "id": "translate_quality_tokens",
       "community": 126,
       "norm_label": "_tokens()"
@@ -8232,7 +8385,7 @@
       "label": "_ascii_tokens()",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/translate/quality.py",
-      "source_location": "L227",
+      "source_location": "L320",
       "id": "translate_quality_ascii_tokens",
       "community": 126,
       "norm_label": "_ascii_tokens()"
@@ -8241,7 +8394,7 @@
       "label": "_normalized_for_identity()",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/translate/quality.py",
-      "source_location": "L231",
+      "source_location": "L324",
       "id": "translate_quality_normalized_for_identity",
       "community": 126,
       "norm_label": "_normalized_for_identity()"
@@ -8250,7 +8403,7 @@
       "label": "_has_mostly_uppercase_residue()",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/translate/quality.py",
-      "source_location": "L235",
+      "source_location": "L328",
       "id": "translate_quality_has_mostly_uppercase_residue",
       "community": 126,
       "norm_label": "_has_mostly_uppercase_residue()"
@@ -8259,7 +8412,7 @@
       "label": "bool",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/translate/quality.py",
-      "source_location": "L235",
+      "source_location": "L328",
       "id": "src_cbz_manga_translator_translate_quality_py_bool",
       "community": 126,
       "norm_label": "bool"
@@ -8268,7 +8421,7 @@
       "label": "_looks_like_non_japanese_source()",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/translate/quality.py",
-      "source_location": "L246",
+      "source_location": "L339",
       "id": "translate_quality_looks_like_non_japanese_source",
       "community": 126,
       "norm_label": "_looks_like_non_japanese_source()"
@@ -8277,7 +8430,7 @@
       "label": "is_severe_warning()",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/translate/quality.py",
-      "source_location": "L257",
+      "source_location": "L350",
       "id": "translate_quality_is_severe_warning",
       "community": 126,
       "norm_label": "is_severe_warning()"
@@ -8286,7 +8439,7 @@
       "label": ".check_block()",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/translate/quality.py",
-      "source_location": "L261",
+      "source_location": "L354",
       "id": "translate_quality_translationqualitychecker_check_block",
       "community": 126,
       "norm_label": ".check_block()"
@@ -8295,7 +8448,7 @@
       "label": "OcrBlock",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/translate/quality.py",
-      "source_location": "L261",
+      "source_location": "L354",
       "id": "src_cbz_manga_translator_translate_quality_py_ocrblock",
       "community": 126,
       "norm_label": "ocrblock"
@@ -8304,7 +8457,7 @@
       "label": "SourceLang",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/translate/quality.py",
-      "source_location": "L261",
+      "source_location": "L354",
       "id": "src_cbz_manga_translator_translate_quality_py_sourcelang",
       "community": 126,
       "norm_label": "sourcelang"
@@ -8313,7 +8466,7 @@
       "label": ".apply()",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/translate/quality.py",
-      "source_location": "L395",
+      "source_location": "L489",
       "id": "translate_quality_translationqualitychecker_apply",
       "community": 126,
       "norm_label": ".apply()"
@@ -8322,7 +8475,7 @@
       "label": "int",
       "file_type": "code",
       "source_file": "src/cbz_manga_translator/translate/quality.py",
-      "source_location": "L395",
+      "source_location": "L489",
       "id": "src_cbz_manga_translator_translate_quality_py_int",
       "community": 126,
       "norm_label": "int"
@@ -8331,9 +8484,9 @@
       "label": "Cheap local heuristics to flag blocks that require manual review.      This is d",
       "file_type": "rationale",
       "source_file": "src/cbz_manga_translator/translate/quality.py",
-      "source_location": "L212",
-      "id": "translate_quality_rationale_212",
-      "community": 7,
+      "source_location": "L305",
+      "id": "translate_quality_rationale_305",
+      "community": 29,
       "norm_label": "cheap local heuristics to flag blocks that require manual review.      this is d"
     },
     {
@@ -9026,7 +9179,7 @@
       "source_file": "tests/test_corpus_processor.py",
       "source_location": "L1",
       "id": "tests_test_corpus_processor_py",
-      "community": 29,
+      "community": 6,
       "norm_label": "test_corpus_processor.py"
     },
     {
@@ -9035,7 +9188,7 @@
       "source_file": "tests/test_corpus_processor.py",
       "source_location": "L12",
       "id": "tests_test_corpus_processor_fakerecognizer",
-      "community": 29,
+      "community": 6,
       "norm_label": "fakerecognizer"
     },
     {
@@ -9044,7 +9197,7 @@
       "source_file": "tests/test_corpus_processor.py",
       "source_location": "L13",
       "id": "tests_test_corpus_processor_fakerecognizer_recognize",
-      "community": 29,
+      "community": 6,
       "norm_label": ".recognize()"
     },
     {
@@ -9053,7 +9206,7 @@
       "source_file": "tests/test_corpus_processor.py",
       "source_location": "L26",
       "id": "tests_test_corpus_processor_faketranslator",
-      "community": 29,
+      "community": 6,
       "norm_label": "faketranslator"
     },
     {
@@ -9062,7 +9215,7 @@
       "source_file": "tests/test_corpus_processor.py",
       "source_location": "L27",
       "id": "tests_test_corpus_processor_faketranslator_translate_blocks",
-      "community": 29,
+      "community": 6,
       "norm_label": ".translate_blocks()"
     },
     {
@@ -9071,7 +9224,7 @@
       "source_file": "tests/test_corpus_processor.py",
       "source_location": "L36",
       "id": "tests_test_corpus_processor_recordingrecognizer",
-      "community": 29,
+      "community": 6,
       "norm_label": "recordingrecognizer"
     },
     {
@@ -9080,7 +9233,7 @@
       "source_file": "tests/test_corpus_processor.py",
       "source_location": "L37",
       "id": "tests_test_corpus_processor_recordingrecognizer_init",
-      "community": 29,
+      "community": 6,
       "norm_label": ".__init__()"
     },
     {
@@ -9089,7 +9242,7 @@
       "source_file": "tests/test_corpus_processor.py",
       "source_location": "L40",
       "id": "tests_test_corpus_processor_recordingrecognizer_recognize",
-      "community": 29,
+      "community": 6,
       "norm_label": ".recognize()"
     },
     {
@@ -9098,7 +9251,7 @@
       "source_file": "tests/test_corpus_processor.py",
       "source_location": "L45",
       "id": "tests_test_corpus_processor_recordingtranslator",
-      "community": 29,
+      "community": 6,
       "norm_label": "recordingtranslator"
     },
     {
@@ -9107,7 +9260,7 @@
       "source_file": "tests/test_corpus_processor.py",
       "source_location": "L46",
       "id": "tests_test_corpus_processor_recordingtranslator_init",
-      "community": 29,
+      "community": 6,
       "norm_label": ".__init__()"
     },
     {
@@ -9116,7 +9269,7 @@
       "source_file": "tests/test_corpus_processor.py",
       "source_location": "L49",
       "id": "tests_test_corpus_processor_recordingtranslator_translate_blocks",
-      "community": 29,
+      "community": 6,
       "norm_label": ".translate_blocks()"
     },
     {
@@ -9125,7 +9278,7 @@
       "source_file": "tests/test_corpus_processor.py",
       "source_location": "L54",
       "id": "tests_test_corpus_processor_failingrecognizer",
-      "community": 29,
+      "community": 6,
       "norm_label": "failingrecognizer"
     },
     {
@@ -9134,7 +9287,7 @@
       "source_file": "tests/test_corpus_processor.py",
       "source_location": "L55",
       "id": "tests_test_corpus_processor_failingrecognizer_recognize",
-      "community": 29,
+      "community": 6,
       "norm_label": ".recognize()"
     },
     {
@@ -9143,7 +9296,7 @@
       "source_file": "tests/test_corpus_processor.py",
       "source_location": "L59",
       "id": "tests_test_corpus_processor_test_read_corpus_manifest_resolves_output_relpath",
-      "community": 29,
+      "community": 6,
       "norm_label": "test_read_corpus_manifest_resolves_output_relpath()"
     },
     {
@@ -9152,7 +9305,7 @@
       "source_file": "tests/test_corpus_processor.py",
       "source_location": "L59",
       "id": "tests_test_corpus_processor_py_path",
-      "community": 29,
+      "community": 6,
       "norm_label": "path"
     },
     {
@@ -9161,7 +9314,7 @@
       "source_file": "tests/test_corpus_processor.py",
       "source_location": "L87",
       "id": "tests_test_corpus_processor_test_process_corpus_exports_review_files",
-      "community": 29,
+      "community": 6,
       "norm_label": "test_process_corpus_exports_review_files()"
     },
     {
@@ -9170,7 +9323,7 @@
       "source_file": "tests/test_corpus_processor.py",
       "source_location": "L118",
       "id": "tests_test_corpus_processor_test_process_corpus_skips_cached_pages_without_force",
-      "community": 29,
+      "community": 6,
       "norm_label": "test_process_corpus_skips_cached_pages_without_force()"
     },
     {
@@ -9179,7 +9332,7 @@
       "source_file": "tests/test_corpus_processor.py",
       "source_location": "L135",
       "id": "tests_test_corpus_processor_test_process_corpus_can_split_ocr_and_translation_gpu_policy",
-      "community": 29,
+      "community": 6,
       "norm_label": "test_process_corpus_can_split_ocr_and_translation_gpu_policy()"
     },
     {
@@ -9188,7 +9341,7 @@
       "source_file": "tests/test_corpus_processor.py",
       "source_location": "L161",
       "id": "tests_test_corpus_processor_test_limit_mode_stratified_spreads_pages_across_series",
-      "community": 29,
+      "community": 6,
       "norm_label": "test_limit_mode_stratified_spreads_pages_across_series()"
     },
     {
@@ -9197,7 +9350,7 @@
       "source_file": "tests/test_corpus_processor.py",
       "source_location": "L190",
       "id": "tests_test_corpus_processor_test_read_corpus_manifest_rebuilds_from_pages_without_manifest",
-      "community": 29,
+      "community": 6,
       "norm_label": "test_read_corpus_manifest_rebuilds_from_pages_without_manifest()"
     },
     {
@@ -9206,7 +9359,7 @@
       "source_file": "tests/test_corpus_processor.py",
       "source_location": "L205",
       "id": "tests_test_corpus_processor_test_process_corpus_accepts_pages_only_corpus",
-      "community": 29,
+      "community": 6,
       "norm_label": "test_process_corpus_accepts_pages_only_corpus()"
     },
     {
@@ -9215,7 +9368,7 @@
       "source_file": "tests/test_corpus_processor.py",
       "source_location": "L227",
       "id": "tests_test_corpus_processor_test_process_corpus_skips_color_heavy_info_pages_before_ocr",
-      "community": 29,
+      "community": 6,
       "norm_label": "test_process_corpus_skips_color_heavy_info_pages_before_ocr()"
     },
     {
@@ -9224,7 +9377,7 @@
       "source_file": "tests/test_corpus_processor.py",
       "source_location": "L261",
       "id": "tests_test_corpus_processor_test_process_corpus_skips_oversized_pages_for_fast_validation",
-      "community": 29,
+      "community": 6,
       "norm_label": "test_process_corpus_skips_oversized_pages_for_fast_validation()"
     },
     {
@@ -9233,7 +9386,7 @@
       "source_file": "tests/test_corpus_processor.py",
       "source_location": "L289",
       "id": "tests_test_corpus_processor_test_read_corpus_manifest_accepts_manifest_file_path",
-      "community": 29,
+      "community": 6,
       "norm_label": "test_read_corpus_manifest_accepts_manifest_file_path()"
     },
     {
@@ -9242,7 +9395,7 @@
       "source_file": "tests/test_corpus_processor.py",
       "source_location": "L303",
       "id": "tests_test_corpus_processor_test_read_corpus_manifest_error_contains_diagnostics",
-      "community": 29,
+      "community": 6,
       "norm_label": "test_read_corpus_manifest_error_contains_diagnostics()"
     },
     {
@@ -10623,10 +10776,19 @@
       "norm_label": "test_ocr_memory_fuzzy_lookup_handles_visual_font_noise()"
     },
     {
-      "label": "test_ocr_memory_fuzzy_lookup_rejects_semantic_changes()",
+      "label": "test_ocr_memory_fuzzy_lookup_still_works_when_memory_is_large()",
       "file_type": "code",
       "source_file": "tests/test_ocr_memory.py",
       "source_location": "L142",
+      "id": "tests_test_ocr_memory_test_ocr_memory_fuzzy_lookup_still_works_when_memory_is_large",
+      "community": 22,
+      "norm_label": "test_ocr_memory_fuzzy_lookup_still_works_when_memory_is_large()"
+    },
+    {
+      "label": "test_ocr_memory_fuzzy_lookup_rejects_semantic_changes()",
+      "file_type": "code",
+      "source_file": "tests/test_ocr_memory.py",
+      "source_location": "L150",
       "id": "tests_test_ocr_memory_test_ocr_memory_fuzzy_lookup_rejects_semantic_changes",
       "community": 22,
       "norm_label": "test_ocr_memory_fuzzy_lookup_rejects_semantic_changes()"
@@ -10873,6 +11035,69 @@
       "id": "tests_test_ocr_text_cleanup_test_busy_hard_review_batch_ocr_repairs",
       "community": 3,
       "norm_label": "test_busy_hard_review_batch_ocr_repairs()"
+    },
+    {
+      "label": "test_page_quality.py",
+      "file_type": "code",
+      "source_file": "tests/test_page_quality.py",
+      "source_location": "L1",
+      "id": "tests_test_page_quality_py",
+      "community": 135,
+      "norm_label": "test_page_quality.py"
+    },
+    {
+      "label": "_block()",
+      "file_type": "code",
+      "source_file": "tests/test_page_quality.py",
+      "source_location": "L7",
+      "id": "tests_test_page_quality_block",
+      "community": 135,
+      "norm_label": "_block()"
+    },
+    {
+      "label": "int",
+      "file_type": "code",
+      "source_file": "tests/test_page_quality.py",
+      "source_location": "L7",
+      "id": "tests_test_page_quality_py_int",
+      "community": 14,
+      "norm_label": "int"
+    },
+    {
+      "label": "str",
+      "file_type": "code",
+      "source_file": "tests/test_page_quality.py",
+      "source_location": "L7",
+      "id": "tests_test_page_quality_py_str",
+      "community": 14,
+      "norm_label": "str"
+    },
+    {
+      "label": "OcrBlock",
+      "file_type": "code",
+      "source_file": "tests/test_page_quality.py",
+      "source_location": "L7",
+      "id": "tests_test_page_quality_py_ocrblock",
+      "community": 14,
+      "norm_label": "ocrblock"
+    },
+    {
+      "label": "test_page_quality_escalates_dense_zone_pages()",
+      "file_type": "code",
+      "source_file": "tests/test_page_quality.py",
+      "source_location": "L20",
+      "id": "tests_test_page_quality_test_page_quality_escalates_dense_zone_pages",
+      "community": 135,
+      "norm_label": "test_page_quality_escalates_dense_zone_pages()"
+    },
+    {
+      "label": "test_page_quality_marks_neighbouring_incomplete_context()",
+      "file_type": "code",
+      "source_file": "tests/test_page_quality.py",
+      "source_location": "L39",
+      "id": "tests_test_page_quality_test_page_quality_marks_neighbouring_incomplete_context",
+      "community": 135,
+      "norm_label": "test_page_quality_marks_neighbouring_incomplete_context()"
     },
     {
       "label": "test_punctuation_detector.py",
@@ -11154,10 +11379,28 @@
       "norm_label": "test_quality_prioritizes_ellipsis_zone_and_sfx_fusion_problems()"
     },
     {
-      "label": "test_quality_flags_reviewed_incomplete_bubble_for_wide_crop()",
+      "label": "test_quality_flags_semantic_digit_confusion_in_english_source()",
       "file_type": "code",
       "source_file": "tests/test_quality_check.py",
       "source_location": "L413",
+      "id": "tests_test_quality_check_test_quality_flags_semantic_digit_confusion_in_english_source",
+      "community": 26,
+      "norm_label": "test_quality_flags_semantic_digit_confusion_in_english_source()"
+    },
+    {
+      "label": "test_quality_flags_i_contraction_font_confusion()",
+      "file_type": "code",
+      "source_file": "tests/test_quality_check.py",
+      "source_location": "L428",
+      "id": "tests_test_quality_check_test_quality_flags_i_contraction_font_confusion",
+      "community": 26,
+      "norm_label": "test_quality_flags_i_contraction_font_confusion()"
+    },
+    {
+      "label": "test_quality_flags_reviewed_incomplete_bubble_for_wide_crop()",
+      "file_type": "code",
+      "source_file": "tests/test_quality_check.py",
+      "source_location": "L443",
       "id": "tests_test_quality_check_test_quality_flags_reviewed_incomplete_bubble_for_wide_crop",
       "community": 26,
       "norm_label": "test_quality_flags_reviewed_incomplete_bubble_for_wide_crop()"
@@ -11166,7 +11409,7 @@
       "label": "test_quality_does_not_flag_complete_but_sentence_as_missing_prefix()",
       "file_type": "code",
       "source_file": "tests/test_quality_check.py",
-      "source_location": "L428",
+      "source_location": "L458",
       "id": "tests_test_quality_check_test_quality_does_not_flag_complete_but_sentence_as_missing_prefix",
       "community": 26,
       "norm_label": "test_quality_does_not_flag_complete_but_sentence_as_missing_prefix()"
@@ -11175,7 +11418,7 @@
       "label": "test_quality_flags_manga_font_confusion_profile()",
       "file_type": "code",
       "source_file": "tests/test_quality_check.py",
-      "source_location": "L444",
+      "source_location": "L474",
       "id": "tests_test_quality_check_test_quality_flags_manga_font_confusion_profile",
       "community": 26,
       "norm_label": "test_quality_flags_manga_font_confusion_profile()"
@@ -11184,7 +11427,7 @@
       "label": "test_quality_prioritizes_colon_and_missing_question_punctuation()",
       "file_type": "code",
       "source_file": "tests/test_quality_check.py",
-      "source_location": "L460",
+      "source_location": "L490",
       "id": "tests_test_quality_check_test_quality_prioritizes_colon_and_missing_question_punctuation",
       "community": 26,
       "norm_label": "test_quality_prioritizes_colon_and_missing_question_punctuation()"
@@ -11193,7 +11436,7 @@
       "label": "test_quality_flags_non_japanese_source_when_running_ja_mode()",
       "file_type": "code",
       "source_file": "tests/test_quality_check.py",
-      "source_location": "L486",
+      "source_location": "L516",
       "id": "tests_test_quality_check_test_quality_flags_non_japanese_source_when_running_ja_mode",
       "community": 26,
       "norm_label": "test_quality_flags_non_japanese_source_when_running_ja_mode()"
@@ -15681,11 +15924,83 @@
       "norm_label": "limite assumee"
     },
     {
+      "label": "Cheaply skip color-heavy appendix/infographic pages in English corpus runs.",
+      "file_type": "rationale",
+      "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
+      "source_location": "L25",
+      "community": 6,
+      "norm_label": "cheaply skip color-heavy appendix/infographic pages in english corpus runs.",
+      "id": "analysis_corpus_processor_rationale_25"
+    },
+    {
+      "label": "Find likely corpus input folders near *root*.      The function is intentionally",
+      "file_type": "rationale",
+      "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
+      "source_location": "L130",
+      "community": 6,
+      "norm_label": "find likely corpus input folders near *root*.      the function is intentionally",
+      "id": "analysis_corpus_processor_rationale_130"
+    },
+    {
+      "label": "Return a human-readable diagnostic for a corpus path.",
+      "file_type": "rationale",
+      "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
+      "source_location": "L167",
+      "community": 6,
+      "norm_label": "return a human-readable diagnostic for a corpus path.",
+      "id": "analysis_corpus_processor_rationale_167"
+    },
+    {
+      "label": "Recover a corpus when only extracted page images are present.      This is inten",
+      "file_type": "rationale",
+      "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
+      "source_location": "L382",
+      "community": 6,
+      "norm_label": "recover a corpus when only extracted page images are present.      this is inten",
+      "id": "analysis_corpus_processor_rationale_382"
+    },
+    {
+      "label": "Return a stable group key used for stratified corpus limits.      corpus_sample",
+      "file_type": "rationale",
+      "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
+      "source_location": "L454",
+      "community": 6,
+      "norm_label": "return a stable group key used for stratified corpus limits.      corpus_sample",
+      "id": "analysis_corpus_processor_rationale_454"
+    },
+    {
+      "label": "Select corpus entries while preserving original manifest indices.      The first",
+      "file_type": "rationale",
+      "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
+      "source_location": "L482",
+      "community": 6,
+      "norm_label": "select corpus entries while preserving original manifest indices.      the first",
+      "id": "analysis_corpus_processor_rationale_482"
+    },
+    {
+      "label": "Batch OCR/translate a sampled corpus and export review datasets.      Defaults a",
+      "file_type": "rationale",
+      "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
+      "source_location": "L561",
+      "community": 6,
+      "norm_label": "batch ocr/translate a sampled corpus and export review datasets.      defaults a",
+      "id": "analysis_corpus_processor_rationale_561"
+    },
+    {
+      "label": "Cheap local heuristics to flag blocks that require manual review.      This is d",
+      "file_type": "rationale",
+      "source_file": "src/cbz_manga_translator/translate/quality.py",
+      "source_location": "L212",
+      "community": 29,
+      "norm_label": "cheap local heuristics to flag blocks that require manual review.      this is d",
+      "id": "translate_quality_rationale_212"
+    },
+    {
       "label": "Local OCR fallback coordinator.      EasyOCR remains the primary detector becaus",
       "file_type": "rationale",
       "source_file": "src/cbz_manga_translator/ocr/fallback_engine.py",
       "source_location": "L34",
-      "community": 7,
+      "community": 29,
       "norm_label": "local ocr fallback coordinator.      easyocr remains the primary detector becaus",
       "id": "ocr_fallback_engine_rationale_34"
     },
@@ -15694,7 +16009,7 @@
       "file_type": "rationale",
       "source_file": "src/cbz_manga_translator/ocr/easyocr_engine.py",
       "source_location": "L22",
-      "community": 20,
+      "community": 29,
       "norm_label": "free ocr backend using easyocr.      easyocr returns polygons, text and confiden",
       "id": "ocr_easyocr_engine_rationale_22"
     },
@@ -15703,7 +16018,7 @@
       "file_type": "rationale",
       "source_file": "src/cbz_manga_translator/ocr/fallback_engine.py",
       "source_location": "L33",
-      "community": 7,
+      "community": 29,
       "norm_label": "local ocr fallback coordinator.      easyocr remains the primary detector becaus",
       "id": "ocr_fallback_engine_rationale_33"
     },
@@ -15721,7 +16036,7 @@
       "file_type": "rationale",
       "source_file": "src/cbz_manga_translator/translate/argos.py",
       "source_location": "L50",
-      "community": 7,
+      "community": 29,
       "norm_label": "offline argos translate backend.      no hugging face/transformers model is load",
       "id": "translate_argos_rationale_50"
     },
@@ -15793,7 +16108,7 @@
       "file_type": "rationale",
       "source_file": "src/cbz_manga_translator/translate/quality.py",
       "source_location": "L194",
-      "community": 7,
+      "community": 29,
       "norm_label": "cheap local heuristics to flag blocks that require manual review.      this is d",
       "id": "translate_quality_rationale_194"
     },
@@ -15820,7 +16135,7 @@
       "file_type": "rationale",
       "source_file": "src/cbz_manga_translator/translate/argos.py",
       "source_location": "L49",
-      "community": 7,
+      "community": 29,
       "norm_label": "offline argos translate backend.      no hugging face/transformers model is load",
       "id": "translate_argos_rationale_49"
     },
@@ -16063,7 +16378,7 @@
       "file_type": "rationale",
       "source_file": "src/cbz_manga_translator/translate/quality.py",
       "source_location": "L195",
-      "community": 7,
+      "community": 29,
       "norm_label": "cheap local heuristics to flag blocks that require manual review.      this is d",
       "id": "translate_quality_rationale_195"
     },
@@ -22923,6 +23238,16 @@
       "target": "analysis_corpus_processor_looks_like_expensive_color_info_page"
     },
     {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
+      "source_location": "L26",
+      "weight": 1.0,
+      "source": "analysis_corpus_processor_rationale_26",
+      "target": "analysis_corpus_processor_looks_like_expensive_color_info_page",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "references",
       "context": "return_type",
       "confidence": "EXTRACTED",
@@ -24321,6 +24646,16 @@
       "target": "analysis_corpus_processor_find_corpus_candidates"
     },
     {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
+      "source_location": "L131",
+      "weight": 1.0,
+      "source": "analysis_corpus_processor_rationale_131",
+      "target": "analysis_corpus_processor_find_corpus_candidates",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
@@ -24351,6 +24686,16 @@
       "confidence_score": 1.0,
       "source": "analysis_corpus_processor_rationale_167",
       "target": "analysis_corpus_processor_describe_corpus_path"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
+      "source_location": "L168",
+      "weight": 1.0,
+      "source": "analysis_corpus_processor_rationale_168",
+      "target": "analysis_corpus_processor_describe_corpus_path",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -25178,6 +25523,16 @@
       "target": "analysis_corpus_processor_build_manifest_from_pages"
     },
     {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
+      "source_location": "L383",
+      "weight": 1.0,
+      "source": "analysis_corpus_processor_rationale_383",
+      "target": "analysis_corpus_processor_build_manifest_from_pages",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
@@ -25276,6 +25631,16 @@
       "target": "analysis_corpus_processor_entry_group_key"
     },
     {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
+      "source_location": "L455",
+      "weight": 1.0,
+      "source": "analysis_corpus_processor_rationale_455",
+      "target": "analysis_corpus_processor_entry_group_key",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
@@ -25308,6 +25673,16 @@
       "target": "analysis_corpus_processor_select_manifest_entries"
     },
     {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
+      "source_location": "L483",
+      "weight": 1.0,
+      "source": "analysis_corpus_processor_rationale_483",
+      "target": "analysis_corpus_processor_select_manifest_entries",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "calls",
       "context": "call",
       "confidence": "INFERRED",
@@ -25317,6 +25692,17 @@
       "weight": 1.0,
       "source": "analysis_corpus_processor_process_corpus",
       "target": "analysis_export_review_export_review_dataset"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
+      "source_location": "L691",
+      "weight": 1.0,
+      "source": "analysis_corpus_processor_process_corpus",
+      "target": "analysis_page_quality_apply_page_quality_warnings"
     },
     {
       "relation": "calls",
@@ -25349,6 +25735,16 @@
       "confidence_score": 1.0,
       "source": "analysis_corpus_processor_rationale_561",
       "target": "analysis_corpus_processor_process_corpus"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/analysis/corpus_processor.py",
+      "source_location": "L562",
+      "weight": 1.0,
+      "source": "analysis_corpus_processor_rationale_562",
+      "target": "analysis_corpus_processor_process_corpus",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -29309,6 +29705,427 @@
       "confidence_score": 0.5,
       "source": "src_cbz_manga_translator_analysis_light_quality_py_ocrblock",
       "target": "core_models_ocrblock"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/analysis/page_quality.py",
+      "source_location": "L21",
+      "weight": 1.0,
+      "source": "src_cbz_manga_translator_analysis_page_quality_py",
+      "target": "analysis_page_quality_append_warning",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/analysis/page_quality.py",
+      "source_location": "L49",
+      "weight": 1.0,
+      "source": "src_cbz_manga_translator_analysis_page_quality_py",
+      "target": "analysis_page_quality_apply_page_quality_warnings",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/analysis/page_quality.py",
+      "source_location": "L32",
+      "weight": 1.0,
+      "source": "src_cbz_manga_translator_analysis_page_quality_py",
+      "target": "analysis_page_quality_block_text",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/analysis/page_quality.py",
+      "source_location": "L36",
+      "weight": 1.0,
+      "source": "src_cbz_manga_translator_analysis_page_quality_py",
+      "target": "analysis_page_quality_has_zone_warning",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/analysis/page_quality.py",
+      "source_location": "L17",
+      "weight": 1.0,
+      "source": "src_cbz_manga_translator_analysis_page_quality_py",
+      "target": "analysis_page_quality_is_actionable",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/analysis/page_quality.py",
+      "source_location": "L40",
+      "weight": 1.0,
+      "source": "src_cbz_manga_translator_analysis_page_quality_py",
+      "target": "analysis_page_quality_needs_context",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/analysis/page_quality.py",
+      "source_location": "L59",
+      "weight": 1.0,
+      "source": "analysis_page_quality_apply_page_quality_warnings",
+      "target": "analysis_page_quality_is_actionable",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/analysis/page_quality.py",
+      "source_location": "L17",
+      "weight": 1.0,
+      "source": "analysis_page_quality_is_actionable",
+      "target": "src_cbz_manga_translator_analysis_page_quality_py_bool",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/analysis/page_quality.py",
+      "source_location": "L17",
+      "weight": 1.0,
+      "source": "analysis_page_quality_is_actionable",
+      "target": "src_cbz_manga_translator_analysis_page_quality_py_ocrblock",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/analysis/page_quality.py",
+      "source_location": "L21",
+      "weight": 1.0,
+      "source": "analysis_page_quality_append_warning",
+      "target": "src_cbz_manga_translator_analysis_page_quality_py_ocrblock",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/analysis/page_quality.py",
+      "source_location": "L32",
+      "weight": 1.0,
+      "source": "analysis_page_quality_block_text",
+      "target": "src_cbz_manga_translator_analysis_page_quality_py_ocrblock",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/analysis/page_quality.py",
+      "source_location": "L36",
+      "weight": 1.0,
+      "source": "analysis_page_quality_has_zone_warning",
+      "target": "src_cbz_manga_translator_analysis_page_quality_py_ocrblock",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/cbz_manga_translator/analysis/page_quality.py",
+      "source_location": "L5",
+      "weight": 0.8,
+      "source": "src_cbz_manga_translator_analysis_page_quality_py_ocrblock",
+      "target": "core_models_ocrblock",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/cbz_manga_translator/analysis/page_quality.py",
+      "source_location": "L5",
+      "weight": 0.8,
+      "source": "src_cbz_manga_translator_analysis_page_quality_py_ocrblock",
+      "target": "core_models_pagerecord",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/analysis/page_quality.py",
+      "source_location": "L21",
+      "weight": 1.0,
+      "source": "analysis_page_quality_append_warning",
+      "target": "src_cbz_manga_translator_analysis_page_quality_py_bool",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/analysis/page_quality.py",
+      "source_location": "L36",
+      "weight": 1.0,
+      "source": "analysis_page_quality_has_zone_warning",
+      "target": "src_cbz_manga_translator_analysis_page_quality_py_bool",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/analysis/page_quality.py",
+      "source_location": "L40",
+      "weight": 1.0,
+      "source": "analysis_page_quality_needs_context",
+      "target": "src_cbz_manga_translator_analysis_page_quality_py_bool",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/cbz_manga_translator/analysis/page_quality.py",
+      "source_location": "L5",
+      "weight": 0.8,
+      "source": "src_cbz_manga_translator_analysis_page_quality_py_bool",
+      "target": "core_models_ocrblock",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/cbz_manga_translator/analysis/page_quality.py",
+      "source_location": "L5",
+      "weight": 0.8,
+      "source": "src_cbz_manga_translator_analysis_page_quality_py_bool",
+      "target": "core_models_pagerecord",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/analysis/page_quality.py",
+      "source_location": "L21",
+      "weight": 1.0,
+      "source": "analysis_page_quality_append_warning",
+      "target": "src_cbz_manga_translator_analysis_page_quality_py_str",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/analysis/page_quality.py",
+      "source_location": "L76",
+      "weight": 1.0,
+      "source": "analysis_page_quality_apply_page_quality_warnings",
+      "target": "analysis_page_quality_append_warning",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/analysis/page_quality.py",
+      "source_location": "L32",
+      "weight": 1.0,
+      "source": "analysis_page_quality_block_text",
+      "target": "src_cbz_manga_translator_analysis_page_quality_py_str",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/analysis/page_quality.py",
+      "source_location": "L40",
+      "weight": 1.0,
+      "source": "analysis_page_quality_needs_context",
+      "target": "src_cbz_manga_translator_analysis_page_quality_py_str",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/cbz_manga_translator/analysis/page_quality.py",
+      "source_location": "L5",
+      "weight": 0.8,
+      "source": "src_cbz_manga_translator_analysis_page_quality_py_str",
+      "target": "core_models_ocrblock",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/cbz_manga_translator/analysis/page_quality.py",
+      "source_location": "L5",
+      "weight": 0.8,
+      "source": "src_cbz_manga_translator_analysis_page_quality_py_str",
+      "target": "core_models_pagerecord",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/analysis/page_quality.py",
+      "source_location": "L79",
+      "weight": 1.0,
+      "source": "analysis_page_quality_apply_page_quality_warnings",
+      "target": "analysis_page_quality_block_text",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/analysis/page_quality.py",
+      "source_location": "L66",
+      "weight": 1.0,
+      "source": "analysis_page_quality_apply_page_quality_warnings",
+      "target": "analysis_page_quality_has_zone_warning",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/analysis/page_quality.py",
+      "source_location": "L82",
+      "weight": 1.0,
+      "source": "analysis_page_quality_apply_page_quality_warnings",
+      "target": "analysis_page_quality_needs_context",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/analysis/page_quality.py",
+      "source_location": "L49",
+      "weight": 1.0,
+      "source": "analysis_page_quality_apply_page_quality_warnings",
+      "target": "src_cbz_manga_translator_analysis_page_quality_py_int",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/analysis/page_quality.py",
+      "source_location": "L49",
+      "weight": 1.0,
+      "source": "analysis_page_quality_apply_page_quality_warnings",
+      "target": "src_cbz_manga_translator_analysis_page_quality_py_pagerecord",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/analysis/page_quality.py",
+      "source_location": "L49",
+      "weight": 1.0,
+      "source": "analysis_page_quality_apply_page_quality_warnings",
+      "target": "src_cbz_manga_translator_analysis_page_quality_py_sourcelang",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/analysis/page_quality.py",
+      "source_location": "L50",
+      "weight": 1.0,
+      "source": "analysis_page_quality_rationale_50",
+      "target": "analysis_page_quality_apply_page_quality_warnings",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "tests/test_page_quality.py",
+      "source_location": "L32",
+      "weight": 1.0,
+      "source": "tests_test_page_quality_test_page_quality_escalates_dense_zone_pages",
+      "target": "analysis_page_quality_apply_page_quality_warnings"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "tests/test_page_quality.py",
+      "source_location": "L49",
+      "weight": 1.0,
+      "source": "tests_test_page_quality_test_page_quality_marks_neighbouring_incomplete_context",
+      "target": "analysis_page_quality_apply_page_quality_warnings"
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/cbz_manga_translator/analysis/page_quality.py",
+      "source_location": "L5",
+      "weight": 0.8,
+      "source": "src_cbz_manga_translator_analysis_page_quality_py_pagerecord",
+      "target": "core_models_ocrblock",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/cbz_manga_translator/analysis/page_quality.py",
+      "source_location": "L5",
+      "weight": 0.8,
+      "source": "src_cbz_manga_translator_analysis_page_quality_py_pagerecord",
+      "target": "core_models_pagerecord",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/cbz_manga_translator/analysis/page_quality.py",
+      "source_location": "L5",
+      "weight": 0.8,
+      "source": "src_cbz_manga_translator_analysis_page_quality_py_sourcelang",
+      "target": "core_models_ocrblock",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/cbz_manga_translator/analysis/page_quality.py",
+      "source_location": "L5",
+      "weight": 0.8,
+      "source": "src_cbz_manga_translator_analysis_page_quality_py_sourcelang",
+      "target": "core_models_pagerecord",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/cbz_manga_translator/analysis/page_quality.py",
+      "source_location": "L5",
+      "weight": 0.8,
+      "source": "src_cbz_manga_translator_analysis_page_quality_py_int",
+      "target": "core_models_ocrblock",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/cbz_manga_translator/analysis/page_quality.py",
+      "source_location": "L5",
+      "weight": 0.8,
+      "source": "src_cbz_manga_translator_analysis_page_quality_py_int",
+      "target": "core_models_pagerecord",
+      "confidence_score": 0.5
     },
     {
       "relation": "contains",
@@ -36580,6 +37397,36 @@
     {
       "relation": "uses",
       "confidence": "INFERRED",
+      "source_file": "tests/test_page_quality.py",
+      "source_location": "L4",
+      "weight": 0.8,
+      "source": "tests_test_page_quality_py_int",
+      "target": "core_models_ocrblock",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "tests/test_page_quality.py",
+      "source_location": "L4",
+      "weight": 0.8,
+      "source": "tests_test_page_quality_py_ocrblock",
+      "target": "core_models_ocrblock",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "tests/test_page_quality.py",
+      "source_location": "L4",
+      "weight": 0.8,
+      "source": "tests_test_page_quality_py_str",
+      "target": "core_models_ocrblock",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
       "source_file": "tests/test_punctuation_detector.py",
       "source_location": "L5",
       "weight": 0.8,
@@ -37257,6 +38104,36 @@
       "confidence_score": 0.5,
       "source": "tests_test_ocr_memory_py_path",
       "target": "core_models_pagerecord"
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "tests/test_page_quality.py",
+      "source_location": "L4",
+      "weight": 0.8,
+      "source": "tests_test_page_quality_py_int",
+      "target": "core_models_pagerecord",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "tests/test_page_quality.py",
+      "source_location": "L4",
+      "weight": 0.8,
+      "source": "tests_test_page_quality_py_ocrblock",
+      "target": "core_models_pagerecord",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "tests/test_page_quality.py",
+      "source_location": "L4",
+      "weight": 0.8,
+      "source": "tests_test_page_quality_py_str",
+      "target": "core_models_pagerecord",
+      "confidence_score": 0.5
     },
     {
       "relation": "uses",
@@ -40834,9 +41711,9 @@
       "source_file": "src/cbz_manga_translator/ocr/fallback_engine.py",
       "source_location": "L38",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ocr_fallback_engine_rationale_38",
-      "target": "ocr_fallback_engine_ocrfallbackengine",
-      "confidence_score": 1.0
+      "target": "ocr_fallback_engine_ocrfallbackengine"
     },
     {
       "relation": "references",
@@ -42449,6 +43326,16 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/cbz_manga_translator/ocr/memory.py",
+      "source_location": "L228",
+      "weight": 1.0,
+      "source": "src_cbz_manga_translator_ocr_memory_py",
+      "target": "ocr_memory_fuzzy_bucket_key",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/ocr/memory.py",
       "source_location": "L86",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -42657,6 +43544,17 @@
     },
     {
       "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/ocr/memory.py",
+      "source_location": "L228",
+      "weight": 1.0,
+      "source": "ocr_memory_fuzzy_bucket_key",
+      "target": "src_cbz_manga_translator_ocr_memory_py_str",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "src/cbz_manga_translator/ocr/memory.py",
@@ -42825,6 +43723,17 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/cbz_manga_translator/ocr/memory.py",
+      "source_location": "L231",
+      "weight": 1.0,
+      "source": "ocr_memory_fuzzy_bucket_key",
+      "target": "ocr_memory_visual_token",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/ocr/memory.py",
       "source_location": "L108",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -42885,6 +43794,17 @@
       "confidence_score": 1.0,
       "source": "ocr_memory_best_token_score",
       "target": "src_cbz_manga_translator_ocr_memory_py_float"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/ocr/memory.py",
+      "source_location": "L230",
+      "weight": 1.0,
+      "source": "ocr_memory_fuzzy_bucket_key",
+      "target": "ocr_memory_is_important_token",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -43127,6 +44047,28 @@
     {
       "relation": "calls",
       "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "tests/test_ocr_memory.py",
+      "source_location": "L145",
+      "weight": 1.0,
+      "source": "tests_test_ocr_memory_test_ocr_memory_fuzzy_lookup_still_works_when_memory_is_large",
+      "target": "ocr_memory_ocrcorrectionmemory"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/ocr/memory.py",
+      "source_location": "L186",
+      "weight": 1.0,
+      "source": "ocr_memory_ocrcorrectionmemory_post_init",
+      "target": "ocr_memory_fuzzy_bucket_key",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/cbz_manga_translator/ocr/memory.py",
       "source_location": "L188",
@@ -43134,6 +44076,17 @@
       "confidence_score": 1.0,
       "source": "ocr_memory_ocrcorrectionmemory_lookup",
       "target": "ocr_memory_ocrcorrectionmemory_lookup_fuzzy"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/ocr/memory.py",
+      "source_location": "L205",
+      "weight": 1.0,
+      "source": "ocr_memory_ocrcorrectionmemory_lookup_fuzzy",
+      "target": "ocr_memory_fuzzy_bucket_key",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -43781,9 +44734,9 @@
       "source_file": "src/cbz_manga_translator/ocr/punctuation.py",
       "source_location": "L165",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_cbz_manga_translator_ocr_punctuation_py",
-      "target": "ocr_punctuation_infer_textual_punctuation_hints",
-      "confidence_score": 1.0
+      "target": "ocr_punctuation_infer_textual_punctuation_hints"
     },
     {
       "relation": "contains",
@@ -43801,9 +44754,9 @@
       "source_file": "src/cbz_manga_translator/ocr/punctuation.py",
       "source_location": "L221",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_cbz_manga_translator_ocr_punctuation_py",
-      "target": "ocr_punctuation_visual_zone_warnings_for_block",
-      "confidence_score": 1.0
+      "target": "ocr_punctuation_visual_zone_warnings_for_block"
     },
     {
       "relation": "contains",
@@ -43821,9 +44774,9 @@
       "source_file": "src/cbz_manga_translator/ocr/punctuation.py",
       "source_location": "L174",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_cbz_manga_translator_ocr_punctuation_py",
-      "target": "ocr_punctuation_zone_warnings_from_components",
-      "confidence_score": 1.0
+      "target": "ocr_punctuation_zone_warnings_from_components"
     },
     {
       "relation": "references",
@@ -43865,9 +44818,9 @@
       "source_file": "src/cbz_manga_translator/ocr/punctuation.py",
       "source_location": "L165",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ocr_punctuation_infer_textual_punctuation_hints",
-      "target": "ocr_punctuation_punctuationhint",
-      "confidence_score": 1.0
+      "target": "ocr_punctuation_punctuationhint"
     },
     {
       "relation": "references",
@@ -43909,9 +44862,9 @@
       "source_file": "src/cbz_manga_translator/ocr/punctuation.py",
       "source_location": "L174",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ocr_punctuation_zone_warnings_from_components",
-      "target": "ocr_punctuation_component",
-      "confidence_score": 1.0
+      "target": "ocr_punctuation_component"
     },
     {
       "relation": "references",
@@ -43986,9 +44939,9 @@
       "source_file": "src/cbz_manga_translator/ocr/punctuation.py",
       "source_location": "L174",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ocr_punctuation_zone_warnings_from_components",
-      "target": "src_cbz_manga_translator_ocr_punctuation_py_int",
-      "confidence_score": 1.0
+      "target": "src_cbz_manga_translator_ocr_punctuation_py_int"
     },
     {
       "relation": "references",
@@ -44052,9 +45005,9 @@
       "source_file": "src/cbz_manga_translator/ocr/punctuation.py",
       "source_location": "L231",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ocr_punctuation_visual_zone_warnings_for_block",
-      "target": "ocr_punctuation_dark_components_from_crop",
-      "confidence_score": 1.0
+      "target": "ocr_punctuation_dark_components_from_crop"
     },
     {
       "relation": "references",
@@ -44096,9 +45049,9 @@
       "source_file": "src/cbz_manga_translator/ocr/punctuation.py",
       "source_location": "L228",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ocr_punctuation_visual_zone_warnings_for_block",
-      "target": "ocr_punctuation_crop_grayscale",
-      "confidence_score": 1.0
+      "target": "ocr_punctuation_crop_grayscale"
     },
     {
       "relation": "references",
@@ -44173,9 +45126,9 @@
       "source_file": "src/cbz_manga_translator/ocr/punctuation.py",
       "source_location": "L165",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ocr_punctuation_infer_textual_punctuation_hints",
-      "target": "src_cbz_manga_translator_ocr_punctuation_py_str",
-      "confidence_score": 1.0
+      "target": "src_cbz_manga_translator_ocr_punctuation_py_str"
     },
     {
       "relation": "references",
@@ -44184,9 +45137,9 @@
       "source_file": "src/cbz_manga_translator/ocr/punctuation.py",
       "source_location": "L221",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ocr_punctuation_visual_zone_warnings_for_block",
-      "target": "src_cbz_manga_translator_ocr_punctuation_py_str",
-      "confidence_score": 1.0
+      "target": "src_cbz_manga_translator_ocr_punctuation_py_str"
     },
     {
       "relation": "references",
@@ -44195,9 +45148,9 @@
       "source_file": "src/cbz_manga_translator/ocr/punctuation.py",
       "source_location": "L174",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ocr_punctuation_zone_warnings_from_components",
-      "target": "src_cbz_manga_translator_ocr_punctuation_py_str",
-      "confidence_score": 1.0
+      "target": "src_cbz_manga_translator_ocr_punctuation_py_str"
     },
     {
       "relation": "references",
@@ -44228,9 +45181,9 @@
       "source_file": "src/cbz_manga_translator/ocr/punctuation.py",
       "source_location": "L221",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ocr_punctuation_visual_zone_warnings_for_block",
-      "target": "src_cbz_manga_translator_ocr_punctuation_py_path",
-      "confidence_score": 1.0
+      "target": "src_cbz_manga_translator_ocr_punctuation_py_path"
     },
     {
       "relation": "calls",
@@ -44261,9 +45214,9 @@
       "source_file": "src/cbz_manga_translator/ocr/punctuation.py",
       "source_location": "L255",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ocr_punctuation_apply_visual_punctuation_to_blocks",
-      "target": "ocr_punctuation_infer_textual_punctuation_hints",
-      "confidence_score": 1.0
+      "target": "ocr_punctuation_infer_textual_punctuation_hints"
     },
     {
       "relation": "calls",
@@ -44283,9 +45236,9 @@
       "source_file": "src/cbz_manga_translator/ocr/punctuation.py",
       "source_location": "L263",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ocr_punctuation_apply_visual_punctuation_to_blocks",
-      "target": "ocr_punctuation_zone_warnings_from_components",
-      "confidence_score": 1.0
+      "target": "ocr_punctuation_zone_warnings_from_components"
     },
     {
       "relation": "calls",
@@ -44294,9 +45247,9 @@
       "source_file": "src/cbz_manga_translator/ocr/punctuation.py",
       "source_location": "L233",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ocr_punctuation_visual_zone_warnings_for_block",
-      "target": "ocr_punctuation_zone_warnings_from_components",
-      "confidence_score": 1.0
+      "target": "ocr_punctuation_zone_warnings_from_components"
     },
     {
       "relation": "references",
@@ -44360,9 +45313,9 @@
       "source_file": "src/cbz_manga_translator/ocr/punctuation.py",
       "source_location": "L221",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ocr_punctuation_visual_zone_warnings_for_block",
-      "target": "src_cbz_manga_translator_ocr_punctuation_py_ocrblock",
-      "confidence_score": 1.0
+      "target": "src_cbz_manga_translator_ocr_punctuation_py_ocrblock"
     },
     {
       "relation": "calls",
@@ -50834,6 +51787,16 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/cbz_manga_translator/translate/quality.py",
+      "source_location": "L267",
+      "weight": 1.0,
+      "source": "src_cbz_manga_translator_translate_quality_py",
+      "target": "translate_quality_english_plausibility_warnings",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/translate/quality.py",
       "source_location": "L218",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -50891,6 +51854,16 @@
       "target": "translate_quality_translationqualitychecker"
     },
     {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/translate/quality.py",
+      "source_location": "L263",
+      "weight": 1.0,
+      "source": "src_cbz_manga_translator_translate_quality_py",
+      "target": "translate_quality_visual_word",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "references",
       "context": "generic_arg",
       "confidence": "EXTRACTED",
@@ -50922,6 +51895,17 @@
       "confidence_score": 1.0,
       "source": "translate_quality_ascii_tokens",
       "target": "src_cbz_manga_translator_translate_quality_py_str"
+    },
+    {
+      "relation": "references",
+      "context": "generic_arg",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/translate/quality.py",
+      "source_location": "L267",
+      "weight": 1.0,
+      "source": "translate_quality_english_plausibility_warnings",
+      "target": "src_cbz_manga_translator_translate_quality_py_str",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -50990,6 +51974,39 @@
       "target": "src_cbz_manga_translator_translate_quality_py_str"
     },
     {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/translate/quality.py",
+      "source_location": "L263",
+      "weight": 1.0,
+      "source": "translate_quality_visual_word",
+      "target": "src_cbz_manga_translator_translate_quality_py_str",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/translate/quality.py",
+      "source_location": "L279",
+      "weight": 1.0,
+      "source": "translate_quality_english_plausibility_warnings",
+      "target": "translate_quality_visual_word",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/translate/quality.py",
+      "source_location": "L387",
+      "weight": 1.0,
+      "source": "translate_quality_translationqualitychecker_check_block",
+      "target": "translate_quality_english_plausibility_warnings",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "uses",
       "confidence": "INFERRED",
       "source_file": "tests/test_hard_regression_set.py",
@@ -51028,6 +52045,16 @@
       "confidence_score": 1.0,
       "source": "translate_quality_rationale_212",
       "target": "translate_quality_translationqualitychecker"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/cbz_manga_translator/translate/quality.py",
+      "source_location": "L305",
+      "weight": 1.0,
+      "source": "translate_quality_rationale_305",
+      "target": "translate_quality_translationqualitychecker",
+      "confidence_score": 1.0
     },
     {
       "relation": "method",
@@ -54621,9 +55648,9 @@
       "source_file": "tests/test_ocr_fallback.py",
       "source_location": "L172",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_ocr_fallback_py",
-      "target": "tests_test_ocr_fallback_test_collect_candidates_adds_textual_question_candidate",
-      "confidence_score": 1.0
+      "target": "tests_test_ocr_fallback_test_collect_candidates_adds_textual_question_candidate"
     },
     {
       "relation": "contains",
@@ -54744,6 +55771,16 @@
       "confidence_score": 1.0,
       "source": "tests_test_ocr_memory_py",
       "target": "tests_test_ocr_memory_test_ocr_memory_fuzzy_lookup_rejects_semantic_changes"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_ocr_memory.py",
+      "source_location": "L142",
+      "weight": 1.0,
+      "source": "tests_test_ocr_memory_py",
+      "target": "tests_test_ocr_memory_test_ocr_memory_fuzzy_lookup_still_works_when_memory_is_large",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -55042,6 +56079,91 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "tests/test_page_quality.py",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "tests_test_page_quality_py",
+      "target": "tests_test_page_quality_block",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_page_quality.py",
+      "source_location": "L20",
+      "weight": 1.0,
+      "source": "tests_test_page_quality_py",
+      "target": "tests_test_page_quality_test_page_quality_escalates_dense_zone_pages",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_page_quality.py",
+      "source_location": "L39",
+      "weight": 1.0,
+      "source": "tests_test_page_quality_py",
+      "target": "tests_test_page_quality_test_page_quality_marks_neighbouring_incomplete_context",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_page_quality.py",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "tests_test_page_quality_block",
+      "target": "tests_test_page_quality_py_int",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_page_quality.py",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "tests_test_page_quality_block",
+      "target": "tests_test_page_quality_py_ocrblock",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_page_quality.py",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "tests_test_page_quality_block",
+      "target": "tests_test_page_quality_py_str",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_page_quality.py",
+      "source_location": "L25",
+      "weight": 1.0,
+      "source": "tests_test_page_quality_test_page_quality_escalates_dense_zone_pages",
+      "target": "tests_test_page_quality_block",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_page_quality.py",
+      "source_location": "L44",
+      "weight": 1.0,
+      "source": "tests_test_page_quality_test_page_quality_marks_neighbouring_incomplete_context",
+      "target": "tests_test_page_quality_block",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "tests/test_punctuation_detector.py",
       "source_location": "L47",
       "weight": 1.0,
@@ -55075,9 +56197,9 @@
       "source_file": "tests/test_punctuation_detector.py",
       "source_location": "L49",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_punctuation_detector_py",
-      "target": "tests_test_punctuation_detector_test_detect_visual_question_mark_and_apply_hint",
-      "confidence_score": 1.0
+      "target": "tests_test_punctuation_detector_test_detect_visual_question_mark_and_apply_hint"
     },
     {
       "relation": "contains",
@@ -55085,9 +56207,9 @@
       "source_file": "tests/test_punctuation_detector.py",
       "source_location": "L67",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_punctuation_detector_py",
-      "target": "tests_test_punctuation_detector_test_infer_textual_question_hint",
-      "confidence_score": 1.0
+      "target": "tests_test_punctuation_detector_test_infer_textual_question_hint"
     },
     {
       "relation": "contains",
@@ -55095,9 +56217,9 @@
       "source_file": "tests/test_punctuation_detector.py",
       "source_location": "L92",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_punctuation_detector_py",
-      "target": "tests_test_punctuation_detector_test_visual_zone_warning_when_text_touches_crop_edge",
-      "confidence_score": 1.0
+      "target": "tests_test_punctuation_detector_test_visual_zone_warning_when_text_touches_crop_edge"
     },
     {
       "relation": "references",
@@ -55139,9 +56261,9 @@
       "source_file": "tests/test_punctuation_detector.py",
       "source_location": "L49",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_punctuation_detector_test_detect_visual_question_mark_and_apply_hint",
-      "target": "tests_test_punctuation_detector_py_path",
-      "confidence_score": 1.0
+      "target": "tests_test_punctuation_detector_py_path"
     },
     {
       "relation": "references",
@@ -55150,9 +56272,9 @@
       "source_file": "tests/test_punctuation_detector.py",
       "source_location": "L92",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_punctuation_detector_test_visual_zone_warning_when_text_touches_crop_edge",
-      "target": "tests_test_punctuation_detector_py_path",
-      "confidence_score": 1.0
+      "target": "tests_test_punctuation_detector_py_path"
     },
     {
       "relation": "contains",
@@ -55300,9 +56422,9 @@
       "source_file": "tests/test_quality_check.py",
       "source_location": "L59",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_quality_check_py",
-      "target": "tests_test_quality_check_test_quality_checker_preserves_ocr_visual_diagnostics",
-      "confidence_score": 1.0
+      "target": "tests_test_quality_check_test_quality_checker_preserves_ocr_visual_diagnostics"
     },
     {
       "relation": "contains",
@@ -55313,6 +56435,16 @@
       "confidence_score": 1.0,
       "source": "tests_test_quality_check_py",
       "target": "tests_test_quality_check_test_quality_does_not_flag_complete_but_sentence_as_missing_prefix"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_quality_check.py",
+      "source_location": "L428",
+      "weight": 1.0,
+      "source": "tests_test_quality_check_py",
+      "target": "tests_test_quality_check_test_quality_flags_i_contraction_font_confusion",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -55393,6 +56525,16 @@
       "confidence_score": 1.0,
       "source": "tests_test_quality_check_py",
       "target": "tests_test_quality_check_test_quality_flags_reviewed_incomplete_bubble_for_wide_crop"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_quality_check.py",
+      "source_location": "L413",
+      "weight": 1.0,
+      "source": "tests_test_quality_check_py",
+      "target": "tests_test_quality_check_test_quality_flags_semantic_digit_confusion_in_english_source",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -60825,5 +61967,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "e5f20730f3b73c5dd8b6fe20f4a0cfec1fd40f5d"
+  "built_at_commit": "b085003064934033b65ab96a4c9c90d5371e6a64"
 }

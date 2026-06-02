@@ -139,6 +139,14 @@ def test_ocr_memory_fuzzy_lookup_handles_visual_font_noise() -> None:
     assert memory.lookup("Some one Help MeI") == "Someone, help me!"
 
 
+def test_ocr_memory_fuzzy_lookup_still_works_when_memory_is_large() -> None:
+    entries = {f"noise sample {index}": f"Noise sample {index}." for index in range(2600)}
+    entries["i want a fuli report by tomorr0w"] = "I want a full report by tomorrow."
+    memory = OcrCorrectionMemory(entries)
+
+    assert memory.lookup("I WANT A FULL REPORT BY TOMORROW") == "I want a full report by tomorrow."
+
+
 def test_ocr_memory_fuzzy_lookup_rejects_semantic_changes() -> None:
     memory = OcrCorrectionMemory({"i love you": "I love you!"})
 
