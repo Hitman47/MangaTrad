@@ -30,13 +30,24 @@ _SHORT_ZONE_RE = re.compile(
 )
 _SHORT_FRAGMENT_RE = re.compile(
     r"^\s*(?:merely\s+used|that\s+should\s+hurt|my\s+lung\s+capacity|"
-    r"the\s+anomaly\s+who\s+has\s+derailed\s+the\s+plot)\.?\s*$",
+    r"the\s+anomaly\s+who\s+has\s+derailed\s+the\s+plot|"
+    r"isn'?t\s+that\s+what\s+a\s+man'?s\s+romance\s+is|"
+    r"i'?ve\s+waited\s+for\s+too\s+long)\.?\s*$",
     flags=re.IGNORECASE,
 )
 _SFX_MIX_RE = re.compile(
     r"\b(?:whisper|sob|shock|jaka|sfx|bam|bang|boom|thud|clap|rustle|slam|tap|tch|"
     r"jolt|gasp|slap|wobble|yawn|fidget|twitch|fwooo|woosh|crash|nod|scribble|krehble|krembue|"
-    r"shivr|fwoop|brip|whooosh)\b",
+    r"shivr|fwoop|brip|whooosh|bee+p|sra+sh|slpaaa+an|pira|gyu+o+)\b",
+    flags=re.IGNORECASE,
+)
+_DIALOGUE_HINT_RE = re.compile(
+    r"\b(?:i|me|you|we|he|she|they|it|am|are|is|was|were|do|does|did|"
+    r"have|has|had|can|could|would|should|will|what|why|how|when|where|who|then|there)\b",
+    flags=re.IGNORECASE,
+)
+_BUBBLE_START_RE = re.compile(
+    r"(?:^|[.!?]\s+)(?:i|you|we|he|she|they|it|what|why|how|when|where|who|is|are|do|did|does|can|could|would|should|will|then)\b",
     flags=re.IGNORECASE,
 )
 
@@ -121,6 +132,11 @@ def is_probably_fused_source(text: str) -> bool:
     sentence_breaks = re.findall(r"[.!?][\"')\]]?(?=\s+[A-Z\"'])", source)
     if len(words) >= 14 and sentence_breaks:
         return True
+    bubble_starts = _BUBBLE_START_RE.findall(source)
+    if len(words) >= 10 and len(bubble_starts) >= 2 and sentence_breaks:
+        return True
+    if len(words) >= 9 and re.search(r"[.!?]\s+(?:[A-Z][a-z]+|[A-Z]{2,})\b", source) and _DIALOGUE_HINT_RE.search(source):
+        return True
     return False
 
 
@@ -130,7 +146,9 @@ def has_probably_mixed_sfx(text: str) -> bool:
         return False
     words = _words(source)
     sfx_hits = _SFX_MIX_RE.findall(source)
-    return bool(sfx_hits and len(words) >= 4)
+    if not sfx_hits:
+        return False
+    return len(words) >= 4 or bool(_DIALOGUE_HINT_RE.search(source) and len(words) >= 3)
 
 
 def zone_issue_categories(text: str) -> list[str]:

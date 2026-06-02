@@ -29,6 +29,7 @@ def test_detects_fused_sfx_or_multiple_bubbles() -> None:
     assert is_probably_fused_source("Krehble 4h, Seriously? You MEAN THAT? Krembue")
     assert is_probably_fused_source("They say you should live life counting the good things instead of the bad, don't they!? Like manga or songs.")
     assert is_probably_fused_source("ALL RIGHTY! then? WE'RE OFF.")
+    assert is_probably_fused_source("Are you misunderstanding something you idiot?! I thought something was troubling you...")
 
 
 def test_zone_quality_warnings_are_stable() -> None:
@@ -42,10 +43,13 @@ def test_zone_issue_categories_are_specific() -> None:
     assert "zone_too_small" in zone_issue_categories("WAIT A SEC, You guys")
     assert "split_bubble" in zone_issue_categories("...after me?!")
     assert "zone_too_small" in zone_issue_categories("ISN'T THAT WHAT A MAN'S ROMANCE IS")
+    assert "zone_too_small" in zone_issue_categories("I've waited for too long")
     assert "zone_too_small" in zone_issue_categories("MERELY USED.")
     assert "zone_too_small" in zone_issue_categories("that should hurt")
     assert "zone_too_small" in zone_issue_categories("My lung capacity")
     assert "sfx_mixed" in zone_issue_categories("Krehble 4h, Seriously? You MEAN THAT? Krembue")
+    assert "sfx_mixed" in zone_issue_categories("Then? THERE ARE EASIER TAR- GETS. whisper")
+    assert "sfx_mixed" in zone_issue_categories("I heard Bhi (beeeep)?")
     warnings = zone_quality_warnings("...after me?!")
     assert SPLIT_BUBBLE_WARNING in warnings
     warnings = zone_quality_warnings("Krehble 4h, Seriously? You MEAN THAT? Krembue")

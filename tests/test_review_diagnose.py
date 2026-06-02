@@ -60,6 +60,14 @@ def _project(path: Path) -> Path:
                             review_notes="[sfx]",
                             manual_status="ignored",
                         ),
+                        OcrBlock(
+                            id="visual-zone",
+                            bbox=[0, 0, 10, 10],
+                            source_lang="en",
+                            ocr_text="Your futon AND CLEAN The House Once in a Whilel?",
+                            quality_warnings=["OCR zone visuelle: texte touche le bord du crop, bbox probablement trop petite"],
+                            manual_status="review",
+                        ),
                     ],
                 )
             ],
@@ -71,8 +79,8 @@ def _project(path: Path) -> Path:
 def test_diagnose_review_project_classifies_common_failures(tmp_path: Path) -> None:
     report = diagnose_review_project(_project(tmp_path / "project.reviewed.json"))
 
-    assert report.total_blocks == 5
-    assert report.changed_blocks == 5
+    assert report.total_blocks == 6
+    assert report.changed_blocks == 6
     assert report.category_counts["punctuation"] == 1
     assert report.category_counts["translation"] == 1
     assert report.category_counts["fused_bubble"] == 1

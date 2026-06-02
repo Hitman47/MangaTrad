@@ -110,6 +110,20 @@ def _zone_categories_from_notes(notes: str) -> list[str]:
     return categories
 
 
+def _zone_categories_from_quality_warnings(warnings: list[str]) -> list[str]:
+    compact = " ".join(warnings).lower()
+    categories: list[str] = []
+    if any(token in compact for token in ("sfx probablement melange", "sfx probablement m", "sfx melange")):
+        categories.append("sfx_mixed")
+    if any(token in compact for token in ("fusion probable", "plusieurs bulles", "meme bbox", "même bbox")):
+        categories.append("fused_bubble")
+    if any(token in compact for token in ("bulle probablement separee", "bulle probablement s", "split_bubble")):
+        categories.append("split_bubble")
+    if any(token in compact for token in ("zone trop petite", "bord du crop", "bbox probablement trop petite", "texte touche le bord")):
+        categories.append("zone_too_small")
+    return categories
+
+
 def classify_block(block: OcrBlock, page_index: int) -> list[DiagnosticItem]:
     items: list[DiagnosticItem] = []
     raw = block.ocr_text.strip()
@@ -128,9 +142,17 @@ def classify_block(block: OcrBlock, page_index: int) -> list[DiagnosticItem]:
     for category in note_categories:
         items.append(_make_item(block, page_index, category, "note humaine zone/bbox"))
 
+    warning_categories = [
+        category
+        for category in _zone_categories_from_quality_warnings(block.quality_warnings)
+        if category not in note_categories
+    ]
+    for category in warning_categories:
+        items.append(_make_item(block, page_index, category, "warning qualite zone/bbox"))
+
     structure_source = normalized or corrected or raw
     for category in zone_issue_categories(structure_source):
-        if category not in note_categories:
+        if category not in note_categories and category not in warning_categories:
             items.append(_make_item(block, page_index, category, "heuristique texte/zone"))
 
     if corrected and _compact(corrected) != _compact(raw):
