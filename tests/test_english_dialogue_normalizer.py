@@ -370,6 +370,7 @@ def test_recent_replay_short_sfx_and_truncated_zone_repairs() -> None:
     assert EnglishDialogueNormalizer.prepare("yeah!").override_translation_fr == "yeah"
     assert EnglishDialogueNormalizer.prepare("Hey!").override_translation_fr == "Hé !"
     assert EnglishDialogueNormalizer.prepare("WHA??").corrected_text == "WHA?"
+    assert EnglishDialogueNormalizer.prepare("4h- ohi?").corrected_text == "4h... ohi"
     assert EnglishDialogueNormalizer.prepare("chapter 396thus fought the stuffed toy!").corrected_text == "chapter 39:, thus fought the stuffed toy!"
 
     assert EnglishDialogueNormalizer.prepare("Just TRUST").normalized_text == "Just Trust Me"
@@ -383,6 +384,11 @@ def test_recent_replay_short_sfx_and_truncated_zone_repairs() -> None:
 
     boring = EnglishDialogueNormalizer.prepare("it is BORING to Be With... Such AN idiot, Even IF it is FOR MY FAMILY'S SAKE?")
     assert boring.override_translation_fr == "C'est ENNUYEUX d'etre avec un tel idiot, meme SI C'EST POUR LE BIEN DE MA FAMILLE."
+
+    please = EnglishDialogueNormalizer.prepare("So, Be Sure To Exercise Caution and RESTRAINT, PLEASEL?")
+    assert please.normalized_text == "So, Be Sure To Exercise Caution and RESTRAINT, Elizabeth! PLEASE!"
+    assert please.override_translation_fr == "Alors, fais bien attention et fais preuve de moderation, Elizabeth ! S'il te plait !"
+    assert EnglishDialogueNormalizer.prepare("this uni... verse is vast?").normalized_text == "this universe is vast."
     assert EnglishDialogueNormalizer.prepare("Obviously, sensed the danger, and so returned the damagel").corrected_text == "Obviously, I sensed the danger, and so returned the damage!"
     assert EnglishDialogueNormalizer.prepare("C'mere AND Enter- TAIN Me Somel").corrected_text == "C'mere AND EnterTAIN Me some!"
 

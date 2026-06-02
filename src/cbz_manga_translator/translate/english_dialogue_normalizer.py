@@ -47,6 +47,7 @@ _ELLIPSIS_JOIN_WORDS = {
     "troubling",
     "understand",
     "useless",
+    "universe",
     "yutaro",
 }
 
@@ -315,6 +316,7 @@ _OCR_CORRECTIONS: tuple[tuple[re.Pattern[str], str], ...] = (
     (re.compile(r"^just\s+trust$", flags=re.IGNORECASE), "Just Trust Me"),
     (re.compile(r"^wha\?\?$", flags=re.IGNORECASE), "WHA?"),
     (re.compile(r"^shake\s*\|\?$", flags=re.IGNORECASE), "Shake"),
+    (re.compile(r"^4h-\s*ohi\?$", flags=re.IGNORECASE), "4h... ohi"),
     (re.compile(r"^chapter\s+396thus\b", flags=re.IGNORECASE), "chapter 39:, thus"),
     (re.compile(r"^i\s+expect\s+no\s+less\s+from\s+my$", flags=re.IGNORECASE), "I Expect NO LESS FROM My Friend."),
     (
@@ -328,6 +330,10 @@ _OCR_CORRECTIONS: tuple[tuple[re.Pattern[str], str], ...] = (
     (
         re.compile(r"^i\s+am\s+also\s+curious\s+why\s+this\s+communication\s+is\s+coming\s+from[.]{3}\s+one\s+of\s+the\s+razel\s+family['’]s\?$", flags=re.IGNORECASE),
         "I am also curious why this communication is coming from... one of the Razel family's resource asteroids.",
+    ),
+    (
+        re.compile(r"^so,\s+be\s+sure\s+to\s+exercise\s+caution\s+and\s+restraint,\s+pleasel\?$", flags=re.IGNORECASE),
+        "So, Be Sure To Exercise Caution and RESTRAINT, Elizabeth! PLEASE!",
     ),
 )
 
@@ -493,6 +499,7 @@ _DIALOGUE_NORMALIZATIONS: tuple[tuple[re.Pattern[str], str], ...] = (
     (re.compile(r"^how['’]?s\s+the\s+settlement\s+planning\?\s+the\s+military\s+build-up\?$", flags=re.IGNORECASE), "how's the settlement planning? the military build-up?"),
     (re.compile(r"^i\s+am\s+also\s+curious\s+why\s+this\s+communication\s+is\s+coming\s+from[.]{3}\s+one\s+of\s+the\s+razel\s+family['’]?s\s+resource\s+asteroids[.]$", flags=re.IGNORECASE), "I am also curious why this communication is coming from... one of the Razel family's resource asteroids."),
     (re.compile(r"^this\s+uni[.]{3}\s*verse\s+is\s+vast[.]$", flags=re.IGNORECASE), "this universe is vast."),
+    (re.compile(r"^this\s+universe\s+is\s+vast\?$", flags=re.IGNORECASE), "this universe is vast."),
     (re.compile(r"^i\s+must\s+travel\s+in\s+search\s+of\s+potential[,.\s]*$", flags=re.IGNORECASE), "I must travel in search of potential..."),
     (re.compile(r"^you\s+will\s+entrust\s+the\s+way\s+of\s+the\s+flash\s+to\s+three\s+pupils\s+three\s+remarkable\s+students[.]?$", flags=re.IGNORECASE), "you will entrust the way of the flash to three pupils... three remarkable students."),
     (re.compile(r"^will\s+i\s+really\s+be\s+teach\s+a\s+pupil\s+of\s+my\s+own\?$", flags=re.IGNORECASE), "will I really be able... to teach a pupil of my own?"),
