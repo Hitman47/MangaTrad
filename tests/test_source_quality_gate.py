@@ -41,6 +41,50 @@ def test_source_quality_gate_warns_without_holding_human_edited_source() -> None
     assert any("zone" in warning for warning in result.warnings)
 
 
+def test_source_quality_gate_holds_risky_visual_edge_zone() -> None:
+    block = OcrBlock(
+        id="b",
+        bbox=[0, 0, 1, 1],
+        source_lang="en",
+        ocr_text="Your futon AND CLEAN The House Once in a Whilel?",
+        confidence=0.63,
+        quality_warnings=["OCR zone visuelle: texte touche le bord du crop, bbox probablement trop petite"],
+    )
+
+    result = SourceQualityGate().evaluate(
+        block,
+        "en",
+        raw_source_text=block.ocr_text,
+        normalized_source_text="Your futon AND CLEAN The House Once in a Whilel?",
+    )
+
+    assert result.should_translate is False
+    assert "visual_edge" in result.categories
+    assert any("bord du crop" in warning for warning in result.warnings)
+
+
+def test_source_quality_gate_does_not_hold_human_edited_visual_edge_zone() -> None:
+    block = OcrBlock(
+        id="b",
+        bbox=[0, 0, 1, 1],
+        source_lang="en",
+        ocr_text="Your futon AND CLEAN The House Once in a Whilel?",
+        confidence=0.63,
+        manual_status="edited",
+        quality_warnings=["OCR zone visuelle: texte touche le bord du crop, bbox probablement trop petite"],
+    )
+
+    result = SourceQualityGate().evaluate(
+        block,
+        "en",
+        raw_source_text=block.ocr_text,
+        normalized_source_text="Your futon AND CLEAN The House Once in a Whilel?",
+    )
+
+    assert result.should_translate is True
+    assert "visual_edge" in result.categories
+
+
 def test_argos_preflight_gate_blocks_bad_source_before_model(monkeypatch) -> None:
     translator = ArgosTranslator()
 
@@ -56,6 +100,29 @@ def test_argos_preflight_gate_blocks_bad_source_before_model(monkeypatch) -> Non
     assert block.manual_status == "review"
     assert block.review_notes.startswith("[preflight]")
     assert any("traduction suspendue" in warning for warning in block.quality_warnings)
+
+
+def test_argos_preflight_gate_blocks_visual_edge_before_model(monkeypatch) -> None:
+    translator = ArgosTranslator()
+
+    def fail_chain(*args, **kwargs):  # type: ignore[no-untyped-def]
+        raise AssertionError("Risky visual edge source must not be sent to Argos")
+
+    monkeypatch.setattr(translator, "_translation_chain", fail_chain)
+    block = OcrBlock(
+        id="b",
+        bbox=[0, 0, 1, 1],
+        source_lang="en",
+        ocr_text="Your futon AND CLEAN The House Once in a Whilel?",
+        confidence=0.63,
+        quality_warnings=["OCR zone visuelle: texte touche le bord du crop, bbox probablement trop petite"],
+    )
+
+    translator.translate_blocks([block], "en")
+
+    assert block.translation_fr == ""
+    assert block.manual_status == "review"
+    assert any("bord du crop" in warning for warning in block.quality_warnings)
 
 
 def test_quality_checker_preserves_preflight_warnings() -> None:

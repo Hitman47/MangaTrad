@@ -185,6 +185,56 @@ def test_replay_review_project_skips_source_when_old_review_stored_translation(t
     assert report.results[0].source_evaluation == "skipped_translation_in_source"
 
 
+def test_replay_review_project_accepts_empty_translation_for_ignored_blocks(tmp_path: Path) -> None:
+    class FakeIgnoredTranslator:
+        def translate_blocks(self, blocks, source_lang, **kwargs):  # type: ignore[no-untyped-def]
+            for block in blocks:
+                block.normalized_source_text = block.ocr_text
+                block.translation_fr = ""
+                block.raw_translation_fr = ""
+            return blocks
+
+    image = tmp_path / "page.jpg"
+    Image.new("RGB", (80, 80), "white").save(image)
+    project_path = tmp_path / "project.reviewed.json"
+    ProjectCache.save(
+        project_path,
+        ProjectData(
+            cbz_path=str(tmp_path),
+            pages=[
+                PageRecord(
+                    page_index=0,
+                    image_name=str(image),
+                    blocks=[
+                        OcrBlock(
+                            id="human",
+                            bbox=[10, 10, 60, 40],
+                            source_lang="en",
+                            ocr_text="SHE'S G0T An IDIOT Like that FOR AM OLD MAN.",
+                            normalized_source_text="SHE'S G0T An IDIOT Like that FOR AM OLD MAN.",
+                            translation_fr="SFX old stored text",
+                            manual_status="ignored",
+                        )
+                    ],
+                )
+            ],
+        ),
+    )
+
+    report = replay_review_project(
+        project_path,
+        max_pages=1,
+        statuses={"ignored"},
+        use_gpu=False,
+        recognizer=FakeRecognizer(),
+        translator=FakeIgnoredTranslator(),
+    )
+
+    assert report.translation_matches == 1
+    assert report.full_matches == 1
+    assert report.results[0].status == "match"
+
+
 def test_failure_page_indices_reads_previous_replay_report(tmp_path: Path) -> None:
     report_path = tmp_path / "report.json"
     report_path.write_text(

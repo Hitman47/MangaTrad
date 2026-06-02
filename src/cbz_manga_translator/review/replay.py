@@ -235,6 +235,9 @@ def replay_review_project(
             actual_translation = candidate.translation_fr or candidate.raw_translation_fr
             translation_score = text_similarity(expected_translation, actual_translation)
             source_evaluation = "checked"
+            if target.manual_status == "ignored" and not actual_translation.strip():
+                translation_score = 1.0
+                source_evaluation = "ignored_no_translation"
             if expected_source_is_translation_like(expected_source, expected_translation):
                 source_evaluation = "skipped_translation_in_source"
                 source_score = 1.0 if translation_score >= translation_threshold else text_similarity(expected_source, actual_source)

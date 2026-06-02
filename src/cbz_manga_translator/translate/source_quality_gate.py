@@ -12,6 +12,10 @@ _QUESTION_START_RE = re.compile(
     flags=re.IGNORECASE,
 )
 _INCOMPLETE_ELLIPSIS_RE = re.compile(r"\.\.$|[.][.](?![.])")
+_VISUAL_EDGE_WARNING_RE = re.compile(
+    r"(?:zone visuelle|bord du crop|bbox probablement trop petite|texte touche le bord)",
+    flags=re.IGNORECASE,
+)
 
 
 @dataclass(slots=True)
@@ -29,7 +33,7 @@ class SourceQualityGate:
     before Argos so severe source issues become review work instead of bad FR.
     """
 
-    _HOLD_CATEGORIES = {"zone_too_small", "split_bubble", "fused_bubble", "sfx_mixed"}
+    _HOLD_CATEGORIES = {"zone_too_small", "split_bubble", "fused_bubble", "sfx_mixed", "visual_edge"}
 
     @staticmethod
     def _compact(text: str) -> str:
@@ -58,6 +62,16 @@ class SourceQualityGate:
         categories = zone_issue_categories(normalized)
         warnings = [f"preflight: {warning}" for warning in zone_quality_warnings(normalized)]
         words = self._words(normalized)
+        visual_edge = any(_VISUAL_EDGE_WARNING_RE.search(warning) for warning in block.quality_warnings)
+        risky_visual_edge = visual_edge and (
+            (block.confidence is not None and block.confidence < 0.70)
+            or len(words) <= 3
+            or not re.search(r"[.!?][\"')\]]?$", normalized)
+            or bool(re.search(r"\b[A-Za-z]{2,}-\s+[A-Za-z]{2,}\b", raw))
+        )
+        if risky_visual_edge:
+            categories.append("visual_edge")
+            warnings.append("preflight: zone visuelle au bord du crop, bbox a verifier avant traduction")
 
         if _QUESTION_START_RE.search(normalized) and "?" not in normalized:
             warnings.append("preflight: point d'interrogation probablement manquant avant traduction")
