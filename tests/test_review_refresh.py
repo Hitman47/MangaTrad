@@ -267,3 +267,98 @@ def test_refresh_review_project_collects_zone_ocr_alternatives_without_replacing
     assert block.ocr_text == "ISN'T THAT WHAT A MAN'S POMANCE IS"
     assert block.ocr_alternatives[0]["text"] == "isn't that what a man's romance is about!!!"
     assert any("OCR zone fallback" in warning for warning in block.quality_warnings)
+
+
+def test_refresh_review_project_limits_zone_ocr_alternatives(tmp_path: Path) -> None:
+    image = tmp_path / "page.jpg"
+    image.write_bytes(b"fake image path is enough for dummy fallback")
+    project_path = tmp_path / "project.reviewed.json"
+    ProjectCache.save(
+        project_path,
+        ProjectData(
+            cbz_path=str(tmp_path),
+            pages=[
+                PageRecord(
+                    page_index=0,
+                    image_name=str(image),
+                    blocks=[
+                        OcrBlock(
+                            id=f"zone-{index}",
+                            bbox=[0, 0, 100, 40],
+                            source_lang="en",
+                            ocr_text="ISN'T THAT WHAT A MAN'S POMANCE IS",
+                            review_notes="[zone]",
+                            manual_status="review",
+                        )
+                        for index in range(3)
+                    ],
+                )
+            ],
+        ),
+    )
+    out = tmp_path / "out.json"
+
+    result = refresh_review_project(
+        project_path,
+        out,
+        ocr_fallback_zones=True,
+        max_ocr_fallback_zones=2,
+        fallback_engine=DummyZoneFallback(),  # type: ignore[arg-type]
+    )
+
+    blocks = ProjectCache.load(out).pages[0].blocks
+    assert result.ocr_fallback_blocks == 2
+    assert sum(1 for block in blocks if block.ocr_alternatives) == 2
+
+
+def test_refresh_review_project_prioritizes_risky_zone_ocr_alternatives(tmp_path: Path) -> None:
+    image = tmp_path / "page.jpg"
+    image.write_bytes(b"fake image path is enough for dummy fallback")
+    project_path = tmp_path / "project.reviewed.json"
+    ProjectCache.save(
+        project_path,
+        ProjectData(
+            cbz_path=str(tmp_path),
+            pages=[
+                PageRecord(
+                    page_index=0,
+                    image_name=str(image),
+                    blocks=[
+                        OcrBlock(
+                            id="short",
+                            bbox=[0, 0, 100, 40],
+                            source_lang="en",
+                            ocr_text="KATA!",
+                            confidence=0.99,
+                            review_notes="[zone]",
+                            manual_status="review",
+                        ),
+                        OcrBlock(
+                            id="risky",
+                            bbox=[0, 0, 100, 40],
+                            source_lang="en",
+                            ocr_text="Your futon AND CLEAN The House Once in a Whilel?",
+                            confidence=0.42,
+                            review_notes="[zone]",
+                            quality_warnings=["OCR zone visuelle: texte touche le bord du crop, bbox probablement trop petite"],
+                            manual_status="review",
+                        ),
+                    ],
+                )
+            ],
+        ),
+    )
+    out = tmp_path / "out.json"
+
+    result = refresh_review_project(
+        project_path,
+        out,
+        ocr_fallback_zones=True,
+        max_ocr_fallback_zones=1,
+        fallback_engine=DummyZoneFallback(),  # type: ignore[arg-type]
+    )
+
+    blocks = {block.id: block for block in ProjectCache.load(out).pages[0].blocks}
+    assert result.ocr_fallback_blocks == 1
+    assert not blocks["short"].ocr_alternatives
+    assert blocks["risky"].ocr_alternatives

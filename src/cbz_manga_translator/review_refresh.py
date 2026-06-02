@@ -1,11 +1,12 @@
 from __future__ import annotations
 
 import argparse
+import re
 from dataclasses import dataclass
 from pathlib import Path
 
 from cbz_manga_translator.core.cache import ProjectCache
-from cbz_manga_translator.core.models import OcrBlock, ProjectData, SourceLang
+from cbz_manga_translator.core.models import OcrBlock, PageRecord, ProjectData, SourceLang
 from cbz_manga_translator.ocr.fallback_engine import OcrFallbackEngine
 from cbz_manga_translator.ocr.incomplete import zone_issue_categories
 from cbz_manga_translator.ocr.text_cleanup import normalize_ocr_text_for_translation
@@ -80,6 +81,31 @@ def _is_zone_fallback_candidate(block: OcrBlock) -> bool:
     return any(category in {"zone_too_small", "split_bubble", "fused_bubble", "sfx_mixed"} for category in zone_issue_categories(source))
 
 
+def _zone_fallback_priority(block: OcrBlock) -> int:
+    source = block_source_text(block)
+    warnings = " ".join(block.quality_warnings).lower()
+    categories = set(zone_issue_categories(source))
+    words = re.findall(r"[A-Za-z']+", source)
+    priority = 0
+    if block.confidence is not None and block.confidence < 0.65:
+        priority += 5
+    if not (block.translation_fr or block.raw_translation_fr).strip():
+        priority += 4
+    if categories & {"split_bubble", "fused_bubble", "sfx_mixed"}:
+        priority += 4
+    if categories & {"zone_too_small"}:
+        priority += 3
+    if "bord du crop" in warnings or "bbox probablement trop petite" in warnings:
+        priority += 3
+    if "cesure" in warnings or re.search(r"\b[A-Za-z]{2,}-\s+[A-Za-z]{2,}\b", source):
+        priority += 3
+    if len(words) >= 4:
+        priority += 2
+    elif len(words) <= 1:
+        priority -= 4
+    return priority
+
+
 def _refresh_zone_ocr_alternatives(
     project_path: Path,
     project: ProjectData,
@@ -88,44 +114,51 @@ def _refresh_zone_ocr_alternatives(
     use_gpu: bool,
     include_optional_ocr: bool,
     apply_best: bool,
+    max_blocks: int | None,
     fallback_engine: OcrFallbackEngine,
 ) -> int:
     updated = 0
+    candidates_by_page: list[tuple[int, int, PageRecord, OcrBlock]] = []
     for page in project.pages:
         zone_blocks = [
             block for block in page.blocks
             if block.source_lang == source_lang and block.manual_status == "review" and _is_zone_fallback_candidate(block)
         ]
-        if not zone_blocks:
-            continue
+        candidates_by_page.extend(
+            (_zone_fallback_priority(block), page.page_index, page, block)
+            for block in zone_blocks
+        )
+
+    candidates_by_page.sort(key=lambda item: (-item[0], item[1], item[3].reading_order))
+    selected = candidates_by_page if max_blocks is None else candidates_by_page[:max_blocks]
+    for _priority, _page_index, page, block in selected:
         image_path = resolve_image_path(project_path, project, page)
-        for block in zone_blocks:
-            if apply_best:
-                before = block.ocr_text
-                fallback_engine.improve_blocks(
-                    image_path,
-                    [block],
-                    source_lang,
-                    use_gpu=use_gpu,
-                    only_suspect=False,
-                    include_optional_engines=include_optional_ocr,
-                )
-                if block.ocr_text != before or block.ocr_alternatives:
-                    updated += 1
-                continue
-            candidates = fallback_engine.collect_candidates(
+        if apply_best:
+            before = block.ocr_text
+            fallback_engine.improve_blocks(
                 image_path,
-                block,
+                [block],
                 source_lang,
                 use_gpu=use_gpu,
-                min_confidence=0.20,
+                only_suspect=False,
                 include_optional_engines=include_optional_ocr,
             )
-            block.ocr_alternatives = [candidate.to_dict() for candidate in candidates[:8]]
-            warning = "OCR zone fallback: alternatives crop elargi disponibles"
-            if warning not in block.quality_warnings:
-                block.quality_warnings.append(warning)
-            updated += 1
+            if block.ocr_text != before or block.ocr_alternatives:
+                updated += 1
+            continue
+        candidates = fallback_engine.collect_candidates(
+            image_path,
+            block,
+            source_lang,
+            use_gpu=use_gpu,
+            min_confidence=0.20,
+            include_optional_engines=include_optional_ocr,
+        )
+        block.ocr_alternatives = [candidate.to_dict() for candidate in candidates[:8]]
+        warning = "OCR zone fallback: alternatives crop elargi disponibles"
+        if warning not in block.quality_warnings:
+            block.quality_warnings.append(warning)
+        updated += 1
     return updated
 
 
@@ -142,6 +175,7 @@ def refresh_review_project(
     ocr_fallback_zones: bool = False,
     apply_ocr_fallback: bool = False,
     include_optional_ocr: bool = False,
+    max_ocr_fallback_zones: int | None = 1,
     translator: ArgosTranslator | None = None,
     quality_checker: TranslationQualityChecker | None = None,
     fallback_engine: OcrFallbackEngine | None = None,
@@ -176,6 +210,7 @@ def refresh_review_project(
             use_gpu=use_gpu,
             include_optional_ocr=include_optional_ocr,
             apply_best=apply_ocr_fallback,
+            max_blocks=max_ocr_fallback_zones,
             fallback_engine=fallback_engine or OcrFallbackEngine(),
         )
 
@@ -200,6 +235,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--include-review", action="store_true", help="Rafraîchir aussi les blocs marqués review/à revoir")
     parser.add_argument("--gpu", action="store_true", help="Autoriser Argos/CTranslate2 GPU si disponible")
     parser.add_argument("--ocr-fallback-zones", action="store_true", help="Relire seulement les blocs zone/fusion avec crops OCR elargis.")
+    parser.add_argument("--max-ocr-fallback-zones", type=int, default=1, help="Nombre maximum de blocs zone relus par OCR fallback. Défaut: 1.")
     parser.add_argument("--apply-ocr-fallback", action="store_true", help="Appliquer la meilleure alternative OCR zone. Par defaut, conserve le texte et stocke les alternatives.")
     parser.add_argument("--include-optional-ocr", action="store_true", help="Autoriser Tesseract/PaddleOCR si installes pour les zones.")
     parser.add_argument(
@@ -223,6 +259,7 @@ def main(argv: list[str] | None = None) -> int:
         ocr_fallback_zones=args.ocr_fallback_zones,
         apply_ocr_fallback=args.apply_ocr_fallback,
         include_optional_ocr=args.include_optional_ocr,
+        max_ocr_fallback_zones=args.max_ocr_fallback_zones,
     )
     print(f"Projet source       : {args.project}")
     print(f"Projet rafraîchi    : {result.output_path}")
