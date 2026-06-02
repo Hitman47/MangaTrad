@@ -63,6 +63,39 @@ def test_build_translation_memory_uses_human_corrected_blocks(tmp_path: Path) ->
     assert memory.lookup("ignored") == ""
 
 
+def test_build_translation_memory_learns_review_zone_translations(tmp_path: Path) -> None:
+    project_path = tmp_path / "project.reviewed.json"
+    ProjectCache.save(
+        project_path,
+        ProjectData(
+            cbz_path="corpus",
+            pages=[
+                PageRecord(
+                    page_index=0,
+                    image_name="page.jpg",
+                    blocks=[
+                        OcrBlock(
+                            id="b1",
+                            bbox=[0, 0, 1, 1],
+                            source_lang="en",
+                            ocr_text="Well, THAT was Quite A Fun MATCH!",
+                            normalized_source_text="Well, that was quite a fun match!",
+                            translation_fr="Eh bien, c'etait un match vraiment passionnant !",
+                            manual_status="review",
+                            review_notes="[zone] source a verifier",
+                        )
+                    ],
+                )
+            ],
+        ),
+    )
+
+    memory, metadata = build_translation_memory([project_path])
+
+    assert metadata["eligible_blocks"] == 1
+    assert memory.lookup("Well, THAT was Quite A Fun MATCH!") == "Eh bien, c'etait un match vraiment passionnant !"
+
+
 def test_build_translation_memory_learns_raw_corrected_and_normalized_aliases(tmp_path: Path) -> None:
     project_path = tmp_path / "project.reviewed.json"
     ProjectCache.save(

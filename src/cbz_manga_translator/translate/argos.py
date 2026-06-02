@@ -474,6 +474,10 @@ class ArgosTranslator:
         return "[preflight] source incertaine: relire zone/ponctuation avant traduction"
 
     @classmethod
+    def _requires_review_after_translation(cls, categories: list[str]) -> bool:
+        return bool(set(categories) & {"zone_too_small", "split_bubble", "fused_bubble", "sfx_mixed", "visual_edge"})
+
+    @classmethod
     def _prepare_block_text(
         cls,
         block: OcrBlock,
@@ -593,6 +597,10 @@ class ArgosTranslator:
             block.normalized_source_text = prepared.normalized_source_text
             block.raw_translation_fr = restored_raw
             block.translation_fr = prepared.override_translation_fr or restored_raw
-            if block.manual_status == "review":
+            if self._requires_review_after_translation(gate.categories) and block.manual_status in {"unchecked", "review"}:
+                block.manual_status = "review"
+                if not block.review_notes.strip():
+                    block.review_notes = self._preflight_review_note(gate.categories)
+            elif block.manual_status == "review":
                 block.manual_status = "edited"
         return blocks

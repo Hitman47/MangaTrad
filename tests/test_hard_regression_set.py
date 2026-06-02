@@ -4,8 +4,17 @@ import pytest
 
 from cbz_manga_translator.core.models import OcrBlock
 from cbz_manga_translator.translate.argos import ArgosTranslator
+from cbz_manga_translator.translate.memory import clear_translation_memory_cache
 from cbz_manga_translator.translate.quality import TranslationQualityChecker
 from cbz_manga_translator.translate.source_quality_gate import SourceQualityGate
+
+
+@pytest.fixture(autouse=True)
+def disable_external_translation_memory(monkeypatch):
+    monkeypatch.setenv("MANGATRAD_DISABLE_TRANSLATION_MEMORY", "1")
+    clear_translation_memory_cache()
+    yield
+    clear_translation_memory_cache()
 
 
 @pytest.mark.parametrize(

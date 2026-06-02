@@ -197,6 +197,8 @@ def clear_translation_memory_cache() -> None:
 
 @lru_cache(maxsize=1)
 def default_translation_memory() -> TranslationMemory:
+    if os.environ.get("MANGATRAD_DISABLE_TRANSLATION_MEMORY", "").strip():
+        return TranslationMemory(entries={})
     for candidate in _default_memory_candidates():
         if candidate.exists():
             return load_translation_memory(str(candidate.resolve()))
@@ -209,7 +211,7 @@ def build_translation_memory(
     statuses: set[str] | None = None,
     min_source_chars: int = 2,
 ) -> tuple[TranslationMemory, dict[str, object]]:
-    target_statuses = statuses or {"edited", "validated"}
+    target_statuses = statuses or {"edited", "validated", "review"}
     buckets: dict[str, Counter[str]] = defaultdict(Counter)
     examples: dict[str, str] = {}
     scanned_blocks = 0

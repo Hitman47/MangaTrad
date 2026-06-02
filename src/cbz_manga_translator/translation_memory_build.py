@@ -16,7 +16,7 @@ def main(argv: list[str] | None = None) -> int:
         default=Path("C:/temp/mangatrad_translation_memory.json"),
         help="Chemin JSON de la memoire. Defaut: C:/temp/mangatrad_translation_memory.json",
     )
-    parser.add_argument("--statuses", default="edited,validated", help="Statuts a apprendre, separes par virgule.")
+    parser.add_argument("--statuses", default="edited,validated,review", help="Statuts a apprendre, separes par virgule.")
     args = parser.parse_args(argv)
 
     statuses = {item.strip() for item in args.statuses.split(",") if item.strip()}

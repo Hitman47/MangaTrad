@@ -171,7 +171,7 @@ def replay_review_project(
     started = time.monotonic()
     path = Path(project_path)
     project = ProjectCache.load(path)
-    target_statuses = statuses or {"edited", "validated"}
+    target_statuses = statuses or {"edited", "validated", "review"}
     recognizer = recognizer or EasyOcrEngine()
     translator = translator or ArgosTranslator()
     quality_checker = quality_checker or TranslationQualityChecker()

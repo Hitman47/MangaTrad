@@ -33,7 +33,7 @@ class SourceQualityGate:
     before Argos so severe source issues become review work instead of bad FR.
     """
 
-    _HOLD_CATEGORIES = {"zone_too_small", "split_bubble", "fused_bubble", "sfx_mixed", "visual_edge"}
+    _HARD_HOLD_CATEGORIES = {"split_bubble", "fused_bubble", "sfx_mixed"}
 
     @staticmethod
     def _compact(text: str) -> str:
@@ -87,9 +87,19 @@ class SourceQualityGate:
             warnings.append("preflight: ponctuation finale possiblement manquante avant traduction")
 
         can_hold = block.manual_status in {"unchecked", "review"}
-        should_hold = can_hold and bool(set(categories) & self._HOLD_CATEGORIES)
+        category_set = set(categories)
+        hard_hold = bool(category_set & self._HARD_HOLD_CATEGORIES)
+        has_terminal_punctuation = bool(re.search(r"[.!?][\"')\]]?$", normalized))
+        too_small_hold = "zone_too_small" in category_set and (len(words) <= 2 or not has_terminal_punctuation)
+        visual_hold = "visual_edge" in category_set and (
+            len(words) <= 1
+            or (block.confidence is not None and block.confidence < 0.45 and len(words) <= 2)
+        )
+        should_hold = can_hold and (hard_hold or too_small_hold or visual_hold)
         if should_hold:
             warnings.insert(0, "preflight: traduction suspendue, source anglaise trop incertaine")
+        elif can_hold and category_set:
+            warnings.insert(0, "preflight: traduction brouillon proposee, zone/source a verifier")
 
         deduped: list[str] = []
         for warning in warnings:

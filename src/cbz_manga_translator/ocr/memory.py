@@ -281,7 +281,7 @@ def build_ocr_memory(
     statuses: set[str] | None = None,
     min_source_chars: int = 3,
 ) -> tuple[OcrCorrectionMemory, dict[str, object]]:
-    target_statuses = statuses or {"edited", "validated"}
+    target_statuses = statuses or {"edited", "validated", "review"}
     buckets: dict[str, Counter[str]] = defaultdict(Counter)
     examples: dict[str, str] = {}
     scanned_blocks = 0

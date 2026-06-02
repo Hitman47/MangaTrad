@@ -49,6 +49,38 @@ def test_build_ocr_memory_uses_human_source_corrections(tmp_path: Path) -> None:
     assert memory.lookup("unchecked noise") == ""
 
 
+def test_build_ocr_memory_learns_review_zone_corrections(tmp_path: Path) -> None:
+    project_path = tmp_path / "project.reviewed.json"
+    ProjectCache.save(
+        project_path,
+        ProjectData(
+            cbz_path="corpus",
+            pages=[
+                PageRecord(
+                    page_index=0,
+                    image_name="page.jpg",
+                    blocks=[
+                        OcrBlock(
+                            id="b1",
+                            bbox=[0, 0, 1, 1],
+                            source_lang="en",
+                            ocr_text="Every... One Pull BACKI",
+                            ocr_corrected_text="Everyone, pull back!",
+                            manual_status="review",
+                            review_notes="[zone] bbox trop petite",
+                        )
+                    ],
+                )
+            ],
+        ),
+    )
+
+    memory, metadata = build_ocr_memory([project_path])
+
+    assert metadata["eligible_blocks"] == 1
+    assert memory.lookup("Every... One Pull BACKI") == "Everyone, pull back!"
+
+
 def test_build_ocr_memory_does_not_learn_french_translation_as_source(tmp_path: Path) -> None:
     project_path = tmp_path / "project.reviewed.json"
     ProjectCache.save(

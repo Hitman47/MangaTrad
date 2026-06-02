@@ -47,7 +47,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--failures-from", type=Path, default=None, help="Rapport replay JSON precedent: rejoue seulement les pages en echec.")
     parser.add_argument("--failure-statuses", default="missing,mismatch,source_mismatch,translation_mismatch")
     parser.add_argument("--max-pages", type=int, default=3, help="Nombre max de pages corrigées à rejouer.")
-    parser.add_argument("--statuses", default="edited,validated", help="Statuts humains ciblés, séparés par virgule.")
+    parser.add_argument("--statuses", default="edited,validated,review", help="Statuts humains ciblés, séparés par virgule.")
     parser.add_argument("--cpu", action="store_true", help="Force OCR et traduction CPU.")
     parser.add_argument("--ocr-cpu", action="store_true", help="Force seulement l'OCR CPU.")
     parser.add_argument("--refine-crops", action="store_true", help="OCR crop refinement, plus lent.")

@@ -135,6 +135,47 @@ def test_replay_review_project_can_target_specific_page_indices(tmp_path: Path) 
     assert report.results[0].page_index == 1
 
 
+def test_replay_review_project_targets_review_blocks_by_default(tmp_path: Path) -> None:
+    image = tmp_path / "page.jpg"
+    Image.new("RGB", (80, 80), "white").save(image)
+    project_path = tmp_path / "project.reviewed.json"
+    ProjectCache.save(
+        project_path,
+        ProjectData(
+            cbz_path=str(tmp_path),
+            pages=[
+                PageRecord(
+                    page_index=0,
+                    image_name=str(image),
+                    blocks=[
+                        OcrBlock(
+                            id="human",
+                            bbox=[10, 10, 60, 40],
+                            source_lang="en",
+                            ocr_text="SHE'S G0T An IDIOT Like that FOR AM OLD MAN.",
+                            normalized_source_text="she has got an idiot like that for an old man.",
+                            translation_fr="Elle a un idiot comme Ã§a pour pÃ¨re.",
+                            manual_status="review",
+                            review_notes="[zone] source a verifier",
+                        )
+                    ],
+                )
+            ],
+        ),
+    )
+
+    report = replay_review_project(
+        project_path,
+        max_pages=1,
+        use_gpu=False,
+        recognizer=FakeRecognizer(),
+        translator=FakeTranslator(),
+    )
+
+    assert report.target_blocks == 1
+    assert report.full_matches == 1
+
+
 def test_replay_review_project_skips_source_when_old_review_stored_translation(tmp_path: Path) -> None:
     class FakeStoredTranslationTranslator:
         def translate_blocks(self, blocks, source_lang, **kwargs):  # type: ignore[no-untyped-def]
